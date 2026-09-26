@@ -1,0 +1,8 @@
+node_modules/
+datasets/raw/
+datasets/pozo_control.parquet
+datasets/tmp/
+
+# intermedios: se regeneran con cruzar.js y armar_control.js
+datasets/corpus.csv
+datasets/control.csv

@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: "Space Grotesk", system-ui, sans-serif; }
+    a { color: #2f5fa8; } a:hover { color: #1f437a; }
+    .ia { background: #fcf4e6; border: 1px solid #ecd9b4; border-radius: 4px 12px 12px 12px; padding: 13px 15px; font-size: 13.5px; line-height: 1.6; color: #3a3733; }
+    .yo { background: #1c1b19; color: #f7f6f3; border-radius: 12px 4px 12px 12px; padding: 11px 15px; font-size: 13.5px; line-height: 1.5; align-self: flex-end; max-width: 78%; }
+  </style>
+</helmet>
+
+<div style="width: 1280px; height: 820px; background: #f7f6f3; color: #1c1b19; display: flex; flex-direction: column; box-sizing: border-box">
+
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; border-bottom: 1px solid #d6d3cd; background: #fff">
+    <div style="display: flex; align-items: baseline; gap: 14px">
+      <div style="font-size: 18px; font-weight: 700; letter-spacing: -0.02em">P&amp;P</div>
+      <div style="font-size: 15px; font-weight: 500">Mi demo 3 — versión final.wav</div>
+    </div>
+    <div style="font-size: 13px; color: #6b6660">Prestigio 32% · Popularidad 68%</div>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; box-sizing: border-box">
+
+    <div style="width: 430px; padding: 24px 28px; display: flex; flex-direction: column; gap: 18px; border-right: 1px solid #d6d3cd">
+      <div style="font-size: 15px; font-weight: 700">Qué tiene el asistente antes de hablar</div>
+      <div style="display: flex; flex-direction: column; gap: 11px">
+        <div style="background: #fff; border: 1px solid #d6d3cd; border-radius: 4px; padding: 13px 15px; font-size: 13px; color: #3a3733">Las 10 características de tu canción</div>
+        <div style="background: #fff; border: 1px solid #d6d3cd; border-radius: 4px; padding: 13px 15px; font-size: 13px; color: #3a3733">Los dos puntajes con sus márgenes</div>
+        <div style="background: #fff; border: 1px solid #d6d3cd; border-radius: 4px; padding: 13px 15px; font-size: 13px; color: #3a3733">Qué característica pesó más en cada eje</div>
+        <div style="background: #fff; border: 1px solid #d6d3cd; border-radius: 4px; padding: 13px 15px; font-size: 13px; color: #3a3733">Las canciones de referencia más cercanas</div>
+        <div style="background: #eef3fb; border: 2px solid #2f5fa8; border-radius: 4px; padding: 13px 15px; font-size: 13px; color: #24487d"><strong style="font-weight: 500">Acceso al modelo en vivo</strong> — para recalcular cuando le preguntan "¿y si...?"</div>
+      </div>
+
+      <div style="border: 2px solid #1c1b19; background: #fff; border-radius: 4px; padding: 16px 18px; margin-top: 6px">
+        <div style="font-size: 13.5px; line-height: 1.6; color: #3a3733">No es un chatbot genérico pegado al costado. <strong style="font-weight: 500">Es una capa de interpretación sobre nuestro propio análisis.</strong></div>
+      </div>
+
+      <div style="margin-top: auto; border-left: 3px solid #b06a12; padding-left: 14px">
+        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #8a520c; margin-bottom: 6px">Los límites que respeta</div>
+        <div style="font-size: 12.5px; line-height: 1.6; color: #6b6660">Si le preguntan algo que los datos no miden —la letra, el sello, la campaña— contesta que está fuera del análisis y explica por qué. Preferimos un asistente que diga "no puedo saberlo".</div>
+      </div>
+    </div>
+
+    <div style="flex-grow: 1; display: flex; flex-direction: column; background: #fff">
+
+      <div style="padding: 14px 24px; border-bottom: 1px solid #e5e2dc; display: flex; align-items: center; gap: 10px">
+        <div style="width: 22px; height: 22px; border-radius: 50%; background: #b06a12; display: flex; align-items: center; justify-content: center">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l3 3M15 15l3 3M18 6l-3 3M9 15l-3 3" stroke-linecap="round"/></svg>
+        </div>
+        <span style="font-size: 14px; font-weight: 500">Asistente</span>
+        <span style="font-size: 12px; color: #8a8580">ya conoce tu análisis</span>
+      </div>
+
+      <div style="flex-grow: 1; padding: 22px 24px; display: flex; flex-direction: column; gap: 16px; overflow: hidden">
+
+        <div class="ia">Tu canción cayó en la zona de <strong style="font-weight: 500">hit puro</strong>: buen potencial comercial (68%) pero lejos del perfil que premia la Academia (32%). El problema principal es la energía —está muy arriba para lo que se premió en los últimos diez años— y la duración, más corta que el promedio de los ganadores. ¿Querés que te explique alguna de las dos?</div>
+
+        <div class="yo">Si bajo la energía, ¿cuánto pierdo en popularidad?</div>
+
+        <div class="ia">
+          <div style="display: inline-flex; align-items: center; gap: 7px; background: #eef3fb; border: 1px solid #cfdcf0; border-radius: 3px; padding: 4px 9px; font-size: 11px; color: #24487d; margin-bottom: 10px; font-family: 'IBM Plex Mono', monospace">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2f5fa8" stroke-width="2.5"><path d="M3 12h6l3-9 3 18 3-9h3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            consultando el modelo
+          </div>
+          <div>Si bajás la energía de 0,82 a 0,65, tu prestigio sube de 32% a 47%, pero la popularidad baja de 68% a 55%. Es un intercambio favorable si tu objetivo son los premios.</div>
+        </div>
+
+        <div class="yo">¿Y cómo hago eso en la práctica?</div>
+
+        <div class="ia">Probá con una versión más contenida: menos capas de percusión, la batería menos presente en la mezcla, y dejá respirar los silencios entre frases. Es el tipo de arreglo que tienen los ganadores recientes. Para escucharlo, fijate <strong style="font-weight: 500">Hello</strong> de Adele o <strong style="font-weight: 500">Bridge over Troubled Water</strong>: las dos están en la zona a la que apuntás.</div>
+
+        <div style="margin-top: auto; display: flex; gap: 9px; flex-wrap: wrap">
+          <div style="border: 1px solid #d6d3cd; border-radius: 14px; padding: 7px 13px; font-size: 12.5px; color: #4a4742">¿Por qué la duración importa tanto?</div>
+          <div style="border: 1px solid #d6d3cd; border-radius: 14px; padding: 7px 13px; font-size: 12.5px; color: #4a4742">Explicame qué es la valencia</div>
+          <div style="border: 1px solid #d6d3cd; border-radius: 14px; padding: 7px 13px; font-size: 12.5px; color: #4a4742">¿Me conviene mandar esta o la otra del disco?</div>
+        </div>
+      </div>
+
+      <div style="padding: 16px 24px; border-top: 1px solid #e5e2dc; display: flex; gap: 12px; align-items: center">
+        <div style="flex-grow: 1; border: 1px solid #d6d3cd; border-radius: 20px; padding: 11px 18px; font-size: 13.5px; color: #a5a09a">Preguntale lo que quieras sobre tu análisis...</div>
+        <div style="width: 38px; height: 38px; border-radius: 50%; background: #1c1b19; display: flex; align-items: center; justify-content: center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f7f6f3" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

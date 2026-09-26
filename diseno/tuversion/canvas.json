@@ -1,0 +1,95 @@
+{
+  "artboards": [
+    {
+      "file": "main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1400,
+      "h": 760,
+      "title": "Flujo · dónde interviene la IA"
+    },
+    {
+      "file": "portada.dc.html",
+      "x": 0,
+      "y": 900,
+      "w": 1280,
+      "h": 820,
+      "title": "1 · Portada"
+    },
+    {
+      "file": "bienvenida.dc.html",
+      "x": 1400,
+      "y": 900,
+      "w": 1280,
+      "h": 820,
+      "title": "2 · Bienvenida"
+    },
+    {
+      "file": "crear_usuario.dc.html",
+      "x": 2800,
+      "y": 900,
+      "w": 1280,
+      "h": 820,
+      "title": "3 · Crear usuario"
+    },
+    {
+      "file": "inicio.dc.html",
+      "x": 4200,
+      "y": 900,
+      "w": 1280,
+      "h": 820,
+      "title": "4 · Inicio"
+    },
+    {
+      "file": "resultado.dc.html",
+      "x": 0,
+      "y": 1860,
+      "w": 1280,
+      "h": 820,
+      "title": "5 · Resultado"
+    },
+    {
+      "file": "desglose.dc.html",
+      "x": 1400,
+      "y": 1860,
+      "w": 1280,
+      "h": 820,
+      "title": "6 · Qué suma y qué resta"
+    },
+    {
+      "file": "simulador.dc.html",
+      "x": 2800,
+      "y": 1860,
+      "w": 1280,
+      "h": 820,
+      "title": "7 · Simular cambios"
+    },
+    {
+      "file": "asistente.dc.html",
+      "x": 4200,
+      "y": 1860,
+      "w": 1280,
+      "h": 820,
+      "title": "8 · El asistente"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "nota-codigo-color",
+      "x": 1500,
+      "y": 60,
+      "w": 300,
+      "text": "El color se usa para una sola cosa en todo el prototipo: azul = el modelo calcula, ámbar = la IA interpreta.\n\nAsí se ve de un vistazo dónde interviene la IA, que es lo que la Entrega 2 pide evidenciar."
+    },
+    {
+      "id": "nota-baja-fi",
+      "x": -380,
+      "y": 60,
+      "w": 300,
+      "text": "Prototipo de baja fidelidad.\n\nGrises para todo lo estructural; el color queda reservado para el rol de cada pieza, no para decorar.\n\nLos números y las canciones son reales, salidos del corpus de 26.577 canciones."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}
