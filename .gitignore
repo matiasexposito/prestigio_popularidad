@@ -7,12 +7,16 @@ datasets/tmp/
 datasets/corpus.csv
 datasets/control.csv
 
-# fuera del repositorio por decision del 27/09/2026:
-# siguen en el proyecto local, no se versionan aca
-scripts/
+# De scripts/ van solo los tres que el readme y el diccionario mencionan
+# por nombre. El resto de la cadena queda en el proyecto local.
+scripts/*
+!scripts/fetch_grammy.js
+!scripts/armar_control.js
+!scripts/auditar_datasets.js
+
+# Fuera del repositorio por decision del 27/09/2026.
+# Siguen en el proyecto local, no se versionan aca.
 docs/
 pdf/
 diseno/
 imagenes/
-package.json
-package-lock.json
