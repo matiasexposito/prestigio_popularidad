@@ -6,3 +6,13 @@ datasets/tmp/
 # intermedios: se regeneran con cruzar.js y armar_control.js
 datasets/corpus.csv
 datasets/control.csv
+
+# fuera del repositorio por decision del 27/09/2026:
+# siguen en el proyecto local, no se versionan aca
+scripts/
+docs/
+pdf/
+diseno/
+imagenes/
+package.json
+package-lock.json
