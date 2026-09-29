@@ -112,3 +112,5 @@ El significado de cada columna, con sus rangos medidos y sus límites conocidos,
 - **Mide el mercado estadounidense.** Billboard y el Grammy son instituciones de Estados Unidos.
 - **En el grupo de control, el año 1970 hay que leerlo como "1970 o antes".** El dump de Spotify trae el año de la reedición, no el de la grabación original, así que 2.058 de las 4.500 canciones de esa década quedaron amontonadas en 1970 y varias son más viejas. Las otras cinco décadas no tienen este problema.
 
+
+actualizacion dioge.
