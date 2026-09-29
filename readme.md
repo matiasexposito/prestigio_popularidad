@@ -91,13 +91,6 @@ Los dos primeros tienen **las mismas 21 columnas en el mismo orden**, así que s
 
 El significado de cada columna, con sus rangos medidos y sus límites conocidos, está en [`datasets/diccionario.md`](datasets/diccionario.md).
 
-### Archivos que no están en el repositorio
-
-| Archivo | Peso | Cómo obtenerlo |
-|---|---|---|
-| `spotify_features.parquet` | 4,1 GB | Descargar del link de la fuente 3 |
-| `pozo_control.parquet` | 669 MB | Se regenera con `node scripts/armar_control.js` |
-
 ## Composición del corpus
 
 | Grupo | Canciones | Qué son |
