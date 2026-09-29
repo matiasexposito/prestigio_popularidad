@@ -6,13 +6,13 @@
 //
 // Se limita a 1970 en adelante: antes de esa fecha el año que trae el dump se
 // desvía 8-12 años, porque las grabaciones viejas llegaron a Spotify como
-// reediciones. Medido en scripts/validar_anio.js.
+// reediciones. Medido en codigo/validar_anio.js.
 //
 // El escaneo del dump tarda ~12 minutos, así que guarda el pozo completo de
 // candidatas en datasets/pozo_control.parquet. Para reajustar filtros después,
 // correr con --desde-pozo y tarda segundos.
 //
-// Uso: node scripts/armar_control.js [--desde-pozo]
+// Uso: node codigo/armar_control.js [--desde-pozo]
 // Salida: datasets/control.csv  +  datasets/pozo_control.parquet
 
 const { Database } = require('duckdb-async');

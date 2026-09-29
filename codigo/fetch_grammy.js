@@ -1,7 +1,7 @@
 // Descarga categorías del Grammy desde Wikipedia y las parsea a CSV.
 // Cada fila del CSV = una nominación (haya ganado o no).
 //
-// Uso: node scripts/fetch_grammy.js
+// Uso: node codigo/fetch_grammy.js
 // Salida: datasets/grammy_nominaciones.csv
 //
 // El parser lee los ENCABEZADOS de cada tabla para saber qué columna es el título

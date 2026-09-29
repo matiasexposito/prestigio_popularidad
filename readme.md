@@ -56,7 +56,7 @@ Nominaciones y ganadoras entre 1959 y 2026, en 14 categorías.
 | | |
 |---|---|
 | **Origen** | Wikipedia, una página por categoría |
-| **Método** | Extraído con `scripts/fetch_grammy.js` vía la API pública de Wikipedia |
+| **Método** | Extraído con `codigo/fetch_grammy.js` vía la API pública de Wikipedia |
 | **Descargado** | 18 de agosto de 2026 |
 | **Licencia** | CC BY-SA 4.0 |
 | **Atribución** | Wikipedia — Los colaboradores de Wikipedia |
@@ -112,5 +112,29 @@ El significado de cada columna, con sus rangos medidos y sus límites conocidos,
 - **Mide el mercado estadounidense.** Billboard y el Grammy son instituciones de Estados Unidos.
 - **En el grupo de control, el año 1970 hay que leerlo como "1970 o antes".** El dump de Spotify trae el año de la reedición, no el de la grabación original, así que 2.058 de las 4.500 canciones de esa década quedaron amontonadas en 1970 y varias son más viejas. Las otras cinco décadas no tienen este problema.
 
+## Estructura del repositorio
 
-actualizacion dioge.
+```
+prestigio_popularidad/
+├── readme.md               # Este archivo
+├── decisiones.md           # Registro fechado de lo que probamos, descartamos y por qué
+├── .gitignore
+├── package.json            # Librerías que necesitan los scripts (npm install)
+├── datasets/               # Los CSV del proyecto + diccionario.md
+├── datasets_procesados/    # Recortes o filtrados que se deriven de datasets/
+├── diseno/
+│   ├── referencias/        # Imágenes de referencia
+│   └── prototipos/         # Una carpeta por versión o por integrante
+│       ├── prototipo_v1/
+│       ├── prototipo_diogenes/
+│       ├── prototipo_matias/
+│       └── prototipo_tomas/
+├── prompts/                # Prompts usados con el LLM, versionados
+├── codigo/                 # Scripts de descarga, cruce y auditoría
+├── normalizacion/          # Normalización por época de las características
+├── versiones/              # Versiones anteriores de los datasets y del modelo
+├── entregas/
+│   ├── entrega_1/          # Capturas + link al sitio en ese momento
+│   └── entrega_2/
+└── app/                    # Solo los archivos del sitio (lo que se publica)
+```

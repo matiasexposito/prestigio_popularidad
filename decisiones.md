@@ -146,3 +146,18 @@ Tampoco se usó la silueta de ningún artista identificable: son imágenes regis
 Ambos sirven **como contexto en la interfaz**, no como variables del modelo.
 
 **Comparación por género.** Sería la mejora más grande para la utilidad real —decirle a una banda de metal "bajá la energía" es un consejo inútil—, pero el dump no trae género y habría que traerlo de MusicBrainz o Discogs y volver a cruzar.
+
+## 29 de septiembre de 2026 — Estructura del repositorio
+
+### Decisión: adoptar la estructura de carpetas de la cátedra
+
+Se reorganizó el repositorio siguiendo la plantilla de la materia, sin borrar ni renombrar ningún dataset.
+
+- `scripts/` pasó a llamarse `codigo/`. Se actualizaron las rutas en el readme, el diccionario, los comentarios de uso de cada script y el `.gitignore`.
+- Los prototipos por integrante van en `diseno/prototipos/prototipo_<nombre>/`, en vez de una carpeta `estudiantes/` aparte.
+- `diseno/` deja de estar ignorado: la cátedra pide versionar referencias y prototipos.
+
+### Decisión: los CSV quedan en `datasets/`
+
+La plantilla separa originales (`datasets/`) de procesados (`datasets_procesados/`). Nuestros cuatro CSV ya son el resultado de procesar las fuentes, pero **los originales no entran al repositorio**: el dump de características pesa 4,1 GB y Billboard son 355.001 filas semanales. Mover los CSV habría obligado a cambiar rutas en todos los scripts y documentos sin ganar nada, así que se quedan donde están. `datasets_procesados/` queda para recortes futuros.
+

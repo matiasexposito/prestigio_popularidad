@@ -2,7 +2,7 @@
 
 Qué significa cada columna de cada archivo, qué valores toma y cuándo está vacía.
 
-Todos los rangos y conteos de esta página están **medidos sobre los archivos que están en el repositorio**, no estimados. Se regeneran con `node scripts/auditar_datasets.js`.
+Todos los rangos y conteos de esta página están **medidos sobre los archivos que están en el repositorio**, no estimados. Se regeneran con `node codigo/auditar_datasets.js`.
 
 Una aclaración sobre los nombres: las columnas mezclan castellano e inglés a propósito. Las que describen **el sonido** conservan el nombre original de Spotify (`danceability`, `energy`, `valence`…) para que se pueda rastrear cada valor hasta su fuente. Las que armamos nosotros van en castellano.
 

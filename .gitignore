@@ -7,16 +7,22 @@ datasets/tmp/
 datasets/corpus.csv
 datasets/control.csv
 
-# De scripts/ van solo los tres que el readme y el diccionario mencionan
+# De codigo/ van solo los tres que el readme y el diccionario mencionan
 # por nombre. El resto de la cadena queda en el proyecto local.
-scripts/*
-!scripts/fetch_grammy.js
-!scripts/armar_control.js
-!scripts/auditar_datasets.js
+codigo/*
+!codigo/fetch_grammy.js
+!codigo/armar_control.js
+!codigo/auditar_datasets.js
+!codigo/.gitkeep
 
 # Fuera del repositorio por decision del 27/09/2026.
 # Siguen en el proyecto local, no se versionan aca.
+# (diseno/ se versiona desde el 29/09/2026 por la estructura de la catedra)
 docs/
 pdf/
-diseno/
 imagenes/
+
+# Claves y sistema
+.env
+.env.*
+.DS_Store
