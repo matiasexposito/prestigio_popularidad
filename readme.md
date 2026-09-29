@@ -28,6 +28,12 @@ https://claude.ai/artifact/DoFVcgcU83Aha2U5JrXdjv
 
 ## Fuentes de datos
 
+package.json es la lista de librerías que los scripts necesitan para funcionar, y está en el repo para que quien lo clone pueda escribir npm install y correr armar_control.js y auditar_datasets.js sin tener que adivinar qué le falta.
+
+Archivo	Qué es
+package.json	La lista de librerías que hacen falta
+package-lock.json	Las versiones exactas de esas librerías, para que a todos les instale igual
+
 ### 1. Billboard Hot 100
 
 Ranking semanal de las 100 canciones más escuchadas en Estados Unidos, sin interrupción desde agosto de 1958.
