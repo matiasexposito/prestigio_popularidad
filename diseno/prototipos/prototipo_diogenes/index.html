@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P&amp;P — Prestigio &amp; Popularidad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- Barra superior: aparece en todas las pantallas menos portada, bienvenida y crear cuenta -->
+<header id="barra" class="barra" hidden>
+  <div class="barra-izq">
+    <a href="#inicio" class="logo">P&amp;P</a>
+    <span id="barra-titulo" class="barra-titulo">Prestigio &amp; Popularidad</span>
+    <span id="barra-detalle" class="mono tenue"></span>
+  </div>
+  <nav id="barra-nav" class="barra-nav"></nav>
+</header>
+
+<main>
+
+<!-- 1 · PORTADA -->
+<section class="pantalla" data-ruta="portada">
+  <div class="portada">
+    <div class="portada-logo">P&amp;P</div>
+    <a href="#bienvenida" class="boton">Ingresar</a>
+  </div>
+</section>
+
+<!-- 2 · BIENVENIDA -->
+<section class="pantalla" data-ruta="bienvenida">
+  <div class="dos-col">
+    <div class="col-principal col-pad">
+      <div class="marca"><strong>P&amp;P</strong><span>Prestigio &amp; Popularidad</span></div>
+      <h1 class="titular">Hay canciones que ganan premios y canciones que llenan estadios.</h1>
+      <h1 class="titular gris">Casi nunca son las mismas.</h1>
+      <p class="bajada">Medimos esa diferencia en 53.577 canciones de las últimas seis décadas. Subí tu tema y te mostramos dónde cae entre los dos mundos, y qué lo acerca o lo aleja de cada uno.</p>
+      <div class="botonera">
+        <a href="#crear" class="boton">Crear mi cuenta</a>
+        <button type="button" id="ya-tengo" class="boton secundario">Ya tengo cuenta</button>
+      </div>
+      <p id="aviso-cuenta" class="aviso" hidden></p>
+      <div class="pie-limites">
+        <p>No predecimos si vas a ganar un Grammy ni si te vas a hacer viral.</p>
+        <p>No medimos la letra, ni el sello, ni quién sos. Solo cómo suena.</p>
+        <p>Tu archivo se analiza y se descarta.</p>
+      </div>
+    </div>
+    <aside class="col-lateral col-pad">
+      <div class="rotulo-seccion">Los dos mundos que medimos</div>
+      <div class="pila">
+        <div class="caja caja-azul">
+          <div class="caja-titulo"><i class="swatch azul"></i>Lo que premia la Academia</div>
+          <p>Más largo, menos enérgico, suele ser más melancólico.</p>
+          <ul class="lista-canciones"><li>Bridge over Troubled Water — Simon &amp; Garfunkel</li><li>Hello — Adele</li><li>Someone Like You — Adele</li></ul>
+        </div>
+        <div class="caja caja-ambar">
+          <div class="caja-titulo"><i class="swatch ambar"></i>Lo que escucha el público</div>
+          <p>Más enérgico, más bailable, más corto, mucho menos acústico.</p>
+          <ul class="lista-canciones"><li>Despacito — Luis Fonsi &amp; Daddy Yankee</li><li>Uptown Funk — Mark Ronson</li><li>Macarena — Los Del Río</li></ul>
+        </div>
+        <div class="caja caja-punteada">
+          <div class="caja-titulo">Y las que lograron las dos cosas</div>
+          <p>Solo <strong>1.071 de 26.577</strong>. Un 4%. Por eso la herramienta no te dice "hacé esto": te muestra que casi siempre hay que elegir.</p>
+        </div>
+      </div>
+      <div class="pie-datos mono"><span>1958–2026</span><span>53.577 canciones</span></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 3 · CREAR USUARIO -->
+<section class="pantalla" data-ruta="crear">
+  <div class="dos-col">
+    <form id="form-usuario" class="col-principal col-pad" novalidate>
+      <div class="marca"><strong>P&amp;P</strong><span>Crear cuenta</span></div>
+      <h2 class="titulo-pantalla">Contanos quién sos</h2>
+      <p class="tenue">Con esto ajustamos contra qué te comparamos y cómo te explicamos el resultado.</p>
+
+      <div class="grilla-2">
+        <label class="campo-grupo">
+          <span class="rotulo">Nombre o nombre artístico</span>
+          <input name="nombre" class="campo" placeholder="Cómo querés que te llamemos" required>
+          <span class="error" data-error="nombre"></span>
+        </label>
+        <label class="campo-grupo">
+          <span class="rotulo">Email</span>
+          <input name="email" type="email" class="campo" placeholder="tu@correo.com" required>
+          <span class="error" data-error="email"></span>
+        </label>
+      </div>
+
+      <fieldset class="opciones-grupo">
+        <legend class="rotulo">¿Qué hacés?</legend>
+        <div class="opciones cols-3">
+          <label class="opcion"><input type="radio" name="rol" value="Artista" checked><span>Artista</span></label>
+          <label class="opcion"><input type="radio" name="rol" value="Manager o productor"><span>Manager o productor</span></label>
+          <label class="opcion"><input type="radio" name="rol" value="Otro"><span>Otro</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="opciones-grupo">
+        <legend class="rotulo">¿En qué género te movés?</legend>
+        <div class="opciones cols-4">
+          <label class="opcion"><input type="radio" name="genero" value="Pop"><span>Pop</span></label>
+          <label class="opcion"><input type="radio" name="genero" value="Rock" checked><span>Rock</span></label>
+          <label class="opcion"><input type="radio" name="genero" value="Rap"><span>Rap</span></label>
+          <label class="opcion"><input type="radio" name="genero" value="R&B / soul"><span>R&amp;B / soul</span></label>
+          <label class="opcion"><input type="radio" name="genero" value="Country"><span>Country</span></label>
+          <label class="opcion"><input type="radio" name="genero" value="Electrónica"><span>Electrónica</span></label>
+          <label class="opcion"><input type="radio" name="genero" value="Metal"><span>Metal</span></label>
+          <label class="opcion"><input type="radio" name="genero" value="Otro"><span>Otro</span></label>
+        </div>
+        <p class="ayuda">Es el dato que más cambia tu resultado: a una banda de metal no tiene sentido compararla contra una balada. Con el género te damos dos lecturas — contra toda la música, y dentro de lo tuyo.</p>
+      </fieldset>
+
+      <fieldset class="opciones-grupo">
+        <legend class="rotulo">¿Qué estás buscando?</legend>
+        <div class="opciones cols-3">
+          <label class="opcion"><input type="radio" name="busca" value="reconocimiento"><span>Reconocimiento</span></label>
+          <label class="opcion"><input type="radio" name="busca" value="publico"><span>Que llegue a mucha gente</span></label>
+          <label class="opcion"><input type="radio" name="busca" value="nose" checked><span>Todavía no sé</span></label>
+        </div>
+        <p class="ayuda">No cambia los puntajes: cambia cómo te los contamos. Y "todavía no sé" es una respuesta válida — la herramienta existe justamente para eso.</p>
+      </fieldset>
+
+      <div class="botonera fin">
+        <button type="submit" class="boton">Continuar</button>
+        <span class="tenue chico">Todo esto se puede cambiar después.</span>
+      </div>
+    </form>
+
+    <aside class="col-lateral col-pad angosta">
+      <div class="rotulo-seccion">Por qué te preguntamos esto</div>
+      <div class="pila">
+        <div class="nota nota-azul"><strong>El género cambia la comparación</strong><p>Medimos que las categorías de género del Grammy tienen perfiles opuestos: Mejor Metal promedia 0,93 de energía y Canción del Año, 0,44. Compararte contra todo junto te daría un consejo inútil.</p></div>
+        <div class="nota nota-ambar"><strong>Lo que buscás cambia el relato</strong><p>Los números son los mismos para todos. Lo que cambia es qué te señalamos primero y en qué orden te lo explica el asistente.</p></div>
+        <div class="nota"><strong>Lo que no te preguntamos</strong><p>Ni cuántos seguidores tenés, ni con qué sello trabajás. No entran en el cálculo, así que no los pedimos.</p></div>
+      </div>
+      <p class="pie-privacidad">Nada de esto se comparte ni se usa para otra cosa. Podés borrar tu cuenta y tus datos cuando quieras.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- 4 · INICIO -->
+<section class="pantalla" data-ruta="inicio">
+  <div class="contenido fila-inicio">
+    <div class="col-subir">
+      <h2 class="titular-md">¿Qué tipo de canción tenés entre manos<span id="saludo"></span>?</h2>
+      <p class="bajada">Subí tu tema y te mostramos dónde cae entre dos mundos que casi nunca coinciden: el que premia la Academia y el que escucha el público.</p>
+
+      <label id="zona-carga" class="zona-carga">
+        <input id="archivo" type="file" accept="audio/*,.mp3,.wav,.flac,.m4a,.ogg" hidden>
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4M7 9l5-5 5 5M4 17v2a1 1 0 001 1h14a1 1 0 001-1v-2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <strong>Arrastrá tu canción acá</strong>
+        <span class="tenue chico">o hacé click para elegirla · mp3, wav o flac</span>
+      </label>
+
+      <div class="buscador">
+        <input id="buscar" class="campo" placeholder="…o buscá una canción conocida por nombre" autocomplete="off">
+        <ul id="resultados-busqueda" class="resultados" hidden></ul>
+      </div>
+
+      <div class="nota"><p>El archivo se analiza <strong>en tu navegador</strong> y se descarta. No lo guardamos ni lo compartimos.</p></div>
+
+      <p class="pie-limites solo">No predecimos si vas a ganar un Grammy ni si te vas a hacer viral. Te mostramos dónde estás parado.</p>
+    </div>
+
+    <div class="tarjeta col-mapa">
+      <div class="tarjeta-cabeza"><strong>Antes de subir nada, así se lee el mapa</strong><span class="tenue chico">53.577 canciones · 1958–2026</span></div>
+      <svg id="mapa-inicio" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Mapa de prestigio contra popularidad"></svg>
+      <div class="leyenda">
+        <span><i class="ley ley-gano"></i>ganó un Grammy</span>
+        <span><i class="ley ley-nom"></i>nominada</span>
+        <span><i class="ley ley-ni"></i>ni nominada</span>
+        <span><i class="ley ley-fondo"></i>muestra del corpus</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pantalla de carga mientras se analiza -->
+  <div id="cargando" class="cargando" hidden>
+    <div class="cargando-caja">
+      <div class="rotulo-seccion" id="cargando-nombre">Analizando</div>
+      <ol class="pasos">
+        <li data-paso="0" class="paso paso-azul">Se analiza el audio<span>energía, volumen, tempo, duración…</span></li>
+        <li data-paso="1" class="paso paso-azul">El modelo calcula los dos puntajes<span>contra 53.577 canciones etiquetadas</span></li>
+        <li data-paso="2" class="paso paso-ambar">La IA traduce el resultado<span>a lenguaje de músico</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · RESULTADO -->
+<section class="pantalla" data-ruta="resultado">
+  <div class="contenido fila-resultado">
+    <div class="col-puntajes">
+      <div id="tarjeta-pres" class="tarjeta"></div>
+      <div id="tarjeta-pop" class="tarjeta"></div>
+      <div id="zona-cayo" class="tarjeta destacada"></div>
+      <div id="nota-genero" class="nota chico"></div>
+      <p class="tenue chico">Los dos puntajes son estimaciones, no predicciones. El margen dice cuánto puede moverse el número real.</p>
+    </div>
+    <div class="tarjeta col-mapa">
+      <div class="tarjeta-cabeza"><strong>Dónde cayó tu canción</strong><span class="tenue chico">las más parecidas, de las canciones de referencia</span></div>
+      <svg id="mapa-resultado" class="mapa" viewBox="0 0 800 560"></svg>
+      <div class="acciones">
+        <a href="#desglose" class="boton chico">Qué suma y qué resta →</a>
+        <a href="#simulador" class="boton secundario chico">Simular cambios</a>
+        <a href="#asistente" class="boton secundario chico">Preguntarle al asistente</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · QUÉ SUMA Y QUÉ RESTA -->
+<section class="pantalla" data-ruta="desglose">
+  <div class="contenido fila-desglose">
+    <div class="tarjeta sin-pad">
+      <div class="desglose-cabeza">
+        <div class="selector" role="tablist">
+          <button type="button" data-eje="prestigio" class="activo">Prestigio</button>
+          <button type="button" data-eje="popularidad">Popularidad</button>
+        </div>
+        <span id="desglose-valor" class="desglose-valor"></span>
+      </div>
+      <div class="desglose-tabla">
+        <div class="fila-rasgo encabezado"><span>característica</span><span class="centro">resta ← → suma</span><span class="der">efecto</span></div>
+        <div id="desglose-filas"></div>
+      </div>
+      <div id="conflicto" class="caja caja-ambar conflicto"></div>
+    </div>
+    <aside class="col-lateral-derecha">
+      <div class="tarjeta">
+        <div class="rotulo-seccion">El hallazgo detrás</div>
+        <p>Las nominadas al Grammy son, frente a los hits de su época, <strong>más largas, menos enérgicas y más melancólicas</strong>.</p>
+        <p class="tenue chico">De ahí sale la tensión que la app te muestra.</p>
+      </div>
+      <div class="nota nota-ambar chico"><p>Ámbar para lo que resta y azul para lo que suma. El efecto está en puntos del puntaje.</p></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 7 · SIMULADOR -->
+<section class="pantalla" data-ruta="simulador">
+  <div class="contenido fila-simulador">
+    <div class="tarjeta col-controles">
+      <div class="tarjeta-cabeza"><strong>Mové un control y mirá los dos puntajes</strong><button type="button" id="restablecer" class="link">Restablecer</button></div>
+      <p class="tenue chico">No hay botón de calcular: todo responde al instante.</p>
+      <div id="controles" class="controles"></div>
+      <p class="tenue chico pie-tarjeta">Esto no modifica tu canción. Sirve para entender qué pasaría si la mezcla fuera distinta.</p>
+    </div>
+    <div class="col-sim-derecha">
+      <div class="grilla-2">
+        <div id="sim-pres" class="tarjeta"></div>
+        <div id="sim-pop" class="tarjeta"></div>
+      </div>
+      <div id="sim-tension" class="tarjeta destacada"></div>
+      <div class="tarjeta">
+        <div class="tarjeta-cabeza"><strong>Cómo se mueve en el mapa</strong></div>
+        <svg id="mapa-sim" class="mapa" viewBox="0 0 800 560"></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · ASISTENTE -->
+<section class="pantalla" data-ruta="asistente">
+  <div class="fila-asistente">
+    <aside class="asistente-contexto">
+      <strong>Qué tiene el asistente antes de hablar</strong>
+      <ul id="contexto" class="contexto"></ul>
+      <div class="caja destacada"><p>No es un chatbot genérico pegado al costado. <strong>Es una capa de interpretación sobre nuestro propio análisis.</strong></p></div>
+      <div class="nota nota-ambar">
+        <div class="rotulo-seccion ambar">Los límites que respeta</div>
+        <p class="chico">Si le preguntan algo que los datos no miden —la letra, el sello, la campaña— contesta que está fuera del análisis y explica por qué. Preferimos un asistente que diga "no puedo saberlo".</p>
+      </div>
+    </aside>
+    <div class="chat">
+      <div class="chat-cabeza"><i class="chat-icono"></i><strong>Asistente</strong><span class="tenue chico">ya conoce tu análisis · prototipo: respuestas armadas con reglas</span></div>
+      <div id="mensajes" class="mensajes" aria-live="polite"></div>
+      <div id="sugerencias" class="sugerencias"></div>
+      <form id="form-chat" class="chat-entrada">
+        <input id="pregunta" class="campo redondo" placeholder="Preguntale lo que quieras sobre tu análisis..." autocomplete="off">
+        <button class="enviar" aria-label="Enviar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA (flujo) -->
+<section class="pantalla" data-ruta="flujo">
+  <div class="contenido flujo">
+    <div class="flujo-cabeza">
+      <div><h2 class="titulo-pantalla">Cómo funciona · dónde interviene la IA</h2></div>
+      <div class="leyenda">
+        <span><i class="swatch azul"></i>el modelo <strong>calcula</strong></span>
+        <span><i class="swatch ambar"></i>la IA <strong>traduce</strong></span>
+        <span><i class="swatch gris"></i>el usuario</span>
+      </div>
+    </div>
+    <div class="flujo-cuerpo">
+      <ol class="flujo-pasos">
+        <li class="fp fp-gris"><strong>El usuario sube su canción</strong><p>Un archivo de audio. Puede ser un demo sin publicar, que no existe en ninguna plataforma.</p></li>
+        <li class="fp fp-azul"><strong>librosa analiza el audio</strong><p>Saca las 10 características: energía, valencia, acústica, duración, bailabilidad, volumen, habla, tempo, modo, instrumentalidad.</p></li>
+        <li class="fp fp-azul"><strong>El modelo calcula los dos puntajes</strong><p>Compara contra 53.577 canciones etiquetadas. Devuelve el prestigio y la popularidad, cada uno con su margen de error.</p></li>
+        <li class="fp fp-ambar"><strong>La IA traduce el resultado</strong><p>Recibe los números ya calculados y los pasa a lenguaje de músico. Señala dónde está el conflicto entre los dos ejes.</p></li>
+        <li class="fp fp-ambar"><strong>El usuario pregunta, la IA responde</strong><p>Si le preguntan "¿y si bajo la energía?", <strong>no adivina</strong>: le pide al modelo que recalcule y responde con el número real.</p><em class="vuelve">↺ vuelve a consultar el paso 03</em></li>
+      </ol>
+      <aside class="tarjeta">
+        <div class="rotulo-seccion">Lo que la IA no hace</div>
+        <p>· No decide qué recomendar</p>
+        <p>· No inventa datos que el análisis no mide</p>
+        <div class="rotulo-seccion" style="margin-top:22px">En este prototipo</div>
+        <p class="chico">El audio se mide en el navegador (duración, volumen, energía, tempo, brillo). El resto usa el promedio del corpus hasta conectar librosa.</p>
+        <p class="chico">Los puntajes salen de dos regresiones logísticas entrenadas con <span class="mono">corpus_v2</span> y <span class="mono">control_v2</span>.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- PRÓXIMAMENTE -->
+<section class="pantalla" data-ruta="pronto">
+  <div class="contenido centrado">
+    <h2 class="titulo-pantalla" id="pronto-titulo">Próximamente</h2>
+    <p class="tenue">Esta sección todavía no está en el prototipo.</p>
+    <a href="#inicio" class="boton secundario">Volver al inicio</a>
+  </div>
+</section>
+
+</main>
+
+<script src="modelo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
