@@ -9,7 +9,7 @@ La idea de fondo es que **esos dos mundos casi nunca coinciden**. De las 26.577 
 ## Integrantes
 
 - Matías Expósito
-- Tomás Kelly
+- Tomás Kelly — prototipos y validación
 - Diógenes Ustariz
 
 Universidad de San Andrés · 2026
