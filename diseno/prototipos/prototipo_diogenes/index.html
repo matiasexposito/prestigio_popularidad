@@ -25,8 +25,9 @@
 <!-- 1 · PORTADA -->
 <section class="pantalla" data-ruta="portada">
   <div class="portada">
-    <div class="portada-logo">P&amp;P</div>
-    <a href="#bienvenida" class="boton">Ingresar</a>
+    <div class="portada-logo" aria-label="P&amp;P"><span>P</span><span>&amp;</span><span>P</span></div>
+    <div class="portada-linea" aria-hidden="true"><i class="azul"></i><i class="ambar"></i></div>
+    <a href="#bienvenida" class="boton portada-boton">Ingresar</a>
   </div>
 </section>
 
@@ -104,7 +105,7 @@
 
       <fieldset class="opciones-grupo">
         <legend class="rotulo">¿En qué género te movés?</legend>
-        <div class="opciones cols-4">
+        <div class="opciones cols-8">
           <label class="opcion"><input type="radio" name="genero" value="Pop"><span>Pop</span></label>
           <label class="opcion"><input type="radio" name="genero" value="Rock" checked><span>Rock</span></label>
           <label class="opcion"><input type="radio" name="genero" value="Rap"><span>Rap</span></label>
@@ -171,25 +172,13 @@
 
     <div class="tarjeta col-mapa">
       <div class="tarjeta-cabeza"><strong>Antes de subir nada, así se lee el mapa</strong><span class="tenue chico">53.577 canciones · 1958–2026</span></div>
-      <svg id="mapa-inicio" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Mapa de prestigio contra popularidad"></svg>
+      <div class="mapa-caja"><svg id="mapa-inicio" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Mapa de prestigio contra popularidad"></svg></div>
       <div class="leyenda">
         <span><i class="ley ley-gano"></i>ganó un Grammy</span>
         <span><i class="ley ley-nom"></i>nominada</span>
         <span><i class="ley ley-ni"></i>ni nominada</span>
         <span><i class="ley ley-fondo"></i>muestra del corpus</span>
       </div>
-    </div>
-  </div>
-
-  <!-- Pantalla de carga mientras se analiza -->
-  <div id="cargando" class="cargando" hidden>
-    <div class="cargando-caja">
-      <div class="rotulo-seccion" id="cargando-nombre">Analizando</div>
-      <ol class="pasos">
-        <li data-paso="0" class="paso paso-azul">Se analiza el audio<span>energía, volumen, tempo, duración…</span></li>
-        <li data-paso="1" class="paso paso-azul">El modelo calcula los dos puntajes<span>contra 53.577 canciones etiquetadas</span></li>
-        <li data-paso="2" class="paso paso-ambar">La IA traduce el resultado<span>a lenguaje de músico</span></li>
-      </ol>
     </div>
   </div>
 </section>
@@ -206,7 +195,7 @@
     </div>
     <div class="tarjeta col-mapa">
       <div class="tarjeta-cabeza"><strong>Dónde cayó tu canción</strong><span class="tenue chico">las más parecidas, de las canciones de referencia</span></div>
-      <svg id="mapa-resultado" class="mapa" viewBox="0 0 800 560"></svg>
+      <div class="mapa-caja"><svg id="mapa-resultado" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Dónde cayó tu canción en el mapa"></svg></div>
       <div class="acciones">
         <a href="#desglose" class="boton chico">Qué suma y qué resta →</a>
         <a href="#simulador" class="boton secundario chico">Simular cambios</a>
@@ -222,6 +211,7 @@
     <div class="tarjeta sin-pad">
       <div class="desglose-cabeza">
         <div class="selector" role="tablist">
+          <span class="selector-pill" aria-hidden="true"></span>
           <button type="button" data-eje="prestigio" class="activo">Prestigio</button>
           <button type="button" data-eje="popularidad">Popularidad</button>
         </div>
@@ -259,9 +249,9 @@
         <div id="sim-pop" class="tarjeta"></div>
       </div>
       <div id="sim-tension" class="tarjeta destacada"></div>
-      <div class="tarjeta">
+      <div class="tarjeta col-mapa">
         <div class="tarjeta-cabeza"><strong>Cómo se mueve en el mapa</strong></div>
-        <svg id="mapa-sim" class="mapa" viewBox="0 0 800 560"></svg>
+        <div class="mapa-caja"><svg id="mapa-sim" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Cómo se mueve tu canción en el mapa"></svg></div>
       </div>
     </div>
   </div>
@@ -332,6 +322,35 @@
 </section>
 
 </main>
+
+<!-- Pantalla de carga mientras se analiza -->
+<div id="cargando" class="cargando" hidden>
+  <div class="cargando-caja" role="status" aria-live="polite">
+    <div class="cargando-onda" aria-hidden="true"></div>
+    <div class="cargando-cabeza">
+      <span class="rotulo-seccion">Analizando</span>
+      <strong id="cargando-nombre" class="cargando-nombre"></strong>
+    </div>
+    <div class="progreso" aria-hidden="true"><i id="progreso-barra"></i></div>
+    <ol class="pasos">
+      <li data-paso="0" class="paso paso-azul">
+        <span class="paso-icono"><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5.5"/></svg></span>
+        <div class="paso-texto"><b>Se analiza el audio</b><span class="paso-detalle">energía, volumen, tempo, duración…</span></div>
+        <span class="paso-tiempo mono"></span>
+      </li>
+      <li data-paso="1" class="paso paso-azul">
+        <span class="paso-icono"><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5.5"/></svg></span>
+        <div class="paso-texto"><b>El modelo calcula los dos puntajes</b><span class="paso-detalle">contra 53.577 canciones etiquetadas</span></div>
+        <span class="paso-tiempo mono"></span>
+      </li>
+      <li data-paso="2" class="paso paso-ambar">
+        <span class="paso-icono"><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5.5"/></svg></span>
+        <div class="paso-texto"><b>La IA traduce el resultado</b><span class="paso-detalle">a lenguaje de músico</span></div>
+        <span class="paso-tiempo mono"></span>
+      </li>
+    </ol>
+  </div>
+</div>
 
 <script src="modelo.js"></script>
 <script src="app.js"></script>

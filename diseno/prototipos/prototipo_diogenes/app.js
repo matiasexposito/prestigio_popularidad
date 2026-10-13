@@ -150,10 +150,55 @@
     $('#barra').hidden = !conBarra;
     document.body.classList.toggle('sin-barra', !conBarra);
     if (conBarra) pintarBarra(r);
-    PINTAR[r]?.();
+    const pantalla = $(`.pantalla[data-ruta="${r}"]`);
+    pantalla.scrollTop = 0;
     window.scrollTo(0, 0);
+    PINTAR[r]?.();
+    escalonar(pantalla);
   }
   window.addEventListener('hashchange', render);
+
+  /* ----- Animaciones: utilidades ----- */
+
+  const MOVIMIENTO = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reflow = el => void el.getBoundingClientRect();
+
+  // Entrada escalonada: anima los bloques de primer nivel de la pantalla, uno detrás de otro
+  const BLOQUES = '.tarjeta, .caja, .nota, .titular, .titular-md, .bajada, .zona-carga, .buscador, .botonera, .marca, ' +
+    '.titulo-pantalla, .opciones-grupo, .grilla-2, .fp, .chat, .pie-limites, .pie-datos, .pie-privacidad, .rotulo-seccion, ' +
+    '.flujo-cabeza, .asistente-contexto > strong, .col-puntajes > p, form > p, .col-controles > p';
+  function escalonar(pantalla) {
+    if (!MOVIMIENTO) return;
+    const els = $$(BLOQUES, pantalla).filter(el => !el.parentElement.closest(BLOQUES));
+    els.forEach((el, i) => { el.classList.remove('entra'); el.style.setProperty('--i', Math.min(i, 14)); });
+    // Mientras los bloques suben, las columnas no muestran barra de scroll por el desplazamiento
+    pantalla.classList.add('entrando');
+    clearTimeout(pantalla._t);
+    pantalla._t = setTimeout(() => pantalla.classList.remove('entrando'), Math.min(els.length, 15) * 45 + 650);
+    reflow(pantalla);
+    els.forEach(el => {
+      el.classList.add('entra');
+      // Se saca la clase al terminar para que no queden capas de apilamiento colgando
+      const fin = e => { if (e.target !== el || e.animationName !== 'entrar') return; el.classList.remove('entra'); el.removeEventListener('animationend', fin); };
+      el.addEventListener('animationend', fin);
+    });
+  }
+
+  // Cuenta un número desde "desde" hasta "hasta" con desaceleración
+  const suave = t => 1 - Math.pow(1 - t, 3);
+  function contar(el, desde, hasta, ms = 900, retraso = 0, fmt = v => Math.round(v)) {
+    cancelAnimationFrame(el._raf);
+    if (!MOVIMIENTO || ms <= 0) { el.textContent = fmt(hasta); el._shown = hasta; return; }
+    const t0 = performance.now() + retraso;
+    el.textContent = fmt(desde);
+    const paso = now => {
+      const t = clamp((now - t0) / ms, 0, 1);
+      el._shown = desde + (hasta - desde) * suave(t);
+      el.textContent = fmt(el._shown);
+      if (t < 1) el._raf = requestAnimationFrame(paso);
+    };
+    el._raf = requestAnimationFrame(paso);
+  }
 
   function pintarBarra(r) {
     const a = S.analisis;
@@ -216,57 +261,117 @@
     return `<circle r="5" style="fill:none;stroke:var(--tenue-2);stroke-width:1.5"/>`;
   }
 
-  function mapa(svg, { tu, antes, etiquetas = 'todas', refs = true } = {}) {
-    let h = `
-      <line class="m-eje" x1="${X0}" y1="${Y0}" x2="${X1}" y2="${Y0}"/>
-      <line class="m-eje" x1="${X0}" y1="${Y0}" x2="${X0}" y2="${Y1}"/>
-      <line class="m-guia" x1="${px(50)}" y1="${Y1}" x2="${px(50)}" y2="${Y0}"/>
-      <line class="m-guia" x1="${X0}" y1="${py(50)}" x2="${X1}" y2="${py(50)}"/>
-      <text class="m-cuadrante" x="${X0 + 10}" y="${Y1 + 18}">prestigio sin público</text>
-      <text class="m-cuadrante" x="${X1 - 10}" y="${Y1 + 18}" text-anchor="end">las dos cosas</text>
-      <text class="m-cuadrante" x="${X1 - 10}" y="${Y0 - 12}" text-anchor="end">hit puro</text>
-      <text class="m-cuadrante" x="${X0 + 10}" y="${Y0 - 12}">ni una cosa ni la otra</text>`;
-    h += M.fondo.map(([x, y]) => `<circle class="m-fondo" cx="${px(x).toFixed(1)}" cy="${py(y).toFixed(1)}" r="2.6"/>`).join('');
+  /* El mapa se arma por capas: ejes y puntos de fondo se dibujan una sola vez;
+     referencias, "antes" y "tu canción" se actualizan. Así el punto de tu canción
+     se desliza en el simulador en vez de redibujarse, y la entrada se anima. */
+  const choca = (a, b) => a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0;
+  const anchoTexto = s => s.length * 6.7 + 4;
+
+  function mapa(svg, { tu, antes, etiquetas = 'todas', refs = true, animar = false } = {}) {
+    if (!svg._capas) {
+      svg.innerHTML = `
+        <g class="m-base">
+          <line class="m-eje" x1="${X0}" y1="${Y0}" x2="${X1}" y2="${Y0}"/>
+          <line class="m-eje" x1="${X0}" y1="${Y0}" x2="${X0}" y2="${Y1}"/>
+          <line class="m-guia" x1="${px(50)}" y1="${Y1}" x2="${px(50)}" y2="${Y0}"/>
+          <line class="m-guia" x1="${X0}" y1="${py(50)}" x2="${X1}" y2="${py(50)}"/>
+          <text class="m-cuadrante" x="${X0 + 10}" y="${Y1 + 18}">prestigio sin público</text>
+          <text class="m-cuadrante" x="${X1 - 10}" y="${Y1 + 18}" text-anchor="end">las dos cosas</text>
+          <text class="m-cuadrante" x="${X1 - 10}" y="${Y0 - 12}" text-anchor="end">hit puro</text>
+          <text class="m-cuadrante" x="${X0 + 10}" y="${Y0 - 12}">ni una cosa ni la otra</text>
+          <text class="m-eje-texto" x="${(X0 + X1) / 2}" y="${Y0 + 36}" text-anchor="middle">popularidad →</text>
+          <text class="m-eje-texto" x="22" y="${(Y0 + Y1) / 2}" text-anchor="middle" transform="rotate(-90 22 ${(Y0 + Y1) / 2})">prestigio →</text>
+        </g>
+        <g class="m-capa-fondo">${M.fondo.map(([x, y]) => `<circle class="m-fondo" cx="${px(x).toFixed(1)}" cy="${py(y).toFixed(1)}" r="2.6" style="--d:${Math.round(px(x) - X0)}"/>`).join('')}</g>
+        <g class="m-capa-antes"></g><g class="m-capa-refs"></g><g class="m-capa-tu"></g>`;
+      svg._capas = { fondo: $('.m-capa-fondo', svg), refs: $('.m-capa-refs', svg), antes: $('.m-capa-antes', svg), tu: $('.m-capa-tu', svg) };
+    }
+    const C = svg._capas;
+    if (animar && MOVIMIENTO) { C.fondo.classList.remove('anim'); reflow(svg); C.fondo.classList.add('anim'); }
+
+    // Espacio ya ocupado: rótulos de cuadrante y, si hay, tu canción con su etiqueta
+    const ocupado = [
+      { x0: X0, x1: X0 + 150, y0: Y1 + 4, y1: Y1 + 24 }, { x0: X1 - 100, x1: X1, y0: Y1 + 4, y1: Y1 + 24 },
+      { x0: X1 - 70, x1: X1, y0: Y0 - 26, y1: Y0 - 6 }, { x0: X0, x1: X0 + 150, y0: Y0 - 26, y1: Y0 - 6 },
+    ];
+    let tx, ty, ty_txt;
+    if (tu) {
+      tx = px(tu.pop); ty = py(tu.pres); ty_txt = ty > 440 ? -26 : 38;
+      const w = antes ? 62 : 104;
+      ocupado.push({ x0: tx - 19, x1: tx + 19, y0: ty - 19, y1: ty + 19 }, { x0: tx - w / 2, x1: tx + w / 2, y0: ty + ty_txt - 14, y1: ty + ty_txt + 4 });
+    }
 
     if (refs) {
-      let lista = M.referencias.map(r => ({ ...r }));
+      let lista = M.referencias.map((r, i) => ({ ...r, i, x: px(r.pop), y: py(r.pres) }));
       let cercanas = null;
       if (etiquetas === 'cercanas' && tu) {
         lista.forEach(r => { r.d = Math.hypot(r.pop - tu.pop, r.pres - tu.pres); });
         cercanas = new Set([...lista].sort((a, b) => a.d - b.d).slice(0, 6).map(r => r.titulo));
+        lista.sort((a, b) => a.d - b.d);   // las cercanas eligen lugar primero
       }
-      h += lista.map(r => {
-        const x = px(r.pop), y = py(r.pres), der = x > 620;
+      lista.forEach(r => ocupado.push({ x0: r.x - 7, x1: r.x + 7, y0: r.y - 7, y1: r.y + 7 }));
+      // Cada etiqueta prueba derecha, izquierda, arriba y abajo; si no entra en ningún lado, se oculta
+      const html = lista.map(r => {
         const lejos = cercanas && !cercanas.has(r.titulo);
-        const txt = lejos ? '' : `<text x="${der ? -11 : 11}" y="4" text-anchor="${der ? 'end' : 'start'}">${esc(r.titulo)}</text>`;
-        return `<g class="m-ref${lejos ? ' lejana' : ''}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})" ${lejos ? 'opacity=".45"' : ''}>
+        let txt = '';
+        if (!lejos) {
+          const w = anchoTexto(r.titulo), der = r.x > 620;
+          const lados = [
+            { x: 11, y: 4, a: 'start', c: { x0: r.x + 9, x1: r.x + 11 + w, y0: r.y - 9, y1: r.y + 7 } },
+            { x: -11, y: 4, a: 'end', c: { x0: r.x - 11 - w, x1: r.x - 9, y0: r.y - 9, y1: r.y + 7 } },
+            { x: 0, y: -11, a: 'middle', c: { x0: r.x - w / 2, x1: r.x + w / 2, y0: r.y - 24, y1: r.y - 8 } },
+            { x: 0, y: 20, a: 'middle', c: { x0: r.x - w / 2, x1: r.x + w / 2, y0: r.y + 8, y1: r.y + 24 } },
+          ];
+          if (der) [lados[0], lados[1]] = [lados[1], lados[0]];
+          // Si no entra pegada al punto, prueba un poco más corrida en diagonal
+          for (const dy of [-15, 15, -28, 28]) {
+            lados.push({ dy, x: 11, y: 4 + dy, a: 'start', c: { x0: r.x + 9, x1: r.x + 11 + w, y0: r.y - 9 + dy, y1: r.y + 7 + dy } });
+            lados.push({ dy, x: -11, y: 4 + dy, a: 'end', c: { x0: r.x - 11 - w, x1: r.x - 9, y0: r.y - 9 + dy, y1: r.y + 7 + dy } });
+          }
+          const ok = lados.find(l => l.c.x0 >= 4 && l.c.x1 <= 796 && !ocupado.some(o => choca(o, l.c)));
+          if (ok) {
+            ocupado.push(ok.c);
+            const guia = ok.dy ? `<line class="m-guia-ref" x1="${ok.x > 0 ? 5 : -5}" y1="${ok.dy > 0 ? 4 : -4}" x2="${ok.x > 0 ? 9 : -9}" y2="${ok.dy}"/>` : '';
+            txt = `${guia}<text x="${ok.x}" y="${ok.y}" text-anchor="${ok.a}">${esc(r.titulo)}</text>`;
+          }
+        }
+        return `<g class="m-ref${lejos ? ' lejana' : ''}" transform="translate(${r.x.toFixed(1)} ${r.y.toFixed(1)})" style="--i:${r.i}" ${lejos ? 'opacity=".45"' : ''}>
           <title>${esc(r.titulo)} — ${esc(r.artista)} (${r.anio}) · popularidad ${Math.round(r.pop)}% · prestigio ${Math.round(r.pres)}%</title>
           ${refCirculo(r)}${txt}</g>`;
       }).join('');
-    }
+      C.refs.classList.toggle('anim', animar && MOVIMIENTO);
+      C.refs.innerHTML = html;
+    } else C.refs.innerHTML = '';
 
     if (antes && tu) {
-      const ax = px(antes.pop), ay = py(antes.pres), tx = px(tu.pop), ty = py(tu.pres);
-      h += `<circle class="m-antes" cx="${ax}" cy="${ay}" r="7"/>
-            <text class="m-cuadrante" x="${ax}" y="${ay + 24}" text-anchor="middle">antes</text>`;
-      if (Math.hypot(tx - ax, ty - ay) > 12) h += `<line class="m-flecha" x1="${ax}" y1="${ay}" x2="${tx}" y2="${ty}"/>`;
-    }
+      const ax = px(antes.pop), ay = py(antes.pres);
+      C.antes.innerHTML = `<circle class="m-antes" cx="${ax}" cy="${ay}" r="7"/>
+        <text class="m-cuadrante" x="${ax}" y="${ay + 24}" text-anchor="middle">antes</text>
+        ${Math.hypot(tx - ax, ty - ay) > 12 ? `<line class="m-flecha" x1="${ax}" y1="${ay}" x2="${tx}" y2="${ty}"/>` : ''}`;
+    } else C.antes.innerHTML = '';
+
     if (tu) {
-      const x = px(tu.pop), y = py(tu.pres);
-      h += `<circle class="m-tu-halo" cx="${x}" cy="${y}" r="17"/>
-            <circle class="m-tu" cx="${x}" cy="${y}" r="8"/>
-            <text class="m-tu-texto" x="${x}" y="${y + (y > 440 ? -26 : 38)}" text-anchor="middle">${antes ? 'AHORA' : 'TU CANCIÓN'}</text>`;
-    }
-    h += `<text class="m-eje-texto" x="${(X0 + X1) / 2}" y="${Y0 + 36}" text-anchor="middle">popularidad →</text>
-          <text class="m-eje-texto" x="22" y="${(Y0 + Y1) / 2}" text-anchor="middle" transform="rotate(-90 22 ${(Y0 + Y1) / 2})">prestigio →</text>`;
-    svg.innerHTML = h;
+      let g = $('.m-tu-g', C.tu);
+      const nuevo = !g;
+      if (nuevo) {
+        C.tu.innerHTML = `<g class="m-tu-g"><circle class="m-tu-onda" r="9"/><circle class="m-tu-halo" r="17"/><circle class="m-tu" r="8"/><text class="m-tu-texto" text-anchor="middle"></text></g>`;
+        g = $('.m-tu-g', C.tu);
+      }
+      const t = $('.m-tu-texto', g);
+      t.setAttribute('y', ty_txt);
+      t.textContent = antes ? 'AHORA' : 'TU CANCIÓN';
+      if (nuevo || animar) g.style.transition = 'none';
+      g.style.transform = `translate(${tx}px, ${ty}px)`;
+      if (animar && MOVIMIENTO) { g.classList.remove('cae'); reflow(g); g.classList.add('cae'); }
+      if (nuevo || animar) { reflow(g); g.style.transition = ''; }
+    } else C.tu.innerHTML = '';
   }
 
   /* ================= Inicio: cargar canción ================= */
 
   PINTAR.inicio = () => {
     $('#saludo').textContent = S.usuario ? `, ${S.usuario.nombre.split(' ')[0]}` : '';
-    mapa($('#mapa-inicio'));
+    mapa($('#mapa-inicio'), { animar: true });
   };
 
   const zonaCarga = $('#zona-carga');
@@ -326,28 +431,102 @@
 
   const esperar = ms => new Promise(r => setTimeout(r, ms));
 
+  /* ----- Pantalla de carga ----- */
+
+  // Barras de la onda: alturas al azar pero fijas, para que parezca un espectro
+  $('.cargando-onda').innerHTML = Array.from({ length: 46 }, (_, k) =>
+    `<i style="--k:${k};--alto:${(0.35 + 0.65 * Math.abs(Math.sin(k * 1.7) * Math.cos(k * 0.45))).toFixed(2)}"></i>`).join('');
+
+  function progreso(hasta, ms) {
+    const b = $('#progreso-barra');
+    b.style.transitionDuration = ms + 'ms';
+    b.style.transform = `scaleX(${hasta / 100})`;
+  }
+
+  // Texto vivo de cada paso mientras está en curso. Devuelve una función para cortarlo.
+  function ticker(paso, i) {
+    const det = $('.paso-detalle', paso);
+    det.dataset.original ??= det.textContent;
+    if (!MOVIMIENTO) return () => {};
+    let id;
+    if (i === 0) {
+      const palabras = ['energía', 'volumen', 'tempo', 'duración', 'acústica', 'bailabilidad', 'brillo'];
+      let n = 0;
+      const tic = () => { det.innerHTML = `midiendo <em>${palabras[n++ % palabras.length]}</em>…`; };
+      tic(); id = setInterval(tic, 150);
+    } else if (i === 1) {
+      const t0 = performance.now(), total = 53577;
+      const tic = () => {
+        const v = Math.round(total * suave(clamp((performance.now() - t0) / 650, 0, 1)));
+        det.innerHTML = `comparando contra <em>${v.toLocaleString('es-AR')}</em> canciones`;
+      };
+      tic(); id = setInterval(tic, 40);
+    } else {
+      const frase = det.dataset.original;
+      let n = 0;
+      const tic = () => { det.textContent = frase.slice(0, ++n) + (n < frase.length ? '▍' : ''); if (n >= frase.length) clearInterval(id); };
+      det.textContent = ''; id = setInterval(tic, 28);
+    }
+    return () => clearInterval(id);
+  }
+
+  const seg = ms => `${coma(ms / 1000, 1)} s`;
+
   async function correrAnalisis(nombre, obtener) {
     $('#alerta-inicio')?.remove();
     const capa = $('#cargando'), pasos = $$('.paso', capa);
     $('#cargando-nombre').textContent = nombre;
-    pasos.forEach(p => p.classList.remove('actual', 'hecho'));
+    pasos.forEach(p => {
+      p.classList.remove('actual', 'hecho');
+      $('.paso-tiempo', p).textContent = '';
+      const det = $('.paso-detalle', p); if (det.dataset.original) det.textContent = det.dataset.original;
+    });
+    capa.classList.remove('fase-ambar', 'listo', 'saliendo');
+    $('.cargando-cabeza .rotulo-seccion', capa).textContent = 'Analizando';
+    progreso(0, 0);
     capa.hidden = false;
+    reflow(capa);
+
+    let parar = () => {};
+    const iniciar = (i, hasta, ms) => { pasos[i].classList.add('actual'); progreso(hasta, ms); parar = ticker(pasos[i], i); return performance.now(); };
+    const terminar = (i, t, detalle) => {
+      parar();
+      const det = $('.paso-detalle', pasos[i]);
+      det.innerHTML = detalle ?? det.dataset.original;
+      pasos[i].classList.replace('actual', 'hecho');
+      $('.paso-tiempo', pasos[i]).textContent = seg(performance.now() - t);
+    };
+
     try {
-      pasos[0].classList.add('actual');
-      const [{ rasgos, fuentes }] = await Promise.all([obtener(), esperar(700)]);
-      pasos[0].classList.replace('actual', 'hecho'); pasos[1].classList.add('actual');
-      await esperar(600);
-      pasos[1].classList.replace('actual', 'hecho'); pasos[2].classList.add('actual');
-      await esperar(600);
+      let t = iniciar(0, 36, 900);
+      const [{ rasgos, fuentes }] = await Promise.all([obtener(), esperar(900)]);
+      terminar(0, t, `${mmss(rasgos.duration_ms)} · ${Math.round(rasgos.tempo)} BPM · ${coma(rasgos.loudness, 1)} dB`);
+
+      t = iniciar(1, 72, 700);
+      await esperar(700);
+      terminar(1, t);
+
+      capa.classList.add('fase-ambar');
+      t = iniciar(2, 100, 750);
+      await esperar(750);
+      terminar(2, t);
+
+      capa.classList.add('listo');
+      $('.cargando-cabeza .rotulo-seccion', capa).textContent = 'Listo';
+      await esperar(420);
       S.analisis = { nombre, rasgos, fuentes };
       S.sim = { ...rasgos };
       S.chat = []; S.ultimoRasgo = null;
+      capa.classList.add('saliendo');
       location.hash = 'resultado';
+      await esperar(300);
     } catch (err) {
       console.error(err);
       alertaInicio('No pudimos leer ese audio. Probá con otro formato (wav o mp3 suelen andar siempre).');
     } finally {
+      parar();
       capa.hidden = true;
+      capa.classList.remove('saliendo');
     }
   }
 
@@ -408,51 +587,69 @@
 
   /* ================= Resultado ================= */
 
-  function tarjetaEje(el, titulo, e, color, antes) {
+  // retraso en ms: si viene, el número cuenta desde 0 y la barra crece
+  function tarjetaEje(el, titulo, e, color, retraso = null) {
+    const animar = retraso != null && MOVIMIENTO;
     el.innerHTML = `
       <div class="puntaje-rotulo">${titulo}</div>
-      ${antes == null ? `<div class="puntaje-numero">${Math.round(e.v)}%</div>` : ''}
+      <div class="puntaje-numero"><span class="num">${Math.round(e.v)}</span>%</div>
       <div class="puntaje-margen">con un margen entre ${Math.round(e.lo)}% y ${Math.round(e.hi)}%</div>
-      <div class="barra-margen eje-${color}">
+      <div class="barra-margen eje-${color}${animar ? ' anim' : ''}" style="--retraso:${(retraso || 0) / 1000}s">
         <div class="rango" style="left:${e.lo}%;width:${e.hi - e.lo}%"></div>
-        ${antes != null ? `<div class="marca-antes" style="left:${antes}%"></div>` : ''}
         <div class="marca-valor" style="left:calc(${e.v}% - 1px)"></div>
       </div>
       <div class="escala"><span>0</span><span>50</span><span>100</span></div>`;
+    if (animar) contar($('.num', el), 0, e.v, 1000, retraso);
   }
 
   PINTAR.resultado = () => {
     const r = S.analisis.rasgos, p = puntajes(r), z = zona(p), c = conflicto(r);
-    tarjetaEje($('#tarjeta-pres'), 'Prestigio', p.pres, 'azul');
-    tarjetaEje($('#tarjeta-pop'), 'Popularidad', p.pop, 'ambar');
+    tarjetaEje($('#tarjeta-pres'), 'Prestigio', p.pres, 'azul', 150);
+    tarjetaEje($('#tarjeta-pop'), 'Popularidad', p.pop, 'ambar', 300);
     const foco = c ? ` El conflicto está en ${la(c.k).replace(/^(el|la) /, '$1 <strong>')}</strong>.` : '';
     $('#zona-cayo').innerHTML = `<div class="cayo-rotulo">Tu canción cayó en</div><div class="cayo-zona">${z.nombre}</div><p class="chico">${z.txt}${foco}</p>`;
     const u = S.usuario;
     $('#nota-genero').innerHTML = u
       ? `<strong>Te comparamos contra toda la música.</strong><p>La lectura dentro de ${esc(u.genero.toLowerCase())} llega cuando sumemos el género al dataset: hoy el dump no lo trae.</p>`
       : '';
-    mapa($('#mapa-resultado'), { tu: { pop: p.pop.v, pres: p.pres.v }, etiquetas: 'cercanas' });
+    mapa($('#mapa-resultado'), { tu: { pop: p.pop.v, pres: p.pres.v }, etiquetas: 'cercanas', animar: true });
   };
 
   /* ================= Qué suma y qué resta ================= */
 
+  function moverPill() {
+    const b = $('.selector button.activo'), pill = $('.selector-pill');
+    if (!b || !b.offsetWidth) return;
+    pill.style.left = b.offsetLeft + 'px';
+    pill.style.width = b.offsetWidth + 'px';
+  }
+
   $$('.selector button').forEach(b => b.addEventListener('click', () => {
+    if (S.ejeDesglose === b.dataset.eje) return;
     S.ejeDesglose = b.dataset.eje;
     $$('.selector button').forEach(x => x.classList.toggle('activo', x === b));
+    moverPill();
     PINTAR.desglose();
   }));
 
   PINTAR.desglose = () => {
     const a = S.analisis, r = a.rasgos, nom = S.ejeDesglose;
     const e = eje(nom, r);
-    $('#desglose-valor').innerHTML = `<b>${Math.round(e.v)}%</b>entre ${Math.round(e.lo)}% y ${Math.round(e.hi)}%`;
+    moverPill();
+    const valor = $('#desglose-valor');
+    const previo = valor._v ?? 0;
+    valor.innerHTML = `<b><span class="num">${Math.round(e.v)}</span>%</b>entre ${Math.round(e.lo)}% y ${Math.round(e.hi)}%`;
+    contar($('.num', valor), previo, e.v, 700);
+    valor._v = e.v;
     const lista = aportes(nom, r).sort((x, y) => Math.abs(y.pts) - Math.abs(x.pts));
     const maximo = Math.max(10, ...lista.map(x => Math.abs(x.pts)));
-    $('#desglose-filas').innerHTML = lista.map(({ k, pts }) => {
+    const filas = $('#desglose-filas');
+    filas.classList.remove('anim'); reflow(filas); if (MOVIMIENTO) filas.classList.add('anim');
+    filas.innerHTML = lista.map(({ k, pts }, idx) => {
       const signo = Math.round(pts) > 0 ? 'suma' : Math.round(pts) < 0 ? 'resta' : 'cero';
       const ancho = Math.abs(pts) / maximo * 48;
       const fuente = a.fuentes[k] !== 'dataset' && a.fuentes[k] !== 'medido' ? `<span class="fuente">${a.fuentes[k]}</span>` : '';
-      return `<div class="fila-rasgo">
+      return `<div class="fila-rasgo" style="--i:${idx}">
         <div><div class="rasgo-nombre">${INFO[k].nombre}${fuente}</div><div class="rasgo-valor">${valorLargo(k, r[k])}</div></div>
         <div class="barra-efecto"><div class="eje-central"></div>${signo !== 'cero' ? `<div class="relleno ${signo}" style="width:${ancho}%"></div>` : ''}</div>
         <div class="efecto ${signo}">${pts > 0.5 ? '+' : ''}${Math.round(pts) === 0 ? '0' : Math.round(pts).toString().replace('-', '−')}</div>
@@ -491,7 +688,7 @@
     }));
   }
 
-  function actualizarSim() {
+  function actualizarSim(animar = false) {
     const o = S.analisis.rasgos, s = S.sim;
     $$('#controles .control').forEach(c => {
       const k = c.dataset.k, I = INFO[k], inp = $('input', c);
@@ -517,8 +714,15 @@
         ? `<strong>Acá se ve la tensión</strong><p>Cambiaste ${lista} y <strong>un puntaje subió mientras el otro bajaba</strong>.</p>`
         : `<strong>${titularCambio(dp, dq)}</strong><p>Cambiaste ${lista}. Prestigio ${fmtPts(dp)}, popularidad ${fmtPts(dq)}.</p>`;
     }
-    $('#sim-tension').innerHTML = t;
-    mapa($('#mapa-sim'), { tu: { pop: b.pop.v, pres: b.pres.v }, antes: { pop: a.pop.v, pres: a.pres.v }, etiquetas: 'cercanas' });
+    const caja = $('#sim-tension');
+    if (caja.innerHTML !== t) {
+      // Destello suave solo cuando cambia el tipo de lectura (no en cada pixel del slider)
+      const titular = t.match(/<strong>(.*?)<\/strong>/)?.[1];
+      if (titular !== caja._titular && caja._titular != null && MOVIMIENTO) { caja.classList.remove('cambia'); reflow(caja); caja.classList.add('cambia'); }
+      caja._titular = titular;
+      caja.innerHTML = t;
+    }
+    mapa($('#mapa-sim'), { tu: { pop: b.pop.v, pres: b.pres.v }, antes: { pop: a.pop.v, pres: a.pres.v }, etiquetas: 'cercanas', animar });
   }
 
   function titularCambio(dp, dq) {
@@ -529,20 +733,44 @@
     return a > 0 ? 'Los dos suben' : 'Los dos bajan';
   }
 
+  // La tarjeta se arma una vez y después solo se actualiza: así el número se
+  // desliza y la barra se mueve con transición mientras arrastrás el control.
   function cifraSim(el, titulo, a, b, color) {
-    const d = Math.round(b.v - a.v);
     const clase = color === 'azul' ? 't-azul' : 't-ambar';
-    el.innerHTML = `<div class="puntaje-rotulo">${titulo}</div>
-      <div class="sim-cifras">${d ? `<s>${Math.round(a.v)}%</s><span class="${clase}">${d > 0 ? '→' : '←'}</span>` : ''}<b class="${d ? clase : ''}">${Math.round(b.v)}%</b></div>`;
-    const cont = document.createElement('div');
-    tarjetaEje(cont, '', b, color, a.v);
-    el.append(...[...cont.children].slice(1));
-    if (d) el.insertAdjacentHTML('beforeend', `<div class="sim-delta ${clase}">${d > 0 ? '↑' : '↓'} ${Math.abs(d)} puntos</div>`);
+    if (!el._vivo) {
+      el.innerHTML = `<div class="puntaje-rotulo">${titulo}</div>
+        <div class="sim-cifras"><s></s><span class="flecha ${clase}"></span><b><span class="num">0</span>%</b></div>
+        <div class="puntaje-margen"></div>
+        <div class="barra-margen eje-${color}"><div class="rango" style="left:50%;width:0"></div><div class="marca-antes"></div><div class="marca-valor" style="left:0"></div></div>
+        <div class="escala"><span>0</span><span>50</span><span>100</span></div>
+        <div class="sim-delta ${clase}"></div>`;
+      el._vivo = true;
+      reflow(el);
+    }
+    const d = Math.round(b.v - a.v);
+    $('.sim-cifras s', el).textContent = d ? `${Math.round(a.v)}%` : '';
+    const flecha = $('.flecha', el), f = d ? (d > 0 ? '→' : '←') : '';
+    if (flecha.textContent !== f) flecha.textContent = f;
+    $('.sim-cifras b', el).className = d ? clase : '';
+    const num = $('.num', el);
+    contar(num, num._shown ?? 0, b.v, el._primera ? 1000 : 260);
+    el._primera = false;
+    $('.puntaje-margen', el).textContent = `con un margen entre ${Math.round(b.lo)}% y ${Math.round(b.hi)}%`;
+    Object.assign($('.rango', el).style, { left: b.lo + '%', width: (b.hi - b.lo) + '%' });
+    $('.marca-antes', el).style.left = a.v + '%';
+    $('.marca-valor', el).style.left = `calc(${b.v}% - 1px)`;
+    const delta = $('.sim-delta', el);
+    delta.textContent = d ? `${d > 0 ? '↑' : '↓'} ${Math.abs(d)} puntos` : '';
   }
 
   $('#restablecer').addEventListener('click', () => { S.sim = { ...S.analisis.rasgos }; pintarControles(); actualizarSim(); });
 
-  PINTAR.simulador = () => { pintarControles(); actualizarSim(); };
+  PINTAR.simulador = () => {
+    ['#sim-pres', '#sim-pop'].forEach(s => { const el = $(s); el._primera = true; const n = $('.num', el); if (n) n._shown = 0; });
+    $('#sim-tension')._titular = null;
+    pintarControles();
+    actualizarSim(true);
+  };
 
   /* ================= Asistente ================= */
 
@@ -700,23 +928,31 @@
       : esc(m.txt);
     if (m.cambio) $('button', el).addEventListener('click', () => { S.sim = { ...S.analisis.rasgos, [m.cambio.k]: m.cambio.v }; location.hash = 'simulador'; });
     $('#mensajes').append(el);
-    el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    bajarChat();
   }
 
+  // Scroll dentro de la lista de mensajes (no de la página)
+  const bajarChat = () => { const m = $('#mensajes'); requestAnimationFrame(() => m.scrollTo({ top: m.scrollHeight, behavior: MOVIMIENTO ? 'smooth' : 'auto' })); };
+
+  let respondiendo = false;
   async function preguntar(texto) {
     texto = texto.trim();
-    if (!texto) return;
+    if (!texto || respondiendo) return;
+    respondiendo = true;
     agregarMensaje({ quien: 'yo', txt: texto });
     $('#pregunta').value = '';
     const r = responder(texto);
     const tipeo = document.createElement('div');
     tipeo.className = 'msj ia escribiendo';
-    tipeo.innerHTML = (r.modelo ? '<div class="consultando">⌁ consultando el modelo</div><br>' : '') + '<span></span><span></span><span></span>';
+    tipeo.innerHTML = (r.modelo ? '<div class="consultando"><i class="giro"></i>consultando el modelo</div>' : '') + '<span class="puntos"><span></span><span></span><span></span></span>';
     $('#mensajes').append(tipeo);
-    tipeo.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    await esperar(r.modelo ? 900 : 500);
+    $('.chat').classList.add('pensando');
+    bajarChat();
+    await esperar(r.modelo ? 1000 : 600);
     tipeo.remove();
+    $('.chat').classList.remove('pensando');
     agregarMensaje({ quien: 'ia', ...r });
+    respondiendo = false;
   }
 
   $('#form-chat').addEventListener('submit', e => { e.preventDefault(); preguntar($('#pregunta').value); });
@@ -728,7 +964,7 @@
     const previos = S.chat; S.chat = [];
     if (!previos.length) agregarMensaje({ quien: 'ia', txt: saludoIA() });
     else previos.forEach(agregarMensaje);
-    $('#sugerencias').innerHTML = sugerencias().map(s => `<button type="button">${esc(s)}</button>`).join('');
+    $('#sugerencias').innerHTML = sugerencias().map((s, i) => `<button type="button" style="--i:${i}">${esc(s)}</button>`).join('');
     $$('#sugerencias button').forEach(b => b.addEventListener('click', () => preguntar(b.textContent)));
   };
 
