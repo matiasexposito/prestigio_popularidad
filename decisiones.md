@@ -161,3 +161,34 @@ Se reorganizó el repositorio siguiendo la plantilla de la materia, sin borrar n
 
 La plantilla separa originales (`datasets/`) de procesados (`datasets_procesados/`). Nuestros cuatro CSV ya son el resultado de procesar las fuentes, pero **los originales no entran al repositorio**: el dump de características pesa 4,1 GB y Billboard son 355.001 filas semanales. Mover los CSV habría obligado a cambiar rutas en todos los scripts y documentos sin ganar nada, así que se quedan donde están. `datasets_procesados/` queda para recortes futuros.
 
+
+## 13 de octubre de 2026 — Análisis de audio en la app
+
+### Decisión: Essentia.js en lugar de librosa
+
+El plan era analizar el audio del usuario con librosa. Lo cambiamos por **Essentia.js**, la versión para navegador de Essentia (Music Technology Group, Universitat Pompeu Fabra).
+
+| | librosa | Essentia.js |
+|---|---|---|
+| Dónde corre | Python: necesita un servidor | En el navegador, sin servidor (WebAssembly) |
+| Tempo, tonalidad, volumen | Sí | Sí |
+| Valencia, acústica, instrumentalidad | No: hay que inventar fórmulas | Sí, con modelos ya entrenados (paso 2) |
+| Privacidad | El audio viaja a un servidor | El audio no sale de la computadora del usuario |
+
+La última fila importa: la app promete "tu archivo se analiza y se descarta", y con Essentia.js el archivo ni siquiera sale del navegador.
+
+### Paso 1: tempo, modo, volumen y bailabilidad
+
+Algoritmos de Essentia sin modelos de IA: `RhythmExtractor2013` (tempo), `KeyExtractor` (tonalidad mayor/menor), `LoudnessEBUR128` (volumen en LUFS) y `Danceability`. Probado con pistas sintéticas de tempo y tonalidad conocidos (100 BPM en La menor, 124 BPM en Sol mayor): acierta los dos.
+
+**Velocidad:** analizar un tema entero de 4 minutos tardaba ~30 s. Con el tempo y la bailabilidad sobre 90 s del centro, y el volumen y la tonalidad a 11.025 Hz, baja a ~4 s con los mismos resultados (el volumen cambia menos de 0,2 dB).
+
+**Sin internet** (Essentia se descarga del CDN la primera vez) la app vuelve a la medición básica del navegador y lo avisa.
+
+### Pendiente: las escalas no son las de Spotify
+
+El modelo de puntajes se entrenó con los valores de Spotify, y Essentia mide parecido pero en otra escala: la bailabilidad de Essentia va de ~0,5 a ~2,5 y la de Spotify de 0 a 1; el volumen de Essentia está en LUFS y el de Spotify en dB promedio. Por ahora hay una conversión lineal provisoria. **El paso 2 la reemplaza por una calibración**: pasar por Essentia canciones que ya están en el dataset y medir la equivalencia. Sin eso los puntajes de un audio subido pueden salir corridos.
+
+### A tener en cuenta: licencia
+
+Essentia.js es AGPL-3.0 y los modelos preentrenados de Essentia son CC BY-NC-SA (no comercial). Para el proyecto académico no hay problema; un uso comercial requeriría licencia del MTG.

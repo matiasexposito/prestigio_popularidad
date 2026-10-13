@@ -200,6 +200,7 @@
         <a href="#desglose" class="boton chico">Qué suma y qué resta →</a>
         <a href="#simulador" class="boton secundario chico">Simular cambios</a>
         <a href="#asistente" class="boton secundario chico">Preguntarle al asistente</a>
+        <button type="button" id="ver-ficha" class="boton secundario chico boton-ficha"><i class="swatch azul"></i>Valores medidos</button>
       </div>
     </div>
   </div>
@@ -295,7 +296,7 @@
     <div class="flujo-cuerpo">
       <ol class="flujo-pasos">
         <li class="fp fp-gris"><strong>El usuario sube su canción</strong><p>Un archivo de audio. Puede ser un demo sin publicar, que no existe en ninguna plataforma.</p></li>
-        <li class="fp fp-azul"><strong>librosa analiza el audio</strong><p>Saca las 10 características: energía, valencia, acústica, duración, bailabilidad, volumen, habla, tempo, modo, instrumentalidad.</p></li>
+        <li class="fp fp-azul"><strong>Essentia analiza el audio</strong><p>Saca las 10 características: energía, valencia, acústica, duración, bailabilidad, volumen, habla, tempo, modo, instrumentalidad.</p></li>
         <li class="fp fp-azul"><strong>El modelo calcula los dos puntajes</strong><p>Compara contra 53.577 canciones etiquetadas. Devuelve el prestigio y la popularidad, cada uno con su margen de error.</p></li>
         <li class="fp fp-ambar"><strong>La IA traduce el resultado</strong><p>Recibe los números ya calculados y los pasa a lenguaje de músico. Señala dónde está el conflicto entre los dos ejes.</p></li>
         <li class="fp fp-ambar"><strong>El usuario pregunta, la IA responde</strong><p>Si le preguntan "¿y si bajo la energía?", <strong>no adivina</strong>: le pide al modelo que recalcule y responde con el número real.</p><em class="vuelve">↺ vuelve a consultar el paso 03</em></li>
@@ -305,7 +306,7 @@
         <p>· No decide qué recomendar</p>
         <p>· No inventa datos que el análisis no mide</p>
         <div class="rotulo-seccion" style="margin-top:22px">En este prototipo</div>
-        <p class="chico">El audio se mide en el navegador (duración, volumen, energía, tempo, brillo). El resto usa el promedio del corpus hasta conectar librosa.</p>
+        <p class="chico">El audio se analiza en el navegador con <strong>Essentia.js</strong> (UPF): tempo, modo, volumen y bailabilidad. Energía y acústica son estimaciones; valencia, habla e instrumentalidad usan el promedio del corpus hasta el paso 2 (modelos de Essentia).</p>
         <p class="chico">Los puntajes salen de dos regresiones logísticas entrenadas con <span class="mono">corpus_v2</span> y <span class="mono">control_v2</span>.</p>
       </aside>
     </div>
@@ -322,6 +323,28 @@
 </section>
 
 </main>
+
+<!-- Ficha con los valores medidos de la canción -->
+<dialog id="ficha" class="ficha" aria-labelledby="ficha-titulo">
+  <div class="ficha-cabeza">
+    <div>
+      <div class="rotulo-seccion">Valores medidos</div>
+      <strong id="ficha-titulo" class="ficha-titulo"></strong>
+    </div>
+    <button type="button" class="ficha-cerrar" data-cerrar aria-label="Cerrar">×</button>
+  </div>
+  <div id="ficha-aviso" class="aviso" hidden></div>
+  <table class="ficha-tabla">
+    <thead><tr><th>característica</th><th>valor</th><th>fuente</th></tr></thead>
+    <tbody id="ficha-filas"></tbody>
+  </table>
+  <div id="ficha-essentia" class="ficha-essentia"></div>
+  <div class="ficha-pie">
+    <button type="button" id="ficha-copiar" class="boton chico">Copiar JSON</button>
+    <button type="button" id="ficha-descargar" class="boton secundario chico">Descargar .json</button>
+    <span id="ficha-estado" class="tenue chico" aria-live="polite"></span>
+  </div>
+</dialog>
 
 <!-- Pantalla de carga mientras se analiza -->
 <div id="cargando" class="cargando" hidden>
@@ -353,6 +376,7 @@
 </div>
 
 <script src="modelo.js"></script>
+<script src="analisis_essentia.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

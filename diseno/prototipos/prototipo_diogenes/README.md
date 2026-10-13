@@ -2,7 +2,7 @@
 
 Versión navegable del prototipo de baja fidelidad (las 8 pantallas), pasada a código.
 
-**Cómo abrirlo:** doble click en `index.html`. No necesita servidor ni instalar nada.
+**Cómo abrirlo:** doble click en `index.html`. No necesita servidor ni instalar nada. Para analizar un audio con Essentia.js hace falta internet la primera vez (baja 2,6 MB del CDN de jsDelivr); sin internet usa la medición básica del navegador.
 
 ## Qué es real y qué es provisorio
 
@@ -13,7 +13,8 @@ Versión navegable del prototipo de baja fidelidad (las 8 pantallas), pasada a c
 | Margen de error | 20 remuestreos (bootstrap), con un piso de ±4 puntos |
 | Mapa | 700 canciones al azar del corpus + 17 de referencia, ubicadas con el mismo modelo |
 | Buscar por nombre | 1.825 canciones reales (las que lograron las dos cosas + las que llegaron al #1) |
-| Subir un audio | Se mide en el navegador: duración, volumen y tempo; energía, acústica y bailabilidad son estimaciones. Valencia, habla, modo e instrumentalidad quedan en el promedio del corpus. **Pendiente: librosa** |
+| Subir un audio | **Essentia.js** (paso 1) mide tempo, modo (tonalidad mayor/menor), volumen (LUFS) y bailabilidad. Duración se mide en el navegador; energía y acústica son estimaciones; valencia, habla e instrumentalidad quedan en el promedio del corpus. **Pendiente (paso 2): modelos de Essentia para acústica, instrumentalidad y valencia + calibración contra el dataset** |
+| Valores medidos | Botón en el resultado: muestra los 10 valores con su fuente y los exporta en JSON (copiar o descargar) |
 | Qué suma y qué resta | Real: cuántos puntos aporta cada rasgo frente a una canción promedio |
 | Simulador | Real: recalcula con el modelo en cada movimiento |
 | Asistente | Respuestas armadas con reglas, pero los números siempre salen del modelo. **Pendiente: conectar un LLM** |
@@ -31,5 +32,19 @@ Versión navegable del prototipo de baja fidelidad (las 8 pantallas), pasada a c
 | `index.html` | Las pantallas |
 | `estilos.css` | Estilos (paleta del prototipo: azul = el modelo calcula, ámbar = la IA traduce) |
 | `app.js` | Navegación, modelo, análisis de audio, simulador y asistente |
+| `analisis_essentia.js` | Análisis de audio con Essentia.js en un Web Worker (tempo, tonalidad, volumen, bailabilidad) |
 | `modelo.js` | Coeficientes y datos del mapa. **Generado**, no editar a mano |
 | `generar_modelo.py` | Regenera `modelo.js` desde `datasets/`. Uso, desde la raíz del repo: `python3 diseno/prototipos/prototipo_diogenes/generar_modelo.py` (necesita numpy) |
+
+## Essentia.js (paso 1)
+
+| Característica | Algoritmo | Sobre qué parte del audio |
+|---|---|---|
+| tempo | `RhythmExtractor2013` (método degara) | 90 s del centro, a 44,1 kHz |
+| modo | `KeyExtractor` (perfil bgate) | tema entero, a 11.025 Hz |
+| volumen | `LoudnessEBUR128` (integrado, LUFS) | tema entero, a 11.025 Hz |
+| bailabilidad | `Danceability` (DFA) | 90 s del centro, a 44,1 kHz |
+
+- Un tema de 4 minutos tarda unos 4–5 s. Bajar a 11.025 Hz cambia el volumen en menos de 0,2 dB y no cambia la tonalidad.
+- **Escalas provisorias:** el modelo se entrenó con valores de Spotify. La bailabilidad de Essentia (≈0,5–2,5) se convierte con una fórmula lineal provisoria y el volumen en LUFS se toma igual que el de Spotify. El paso 2 las reemplaza por una calibración medida.
+- Licencia: Essentia.js es AGPL-3.0 (uso académico libre; uso comercial requiere licencia del MTG).

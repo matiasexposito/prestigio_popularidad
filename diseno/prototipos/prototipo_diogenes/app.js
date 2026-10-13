@@ -372,6 +372,8 @@
   PINTAR.inicio = () => {
     $('#saludo').textContent = S.usuario ? `, ${S.usuario.nombre.split(' ')[0]}` : '';
     mapa($('#mapa-inicio'), { animar: true });
+    // Precarga Essentia en segundo plano, así el análisis arranca sin esperar la descarga
+    setTimeout(() => window.AnalisisEssentia?.preparar().catch(() => {}), 1200);
   };
 
   const zonaCarga = $('#zona-carga');
@@ -420,7 +422,7 @@
       alertaInicio('Ese archivo no parece de audio. Probá con mp3, wav o flac.');
       return;
     }
-    correrAnalisis(file.name, () => medirAudio(file));
+    correrAnalisis(file.name, () => medirAudio(file), { archivo: true });
   }
 
   function alertaInicio(msg) {
@@ -444,16 +446,17 @@
   }
 
   // Texto vivo de cada paso mientras está en curso. Devuelve una función para cortarlo.
-  function ticker(paso, i) {
+  function ticker(paso, i, archivo = false) {
     const det = $('.paso-detalle', paso);
     det.dataset.original ??= det.textContent;
     if (!MOVIMIENTO) return () => {};
     let id;
     if (i === 0) {
-      const palabras = ['energía', 'volumen', 'tempo', 'duración', 'acústica', 'bailabilidad', 'brillo'];
+      const palabras = archivo ? ['tempo', 'tonalidad', 'volumen', 'bailabilidad', 'energía', 'duración'] : ['energía', 'volumen', 'tempo', 'duración', 'acústica', 'bailabilidad', 'brillo'];
+      const pre = archivo ? 'Essentia.js mide' : 'midiendo';
       let n = 0;
-      const tic = () => { det.innerHTML = `midiendo <em>${palabras[n++ % palabras.length]}</em>…`; };
-      tic(); id = setInterval(tic, 150);
+      const tic = () => { det.innerHTML = `${pre} <em>${palabras[n++ % palabras.length]}</em>…`; };
+      tic(); id = setInterval(tic, archivo ? 260 : 150);
     } else if (i === 1) {
       const t0 = performance.now(), total = 53577;
       const tic = () => {
@@ -472,7 +475,7 @@
 
   const seg = ms => `${coma(ms / 1000, 1)} s`;
 
-  async function correrAnalisis(nombre, obtener) {
+  async function correrAnalisis(nombre, obtener, { archivo = false } = {}) {
     $('#alerta-inicio')?.remove();
     const capa = $('#cargando'), pasos = $$('.paso', capa);
     $('#cargando-nombre').textContent = nombre;
@@ -488,7 +491,7 @@
     reflow(capa);
 
     let parar = () => {};
-    const iniciar = (i, hasta, ms) => { pasos[i].classList.add('actual'); progreso(hasta, ms); parar = ticker(pasos[i], i); return performance.now(); };
+    const iniciar = (i, hasta, ms) => { pasos[i].classList.add('actual'); progreso(hasta, ms); parar = ticker(pasos[i], i, archivo); return performance.now(); };
     const terminar = (i, t, detalle) => {
       parar();
       const det = $('.paso-detalle', pasos[i]);
@@ -498,9 +501,11 @@
     };
 
     try {
-      let t = iniciar(0, 36, 900);
-      const [{ rasgos, fuentes }] = await Promise.all([obtener(), esperar(900)]);
-      terminar(0, t, `${mmss(rasgos.duration_ms)} · ${Math.round(rasgos.tempo)} BPM · ${coma(rasgos.loudness, 1)} dB`);
+      let t = iniciar(0, 36, archivo ? 7000 : 900);
+      const [{ rasgos, fuentes, essentia = null, aviso = null }] = await Promise.all([obtener(), esperar(900)]);
+      terminar(0, t, essentia
+        ? `Essentia.js · ${mmss(rasgos.duration_ms)} · ${Math.round(essentia.bpm)} BPM · ${tonalidad(essentia)} · ${coma(essentia.lufs, 1)} LUFS`
+        : archivo ? `medición básica · ${mmss(rasgos.duration_ms)} · ${Math.round(rasgos.tempo)} BPM` : `${mmss(rasgos.duration_ms)} · ${Math.round(rasgos.tempo)} BPM · ${coma(rasgos.loudness, 1)} dB`);
 
       t = iniciar(1, 72, 700);
       await esperar(700);
@@ -514,7 +519,7 @@
       capa.classList.add('listo');
       $('.cargando-cabeza .rotulo-seccion', capa).textContent = 'Listo';
       await esperar(420);
-      S.analisis = { nombre, rasgos, fuentes };
+      S.analisis = { nombre, rasgos, fuentes, essentia, aviso, archivo };
       S.sim = { ...rasgos };
       S.chat = []; S.ultimoRasgo = null;
       capa.classList.add('saliendo');
@@ -582,8 +587,35 @@
     Object.assign(rasgos, { duration_ms: audio.duration / 60, loudness, tempo: mejor.bpm, energy, acousticness, danceability });
     ['duration_ms', 'loudness', 'tempo'].forEach(k => { fuentes[k] = 'medido'; });
     ['energy', 'acousticness', 'danceability'].forEach(k => { fuentes[k] = 'estimado'; });
-    return { rasgos, fuentes };
+
+    // Paso 1 de Essentia: tempo, modo, volumen y bailabilidad medidos de verdad.
+    // Si Essentia no carga (sin internet), quedan los valores de arriba.
+    let essentia = null, aviso = null;
+    try {
+      if (!window.AnalisisEssentia) throw new Error('falta analisis_essentia.js');
+      essentia = await window.AnalisisEssentia.analizar(audio);
+      if (Number.isFinite(essentia.bpm) && essentia.bpm > 0) { rasgos.tempo = essentia.bpm; fuentes.tempo = 'essentia'; }
+      if (essentia.escala === 'major' || essentia.escala === 'minor') { rasgos.mode = essentia.escala === 'major' ? 1 : 0; fuentes.mode = 'essentia'; }
+      if (Number.isFinite(essentia.lufs)) { rasgos.loudness = clamp(essentia.lufs, -30, -1); fuentes.loudness = 'essentia'; }
+      if (Number.isFinite(essentia.danceabilityDFA)) { rasgos.danceability = bailabilidadSpotify(essentia.danceabilityDFA); fuentes.danceability = 'essentia'; }
+    } catch (err) {
+      console.warn('[P&P] Essentia no disponible, se usa la medición básica:', err);
+      aviso = 'No se pudo cargar Essentia.js (hace falta internet la primera vez). Se usó la medición básica del navegador.';
+    }
+    return { rasgos, fuentes, essentia, aviso };
   }
+
+  /* Conversiones de Essentia a la escala de Spotify (con la que se entrenó el modelo).
+     PROVISORIAS hasta la calibración del paso 2, que las va a reemplazar por una
+     equivalencia medida sobre canciones del dataset.
+     - Bailabilidad: Essentia da ~0,5–2,5 (más alto = más bailable); Spotify va de 0 a 1.
+       Lineal alrededor de la media del corpus (0,58) suponiendo un valor típico de 1,15.
+     - Volumen: Spotify da dB promedio y Essentia LUFS integrados; se toman iguales por ahora. */
+  const bailabilidadSpotify = d => clamp(0.58 + 0.33 * (d - 1.15), 0.05, 0.98);
+
+  const NOTAS = { C: 'Do', 'C#': 'Do♯', Db: 'Re♭', D: 'Re', 'D#': 'Re♯', Eb: 'Mi♭', E: 'Mi', F: 'Fa', 'F#': 'Fa♯', Gb: 'Sol♭',
+    G: 'Sol', 'G#': 'Sol♯', Ab: 'La♭', A: 'La', 'A#': 'La♯', Bb: 'Si♭', B: 'Si' };
+  const tonalidad = e => `${NOTAS[e.tonica] || e.tonica} ${e.escala === 'major' ? 'mayor' : 'menor'}`;
 
   /* ================= Resultado ================= */
 
@@ -614,6 +646,83 @@
       : '';
     mapa($('#mapa-resultado'), { tu: { pop: p.pop.v, pres: p.pres.v }, etiquetas: 'cercanas', animar: true });
   };
+
+  /* ================= Ficha: valores medidos ================= */
+
+  const FUENTES = {
+    essentia: { txt: 'Essentia.js', clase: 'f-essentia' },
+    medido: { txt: 'medido en el navegador', clase: 'f-medido' },
+    estimado: { txt: 'estimado (provisorio)', clase: 'f-estimado' },
+    promedio: { txt: 'promedio del corpus', clase: 'f-promedio' },
+    dataset: { txt: 'dataset (Spotify)', clase: 'f-dataset' },
+  };
+
+  function datosFicha() {
+    const a = S.analisis, p = puntajes(a.rasgos);
+    const r = Object.fromEntries(R.map(k => [k, k === 'duration_ms' ? Math.round(a.rasgos[k] * 60000) : +a.rasgos[k].toFixed(4)]));
+    return {
+      cancion: a.nombre,
+      origen: a.archivo ? 'archivo de audio' : 'dataset',
+      rasgos: r,                       // misma escala que el dataset (duration_ms en milisegundos)
+      fuentes: a.fuentes,
+      essentia: a.essentia ? {
+        version: a.essentia.version,
+        bpm: +a.essentia.bpm.toFixed(2),
+        tonalidad: `${a.essentia.tonica} ${a.essentia.escala}`,
+        fuerza_tonalidad: +a.essentia.fuerzaTono.toFixed(3),
+        loudness_lufs: +a.essentia.lufs.toFixed(2),
+        rango_loudness_lu: +a.essentia.rangoLoudness.toFixed(2),
+        danceability_dfa: +a.essentia.danceabilityDFA.toFixed(3),
+        extracto_ritmo_seg: Math.round(a.essentia.extractoSeg),
+        ms_analisis: a.essentia.ms,
+      } : null,
+      puntajes: { prestigio: +p.pres.v.toFixed(1), popularidad: +p.pop.v.toFixed(1) },
+    };
+  }
+
+  function abrirFicha() {
+    const a = S.analisis, d = $('#ficha');
+    $('#ficha-titulo').textContent = a.nombre;
+    const av = $('#ficha-aviso'); av.hidden = !a.aviso; av.textContent = a.aviso || '';
+    const orden = ['tempo', 'mode', 'loudness', 'danceability', 'duration_ms', 'energy', 'acousticness', 'valence', 'speechiness', 'instrumentalness'];
+    $('#ficha-filas').innerHTML = orden.map((k, i) => {
+      const f = FUENTES[a.fuentes[k]] || { txt: a.fuentes[k], clase: '' };
+      let valor = valorLargo(k, a.rasgos[k]);
+      if (a.fuentes[k] === 'essentia' && k === 'mode') valor = `${tonalidad(a.essentia)}`;
+      if (a.fuentes[k] === 'essentia' && k === 'tempo') valor = `${coma(a.essentia.bpm, 1)} BPM`;
+      if (a.fuentes[k] === 'essentia' && k === 'loudness') valor = `${coma(a.essentia.lufs, 1)} LUFS`;
+      return `<tr style="--i:${i}"><td>${INFO[k].nombre}</td><td class="mono">${valor}</td><td><span class="etiqueta-fuente ${f.clase}">${f.txt}</span></td></tr>`;
+    }).join('');
+    const e = a.essentia;
+    $('#ficha-essentia').innerHTML = e
+      ? `<div class="firma-modelo"><i></i>Essentia.js ${esc(e.version)} · análisis en ${coma(e.ms / 1000, 1)} s</div>
+         <p>Tonalidad <strong>${tonalidad(e)}</strong> (confianza ${coma(e.fuerzaTono, 2)}) · rango dinámico ${coma(e.rangoLoudness, 1)} LU ·
+         bailabilidad cruda ${coma(e.danceabilityDFA, 2)} → <strong>${coma(a.rasgos.danceability, 2)}</strong> en la escala del modelo.</p>
+         <p class="tenue">El tempo y la bailabilidad se miden sobre ${Math.round(e.extractoSeg)} s del centro del tema. La conversión de bailabilidad y volumen a la escala de Spotify es provisoria hasta la calibración (paso 2).</p>`
+      : a.archivo ? '' : '<p class="tenue">Canción del dataset: los valores vienen de Spotify, no de un análisis de audio.</p>';
+    $('#ficha-estado').textContent = '';
+    d.showModal();
+  }
+
+  $('#ver-ficha').addEventListener('click', abrirFicha);
+  $('#ficha').addEventListener('click', e => { if (e.target === e.currentTarget || e.target.closest('[data-cerrar]')) $('#ficha').close(); });
+  $('#ficha-copiar').addEventListener('click', async () => {
+    const txt = JSON.stringify(datosFicha(), null, 2);
+    let ok = false;
+    try { await navigator.clipboard.writeText(txt); ok = true; } catch {
+      const ta = document.createElement('textarea'); ta.value = txt; $('#ficha').append(ta); ta.select();
+      try { ok = document.execCommand('copy'); } catch { /* nada */ } ta.remove();
+    }
+    $('#ficha-estado').textContent = ok ? 'Copiado ✓' : 'No se pudo copiar: usá "Descargar"';
+  });
+  $('#ficha-descargar').addEventListener('click', () => {
+    const datos = datosFicha();
+    const url = URL.createObjectURL(new Blob([JSON.stringify(datos, null, 2)], { type: 'application/json' }));
+    const link = Object.assign(document.createElement('a'), { href: url, download: `pyp_${sinTildes(datos.cancion).replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 60) || 'cancion'}.json` });
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    $('#ficha-estado').textContent = 'Descargado ✓';
+  });
 
   /* ================= Qué suma y qué resta ================= */
 
@@ -648,7 +757,7 @@
     filas.innerHTML = lista.map(({ k, pts }, idx) => {
       const signo = Math.round(pts) > 0 ? 'suma' : Math.round(pts) < 0 ? 'resta' : 'cero';
       const ancho = Math.abs(pts) / maximo * 48;
-      const fuente = a.fuentes[k] !== 'dataset' && a.fuentes[k] !== 'medido' ? `<span class="fuente">${a.fuentes[k]}</span>` : '';
+      const fuente = a.fuentes[k] !== 'dataset' && a.fuentes[k] !== 'medido' ? `<span class="fuente ${a.fuentes[k]}">${a.fuentes[k] === 'essentia' ? 'Essentia' : a.fuentes[k]}</span>` : '';
       return `<div class="fila-rasgo" style="--i:${idx}">
         <div><div class="rasgo-nombre">${INFO[k].nombre}${fuente}</div><div class="rasgo-valor">${valorLargo(k, r[k])}</div></div>
         <div class="barra-efecto"><div class="eje-central"></div>${signo !== 'cero' ? `<div class="relleno ${signo}" style="width:${ancho}%"></div>` : ''}</div>
