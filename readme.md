@@ -16,6 +16,12 @@ Universidad de San Andrés · 2026
 
 ## Sitio
 
+**App publicada (prototipo funcional):**
+
+https://pyp-green.vercel.app
+
+Se puede subir un audio propio (mp3 o wav) o buscar una canción conocida por nombre. Código en [`diseno/prototipos/prototipo_diogenes/`](diseno/prototipos/prototipo_diogenes/).
+
 **Prototipo baja fidelidad:**
 
 https://claude.ai/artifact/DoFVcgcU83Aha2U5JrXdjv
@@ -195,6 +201,37 @@ Quien clone el repositorio corre `npm install` y ya puede ejecutar `codigo/armar
 - **La muestra de premiadas es chica:** 213 canciones. Por eso el margen de error del prestigio es más ancho que el de la popularidad, y la app lo muestra.
 - **El algoritmo de Spotify es una caja negra.** Nunca publicaron cómo calculan estos valores, así que no se pueden reproducir desde cero.
 - **En el grupo de control, el año 1970 hay que leerlo como "1970 o antes".** El dump de Spotify trae el año de la reedición, no el de la grabación original, así que 2.058 de las 4.500 canciones de esa década quedaron amontonadas en 1970 y varias son más viejas. Las otras cinco décadas no tienen este problema.
+
+## El modelo de la app
+
+El análisis histórico usa las seis décadas; **la app se entrena solo con las 23.388 canciones del 2000 en adelante**. El análisis necesita historia porque mide un cambio; la herramienta necesita el presente porque mide una posición.
+
+| Eje | Qué compara | Modelo |
+|---|---|---|
+| **Prestigio** | 212 nominadas a Record o Song of the Year contra 8.870 hits del Hot 100 nunca nominados | Regresión logística |
+| **Popularidad** | Puntaje de chart: 0 si no entra al Hot 100; si entra, su mejor puesto en una escala estirada (#1 = 100, #10 = 50, #100 = 0) | Regresión lineal |
+
+Los puntajes que muestra la app son el percentil de la canción dentro de las 23.388, con un margen de error de 20 remuestreos. Se regeneran con `python3 diseno/prototipos/prototipo_diogenes/generar_modelo.py`.
+
+**Análisis del audio subido**, en el navegador:
+
+| Rasgos | Herramienta | Cómo |
+|---|---|---|
+| Energía, valencia, acústica, bailabilidad, habla, volumen, instrumentalidad | [ReccoBeats](https://reccobeats.com) (API gratuita) | El tema se corta en tramos de 30 s (MP3 estéreo), se promedian y se calibran contra Spotify |
+| Tempo y modo | [Essentia.js](https://mtg.github.io/essentia.js/) | En el navegador, sin servidor |
+| Duración | El navegador | — |
+
+## Cambios del 20 al 27 de octubre de 2026
+
+- **Análisis de audio con ReccoBeats.** Antes, valencia, habla e instrumentalidad quedaban fijas en el promedio del corpus, y energía y acústica eran estimaciones. Ahora se miden en la escala de Spotify, la misma con la que se entrenó el modelo.
+- **Calibración contra Spotify** con 10 canciones del corpus (64 tramos): correlación entre 0,89 y 0,97 en energía, valencia, acústica, bailabilidad y habla. Un solo tramo es una lotería (la valencia de una misma canción va de 0,17 a 0,43 según el tramo), por eso se promedian todos.
+- **El tempo de ReccoBeats no se usa** (correlación −0,36): lo mide Essentia, que acertó 8 de 10.
+- **ReccoBeats solo acepta MP3 estéreo**: rechaza WAV y MP3 mono (error 4002), aunque su documentación diga lo contrario. La app arma el MP3 en el navegador con lamejs.
+- **Modelo reentrenado** con las decisiones del grupo: desde 2000, prestigio = Record y Song of the Year, popularidad = puntaje de chart.
+- **Prestigio contra hits, no contra el grupo de control.** Contra canciones que nunca entraron a ningún ranking, el modelo aprendía "suena a disco profesional" en vez de "suena a Grammy". Por eso la cifra de comparación pasó de 22.383 a **8.870**: los promedios de la Entrega (acústica 0,28 contra 0,19, energía 0,60 contra 0,67, duración 3:57 contra 3:36) ya salían de comparar contra los hits.
+- **El volumen ya no suma prestigio.** Con todas las épocas mezcladas, "Treat Me" de Chlöe recibía +28 puntos de prestigio solo por estar masterizada fuerte: medía "canción reciente", no "Grammy". Con el recorte da +1.
+- **Limpieza:** se descartan 15 hits con volumen menor a −25 dB, cruces rotos con otra versión (por ejemplo, el disco de Bad Bunny de 2025).
+- **App publicada en Vercel.**
 
 ## Estructura del repositorio
 
