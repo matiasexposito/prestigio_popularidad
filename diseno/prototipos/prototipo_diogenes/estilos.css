@@ -473,6 +473,7 @@ input[type=range].movido::-moz-range-thumb { border-color: var(--ambar); }
 .ficha-tabla td:last-child { text-align: right; }
 .etiqueta-fuente { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; background: var(--muted); color: var(--tenue); white-space: nowrap; }
 .etiqueta-fuente.f-essentia { background: var(--azul-claro); color: var(--azul-osc); box-shadow: inset 0 0 0 1px var(--azul-medio); }
+.etiqueta-fuente.f-reccobeats { background: var(--azul-claro); color: var(--azul-osc); box-shadow: inset 0 0 0 1px var(--azul-medio); }
 .etiqueta-fuente.f-medido { background: var(--azul-claro); color: var(--azul-texto); }
 .etiqueta-fuente.f-estimado { background: var(--ambar-claro); color: var(--ambar-texto); }
 .etiqueta-fuente.f-dataset { background: var(--muted); color: var(--texto-2); }

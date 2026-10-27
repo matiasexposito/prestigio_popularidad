@@ -452,8 +452,8 @@
     if (!MOVIMIENTO) return () => {};
     let id;
     if (i === 0) {
-      const palabras = archivo ? ['tempo', 'tonalidad', 'volumen', 'bailabilidad', 'energía', 'duración'] : ['energía', 'volumen', 'tempo', 'duración', 'acústica', 'bailabilidad', 'brillo'];
-      const pre = archivo ? 'Essentia.js mide' : 'midiendo';
+      const palabras = archivo ? ['tempo', 'tonalidad', 'energía', 'valencia', 'acústica', 'bailabilidad', 'volumen', 'duración'] : ['energía', 'volumen', 'tempo', 'duración', 'acústica', 'bailabilidad', 'brillo'];
+      const pre = archivo ? 'Essentia + ReccoBeats miden' : 'midiendo';
       let n = 0;
       const tic = () => { det.innerHTML = `${pre} <em>${palabras[n++ % palabras.length]}</em>…`; };
       tic(); id = setInterval(tic, archivo ? 260 : 150);
@@ -501,10 +501,12 @@
     };
 
     try {
-      let t = iniciar(0, 36, archivo ? 7000 : 900);
-      const [{ rasgos, fuentes, essentia = null, aviso = null }] = await Promise.all([obtener(), esperar(900)]);
-      terminar(0, t, essentia
-        ? `Essentia.js · ${mmss(rasgos.duration_ms)} · ${Math.round(essentia.bpm)} BPM · ${tonalidad(essentia)} · ${coma(essentia.lufs, 1)} LUFS`
+      let t = iniciar(0, 36, archivo ? 15000 : 900);
+      const [{ rasgos, fuentes, essentia = null, reccobeats = null, aviso = null }] = await Promise.all([obtener(), esperar(900)]);
+      terminar(0, t, (essentia || reccobeats)
+        ? [mmss(rasgos.duration_ms),
+           essentia && `${Math.round(essentia.bpm)} BPM · ${tonalidad(essentia)}`,
+           reccobeats && `ReccoBeats · ${reccobeats.tramos} tramos · energía ${coma(rasgos.energy, 2)}`].filter(Boolean).join(' · ')
         : archivo ? `medición básica · ${mmss(rasgos.duration_ms)} · ${Math.round(rasgos.tempo)} BPM` : `${mmss(rasgos.duration_ms)} · ${Math.round(rasgos.tempo)} BPM · ${coma(rasgos.loudness, 1)} dB`);
 
       t = iniciar(1, 72, 700);
@@ -519,7 +521,7 @@
       capa.classList.add('listo');
       $('.cargando-cabeza .rotulo-seccion', capa).textContent = 'Listo';
       await esperar(420);
-      S.analisis = { nombre, rasgos, fuentes, essentia, aviso, archivo };
+      S.analisis = { nombre, rasgos, fuentes, essentia, reccobeats, aviso, archivo };
       S.sim = { ...rasgos };
       S.chat = []; S.ultimoRasgo = null;
       capa.classList.add('saliendo');
@@ -588,21 +590,36 @@
     ['duration_ms', 'loudness', 'tempo'].forEach(k => { fuentes[k] = 'medido'; });
     ['energy', 'acousticness', 'danceability'].forEach(k => { fuentes[k] = 'estimado'; });
 
-    // Paso 1 de Essentia: tempo, modo, volumen y bailabilidad medidos de verdad.
-    // Si Essentia no carga (sin internet), quedan los valores de arriba.
-    let essentia = null, aviso = null;
-    try {
-      if (!window.AnalisisEssentia) throw new Error('falta analisis_essentia.js');
-      essentia = await window.AnalisisEssentia.analizar(audio);
+    // Essentia mide tempo y modo (acierta 8 de 10 contra Spotify). ReccoBeats mide energía,
+    // valencia, acústica, bailabilidad, habla, volumen e instrumentalidad, en la escala de
+    // Spotify y calibrado (ver analisis_reccobeats.js). Corren en paralelo; si alguno falla,
+    // esos rasgos se quedan con la medición básica de arriba.
+    let essentia = null, reccobeats = null;
+    const avisos = [];
+    const [rE, rR] = await Promise.allSettled([
+      window.AnalisisEssentia ? window.AnalisisEssentia.analizar(audio) : Promise.reject(new Error('falta analisis_essentia.js')),
+      window.AnalisisReccoBeats ? window.AnalisisReccoBeats.analizar(audio) : Promise.reject(new Error('falta analisis_reccobeats.js')),
+    ]);
+    if (rE.status === 'fulfilled') {
+      essentia = rE.value;
       if (Number.isFinite(essentia.bpm) && essentia.bpm > 0) { rasgos.tempo = essentia.bpm; fuentes.tempo = 'essentia'; }
       if (essentia.escala === 'major' || essentia.escala === 'minor') { rasgos.mode = essentia.escala === 'major' ? 1 : 0; fuentes.mode = 'essentia'; }
-      if (Number.isFinite(essentia.lufs)) { rasgos.loudness = clamp(essentia.lufs, -30, -1); fuentes.loudness = 'essentia'; }
-      if (Number.isFinite(essentia.danceabilityDFA)) { rasgos.danceability = bailabilidadSpotify(essentia.danceabilityDFA); fuentes.danceability = 'essentia'; }
-    } catch (err) {
-      console.warn('[P&P] Essentia no disponible, se usa la medición básica:', err);
-      aviso = 'No se pudo cargar Essentia.js (hace falta internet la primera vez). Se usó la medición básica del navegador.';
+    } else {
+      console.warn('[P&P] Essentia no disponible:', rE.reason);
+      avisos.push('No se pudo cargar Essentia.js (hace falta internet): el tempo y el modo son una medición básica.');
     }
-    return { rasgos, fuentes, essentia, aviso };
+    if (rR.status === 'fulfilled') {
+      reccobeats = rR.value;
+      for (const k of window.AnalisisReccoBeats.RASGOS) { rasgos[k] = reccobeats.calibrado[k]; fuentes[k] = 'reccobeats'; }
+    } else {
+      console.warn('[P&P] ReccoBeats no disponible:', rR.reason);
+      avisos.push('No se pudo consultar ReccoBeats: energía, acústica y bailabilidad son estimaciones, y valencia y habla quedan en el promedio del corpus.');
+      if (essentia) {   // respaldo: lo que da Essentia, con la conversión provisoria
+        if (Number.isFinite(essentia.lufs)) { rasgos.loudness = clamp(essentia.lufs, -30, -1); fuentes.loudness = 'essentia'; }
+        if (Number.isFinite(essentia.danceabilityDFA)) { rasgos.danceability = bailabilidadSpotify(essentia.danceabilityDFA); fuentes.danceability = 'essentia'; }
+      }
+    }
+    return { rasgos, fuentes, essentia, reccobeats, aviso: avisos.join(' ') || null };
   }
 
   /* Conversiones de Essentia a la escala de Spotify (con la que se entrenó el modelo).
@@ -651,6 +668,7 @@
 
   const FUENTES = {
     essentia: { txt: 'Essentia.js', clase: 'f-essentia' },
+    reccobeats: { txt: 'ReccoBeats (calibrado)', clase: 'f-reccobeats' },
     medido: { txt: 'medido en el navegador', clase: 'f-medido' },
     estimado: { txt: 'estimado (provisorio)', clase: 'f-estimado' },
     promedio: { txt: 'promedio del corpus', clase: 'f-promedio' },
@@ -676,6 +694,11 @@
         extracto_ritmo_seg: Math.round(a.essentia.extractoSeg),
         ms_analisis: a.essentia.ms,
       } : null,
+      reccobeats: a.reccobeats ? {
+        tramos: a.reccobeats.tramos,
+        crudo: Object.fromEntries(Object.entries(a.reccobeats.crudo).map(([k, v]) => [k, +v.toFixed(4)])),
+        ms_analisis: a.reccobeats.ms,
+      } : null,
       puntajes: { prestigio: +p.pres.v.toFixed(1), popularidad: +p.pop.v.toFixed(1) },
     };
   }
@@ -694,12 +717,14 @@
       return `<tr style="--i:${i}"><td>${INFO[k].nombre}</td><td class="mono">${valor}</td><td><span class="etiqueta-fuente ${f.clase}">${f.txt}</span></td></tr>`;
     }).join('');
     const e = a.essentia;
-    $('#ficha-essentia').innerHTML = e
+    $('#ficha-essentia').innerHTML = (e
       ? `<div class="firma-modelo"><i></i>Essentia.js ${esc(e.version)} · análisis en ${coma(e.ms / 1000, 1)} s</div>
          <p>Tonalidad <strong>${tonalidad(e)}</strong> (confianza ${coma(e.fuerzaTono, 2)}) · rango dinámico ${coma(e.rangoLoudness, 1)} LU ·
-         bailabilidad cruda ${coma(e.danceabilityDFA, 2)} → <strong>${coma(a.rasgos.danceability, 2)}</strong> en la escala del modelo.</p>
-         <p class="tenue">El tempo y la bailabilidad se miden sobre ${Math.round(e.extractoSeg)} s del centro del tema. La conversión de bailabilidad y volumen a la escala de Spotify es provisoria hasta la calibración (paso 2).</p>`
-      : a.archivo ? '' : '<p class="tenue">Canción del dataset: los valores vienen de Spotify, no de un análisis de audio.</p>';
+         tempo medido sobre ${Math.round(e.extractoSeg)} s del centro del tema.</p>`
+      : '') + (a.reccobeats
+      ? `<div class="firma-modelo"><i></i>ReccoBeats · ${a.reccobeats.tramos} tramos de 30 s · ${coma(a.reccobeats.ms / 1000, 1)} s</div>
+         <p class="tenue">Energía, valencia, acústica, bailabilidad, habla, volumen e instrumentalidad: promedio de los tramos, corregido con una calibración contra Spotify medida sobre 10 canciones del corpus (correlación 0,89–0,97).</p>`
+      : '') || (a.archivo ? '' : '<p class="tenue">Canción del dataset: los valores vienen de Spotify, no de un análisis de audio.</p>');
     $('#ficha-estado').textContent = '';
     d.showModal();
   }
