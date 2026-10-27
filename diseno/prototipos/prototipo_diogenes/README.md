@@ -9,11 +9,11 @@ Versión navegable del prototipo de baja fidelidad (las 8 pantallas), pasada a c
 | Parte | Estado |
 |---|---|
 | Navegación entre pantallas, cuenta, formulario | Funciona. La cuenta se guarda en el navegador (localStorage) |
-| Puntajes de prestigio y popularidad | **Reales**: dos regresiones logísticas entrenadas con `corpus_v2` + `control_v2`. El puntaje es el percentil dentro de las 53.577 canciones |
+| Puntajes de prestigio y popularidad | **Reales**, entrenados con las 23.388 canciones del 2000 en adelante. Prestigio: 212 nominadas a Record/Song of the Year contra 8.870 hits nunca nominados (regresión logística). Popularidad: puntaje de chart = 0 si no entra al Hot 100, escala estirada del puesto si entra (regresión lineal). El puntaje es el percentil dentro de las 23.388 |
 | Margen de error | 20 remuestreos (bootstrap), con un piso de ±4 puntos |
-| Mapa | 700 canciones al azar del corpus + 17 de referencia, ubicadas con el mismo modelo |
-| Buscar por nombre | 1.825 canciones reales (las que lograron las dos cosas + las que llegaron al #1) |
-| Subir un audio | **Essentia.js** (paso 1) mide tempo, modo (tonalidad mayor/menor), volumen (LUFS) y bailabilidad. Duración se mide en el navegador; energía y acústica son estimaciones; valencia, habla e instrumentalidad quedan en el promedio del corpus. **Pendiente (paso 2): modelos de Essentia para acústica, instrumentalidad y valencia + calibración contra el dataset** |
+| Mapa | 700 canciones al azar (desde 2000) + 19 de referencia, ubicadas con el mismo modelo |
+| Buscar por nombre | 785 canciones reales desde 2000 (las que lograron las dos cosas + las que llegaron al #1) |
+| Subir un audio | **ReccoBeats** (paso 2) mide energía, valencia, acústica, bailabilidad, habla, volumen e instrumentalidad: tramos de 30 s en MP3 estéreo, promediados y calibrados contra Spotify (ver `analisis_reccobeats.js`). **Essentia.js** mide tempo y modo. Duración, en el navegador |
 | Valores medidos | Botón en el resultado: muestra los 10 valores con su fuente y los exporta en JSON (copiar o descargar) |
 | Qué suma y qué resta | Real: cuántos puntos aporta cada rasgo frente a una canción promedio |
 | Simulador | Real: recalcula con el modelo en cada movimiento |
@@ -21,9 +21,10 @@ Versión navegable del prototipo de baja fidelidad (las 8 pantallas), pasada a c
 
 ## Límites del modelo de prototipo
 
-- No normaliza por época ni separa por género.
-- Prestigio se entrena solo dentro de `corpus_v2` (nominadas vs. hits), para que aprenda qué separa a la Academia dentro de la música publicada.
-- El tempo casi no pesa en ninguno de los dos ejes.
+- Solo usa canciones desde 2000: la herramienta mide dónde está parada una canción hoy. Mezclar épocas hacía que el volumen sumara prestigio (las mezclas recientes son más fuertes), que era "canción nueva", no "Grammy".
+- Prestigio se compara contra hits publicados, no contra el grupo de control, para que aprenda qué separa a la Academia dentro de la música publicada y no "suena a disco profesional".
+- Se descartan 15 hits con volumen menor a −25 dB: cruces rotos con otra versión.
+- No separa por género (el dump no lo trae).
 
 ## Archivos
 

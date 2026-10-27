@@ -1,8 +1,8 @@
 /* P&P — prototipo funcional (Diogenes)
  *
  * Todo corre en el navegador, sin servidor:
- *  - modelo.js trae dos regresiones logísticas entrenadas con corpus_v2 + control_v2
- *    (ver generar_modelo.py). Los puntajes son el percentil dentro de 53.577 canciones.
+ *  - modelo.js trae los dos modelos entrenados con las canciones del 2000 en adelante
+ *    (ver generar_modelo.py). Los puntajes son el percentil dentro de esas 23.388 canciones.
  *  - El audio se mide acá mismo con Web Audio: duración, volumen, energía, tempo y
  *    brillo. Lo que el navegador no puede medir queda en el promedio del corpus
  *    hasta conectar librosa.
@@ -94,13 +94,21 @@
     return R.map((k, i) => ({ k, pts: base - percentil(s - m.coef[i + 1] * z[i], m.cuantiles) }));
   }
 
+  // El conflicto: el rasgo que empuja los dos ejes en direcciones opuestas con más fuerza.
+  // Los dos modelos tienen escalas distintas (logística y puntaje de chart), así que cada
+  // coeficiente se compara contra el más fuerte de su propio eje.
+  // La instrumentalidad no compite: en un tema cantado vale casi 0 y "hacerlo instrumental"
+  // no es una decisión real de arreglo.
+  const NO_CONFLICTO = ['instrumentalness'];
+  const maxAbs = c => Math.max(...c.slice(1).map(Math.abs));
   function conflicto(r) {
     const a = aportes('prestigio', r), b = aportes('popularidad', r);
+    const mp = maxAbs(M.prestigio.coef), mq = maxAbs(M.popularidad.coef);
     let mejor = null;
     R.forEach((k, i) => {
       const cp = M.prestigio.coef[i + 1], cq = M.popularidad.coef[i + 1];
-      if (Math.sign(cp) === Math.sign(cq) || !cp || !cq) return;
-      const peso = Math.min(Math.abs(cp), Math.abs(cq));
+      if (NO_CONFLICTO.includes(k) || Math.sign(cp) === Math.sign(cq) || !cp || !cq) return;
+      const peso = Math.min(Math.abs(cp) / mp, Math.abs(cq) / mq);
       if (!mejor || peso > mejor.peso) mejor = { k, peso, cp, cq, ap: a[i].pts, aq: b[i].pts };
     });
     return mejor;
@@ -394,7 +402,7 @@
     visibles = INDICE.filter(x => q.split(/\s+/).every(p => x.clave.includes(p))).slice(0, 8).map(x => x.b);
     listaRes.innerHTML = visibles.length
       ? visibles.map((b, i) => `<li data-i="${i}"><span>${esc(b[0])} — ${esc(b[1])}</span><small>${b[2]}${b[3] ? ' · ganó' : b[4] ? ' · nominada' : ''}</small></li>`).join('')
-      : '<li class="tenue">No está entre las 1.825 buscables (las que lograron las dos cosas o llegaron al #1)</li>';
+      : `<li class="tenue">No está entre las ${M.buscables.length.toLocaleString('es-AR')} buscables (desde 2000: las que lograron las dos cosas o llegaron al #1)</li>`;
     listaRes.hidden = false;
   });
   inputBuscar.addEventListener('keydown', e => {
@@ -458,7 +466,7 @@
       const tic = () => { det.innerHTML = `${pre} <em>${palabras[n++ % palabras.length]}</em>…`; };
       tic(); id = setInterval(tic, archivo ? 260 : 150);
     } else if (i === 1) {
-      const t0 = performance.now(), total = 53577;
+      const t0 = performance.now(), total = M.n;
       const tic = () => {
         const v = Math.round(total * suave(clamp((performance.now() - t0) / 650, 0, 1)));
         det.innerHTML = `comparando contra <em>${v.toLocaleString('es-AR')}</em> canciones`;

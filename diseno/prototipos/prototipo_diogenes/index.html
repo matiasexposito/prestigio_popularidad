@@ -38,7 +38,7 @@
       <div class="marca"><strong>P&amp;P</strong><span>Prestigio &amp; Popularidad</span></div>
       <h1 class="titular">Hay canciones que ganan premios y canciones que llenan estadios.</h1>
       <h1 class="titular gris">Casi nunca son las mismas.</h1>
-      <p class="bajada">Medimos esa diferencia en 53.577 canciones de las últimas seis décadas. Subí tu tema y te mostramos dónde cae entre los dos mundos, y qué lo acerca o lo aleja de cada uno.</p>
+      <p class="bajada">Medimos esa diferencia en seis décadas de música. Subí tu tema y te mostramos dónde cae hoy entre los dos mundos, y qué lo acerca o lo aleja de cada uno.</p>
       <div class="botonera">
         <a href="#crear" class="boton">Crear mi cuenta</a>
         <button type="button" id="ya-tengo" class="boton secundario">Ya tengo cuenta</button>
@@ -55,7 +55,7 @@
       <div class="pila">
         <div class="caja caja-azul">
           <div class="caja-titulo"><i class="swatch azul"></i>Lo que premia la Academia</div>
-          <p>Más largo, menos enérgico, suele ser más melancólico.</p>
+          <p>Más largo, menos enérgico, más acústico.</p>
           <ul class="lista-canciones"><li>Bridge over Troubled Water — Simon &amp; Garfunkel</li><li>Hello — Adele</li><li>Someone Like You — Adele</li></ul>
         </div>
         <div class="caja caja-ambar">
@@ -68,7 +68,7 @@
           <p>Solo <strong>1.071 de 26.577</strong>. Un 4%. Por eso la herramienta no te dice "hacé esto": te muestra que casi siempre hay que elegir.</p>
         </div>
       </div>
-      <div class="pie-datos mono"><span>1958–2026</span><span>53.577 canciones</span></div>
+      <div class="pie-datos mono"><span>2000–2026</span><span>23.388 canciones</span></div>
     </aside>
   </div>
 </section>
@@ -171,7 +171,7 @@
     </div>
 
     <div class="tarjeta col-mapa">
-      <div class="tarjeta-cabeza"><strong>Antes de subir nada, así se lee el mapa</strong><span class="tenue chico">53.577 canciones · 1958–2026</span></div>
+      <div class="tarjeta-cabeza"><strong>Antes de subir nada, así se lee el mapa</strong><span class="tenue chico">23.388 canciones · 2000–2026</span></div>
       <div class="mapa-caja"><svg id="mapa-inicio" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Mapa de prestigio contra popularidad"></svg></div>
       <div class="leyenda">
         <span><i class="ley ley-gano"></i>ganó un Grammy</span>
@@ -227,7 +227,7 @@
     <aside class="col-lateral-derecha">
       <div class="tarjeta">
         <div class="rotulo-seccion">El hallazgo detrás</div>
-        <p>Las nominadas al Grammy son, frente a los hits de su época, <strong>más largas, menos enérgicas y más melancólicas</strong>.</p>
+        <p>Desde el 2000, las nominadas a Record y Song of the Year son, frente a los hits, <strong>más largas (3:57 contra 3:36), menos enérgicas (0,60 contra 0,67) y más acústicas (0,28 contra 0,19)</strong>. La alegría ya no las distingue: el público se movió hacia donde estaba la Academia.</p>
         <p class="tenue chico">De ahí sale la tensión que la app te muestra.</p>
       </div>
       <div class="nota nota-ambar chico"><p>Ámbar para lo que resta y azul para lo que suma. El efecto está en puntos del puntaje.</p></div>
@@ -296,8 +296,8 @@
     <div class="flujo-cuerpo">
       <ol class="flujo-pasos">
         <li class="fp fp-gris"><strong>El usuario sube su canción</strong><p>Un archivo de audio. Puede ser un demo sin publicar, que no existe en ninguna plataforma.</p></li>
-        <li class="fp fp-azul"><strong>Essentia analiza el audio</strong><p>Saca las 10 características: energía, valencia, acústica, duración, bailabilidad, volumen, habla, tempo, modo, instrumentalidad.</p></li>
-        <li class="fp fp-azul"><strong>El modelo calcula los dos puntajes</strong><p>Compara contra 53.577 canciones etiquetadas. Devuelve el prestigio y la popularidad, cada uno con su margen de error.</p></li>
+        <li class="fp fp-azul"><strong>ReccoBeats y Essentia analizan el audio</strong><p>Saca las 10 características: energía, valencia, acústica, duración, bailabilidad, volumen, habla, tempo, modo, instrumentalidad.</p></li>
+        <li class="fp fp-azul"><strong>El modelo calcula los dos puntajes</strong><p>Compara contra 23.388 canciones del 2000 en adelante. Devuelve el prestigio y la popularidad, cada uno con su margen de error.</p></li>
         <li class="fp fp-ambar"><strong>La IA traduce el resultado</strong><p>Recibe los números ya calculados y los pasa a lenguaje de músico. Señala dónde está el conflicto entre los dos ejes.</p></li>
         <li class="fp fp-ambar"><strong>El usuario pregunta, la IA responde</strong><p>Si le preguntan "¿y si bajo la energía?", <strong>no adivina</strong>: le pide al modelo que recalcule y responde con el número real.</p><em class="vuelve">↺ vuelve a consultar el paso 03</em></li>
       </ol>
@@ -306,8 +306,8 @@
         <p>· No decide qué recomendar</p>
         <p>· No inventa datos que el análisis no mide</p>
         <div class="rotulo-seccion" style="margin-top:22px">En este prototipo</div>
-        <p class="chico">El audio se analiza en el navegador con <strong>Essentia.js</strong> (UPF): tempo, modo, volumen y bailabilidad. Energía y acústica son estimaciones; valencia, habla e instrumentalidad usan el promedio del corpus hasta el paso 2 (modelos de Essentia).</p>
-        <p class="chico">Los puntajes salen de dos regresiones logísticas entrenadas con <span class="mono">corpus_v2</span> y <span class="mono">control_v2</span>.</p>
+        <p class="chico">El audio se analiza en el navegador: <strong>ReccoBeats</strong> mide energía, valencia, acústica, bailabilidad, habla, volumen e instrumentalidad (el tema cortado en tramos de 30 s, promediados y calibrados contra Spotify); <strong>Essentia.js</strong> mide tempo y modo.</p>
+        <p class="chico">Los puntajes salen de dos modelos entrenados con las 23.388 canciones del 2000 en adelante. <strong>Prestigio:</strong> 212 nominadas a Record o Song of the Year contra 8.870 hits nunca nominados. <strong>Popularidad:</strong> si entra al Hot 100 y hasta dónde llega (el top 10 vale la mitad del puntaje).</p>
       </aside>
     </div>
   </div>
@@ -363,7 +363,7 @@
       </li>
       <li data-paso="1" class="paso paso-azul">
         <span class="paso-icono"><svg viewBox="0 0 16 16"><path d="M4 8.5l2.5 2.5L12 5.5"/></svg></span>
-        <div class="paso-texto"><b>El modelo calcula los dos puntajes</b><span class="paso-detalle">contra 53.577 canciones etiquetadas</span></div>
+        <div class="paso-texto"><b>El modelo calcula los dos puntajes</b><span class="paso-detalle">contra 23.388 canciones desde 2000</span></div>
         <span class="paso-tiempo mono"></span>
       </li>
       <li data-paso="2" class="paso paso-ambar">
