@@ -143,3 +143,66 @@ Tres problemas del archivo de nominaciones que estaban documentados acá como l�
 **Algunos títulos arrastraban una comilla suelta** — `Layla" (Unplugged Version)`. Ya no.
 
 > ⚠️ **`corpus_v2.csv` todavía no incorpora estas correcciones.** Se armó cruzando la versión anterior del archivo de nominaciones, así que las 20 canciones cuyo artista faltaba siguen sin cruzar contra su sonido. Para incorporarlas hay que volver a correr `cruzar.js` y `armar_corpus_v2.js`, que necesitan el parquet de 4,1 GB.
+
+---
+
+## La ventana de la herramienta: desde el año 2000
+
+Los archivos de esta carpeta tienen **todas las canciones, de 1958 a 2026**. Sirven para el análisis, que mide un cambio a lo largo de las décadas.
+
+**La herramienta usa solo las que son del año 2000 en adelante**, y están en `datasets_procesados/`:
+
+| | Todo | Desde 2000 |
+|---|---|---|
+| `corpus_v2.csv` | 26.577 | **9.903** |
+| `control_v2.csv` | 27.000 | **13.500** |
+| | | **23.403 en total** |
+
+**Por qué el corte.** Hasta los 2000, las canciones premiadas eran más melancólicas que los hits. En los 2010 se emparejaron y en los 2020 se dio vuelta: hoy las premiadas son levemente más alegres. Son dos reglas opuestas, y entrenar con las dos épocas le enseña al modelo el promedio de ambas, que no describe bien a ninguna.
+
+Hay un segundo motivo: las mezclas modernas suenan más fuerte, así que con todas las épocas juntas el volumen sumaba prestigio cuando en realidad estaba midiendo "canción reciente".
+
+---
+
+## Cómo se arman los dos ejes con estas columnas
+
+### El eje de popularidad
+
+Usa tres columnas: `fue_hit`, `mejor_puesto` y `anio`.
+
+Son dos preguntas encadenadas:
+
+1. **¿Entra al chart?** — sale directo de `fue_hit`
+2. **Si entra, ¿hasta dónde?** — sale de `mejor_puesto`, invertido y estirado en la punta
+
+La inversión es necesaria porque en el chart el 1 es lo mejor, y un puntaje tiene que ser alto cuando le va bien. El estirado es porque los puestos no cuestan lo mismo: del 11 al 100 hay unas 300 canciones por puesto, y en el top 10 se dispara.
+
+| Puesto | Puntaje |
+|---|---|
+| 1 | 100 |
+| 10 | 50 |
+| 50 | 15 |
+| 100 | 0 |
+| No entró | 0 |
+
+`anio` **no es popularidad**: es el contexto para normalizar por época.
+
+**Qué no usamos, y por qué:** `semanas_en_chart` quedó afuera porque cambió demasiado de significado — su mediana pasó de 17 semanas en los 2000 a 2 en los 2020, porque el streaming llena el chart de temas que entran una semana y desaparecen.
+
+### El eje de prestigio
+
+Usa dos columnas: `grammy_categorias` y `anio`.
+
+Una sola pregunta binaria: **¿está nominada en una categoría general o no?**
+
+| Grupo | Cómo se arma | Canciones desde 2000 |
+|---|---|---|
+| **Reconocidas** | `grammy_categorias` contiene "Record of the Year" o "Song of the Year" | **213** |
+| **Grupo de comparación** | `grammy_categorias` está vacía **y** `fue_hit` es 1 | **8.883** |
+| **Fuera de este eje** | `grammy_categorias` tiene algo, pero ninguna de las dos generales | 807 |
+
+Esas 807 no van ni arriba ni abajo. No van arriba porque las categorías de género miden género: las nominadas a Best Metal Performance tienen energía 0,94 y acústica 0,002. Y no van abajo porque sería mentira: 126 de ellas ganaron un Grammy. **Se siguen usando normal para el eje de popularidad.**
+
+**`grammy_gano` no se usa en este eje.** Medimos si ganar suena distinto de estar nominada y la diferencia es de 0,04 en acústica, y para el lado contrario — menos de la mitad de la brecha que sí importa. Con 71 ganadoras, distinguirlas sería inventar una precisión que los datos no tienen.
+
+**Nota para quien mire los pesos del modelo:** la valencia va a aparecer en casi cero. No es un error. Con el corte en 2000 quedan mezclados los dos regímenes opuestos —antes las premiadas eran más tristes, ahora más alegres— y se cancelan solos. Lo que de verdad separa a las premiadas es que son **más acústicas, menos enérgicas y más largas**.

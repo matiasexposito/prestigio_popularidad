@@ -192,3 +192,189 @@ El modelo de puntajes se entrenó con los valores de Spotify, y Essentia mide pa
 ### A tener en cuenta: licencia
 
 Essentia.js es AGPL-3.0 y los modelos preentrenados de Essentia son CC BY-NC-SA (no comercial). Para el proyecto académico no hay problema; un uso comercial requeriría licencia del MTG.
+
+
+## 20 de octubre de 2026 — Cómo medimos la popularidad
+
+### Decisión: dos preguntas encadenadas, no un solo puntaje
+
+En vez de un número que mezcle todo, la app responde dos cosas por separado:
+
+1. **¿Entra al Hot 100 o no?** — sí o no
+2. **Si entra, ¿hasta dónde llega?** — un puntaje de 1 a 100
+
+**Por qué así.** El 51,5% de las canciones del corpus apilado nunca entró al chart. En un puntaje único todas quedarían empatadas en cero, y el modelo gastaría la mitad de su esfuerzo aprendiendo a reconocer ceros en vez de distinguir un puesto 60 de un puesto 5.
+
+Y además es lo que el usuario pregunta de verdad: "¿tiene chance de entrar?" y "si entra, ¿cuán arriba?" son dos preguntas distintas. Cada una puede mostrar su propio margen de error, que es más honesto que un solo número con la incertidumbre promediada.
+
+### Decisión: la escala se invierte y se estira en la punta
+
+El chart da el puesto del 1 al 100, donde 1 es lo mejor. Para un puntaje hace falta lo contrario, así que se invierte. Y además se estira la punta:
+
+| Puesto | Inversión simple | Escala estirada |
+|---|---|---|
+| 1 | 100 | **100** |
+| 2 | 99 | **85** |
+| 5 | 96 | **65** |
+| 10 | 91 | **50** |
+| 50 | 51 | 15 |
+| 100 | 1 | 0 |
+
+Con la escala estirada, **el top 10 se lleva la mitad del puntaje**. Con la inversión simple, llegar al puesto 10 daba 91 — casi lo mismo que llegar al 1, lo cual no distingue nada.
+
+**Por qué la estirada refleja mejor la realidad.** Medimos cuántas canciones tuvieron su mejor puesto en cada tramo, sobre las 32.702 de toda la historia del chart:
+
+| Tramo | Canciones | Por cada puesto |
+|---|---|---|
+| **#1** | 1.194 | **1.194** |
+| #2–5 | 2.016 | 504 |
+| #6–10 | 2.101 | 420 |
+| #11–20 | 3.272 | 327 |
+| #21–40 | 5.903 | 295 |
+| #41–70 | 9.131 | 304 |
+| #71–100 | 9.085 | 303 |
+
+Del puesto 11 al 100 está planchado —unas 300 canciones por puesto— y se dispara en el top 10. El #1 tiene cuatro veces la densidad del #2 al 5: la canción que tiene envión para llegar al 2 generalmente termina en el 1.
+
+**Aclaración importante:** esa escala es para **entrenar**, no para mostrar. La app no dice "vas a caer en el puesto 35". Dice cuánto se parece tu canción al perfil de lo que entra al chart. La gradación sirve para que el perfil que el modelo aprende salga más nítido: si solo le decimos "entró o no entró", una canción que llegó al 1 y una que tocó el 99 una semana le enseñan lo mismo.
+
+### Hallazgo: el puesto ya viene normalizado por época
+
+El Hot 100 siempre tuvo exactamente 100 lugares. El puesto 20 de 1965 significa "la vigésima mejor de esa semana de 1965", y el de 2025 lo mismo para su semana. **Es una posición relativa a su propia época por construcción**, no una medición absoluta como el volumen o la energía.
+
+Así que el problema que resolvimos normalizando el sonido no existe acá. Donde sí queda algo es en la primera pregunta, porque entrar al chart no costó lo mismo siempre — pero medido resultó chico: entre 37,5% y 47,5% de canciones que entraron, según la década. Diez puntos de diferencia en seis décadas.
+
+**Decisión:** dejarlo así y medirlo después de entrenar. Si el modelo predice sistemáticamente más alto para unas décadas que para otras, se empareja la mezcla. Si no, no se gastó trabajo arreglando algo que no estaba roto.
+
+### Descartadas: tres variables que parecían útiles
+
+| Variable | Por qué quedó afuera |
+|---|---|
+| Semanas en el chart | Cambió tanto de significado por época que no es comparable: mediana de 17 semanas en los 2000 contra **2 en los 2020**. El streaming llena el chart de temas que entran una semana y desaparecen |
+| Semanas en el mejor puesto | **Mediana 1.** Para la mitad de las canciones el valor es exactamente 1: no distingue nada |
+| Puesto de debut | Aportaba información independiente —es la única casi no correlacionada con las demás— pero el equipo decidió no complicar el eje |
+
+**Dato que quedó anotado sobre el puesto de debut, por si se retoma:** antes se entraba por abajo y se trepaba; hoy se entra alto y se cae. La mediana de debut pasó de #89 en los sesenta a #63 en los 2020, y las entradas directas al top 40 pasaron de 28 a 1.222. La causa es mecánica: sale un disco y todos sus temas chartean una semana por el volumen de streaming del lanzamiento.
+
+
+## 26 de octubre de 2026 — Cómo medimos el prestigio
+
+### Decisión: solo Record of the Year y Song of the Year
+
+De las 14 categorías del Grammy que tenemos, el perfil de prestigio usa **únicamente esas dos**, por dos razones:
+
+**Son las únicas que vota la Academia entera.** En las demás, cada miembro vota solo en el género donde trabaja: los de metal votan metal, los de country votan country. Las dos generales las votan todos.
+
+**Son las únicas que existen desde 1959 sin interrupción.** Varias de las otras arrancan en 1990, 2002 o 2012, así que no sirven para comparar épocas.
+
+### Decisión: las 807 nominadas solo por género quedan fuera de este eje
+
+Son muchas —casi cuatro veces las 213 que usamos— pero miden otra cosa:
+
+| Nominadas a… | Energía | Acústica |
+|---|---|---|
+| **Best Metal Performance** | **0,94** | **0,002** |
+| Best Rock Song | 0,77 | 0,058 |
+| Best Country Song | 0,56 | 0,34 |
+| **Record of the Year** | 0,64 | 0,22 |
+| **Song of the Year** | 0,57 | 0,31 |
+| *(los hits, de referencia)* | *0,67* | *0,19* |
+
+Meterlas en la misma bolsa le enseñaría al modelo que el prestigio suena a metal, que es lo contrario de lo que buscamos. Es el error que ya cometimos una vez y está documentado más arriba.
+
+**Pero tampoco van al grupo de abajo.** Decir que la Academia nunca reconoció a esas canciones sería mentira: 126 de ellas **ganaron un Grammy**. Quedan afuera del entrenamiento de este eje, ni arriba ni abajo, y se siguen usando normal para el eje de popularidad, donde 446 de ellas son hits.
+
+Beneficio secundario: el grupo de abajo queda más limpio, sin colarse ninguna canción que sí fue reconocida.
+
+### Hallazgo: ganar no suena distinto de estar nominada
+
+La idea era hacer una escalera de prestigio: nominada en una categoría vale menos que nominada en las dos, y ganar vale más que todo. Lo medimos y no funciona.
+
+| Escalón | Canciones | Acústica |
+|---|---|---|
+| Nunca nominada | 8.883 | 0,187 |
+| Nominada en una general | 98 | **0,330** |
+| Nominada en las dos | 44 | **0,212** |
+| Ganó | 71 | 0,253 |
+
+**La columna sube, baja y vuelve a subir.** No está ordenada. Estar nominada en las dos categorías no suena más prestigioso que estar en una: suena más parecido al grupo de abajo.
+
+Comparando directo las 71 ganadoras contra las 142 nominadas que no ganaron, la diferencia de acústica es **0,04 y va para el lado contrario** — menos de la mitad de la brecha que sí importa, que es la de 0,09 entre el grupo de abajo y las reconocidas.
+
+**Decisión: el prestigio es binario.** Una sola pregunta: ¿está nominada en una categoría general o no? Intentar distinguir "nominada" de "ganadora" con 71 ejemplos sería inventar una precisión que los datos no tienen.
+
+Esto además confirma con números una decisión que ya habíamos tomado por criterio en agosto: usar nominadas y no solo ganadoras. Una nominación ya es reconocimiento; que de las cinco finalistas gane una depende de campaña, sello y política, cosas que ningún dato acústico captura.
+
+
+## 2 de noviembre de 2026 — El corte en el año 2000
+
+### Decisión: la herramienta usa solo música desde el año 2000
+
+El análisis que prueba la hipótesis sigue usando las seis décadas. La **herramienta**, en cambio, se entrena solo con música desde el 2000.
+
+**Por qué.** El patrón se dio vuelta a mitad de camino. Medimos qué tan alegres son las premiadas comparadas con los hits, década por década, comparando dentro de cada década para que el efecto de época se cancele solo:
+
+| Década | Premiadas | Hits | ¿Quién es más alegre? |
+|---|---|---|---|
+| 1960 | 0,44 | 0,67 | **Los hits**, por mucho |
+| 1970 | 0,47 | 0,67 | Los hits |
+| 1980 | 0,56 | 0,66 | Los hits |
+| 1990 | 0,47 | 0,59 | Los hits |
+| 2000 | 0,48 | 0,55 | Los hits |
+| **2010** | **0,49** | **0,48** | **Empate** |
+| **2020** | **0,50** | **0,46** | **Las premiadas** |
+
+Durante cincuenta años los hits fueron más alegres que las premiadas. En los 2010 se emparejó y en los 2020 se invirtió. **Son dos reglas opuestas**, y entrenar con las dos épocas le enseña al modelo el promedio de ambas, que no describe bien a ninguna.
+
+Y hay un segundo motivo, igual de fuerte: **las mezclas nuevas suenan más fuerte**. Con todas las épocas juntas, el volumen sumaba prestigio — pero en realidad estaba midiendo "canción reciente", no calidad.
+
+**Lo que se mueve fue el público, no la Academia.** Las premiadas se mantuvieron entre 0,44 y 0,50 en sesenta años. Los hits se desplomaron de 0,67 a 0,46. El público se volvió más melancólico y terminó llegando a donde la Academia ya estaba.
+
+### Por qué el año 2000 y no 2010
+
+El cruce ocurrió en los 2010, así que 2010 parecía el corte natural. Pero medimos qué se pierde con cada uno:
+
+| Corte | Canciones premiadas |
+|---|---|
+| Todo (1958) | 483 |
+| **2000** | **213** |
+| 2010 | 142 |
+| 2015 | 107 |
+| 2020 | 68 |
+
+Y comparamos cómo se comportan las características con los dos cortes candidatos:
+
+| Característica | Corte 2000 | Corte 2010 |
+|---|---|---|
+| **Acústica** | **+0,092** | **+0,088** |
+| Energía | −0,067 | −0,062 |
+| Duración | +21 seg | +26 seg |
+| **Valencia** | **−0,005** | +0,025 |
+
+**Todo es prácticamente idéntico salvo la valencia**, que con el corte en 2000 queda neutralizada porque se cancelan los dos regímenes. Pero aun con el corte en 2010 la valencia es débil: +0,025 contra +0,088 de la acústica, que distingue tres veces y media mejor.
+
+**Entonces cortamos en 2000:** se ganan 71 canciones premiadas —un 50% más de evidencia— y lo único que se pierde es una variable que en el período moderno casi no distinguía nada.
+
+**Nota para quien mire los pesos del modelo:** la valencia va a aparecer en casi cero. No es un error — es el resultado de cancelarse dos regímenes opuestos, y es a propósito.
+
+### Decisión: dos conjuntos de datos con dos propósitos
+
+| | Para qué | Qué datos |
+|---|---|---|
+| **El análisis** | Probar la hipótesis: ¿los dos mundos se acercaron o se alejaron? | Las seis décadas, 53.577 canciones |
+| **La herramienta** | Ubicar una canción de hoy contra el perfil de hoy | Desde el 2000, 23.403 canciones |
+
+No es que se tiraron datos. **El análisis necesita historia porque mide un cambio; la herramienta necesita el presente porque mide una posición.**
+
+
+## 2 de noviembre de 2026 — La letra queda para la entrega siguiente
+
+El análisis mide solo el sonido. La letra influye en los dos ejes y todavía no la incorporamos.
+
+**Del lado comercial**, está cuantificado: por cada repetición adicional del estribillo, una canción tiene un 14,5% más de probabilidad de llegar al puesto 1 en lugar de quedarse en el fondo del ranking. Y las letras más simples llegan más alto, sobre todo en los años donde se publica más música — hoy se suben 106.000 canciones por día.
+
+**Del lado del Grammy**, hay que separar los dos premios. **Record of the Year** se da por la grabación: la ejecución y la producción. **Song of the Year** se da a los compositores por la obra, y el reglamento exige que la canción "contenga melodía y letra". O sea que para una de las dos categorías que usamos, estamos midiendo con el sonido algo que el premio juzga por la composición.
+
+**Lo que sabemos hasta ahora juega a favor de lo que hicimos:** un estudio de la Universidad de Nueva York midió que, para Song of the Year y Record of the Year, la letra resulta **menos predictiva que el sonido**. Pesaron más la energía, la acústica y la cantidad de palabra hablada.
+
+El detalle completo, con las fuentes y el plan de trabajo, está en [`la_letra.md`](la_letra.md).
