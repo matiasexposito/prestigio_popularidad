@@ -24,7 +24,7 @@ Versión navegable del prototipo de baja fidelidad (las 8 pantallas), pasada a c
 - Solo usa canciones desde 2000: la herramienta mide dónde está parada una canción hoy. Mezclar épocas hacía que el volumen sumara prestigio (las mezclas recientes son más fuertes), que era "canción nueva", no "Grammy".
 - Prestigio se compara contra hits publicados, no contra el grupo de control, para que aprenda qué separa a la Academia dentro de la música publicada y no "suena a disco profesional".
 - Se descartan 15 hits con volumen menor a −25 dB: cruces rotos con otra versión.
-- No separa por género (el dump no lo trae).
+- No separa por género: el dump no lo trae, y decidimos no incorporarlo.
 
 ## Archivos
 

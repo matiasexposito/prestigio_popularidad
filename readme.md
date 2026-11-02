@@ -174,7 +174,7 @@ Y dentro de esas 9.903: **213 premiadas** en las dos categorías generales, 807 
 
 Esto cumple la promesa de la app: *"tu archivo se analiza y se descarta"*.
 
-**Pendiente de calibración.** El modelo se entrenó con los valores de Spotify, y Essentia mide parecido pero en otra escala. Hay una conversión provisoria, calibrada con 10 canciones. Para la entrega siguiente: más canciones y género musical.
+**Pendiente de calibración.** El modelo se entrenó con los valores de Spotify, y Essentia mide parecido pero en otra escala. Hay una conversión provisoria, calibrada con 10 canciones. Para la entrega siguiente: calibrar con más canciones.
 
 ## Librerías
 

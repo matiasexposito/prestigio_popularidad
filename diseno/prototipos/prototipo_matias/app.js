@@ -236,7 +236,7 @@
     const f = $('#form-usuario'), u = S.usuario;
     if (!u) return;
     f.nombre.value = u.nombre; f.email.value = u.email;
-    ['rol', 'genero', 'busca'].forEach(n => { const el = f.querySelector(`input[name="${n}"][value="${u[n]}"]`); if (el) el.checked = true; });
+    ['rol', 'busca'].forEach(n => { const el = f.querySelector(`input[name="${n}"][value="${u[n]}"]`); if (el) el.checked = true; });
   };
 
   $('#form-usuario').addEventListener('submit', e => {
@@ -250,7 +250,7 @@
     if (Object.keys(errores).length) { f[Object.keys(errores)[0]].focus(); return; }
     S.usuario = {
       nombre: f.nombre.value.trim(), email: f.email.value.trim(),
-      rol: f.rol.value, genero: f.genero.value, busca: f.busca.value,
+      rol: f.rol.value, busca: f.busca.value,
     };
     guardar('pyp_usuario', S.usuario);
     location.hash = 'inicio';
@@ -665,11 +665,7 @@
     tarjetaEje($('#tarjeta-pop'), 'Popularidad', p.pop, 'ambar', 300);
     const foco = c ? ` El conflicto está en ${la(c.k).replace(/^(el|la) /, '$1 <strong>')}</strong>.` : '';
     $('#zona-cayo').innerHTML = `<div class="cayo-rotulo">Tu canción cayó en</div><div class="cayo-zona">${z.nombre}</div><p class="chico">${z.txt}${foco}</p>`;
-    const u = S.usuario;
-    $('#nota-genero').innerHTML = u
-      ? `<strong>Te comparamos contra toda la música.</strong><p>La lectura dentro de ${esc(u.genero.toLowerCase())} llega cuando sumemos el género al dataset: hoy el dump no lo trae.</p>`
-      : '';
-    mapa($('#mapa-resultado'), { tu: { pop: p.pop.v, pres: p.pres.v }, etiquetas: 'cercanas', animar: true });
+        mapa($('#mapa-resultado'), { tu: { pop: p.pop.v, pres: p.pres.v }, etiquetas: 'cercanas', animar: true });
   };
 
   /* ================= Ficha: valores medidos ================= */

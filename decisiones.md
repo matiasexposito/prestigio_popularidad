@@ -378,3 +378,20 @@ El análisis mide solo el sonido. La letra influye en los dos ejes y todavía no
 **Lo que sabemos hasta ahora juega a favor de lo que hicimos:** un estudio de la Universidad de Nueva York midió que, para Song of the Year y Record of the Year, la letra resulta **menos predictiva que el sonido**. Pesaron más la energía, la acústica y la cantidad de palabra hablada.
 
 El detalle completo, con las fuentes y el plan de trabajo, está en [`la_letra.md`](la_letra.md).
+
+
+## 2 de noviembre de 2026 — La comparación por género queda descartada
+
+Más arriba figuraba como "idea evaluada para más adelante": comparar cada canción **dentro de su género** además de contra toda la música, porque decirle a una banda de metal "bajá la energía" es un consejo inútil.
+
+**Se descarta.** No va a estar en la herramienta.
+
+**Lo que había armado en la app y se sacó:**
+
+- La pregunta "¿en qué género te movés?" del formulario de cuenta, con sus ocho opciones
+- El texto que prometía *"con el género te damos dos lecturas — contra toda la música, y dentro de lo tuyo"*
+- El aviso en la pantalla de resultado que decía que la lectura dentro del género "llega cuando sumemos el género al dataset"
+
+**Por qué conviene sacarlo y no dejarlo como pendiente.** Pedir un dato que no se usa es una promesa que la app no cumple. El usuario completa el género esperando que cambie algo, y no cambia nada. Es mejor no preguntarlo.
+
+**El límite sigue en pie y se declara igual:** el modelo no distingue géneros. Eso se dice en la app, pero ahora como una limitación honesta en vez de como una función que está por llegar.
