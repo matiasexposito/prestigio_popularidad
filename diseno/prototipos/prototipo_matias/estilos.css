@@ -168,7 +168,13 @@ strong { font-weight: 600; }
 .columna-angosta { width: min(452px, 100%); display: flex; flex-direction: column; gap: 20px; }
 .formulario { display: flex; flex-direction: column; gap: 18px; padding: 28px 30px; }
 .dos-columnas { display: grid; grid-template-columns: minmax(0, 1fr) 456px; gap: clamp(24px, 3vw, 48px); }
-.tres-columnas { display: grid; grid-template-columns: 400px minmax(0, 1fr) 290px; gap: clamp(18px, 2vw, 32px); }
+.tres-columnas { display: grid; grid-template-columns: clamp(300px, 24vw, 400px) minmax(0, 1fr) clamp(250px, 19vw, 290px); gap: clamp(18px, 2vw, 32px); }
+/* Simulador y resultado entran en un pantallazo: la grilla toma el alto que queda debajo
+   de la barra y, si los controles no entran, scrollea solo esa columna. */
+.tres-columnas, .mapa-manda { grid-template-rows: minmax(0, 1fr); }
+.tres-columnas > *, .mapa-manda > * { min-height: 0; }
+.tres-columnas > .col-controles, .tres-columnas > .col-panel, .mapa-manda > .col-panel { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.tres-columnas > .col-controles { padding-right: 6px; }
 .col-texto { display: flex; flex-direction: column; min-width: 0; }
 .col-panel { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 .col-angosta { gap: 14px; }
@@ -288,6 +294,8 @@ input[type="range"]::-moz-range-thumb {
   .dos-columnas, .mapa-manda { grid-template-columns: minmax(0, 1fr); }
   .tres-columnas { grid-template-columns: minmax(0, 1fr); }
   .mapa-grande { min-height: 340px; }
+  .tres-columnas, .mapa-manda { grid-template-rows: none; }
+  .tres-columnas > *, .mapa-manda > * { overflow-y: visible !important; }
   .pantalla, body { height: auto; }
   .pantalla.activa { min-height: 100%; }
 }
@@ -318,7 +326,6 @@ input[type="range"]::-moz-range-thumb {
 .m-tu-halo { fill: none; stroke: var(--azul); stroke-width: 1.5; stroke-dasharray: 4 3; }
 .m-tu-onda { fill: none; stroke: var(--azul); stroke-width: 1.5; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; animation: onda 2.6s ease-out infinite; }
 .m-tu-texto { font: 700 14px var(--sans); fill: var(--tinta); paint-order: stroke; stroke: var(--fondo); stroke-width: 4px; stroke-linejoin: round; }
-.m-tu-g { transition: transform .2s ease-out; }
 .m-antes { fill: var(--gris-suave); }
 .m-flecha { stroke: var(--azul); stroke-width: 1.5; stroke-dasharray: 4 3; fill: none; }
 @keyframes onda { 0% { transform: scale(.9); opacity: .8; } 100% { transform: scale(3.4); opacity: 0; } }
