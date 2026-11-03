@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qué hace cada pantalla — P&amp;P</title>
+<meta name="description" content="Qué hace cada pantalla. Prestigio &amp; Popularidad.">
+<meta property="og:title" content="Qué hace cada pantalla — P&amp;P">
+<meta property="og:description" content="Prestigio &amp; Popularidad: el sonido del éxito comercial y del reconocimiento de los Grammy.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fondo:#fff; --tinta:#12110f; --texto:#3a3833; --tenue:#6b6862; --tenue-2:#8a8780;
+  --borde:#e6e3dd; --azul:#1b4fd8; --ambar:#b45309; --radio:12px;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --titulo:"Fraunces",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-text-size-adjust:100%}
+.barra{border-bottom:1px solid var(--borde);padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-family:var(--titulo);font-weight:600;font-size:19px;color:var(--tinta);text-decoration:none;letter-spacing:-.01em}
+.barra .sep{width:1px;height:14px;background:var(--borde)}
+.barra a.vinculo{font-size:12.5px;color:var(--tenue);text-decoration:none}
+.barra a.vinculo:hover{color:var(--azul)}
+main{max-width:660px;margin:0 auto;padding:40px 20px 80px}
+h1{font-family:var(--titulo);font-weight:600;font-size:clamp(30px,7vw,40px);line-height:1.12;letter-spacing:-.02em;color:var(--tinta);margin:0 0 28px}
+h2{font-family:var(--titulo);font-weight:600;font-size:clamp(21px,4.6vw,25px);line-height:1.25;letter-spacing:-.01em;color:var(--tinta);margin:44px 0 12px}
+h3{font-family:var(--titulo);font-weight:600;font-size:18px;color:var(--tinta);margin:34px 0 10px}
+h4{font-size:15px;font-weight:600;color:var(--tinta);margin:24px 0 8px}
+p{margin:0 0 16px}
+strong{color:var(--tinta);font-weight:600}
+em{font-style:italic}
+a{color:var(--azul)}
+code{font-family:var(--mono);font-size:.88em;background:#f5f3f0;border:1px solid var(--borde);border-radius:5px;padding:1px 5px;color:var(--tinta)}
+hr{border:0;border-top:1px solid var(--borde);margin:36px 0}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin:0 0 8px}
+blockquote{margin:0 0 20px;padding:14px 18px;border-left:3px solid var(--ambar);background:#fdf8f1;border-radius:0 var(--radio) var(--radio) 0;color:var(--texto)}
+blockquote p:last-child{margin:0}
+.tabla-caja{overflow-x:auto;margin:0 0 22px;border:1px solid var(--borde);border-radius:var(--radio)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--borde);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--tenue-2);font-weight:500;background:#faf9f7}
+.pie{max-width:660px;margin:0 auto;padding:0 20px 60px;font-size:12.5px;color:var(--tenue-2);line-height:1.6}
+.pie a{color:var(--tenue)}
+@media(max-width:560px){main{padding:28px 18px 60px}body{font-size:16.5px}}
+</style>
+</head>
+<body>
+<nav class="barra">
+  <a class="logo" href="/">P&amp;P</a>
+  <span class="sep"></span>
+  <a class="vinculo" href="/">la app</a>
+  <a class="vinculo" href="/la-pagina">las pantallas</a>
+  <a class="vinculo" href="/decisiones-de-diseno">el diseño</a>
+  <a class="vinculo" href="/la-letra">la letra</a>
+</nav>
+<main>
+<h1>Qué hace cada pantalla</h1>
+<p>Guía corta de la aplicación, para alguien que la abre por primera vez.</p>
+<p><strong>Qué es.</strong> Una herramienta web donde subís una canción y te dice a cuál de dos mundos se parece: el que premia la Academia del Grammy y el que triunfa en el ranking de Billboard. No predice si vas a ganar un premio ni si vas a ser un éxito. Te dice dónde estás parado.</p>
+<p><strong>Cómo abrirla.</strong> Doble clic en <code>index.html</code>. No necesita servidor ni instalar nada.</p>
+<hr>
+<h2>El recorrido, pantalla por pantalla</h2>
+<h3>1 · Ingresar</h3>
+<p>El logo, dos líneas de color y un botón. Nada más.</p>
+<p>Las dos líneas —una azul y una ámbar— son el código de color de toda la app: <strong>azul es el eje de la popularidad y lo que te suma, ámbar es el eje del prestigio y lo que te resta.</strong> Aparecen acá para que el ojo ya las reconozca cuando las vuelva a ver.</p>
+<h3>2 · Los dos mundos</h3>
+<p>Antes de pedirte nada, te mostramos qué vamos a medir.</p>
+<p>Dos tarjetas enfrentadas: lo que premia la Academia —más largo, menos enérgico, más acústico— y lo que escucha el público —más enérgico, más fuerte, más corto—. Cada una con tres canciones de ejemplo que vas a reconocer.</p>
+<p>Abajo, el dato que explica por qué el proyecto existe: <strong>de 23.388 canciones desde el año 2000, solo 627 lograron las dos cosas.</strong> Un 3%.</p>
+<h3>3 · Crear cuenta</h3>
+<p>Dos campos: cómo querés que te llamemos y tu email. Sirve para guardar tus análisis.</p>
+<p>No te pedimos el género ni a qué te dedicás, y está dicho en la pantalla: el análisis mide solo cómo suena la canción, así que esos datos no cambiarían el resultado.</p>
+<h3>4 · Subir la canción</h3>
+<p>Arrastrás un archivo o elegís una canción que ya analizamos.</p>
+<p>Puede ser un demo sin publicar. <strong>Tu archivo no sale de tu computadora</strong>: se analiza en el navegador y se descarta.</p>
+<p>Si en vez de subir algo preferís probar con una canción conocida, el buscador tiene las que ya analizamos. Son todas <strong>del 2000 en adelante</strong>, que es la ventana con la que trabaja la herramienta.</p>
+<p>Al costado está el proceso en tres pasos, para que sepas qué va a pasar: ReccoBeats y Essentia miden 10 rasgos del sonido, el modelo calcula los dos puntajes con su margen, y te mostramos qué suma y qué resta en cada eje.</p>
+<h3>5 · Resultado</h3>
+<p>La pantalla principal.</p>
+<p><strong>Los dos puntajes</strong>, cada uno con su margen de error. El margen no es un detalle: con 213 canciones premiadas, el puntaje de prestigio es una estimación y la app lo dice.</p>
+<p><strong>El mapa</strong>, que ocupa la mayor parte de la pantalla. Cada punto es una canción, ubicada según sus dos puntajes. Tu canción aparece marcada entre canciones conocidas, así ves de un vistazo en qué compañía caíste.</p>
+<p><strong>La lectura</strong>, en el recuadro ámbar, que pasa los dos números a una frase: en qué zona del mapa caíste y qué rasgo te está tensionando los dos ejes.</p>
+<h3>6 · Qué suma y qué resta</h3>
+<p>Diez columnas, una por cada rasgo del sonido, como los controles de una consola de mezcla.</p>
+<p>En cada columna: el nombre del rasgo arriba con su valor, una barra vertical en el medio, y abajo cuántos puntos aporta. <strong>La barra sube en azul si ese rasgo te suma, y baja en ámbar si te resta.</strong></p>
+<p>Al costado, <strong>tu conflicto</strong>: el rasgo que te empuja hacia un mundo y te aleja del otro. Casi siempre hay uno.</p>
+<h3>7 · Simular cambios</h3>
+<p>Movés los controles y los dos puntajes se recalculan en vivo con el mismo modelo.</p>
+<p>Es la pantalla donde se entiende el proyecto: <strong>no hay una sola dirección que mejore los dos puntajes.</strong> Subir la acústica te acerca al premio y te saca del chart.</p>
+<hr>
+<h2>Tres cosas que la app nunca hace</h2>
+<p><strong>No predice.</strong> Dice cuánto se parece tu canción a cada perfil. Un Grammy depende además del sello, la campaña y el momento, y un hit también.</p>
+<p><strong>No inventa lo que no mide.</strong> No mira la letra, ni quién sos, ni cuántos seguidores tenés. Solo cómo suena.</p>
+<p><strong>No conversa.</strong> No hay un chat. Todo lo que la app dice sale de un número que calculó, y está escrito al lado de ese número.</p>
+</main>
+<footer class="pie">
+  P&amp;P — Prestigio &amp; Popularidad. Matías Expósito, Tomás Kelly y Diógenes Ustariz.
+  <a href="/">Volver a la app</a>.
+</footer>
+</body>
+</html>

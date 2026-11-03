@@ -14,15 +14,15 @@ Guía corta de la aplicación, para alguien que la abre por primera vez.
 
 El logo, dos líneas de color y un botón. Nada más.
 
-Las dos líneas —una azul y una ámbar— son el código de color de toda la app: **azul es lo que calcula el modelo, ámbar es lo que traduce la inteligencia artificial.** Aparecen acá para que el ojo ya las reconozca cuando las vuelva a ver.
+Las dos líneas —una azul y una ámbar— son el código de color de toda la app: **azul es el eje de la popularidad y lo que te suma, ámbar es el eje del prestigio y lo que te resta.** Aparecen acá para que el ojo ya las reconozca cuando las vuelva a ver.
 
 ### 2 · Los dos mundos
 
 Antes de pedirte nada, te mostramos qué vamos a medir.
 
-Dos tarjetas enfrentadas: lo que premia la Academia —más largo, menos enérgico, más acústico— y lo que escucha el público —más enérgico, más bailable, más corto—. Cada una con tres canciones de ejemplo que vas a reconocer.
+Dos tarjetas enfrentadas: lo que premia la Academia —más largo, menos enérgico, más acústico— y lo que escucha el público —más enérgico, más fuerte, más corto—. Cada una con tres canciones de ejemplo que vas a reconocer.
 
-Abajo, el dato que explica por qué el proyecto existe: **de 26.577 canciones, solo 1.071 lograron las dos cosas.** Un 4%.
+Abajo, el dato que explica por qué el proyecto existe: **de 23.388 canciones desde el año 2000, solo 627 lograron las dos cosas.** Un 3%.
 
 ### 3 · Crear cuenta
 
@@ -36,7 +36,9 @@ Arrastrás un archivo o elegís una canción que ya analizamos.
 
 Puede ser un demo sin publicar. **Tu archivo no sale de tu computadora**: se analiza en el navegador y se descarta.
 
-Al costado está el proceso en tres pasos, para que sepas qué va a pasar: se miden 10 rasgos del sonido, el modelo calcula los dos puntajes, y la IA traduce el resultado.
+Si en vez de subir algo preferís probar con una canción conocida, el buscador tiene las que ya analizamos. Son todas **del 2000 en adelante**, que es la ventana con la que trabaja la herramienta.
+
+Al costado está el proceso en tres pasos, para que sepas qué va a pasar: ReccoBeats y Essentia miden 10 rasgos del sonido, el modelo calcula los dos puntajes con su margen, y te mostramos qué suma y qué resta en cada eje.
 
 ### 5 · Resultado
 
@@ -46,7 +48,7 @@ La pantalla principal.
 
 **El mapa**, que ocupa la mayor parte de la pantalla. Cada punto es una canción, ubicada según sus dos puntajes. Tu canción aparece marcada entre canciones conocidas, así ves de un vistazo en qué compañía caíste.
 
-**La lectura de la IA**, en ámbar, que traduce los dos números a una frase.
+**La lectura**, en el recuadro ámbar, que pasa los dos números a una frase: en qué zona del mapa caíste y qué rasgo te está tensionando los dos ejes.
 
 ### 6 · Qué suma y qué resta
 
@@ -62,16 +64,12 @@ Movés los controles y los dos puntajes se recalculan en vivo con el mismo model
 
 Es la pantalla donde se entiende el proyecto: **no hay una sola dirección que mejore los dos puntajes.** Subir la acústica te acerca al premio y te saca del chart.
 
-### 8 · El asistente
-
-Le podés preguntar sobre tu análisis.
-
-Sabe los 10 rasgos de tu canción, tus dos puntajes, qué rasgo pesó más y qué canciones caen cerca tuyo. **Si le preguntás algo que el análisis no mide —tu sello, tu campaña, la letra— te dice que eso queda afuera.** No inventa.
-
 ---
 
-## Dos cosas que la app nunca hace
+## Tres cosas que la app nunca hace
 
 **No predice.** Dice cuánto se parece tu canción a cada perfil. Un Grammy depende además del sello, la campaña y el momento, y un hit también.
 
 **No inventa lo que no mide.** No mira la letra, ni quién sos, ni cuántos seguidores tenés. Solo cómo suena.
+
+**No conversa.** No hay un chat. Todo lo que la app dice sale de un número que calculó, y está escrito al lado de ese número.

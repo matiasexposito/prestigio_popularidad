@@ -1,5 +1,5 @@
 """
-Genera modelo.js para el prototipo funcional de Diogenes.
+Genera modelo.js para la app (prototipo_matias; nacio en el de Diogenes).
 
 Sigue las decisiones del grupo (ver entregas y decisiones.md):
 
@@ -23,17 +23,21 @@ Sigue las decisiones del grupo (ver entregas y decisiones.md):
     "no reconocidas", pero tampoco miden prestigio (Best Metal Performance mide metal).
     Regresión logística con pesos balanceados.
 
-  POPULARIDAD — dos preguntas encadenadas, en un solo puntaje de chart:
-    1. ¿Entra al Hot 100?  Si no entra, el puntaje es 0.
-    2. Si entra, ¿hasta dónde llega?  Escala estirada del puesto:
+  POPULARIDAD — dos preguntas encadenadas, cada una con su propio modelo:
+    1. ¿Entra al Hot 100?  Regresión logística (pesos balanceados) sobre todas las
+       canciones: hits contra las que nunca entraron (grupo de control). Da P(entra).
+    2. Si entra, ¿hasta dónde llega?  Regresión lineal aprendida SOLO entre los hits,
+       sobre la escala estirada del puesto:
        100·(1 − ln(puesto)/ln(100)) → #1=100, #2=85, #5=65, #10=50, #50=15, #100=0.
        El top 10 se lleva la mitad del puntaje.
-    El modelo (regresión lineal) aprende ese puntaje esperado = P(entra) × hasta dónde
-    llega, sobre todas las canciones (hits + grupo de control). Es lineal en las
-    características, así que la app puede decir cuánto aporta cada rasgo.
-    Se probó combinar dos modelos separados (logística + lineal) con el mismo peso: le
-    daba demasiada voz a la pregunta 2, que es la más débil (correlación 0,18), y la
-    duración terminaba sumando en los dos ejes a la vez.
+    Puntaje = P(entra) × hasta dónde llega (acotado a 0–100).
+    Antes (hasta el 02/11/2026) era UNA sola regresión lineal sobre ese puntaje con
+    0 para las que no entraron. Como la mayoría son ceros, la recta se gastaba en
+    "entra / no entra" y aplastaba las diferencias entre hits: Despacito daba 42 de
+    popularidad y Shape Of You 44. Encadenando: 62 y 82. Mejora en todo lo medido
+    (AUC 0,752→0,762; correlación con el chart 0,263→0,316; entre hits 0,066→0,121).
+    Lo que NO arregla: filas con datos rotos (Havana figura con instrumentalidad 0,92
+    y −12 dB, que es una versión instrumental mal cruzada). Eso es limpieza de datos.
 
   Volumen: se queda en el modelo. Sacarlo baja el acierto de popularidad (0,75 → 0,72)
   y no cambia las conclusiones de prestigio, donde ahora casi no pesa (+0,16).
@@ -114,15 +118,24 @@ for _ in range(20):
     i = remuestreo(len(Zp))
     boots_pres.append(logistica(Zp[i], yp[i]).round(4).tolist())
 
-# ---------- Popularidad ----------
-chart = np.where(hit == 1, escala, 0.0)                         # 0 si no entra
-b_pop = lineal(Z, chart)
-boots_pop = []
+# ---------- Popularidad: dos preguntas encadenadas ----------
+chart = np.where(hit == 1, escala, 0.0)                         # 0 si no entra (para medir)
+eh = hit == 1
+b_entra = logistica(Z, hit)                                     # 1. ¿entra?
+b_llega = lineal(Z[eh], escala[eh])                             # 2. si entra, ¿hasta dónde?
+
+def puntaje_pop(Am, b1, b2):
+    p1 = 1 / (1 + np.exp(-(Am @ b1)))
+    return p1 * np.clip(Am @ b2, 0, 100)
+
+boots_pop = []                                                  # pares [entra, llega]
 for _ in range(20):
     i = remuestreo(len(filas))
-    boots_pop.append(lineal(Z[i], chart[i]).round(4).tolist())
+    ih = i[eh[i]]
+    boots_pop.append([logistica(Z[i], hit[i]).round(4).tolist(),
+                      lineal(Z[ih], escala[ih]).round(4).tolist()])
 
-s_pres, s_pop = A @ b_pres, A @ b_pop
+s_pres, s_pop = A @ b_pres, puntaje_pop(A, b_entra, b_llega)
 q_pres = np.quantile(s_pres, np.linspace(0, 1, 201)).round(4).tolist()
 q_pop = np.quantile(s_pop, np.linspace(0, 1, 201)).round(4).tolist()
 
@@ -178,8 +191,9 @@ for g in ['hit', 'ambas', 'premiada', 'control']:
 modelo = {
     'rasgos': FEATS, 'media': media.round(5).tolist(), 'desv': desv.round(5).tolist(),
     'prestigio': {'coef': b_pres.round(4).tolist(), 'boots': boots_pres, 'cuantiles': q_pres},
-    'popularidad': {'coef': b_pop.round(4).tolist(), 'boots': boots_pop, 'cuantiles': q_pop,
-                    'objetivo': 'puntaje de chart: 0 si no entra; si entra, 100·(1 − ln(puesto)/ln(100))'},
+    'popularidad': {'coef': b_entra.round(4).tolist(), 'coef2': b_llega.round(4).tolist(),
+                    'boots': boots_pop, 'cuantiles': q_pop,
+                    'objetivo': 'P(entra al Hot 100) × hasta dónde llega: 100·(1 − ln(puesto)/ln(100)), aprendido entre los hits'},
     'fondo': fondo, 'referencias': refs, 'buscables': buscables, 'grupos': grupos,
     'n': len(filas), 'anio_min': ANIO_MIN,
     'n_reconocidas': int(general.sum()), 'n_nunca': int(nunca.sum()),
@@ -192,9 +206,16 @@ print(f'canciones desde {ANIO_MIN}: {len(filas)}  (descartadas por cruce roto: {
 print(f'prestigio: {general.sum()} reconocidas (Record/Song of the Year) contra {nunca.sum()} hits nunca nominados')
 print(f'popularidad: {hit.sum()} hits contra {len(filas) - hit.sum()} que no entraron')
 print('acierto (AUC) prestigio:', round(auc(Zp @ b_pres[1:], yp), 3),
-      '| popularidad, separa hits del resto:', round(auc(Z @ b_pop[1:], hit), 3),
-      '| correlación con el puntaje de chart:', round(np.corrcoef(s_pop, chart)[0, 1], 3))
-for nom, b in [('prestigio', b_pres), ('popularidad', b_pop)]:
+      '| popularidad, separa hits del resto:', round(auc(s_pop, hit), 3),
+      '| correlación con el puntaje de chart:', round(np.corrcoef(s_pop, chart)[0, 1], 3),
+      '| entre hits, con el puesto:', round(np.corrcoef(s_pop[eh], escala[eh])[0, 1], 3))
+for nom, b in [('prestigio', b_pres), ('popularidad 1 (entra)', b_entra), ('popularidad 2 (llega)', b_llega)]:
     print(nom, {f: round(c, 2) for f, c in zip(FEATS, b[1:])})
+# Promedios que usa la pantalla de bienvenida: reconocidas (Record/Song) contra hits nunca nominados
+print('reconocidas vs nunca nominadas (desde 2000):')
+for f_ in FEATS:
+    j = FEATS.index(f_)
+    print(f'  {f_:17s} reconocidas {X[general, j].mean():7.3f} | nunca {X[nunca, j].mean():7.3f}')
+print('ambas (premio + hit) desde 2000:', sum(r['grupo'] == 'ambas' for r in filas), 'de', len(filas))
 print('buscables:', len(buscables))
 print('referencias:', len(refs), [(r['titulo'], r['pop'], r['pres']) for r in refs])

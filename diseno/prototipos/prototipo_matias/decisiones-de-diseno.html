@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Las decisiones de diseño — P&amp;P</title>
+<meta name="description" content="Las decisiones de diseño. Prestigio &amp; Popularidad.">
+<meta property="og:title" content="Las decisiones de diseño — P&amp;P">
+<meta property="og:description" content="Prestigio &amp; Popularidad: el sonido del éxito comercial y del reconocimiento de los Grammy.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fondo:#fff; --tinta:#12110f; --texto:#3a3833; --tenue:#6b6862; --tenue-2:#8a8780;
+  --borde:#e6e3dd; --azul:#1b4fd8; --ambar:#b45309; --radio:12px;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --titulo:"Fraunces",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-text-size-adjust:100%}
+.barra{border-bottom:1px solid var(--borde);padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-family:var(--titulo);font-weight:600;font-size:19px;color:var(--tinta);text-decoration:none;letter-spacing:-.01em}
+.barra .sep{width:1px;height:14px;background:var(--borde)}
+.barra a.vinculo{font-size:12.5px;color:var(--tenue);text-decoration:none}
+.barra a.vinculo:hover{color:var(--azul)}
+main{max-width:660px;margin:0 auto;padding:40px 20px 80px}
+h1{font-family:var(--titulo);font-weight:600;font-size:clamp(30px,7vw,40px);line-height:1.12;letter-spacing:-.02em;color:var(--tinta);margin:0 0 28px}
+h2{font-family:var(--titulo);font-weight:600;font-size:clamp(21px,4.6vw,25px);line-height:1.25;letter-spacing:-.01em;color:var(--tinta);margin:44px 0 12px}
+h3{font-family:var(--titulo);font-weight:600;font-size:18px;color:var(--tinta);margin:34px 0 10px}
+h4{font-size:15px;font-weight:600;color:var(--tinta);margin:24px 0 8px}
+p{margin:0 0 16px}
+strong{color:var(--tinta);font-weight:600}
+em{font-style:italic}
+a{color:var(--azul)}
+code{font-family:var(--mono);font-size:.88em;background:#f5f3f0;border:1px solid var(--borde);border-radius:5px;padding:1px 5px;color:var(--tinta)}
+hr{border:0;border-top:1px solid var(--borde);margin:36px 0}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin:0 0 8px}
+blockquote{margin:0 0 20px;padding:14px 18px;border-left:3px solid var(--ambar);background:#fdf8f1;border-radius:0 var(--radio) var(--radio) 0;color:var(--texto)}
+blockquote p:last-child{margin:0}
+.tabla-caja{overflow-x:auto;margin:0 0 22px;border:1px solid var(--borde);border-radius:var(--radio)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--borde);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--tenue-2);font-weight:500;background:#faf9f7}
+.pie{max-width:660px;margin:0 auto;padding:0 20px 60px;font-size:12.5px;color:var(--tenue-2);line-height:1.6}
+.pie a{color:var(--tenue)}
+@media(max-width:560px){main{padding:28px 18px 60px}body{font-size:16.5px}}
+</style>
+</head>
+<body>
+<nav class="barra">
+  <a class="logo" href="/">P&amp;P</a>
+  <span class="sep"></span>
+  <a class="vinculo" href="/">la app</a>
+  <a class="vinculo" href="/la-pagina">las pantallas</a>
+  <a class="vinculo" href="/decisiones-de-diseno">el diseño</a>
+  <a class="vinculo" href="/la-letra">la letra</a>
+</nav>
+<main>
+<h1>Las decisiones de diseño</h1>
+<p>La página la escribió una IA, pero el diseño lo decidimos nosotros. Acá está lo que le pedimos y por qué.</p>
+<hr>
+<h2>Los colores</h2>
+<p>Le pedimos dos colores y nada más: un azul (<code>#1b4fd8</code>) y un ámbar (<code>#b45309</code>). Todo lo demás, blanco, negro y gris.</p>
+<p>Los dos colores son los dos ejes. El azul es la popularidad y lo que te suma; el ámbar es el prestigio y lo que te resta. Son los mismos en todas las pantallas.</p>
+<p>Pedimos que el resto fuera monocromo a propósito. Si hubiera cinco colores más, el ámbar no significaría nada.</p>
+<hr>
+<h2>Las tipografías</h2>
+<p>Pedimos tres, cada una para una cosa:</p>
+<ul><li><strong>Fraunces</strong> para los títulos. Nos gustó porque es de revista, no de informe. La sacamos de Google Fonts.</li><li><strong>Inter</strong> para los textos. Es la más común para leer en pantalla y no compite con el título.</li><li><strong>IBM Plex Mono</strong> para todos los números, sin excepción.</li></ul>
+<p>Lo de la monoespaciada en los números fue un pedido nuestro. Nos gustó que queden alineados en columna y se comparen de un vistazo. Y es la letra de los aparatos que miden, que es lo que hace la app.</p>
+<hr>
+<h2>El fondo y las esquinas</h2>
+<p>Primero probamos un fondo crema. Lo cambiamos a blanco: el crema hacía que pareciera un documento, y el mapa tiene cientos de puntos que se leen mejor sobre blanco.</p>
+<p>Pedimos esquinas redondeadas de 12 píxeles en las tarjetas, y los botones en forma de píldora. Todo recto quedaba muy duro para una app de música.</p>
+<hr>
+<h2>El mapa grande</h2>
+<p>Le pedimos que en la pantalla de resultado el mapa ocupe casi todo y los números queden al costado.</p>
+<p>Lo discutimos, porque lo lógico sería poner los números arriba. Pero dos porcentajes sueltos no dicen nada: "83 de prestigio" recién significa algo cuando ves que estás al lado de <em>Hello</em> y lejos de <em>Despacito</em>.</p>
+<hr>
+<h2>Los rasgos en vertical</h2>
+<p>Esta pantalla primero era una tabla, una fila por rasgo. Le pedimos que la diera vuelta.</p>
+<p>Ahora son columnas verticales: el nombre arriba, una barra que sube o baja desde el centro, y abajo cuánto suma o resta. Lo pedimos así porque <strong>se parece a una consola de mezcla</strong>, que es el aparato que un músico ya conoce. Y porque en vertical comparás las diez de un golpe.</p>
+<hr>
+<h2>El margen de error a la vista</h2>
+<p>Pedimos que los dos puntajes muestren siempre su margen, no un número solo.</p>
+<p>El prestigio se entrena con 213 canciones, que son pocas. Mostrar "83" solo sería fingir una precisión que no tenemos. "83, entre 78 y 87" dice la verdad.</p>
+<hr>
+<h2>La pantalla del conflicto</h2>
+<p>Esta no estaba planeada. La pedimos cuando vimos que la acústica suma prestigio y resta popularidad.</p>
+<p>Si la app diera dos números nada más, el usuario podría pensar que tiene que subir los dos. Esta pantalla le dice que tiene que elegir.</p>
+<hr>
+<h2>El simulador tenía que calcular de verdad</h2>
+<p>Le pedimos que cuando movés un control, los puntajes se recalculen con el mismo modelo, no con una animación inventada.</p>
+<p>Si la app dice "bajá la energía y subís 5 puntos", esos 5 puntos tienen que salir del modelo. Y en el mapa queda marcado dónde estabas antes: esa diagonal explica el conflicto mejor que cualquier texto.</p>
+<hr>
+<h2>Sacamos el chatbot</h2>
+<p>Había un asistente al costado del resultado. Lo sacamos.</p>
+<p>No era una IA de verdad: era una lista de preguntas previstas con sus respuestas escritas. Si le preguntabas con otras palabras, no entendía. Un cuadro de chat promete que del otro lado hay alguien que entiende, y el nuestro no cumplía esa promesa.</p>
+<p>Decidimos que o es una IA de verdad que sabe de música, o no va. Por ahora no va.</p>
+<hr>
+<h2>Lo que dejamos afuera a propósito</h2>
+<ul><li><strong>Modo oscuro.</strong> El mapa tiene cientos de puntos de cuatro colores y en oscuro se mezclan.</li><li><strong>Degradés y sombras de color.</strong> La app muestra mediciones; un adorno que sugiera algo que el dato no dice es un problema, no una mejora.</li><li><strong>Íconos decorativos.</strong> Están solo los dos que dicen algo rápido: la flecha de subir y el candado de privacidad.</li></ul>
+</main>
+<footer class="pie">
+  P&amp;P — Prestigio &amp; Popularidad. Matías Expósito, Tomás Kelly y Diógenes Ustariz.
+  <a href="/">Volver a la app</a>.
+</footer>
+</body>
+</html>

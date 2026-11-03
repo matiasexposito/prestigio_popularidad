@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cómo impacta la letra — P&amp;P</title>
+<meta name="description" content="Cómo impacta la letra. Prestigio &amp; Popularidad.">
+<meta property="og:title" content="Cómo impacta la letra — P&amp;P">
+<meta property="og:description" content="Prestigio &amp; Popularidad: el sonido del éxito comercial y del reconocimiento de los Grammy.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fondo:#fff; --tinta:#12110f; --texto:#3a3833; --tenue:#6b6862; --tenue-2:#8a8780;
+  --borde:#e6e3dd; --azul:#1b4fd8; --ambar:#b45309; --radio:12px;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --titulo:"Fraunces",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-text-size-adjust:100%}
+.barra{border-bottom:1px solid var(--borde);padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-family:var(--titulo);font-weight:600;font-size:19px;color:var(--tinta);text-decoration:none;letter-spacing:-.01em}
+.barra .sep{width:1px;height:14px;background:var(--borde)}
+.barra a.vinculo{font-size:12.5px;color:var(--tenue);text-decoration:none}
+.barra a.vinculo:hover{color:var(--azul)}
+main{max-width:660px;margin:0 auto;padding:40px 20px 80px}
+h1{font-family:var(--titulo);font-weight:600;font-size:clamp(30px,7vw,40px);line-height:1.12;letter-spacing:-.02em;color:var(--tinta);margin:0 0 28px}
+h2{font-family:var(--titulo);font-weight:600;font-size:clamp(21px,4.6vw,25px);line-height:1.25;letter-spacing:-.01em;color:var(--tinta);margin:44px 0 12px}
+h3{font-family:var(--titulo);font-weight:600;font-size:18px;color:var(--tinta);margin:34px 0 10px}
+h4{font-size:15px;font-weight:600;color:var(--tinta);margin:24px 0 8px}
+p{margin:0 0 16px}
+strong{color:var(--tinta);font-weight:600}
+em{font-style:italic}
+a{color:var(--azul)}
+code{font-family:var(--mono);font-size:.88em;background:#f5f3f0;border:1px solid var(--borde);border-radius:5px;padding:1px 5px;color:var(--tinta)}
+hr{border:0;border-top:1px solid var(--borde);margin:36px 0}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin:0 0 8px}
+blockquote{margin:0 0 20px;padding:14px 18px;border-left:3px solid var(--ambar);background:#fdf8f1;border-radius:0 var(--radio) var(--radio) 0;color:var(--texto)}
+blockquote p:last-child{margin:0}
+.tabla-caja{overflow-x:auto;margin:0 0 22px;border:1px solid var(--borde);border-radius:var(--radio)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--borde);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--tenue-2);font-weight:500;background:#faf9f7}
+.pie{max-width:660px;margin:0 auto;padding:0 20px 60px;font-size:12.5px;color:var(--tenue-2);line-height:1.6}
+.pie a{color:var(--tenue)}
+@media(max-width:560px){main{padding:28px 18px 60px}body{font-size:16.5px}}
+</style>
+</head>
+<body>
+<nav class="barra">
+  <a class="logo" href="/">P&amp;P</a>
+  <span class="sep"></span>
+  <a class="vinculo" href="/">la app</a>
+  <a class="vinculo" href="/la-pagina">las pantallas</a>
+  <a class="vinculo" href="/decisiones-de-diseno">el diseño</a>
+  <a class="vinculo" href="/la-letra">la letra</a>
+</nav>
+<main>
+<h1>La letra de las canciones: qué sabemos y qué falta medir</h1>
+<p>2 de noviembre de 2026</p>
+<p>Este documento explica por qué nuestro análisis todavía no mira la letra de las canciones, qué se sabe hasta hoy sobre cuánto influye, y qué nos queda por hacer en la entrega que viene.</p>
+<p>Está escrito para alguien que no conoce el proyecto.</p>
+<hr>
+<h2>De qué va el proyecto, en dos párrafos</h2>
+<p>Comparamos dos mundos de la música: <strong>el que premia la Academia de los Grammy</strong> y <strong>el que triunfa comercialmente</strong> en el ranking de Billboard. Armamos una base con miles de canciones de los últimos veinticinco años, cada una con valores que describen <strong>cómo suena</strong> —si es acústica o eléctrica, cuánta energía tiene, si es alegre o melancólica, cuánto dura— y con la etiqueta de si fue nominada al Grammy, si entró al ranking, o ninguna de las dos cosas.</p>
+<p>Con eso, nuestra herramienta toma una canción nueva y dice a cuál de los dos mundos se parece más.</p>
+<p><strong>Hasta ahora medimos solo el sonido. No la letra.</strong> Y resulta que la letra importa en los dos lados. Este documento explica cuánto, y cómo.</p>
+<hr>
+<h2>Primera parte: cómo influye la letra en el éxito comercial</h2>
+<p>Hay tres cosas medidas, y la primera es la más contundente.</p>
+<h3>Repetir el estribillo funciona, y está cuantificado</h3>
+<p>Un estudio analizó <strong>todas las canciones del Billboard Hot 100 entre 1958 y 2012</strong>. El resultado:</p>
+<blockquote><strong>Por cada vez más que se repite el estribillo, la canción tiene un 14,5% más de probabilidad de llegar al puesto 1</strong> en lugar de quedarse en el fondo del ranking.</blockquote>
+<p>Y hay más: las canciones más repetitivas <strong>llegan más rápido</strong> al número 1, y tienen más chances de <strong>entrar directamente al Top 40</strong> en su primera semana.</p>
+<p><strong>Por qué pasa esto.</strong> No es que repetir sea artísticamente mejor. Es que una letra repetitiva es <strong>más fácil de procesar para el cerebro</strong>, y lo que entendemos sin esfuerzo nos resulta más agradable. Los investigadores lo llaman "fluidez de procesamiento": cuanto menos trabajo cuesta entender algo, más nos gusta.</p>
+<p>Eso sí, tiene un techo. Repetir demasiado las mismas palabras termina jugando en contra.</p>
+<h3>Las letras simples llegan más alto</h3>
+<p>Otro estudio, sobre <strong>14.661 canciones</strong> de seis décadas del ranking estadounidense, encontró que <strong>las canciones con letras más simples que logran entrar al ranking terminan llegando a puestos más altos</strong>.</p>
+<p>Y acá hay un detalle que conecta con algo que medimos nosotros: <strong>ese efecto es más fuerte en los años donde se publica más música.</strong></p>
+<p>Hoy se suben <strong>106.000 canciones nuevas por día</strong> a las plataformas de streaming. Cuanta más música compite por la atención de la gente, más ventaja saca la letra que se entiende enseguida.</p>
+<h3>Las letras se simplificaron, y mucho</h3>
+<p>Un tercer estudio midió <strong>más de 350.000 canciones del Top 40 entre 1970 y 2020</strong>. Comparando las de los setenta con las de hoy:</p>
+<div class="tabla-caja"><table><tr><th>Qué midieron</th><th>Qué pasó</th></tr><tr><td>Repetición de versos</td><td><strong>Casi se duplicó</strong> en el pop, y creció todavía más en el rap</td></tr><tr><td>Facilidad para entenderlas</td><td>Aumentó</td></tr><tr><td>Variedad de palabras usadas</td><td>Bajó</td></tr><tr><td>Tono emocional</td><td>Más negativo</td></tr><tr><td>Cuánto hablan de uno mismo</td><td>Aumentó</td></tr></table></div>
+<p><strong>Esto es exactamente el mismo movimiento que encontramos nosotros en el sonido.</strong> Las canciones exitosas pasaron de durar 4 minutos 18 segundos en los noventa a 3 minutos 11 hoy, y los temas de menos de dos minutos y medio volvieron a aparecer después de haber desaparecido.</p>
+<p>La música y la letra se simplificaron al mismo tiempo, y por la misma razón: la competencia por la atención.</p>
+<h3>Un detalle que confirma algo que ya sabíamos</h3>
+<p>Un estudio de 2025 sobre el ranking británico encontró que lo común o previsible que sea una letra <strong>predice cuántas semanas se queda</strong> la canción arriba, <strong>pero no predice qué puesto máximo alcanza</strong>.</p>
+<p>Nosotros llegamos a la misma conclusión por otro camino al analizar Billboard: <strong>cuán alto llega una canción y cuánto dura arriba son dos cosas distintas</strong>, y no las explica lo mismo.</p>
+<hr>
+<h2>Segunda parte: cómo influye la letra en el Grammy</h2>
+<p>Acá hay que separar dos premios, porque <strong>no juzgan lo mismo</strong>, y nosotros usamos los dos.</p>
+<h3>Los dos premios que usamos</h3>
+<div class="tabla-caja"><table><tr><th>Premio</th><th>A quién se lo dan</th><th>Qué juzga</th><th>¿Mira la letra?</th></tr><tr><td><strong>Record of the Year</strong></td><td>Al intérprete, al productor y a los ingenieros de sonido</td><td><strong>La grabación</strong>: cómo quedó tocada, cantada y producida</td><td><strong>No directamente</strong></td></tr><tr><td><strong>Song of the Year</strong></td><td><strong>A quienes la compusieron</strong></td><td><strong>La composición</strong>: la melodía y la letra</td><td><strong>Sí, explícitamente</strong></td></tr></table></div>
+<p>El reglamento de la Academia dice que, para competir en Song of the Year, la canción <strong>"debe contener melodía y letra"</strong>. Y aclara que "canción" significa <strong>la obra en sí</strong>, no una grabación en particular.</p>
+<p><strong>Esto tiene una consecuencia directa sobre nuestro trabajo.</strong> La mitad de nuestro grupo de canciones premiadas viene de un premio que se entrega por la melodía y la letra — y nosotros lo estamos midiendo con las características sonoras de la grabación.</p>
+<p>Dicho sin vueltas: <strong>para Song of the Year estamos midiendo justamente lo que ese premio no mira.</strong></p>
+<h3>Qué encontramos al investigar si la letra predice un Grammy</h3>
+<p>Buscamos estudios que hayan medido esto. Lo que hay es poco, pero apunta todo en la misma dirección.</p>
+<p><strong>Un estudio de la Universidad de Nueva York</strong> entrenó un sistema para identificar qué caracteriza a las canciones que ganan el Grammy. Sus resultados:</p>
+<ul><li>Para <strong>Rap Song of the Year</strong>, lo más predictivo fue <strong>la variedad de vocabulario</strong>, la cantidad de palabras y qué tan alegre es la letra.</li><li>Para <strong>Song of the Year y Record of the Year</strong>, en cambio, la letra resultó <strong>menos predictiva que el sonido</strong> — pesaron más la energía, la acústica y la cantidad de palabra hablada.</li></ul>
+<p>O sea: en las categorías que nosotros usamos, el sonido explica más que la letra. Eso es una buena noticia para la validez de lo que venimos haciendo, aunque no significa que la letra no importe.</p>
+<p><strong>Un estudio sobre hip-hop de 2025</strong> comparó el reconocimiento de la crítica con el éxito comercial, y encontró algo importante:</p>
+<blockquote>Las canciones con <strong>más reconocimiento de la crítica</strong> tienen <strong>más variedad de vocabulario y rimas más complejas</strong>. El éxito comercial, en cambio, no sigue ese patrón.</blockquote>
+<p>Los autores lo resumen así: <strong>la crítica premia la innovación en el lenguaje más de lo que lo hace el mercado.</strong></p>
+<p><strong>Un estudio sobre el Billboard de 1973 a 2023</strong> llegó al mismo lugar desde el otro lado: las letras más simples tienden a funcionar mejor comercialmente.</p>
+<h3>Lo que esto sugiere</h3>
+<p>Juntando las dos partes, aparece un patrón:</p>
+<div class="tabla-caja"><table><tr><th></th><th>Letra simple y repetitiva</th><th>Letra compleja y variada</th></tr><tr><td><strong>Éxito comercial</strong></td><td><strong>Ayuda</strong></td><td>No especialmente</td></tr><tr><td><strong>Reconocimiento</strong></td><td>No especialmente</td><td><strong>Ayuda</strong></td></tr></table></div>
+<p><strong>Si esto se confirma, la letra reproduce exactamente el mismo conflicto que encontramos en el sonido:</strong> lo que acerca al público aleja del reconocimiento, y viceversa.</p>
+<p>En el sonido ya lo medimos nosotros. Las canciones que la Academia reconoce son más acústicas, menos enérgicas y más largas que las que triunfan comercialmente. No hay una sola dirección que mejore las dos cosas a la vez.</p>
+<p>Si la letra funciona igual, no sería un agregado suelto: sería <strong>una segunda confirmación de la tesis central del proyecto</strong>.</p>
+<hr>
+<h2>Lo que no sabemos, y es importante decirlo</h2>
+<p><strong>Nadie midió todavía la letra de las nominadas a Song of the Year contra la letra de los hits comerciales del mismo período.</strong> Lo buscamos y no existe.</p>
+<p>Lo que hay son estudios por separado: cómo cambiaron las letras populares, qué distingue al reconocimiento de la crítica en hip-hop, qué predice un Grammy mirando sonido y letra juntos. Pero la comparación directa que necesita nuestro proyecto no está hecha.</p>
+<p><strong>Eso significa que es investigación original.</strong> Y es, probablemente, lo más valioso que podemos agregar en la entrega siguiente.</p>
+<hr>
+<h2>Qué nos queda por hacer</h2>
+<p><strong>Para esta entrega:</strong> dejamos declarado que el análisis mide solo el sonido, y que la letra es una dimensión que influye y que todavía no incorporamos. Eso ya está dicho en la aplicación: <em>"no medimos la letra, ni el sello, ni quién sos. Solo cómo suena."</em></p>
+<p><strong>Para la entrega siguiente</strong>, el trabajo concreto sería:</p>
+<ol><li><strong>Conseguir las letras</strong> de las canciones que ya tenemos en la base.</li><li><strong>Medir tres cosas</strong> en cada una: cuánto se repite, qué tan variado es el vocabulario y qué tan fácil es de entender.</li><li><strong>Comparar</strong> las nominadas a Song of the Year contra los hits del mismo período, igual que hicimos con el sonido.</li><li><strong>Ver si aparece el mismo conflicto</strong>: si la letra simple acerca al público y la compleja al reconocimiento.</li><li>Si aparece, <strong>sumarla como tercera dimensión</strong> de la herramienta.</li></ol>
+<p>El paso 3 es el que nadie hizo. Los otros cuatro son trabajo conocido.</p>
+<hr>
+<h2>De dónde sacamos cada cosa</h2>
+<ul><li><a href="https://myscp.onlinelibrary.wiley.com/doi/abs/10.1016/j.jcps.2014.12.004">Nunes y colegas — la repetición y el éxito comercial</a>, <em>Journal of Consumer Psychology</em></li><li><a href="https://www.nature.com/articles/s41598-024-55742-x">Las letras se volvieron más simples y repetitivas</a>, <em>Scientific Reports</em>, 350.000 canciones</li><li><a href="https://www.science.org/content/article/popular-songs-are-simpler-and-more-repetitive-they-used-be">Cobertura del estudio en la revista Science</a></li><li><a href="https://journals.sagepub.com/doi/10.1177/03057356251384301">Qué tan común es una letra y cuánto dura en el ranking</a></li><li><a href="https://www.futurity.org/grammy-awards-songs-artificial-intelligence-3243692-2/">Estudio de la Universidad de Nueva York sobre qué predice un Grammy</a></li><li><a href="https://arxiv.org/pdf/2505.00035">Complejidad del lenguaje y reconocimiento de la crítica en hip-hop</a></li><li><a href="https://www.nature.com/articles/s41598-025-28327-5">Letras del Billboard entre 1973 y 2023</a></li><li><a href="https://en.wikipedia.org/wiki/Grammy_Award_for_Song_of_the_Year">Criterios del Grammy para Song of the Year</a></li></ul>
+</main>
+<footer class="pie">
+  P&amp;P — Prestigio &amp; Popularidad. Matías Expósito, Tomás Kelly y Diógenes Ustariz.
+  <a href="/">Volver a la app</a>.
+</footer>
+</body>
+</html>
