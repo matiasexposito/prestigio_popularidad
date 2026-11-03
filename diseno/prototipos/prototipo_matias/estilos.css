@@ -580,3 +580,37 @@ input[type=range].movido::-moz-range-thumb { border-color: var(--ambar); }
 .leyenda-fader b { font-weight: 500; }
 .leyenda-fader .suma b { color: var(--azul); }
 .leyenda-fader .resta b { color: var(--ambar); }
+
+/* ---------- Escuchar una canción del mapa ---------- */
+/* El borde transparente agranda la zona clickeable de los puntitos sin cambiar cómo se ven */
+.m-fondo { stroke: transparent; stroke-width: 7; pointer-events: all; cursor: pointer; transition: fill .15s, r .15s; }
+.m-fondo:hover, .m-fondo.activo { fill: var(--tinta); r: 4.5; }
+.m-ref { cursor: pointer; }
+.m-ref:hover text, .m-ref.activo text { fill: var(--tinta); font-weight: 600; }
+.m-ref:hover circle, .m-ref.activo circle { transform: scale(1.35); transition: transform .15s; }
+
+.m-globo { position: absolute; z-index: 7; pointer-events: none; max-width: 260px; background: var(--tinta); color: var(--fondo); font-size: 12.5px; line-height: 1.35; padding: 7px 10px; border-radius: var(--radio-chico); box-shadow: 0 6px 18px -6px rgba(0,0,0,.35); animation: fundido .12s ease-out; }
+.m-globo .tenue { color: var(--tenue-3); }
+.m-globo small { display: block; margin-top: 2px; font-size: 11px; color: var(--tenue-3); }
+
+.pop-cancion { position: absolute; z-index: 8; width: 300px; max-width: calc(100% - 8px); background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio); box-shadow: 0 18px 40px -12px rgba(0,0,0,.28); padding: 14px; display: flex; flex-direction: column; gap: 10px; animation: aparecer .2s var(--salida); }
+.pop-cerrar { position: absolute; top: 6px; right: 8px; background: none; border: 0; font-size: 20px; line-height: 1; color: var(--tenue); cursor: pointer; padding: 4px; }
+.pop-cerrar:hover { color: var(--tinta); }
+.pop-cabeza { display: flex; gap: 12px; align-items: center; padding-right: 18px; }
+.pop-tapa { flex: none; width: 52px; height: 52px; border-radius: var(--radio-chico); background: var(--borde-2) center / cover no-repeat; }
+.pop-datos { display: flex; flex-direction: column; min-width: 0; }
+.pop-datos strong { font-family: var(--serif); font-size: 16px; font-weight: 600; color: var(--tinta); line-height: 1.2; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.pop-datos span { font-size: 13px; color: var(--texto); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pop-datos small { font-size: 11.5px; color: var(--tenue-2); }
+.pop-cifras { display: flex; gap: 14px; font-size: 12px; color: var(--tenue); }
+.pop-cifras span:first-child { color: var(--azul); }
+.pop-player { display: flex; flex-direction: column; gap: 4px; min-height: 40px; justify-content: center; }
+.pop-player audio { width: 100%; height: 36px; }
+.pop-player small { font-size: 11.5px; }
+.pop-player.video { aspect-ratio: 16 / 9; border-radius: var(--radio-chico); overflow: hidden; background: #000; }
+.pop-player.video iframe { width: 100%; height: 100%; border: 0; display: block; }
+.pop-cargando { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--tenue); }
+.pop-cargando .giro { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--azul); border-right-color: transparent; animation: girar .7s linear infinite; }
+.pop-yt { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--borde-fuerte); border-radius: var(--radio); padding: 8px 12px; font-size: 13px; color: var(--texto); transition: border-color .15s, background .15s; }
+.pop-yt svg { color: #e00; }
+.pop-yt:hover { border-color: var(--tinta); background: var(--muted); }
