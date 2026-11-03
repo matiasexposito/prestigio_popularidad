@@ -16,11 +16,21 @@ Universidad de San Andrés · 2026
 
 ## Sitio
 
-**App publicada (prototipo funcional):**
+**App publicada:**
 
-https://pyp-green.vercel.app
+https://pyp-ashy.vercel.app
 
-Se puede subir un audio propio (mp3 o wav) o buscar una canción conocida por nombre. Código en [`diseno/prototipos/prototipo_diogenes/`](diseno/prototipos/prototipo_diogenes/).
+Se puede subir un audio propio (mp3 o wav) o buscar una canción conocida por nombre. En el mapa, cualquier punto se puede clickear para escuchar esa canción. Código en [`diseno/prototipos/prototipo_matias/`](diseno/prototipos/prototipo_matias/).
+
+Junto con la app hay tres páginas que la explican, pensadas para alguien que no conoce el proyecto:
+
+| Página | Qué cuenta |
+|---|---|
+| [Qué hace cada pantalla](https://pyp-ashy.vercel.app/la-pagina) | El recorrido de la app, pantalla por pantalla |
+| [Las decisiones de diseño](https://pyp-ashy.vercel.app/decisiones-de-diseno) | Qué le pedimos a la IA y por qué |
+| [Cómo impacta la letra](https://pyp-ashy.vercel.app/la-letra) | Qué sabemos de la letra y qué queda para la entrega siguiente |
+
+El prototipo anterior, de Diógenes, sigue en [`diseno/prototipos/prototipo_diogenes/`](diseno/prototipos/prototipo_diogenes/) y publicado en https://pyp-green.vercel.app. La app actual nació de ese código.
 
 **Prototipo baja fidelidad:**
 
@@ -209,9 +219,11 @@ El análisis histórico usa las seis décadas; **la app se entrena solo con las 
 | Eje | Qué compara | Modelo |
 |---|---|---|
 | **Prestigio** | 212 nominadas a Record o Song of the Year contra 8.870 hits del Hot 100 nunca nominados | Regresión logística |
-| **Popularidad** | Puntaje de chart: 0 si no entra al Hot 100; si entra, su mejor puesto en una escala estirada (#1 = 100, #10 = 50, #100 = 0) | Regresión lineal |
+| **Popularidad** | Dos preguntas encadenadas. 1: ¿entra al Hot 100? (hits contra las que nunca entraron). 2: si entra, ¿hasta dónde llega? (su mejor puesto en una escala estirada: #1 = 100, #10 = 50, #100 = 0, aprendida solo entre los hits). Puntaje = probabilidad de entrar × hasta dónde llega | Logística × lineal |
 
-Los puntajes que muestra la app son el percentil de la canción dentro de las 23.388, con un margen de error de 20 remuestreos. Se regeneran con `python3 diseno/prototipos/prototipo_diogenes/generar_modelo.py`.
+Los puntajes que muestra la app son el percentil de la canción dentro de las 23.388, con un margen de error de 20 remuestreos. Se regeneran con `python diseno/prototipos/prototipo_matias/generar_modelo.py`.
+
+**Por qué la popularidad son dos cuentas y no una (03/11/2026).** Hasta ese día era una sola regresión lineal sobre el puntaje de chart, con 0 para las canciones que no entraron. Como de las 23.388 la mayoría son ceros, la recta se gastaba casi entera en distinguir "entró / no entró" y aplastaba las diferencias entre hits: Despacito daba 42 de popularidad y Shape Of You 44. Con las dos preguntas separadas dan 62 y 82, y mejora todo lo que se mide (separa hits del resto: 0,752 → 0,762; acierta el puesto entre los hits: 0,066 → 0,121). Lo que no arregla son las filas con datos rotos: Havana figura con instrumentalidad 0,92 y −12 dB (una versión instrumental mal cruzada), así que sigue dando 6. Eso es limpieza de datos, pendiente.
 
 **Análisis del audio subido**, en el navegador:
 
