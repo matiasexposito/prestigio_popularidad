@@ -137,8 +137,11 @@ def auc(s, y):
 
 # Puntos de fondo para el mapa: muestra al azar
 idx = rng.choice(len(filas), 700, replace=False)
+# [popularidad, prestigio, grupo, título, artista, año]: el nombre sirve para que el
+# punto se pueda clickear y escuchar la canción
 fondo = [[round(pct(s_pop[i], q_pop), 1), round(pct(s_pres[i], q_pres), 1),
-          filas[i]['grupo']] for i in idx]
+          filas[i]['grupo'], filas[i]['titulo'], filas[i]['artista'], int(filas[i]['anio'])]
+         for i in idx]
 
 # Canciones de referencia con nombre (todas del 2000 en adelante)
 REF = [('Hello', 'Adele'), ('Rolling in the Deep', 'Adele'), ('Someone Like You', 'Adele'),
