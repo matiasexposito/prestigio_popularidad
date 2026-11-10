@@ -79,8 +79,9 @@
     const z = zs(r);
     const v = percentil(puntuarModelo(m, z), m.cuantiles);
     const b = m.boots.map(c => percentil(puntuarBoot(m, z, c), m.cuantiles)).sort((a, c) => a - c);
-    // Margen: 10º–90º percentil de 20 remuestreos, con un piso de ±4 puntos
-    const lo = clamp(Math.min(b[2], v - 4), 0, 100), hi = clamp(Math.max(b[17], v + 4), 0, 100);
+    // Margen: 10º–90º percentil de los remuestreos (20 en el modelo de hoy, 12 por período), piso ±4
+    const n = b.length, b10 = b[Math.floor(0.1 * n)], b90 = b[Math.max(0, Math.ceil(0.9 * n) - 1)];
+    const lo = clamp(Math.min(b10, v - 4), 0, 100), hi = clamp(Math.max(b90, v + 4), 0, 100);
     return { v, lo, hi };
   }
   const eje = (nombre, r) => ejeCon(M[nombre], r);
