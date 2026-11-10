@@ -202,6 +202,11 @@
       ? ` Lo que más te tensiona los dos ejes es <strong>${la(c.k)}</strong>: ${valorLargo(c.k, a.rasgos[c.k])}.`
       : '';
     $('#lectura').innerHTML = `Estás en zona de <strong>${z.nombre.toLowerCase()}</strong>. ${z.txt}${foco}`;
+    // La IA pone en palabras los mismos números; si no está, queda la lectura fija de arriba
+    const cajaLectura = $('#lectura').closest('.caja');
+    cajaLectura.classList.remove('con-ia');
+    $('#lectura-pie').textContent = '';
+    PP.lecturaIA?.(a, p, z, c, { caja: cajaLectura, parrafo: $('#lectura'), pie: $('#lectura-pie') });
 
     mapa($('#mapa-resultado'), { tu: { pop: p.pop.v, pres: p.pres.v }, etiquetas: 'cercanas', animar: MOVIMIENTO });
   };

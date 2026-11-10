@@ -372,3 +372,12 @@ input[type="range"]::-moz-range-thumb {
 @keyframes fundido { from { opacity: 0; } }
 @keyframes aparecer { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 @keyframes girar { to { transform: rotate(360deg); } }
+
+/* ---------- La lectura escrita por IA ---------- */
+#lectura .parrafo { display: block; }
+#lectura .parrafo + .parrafo { margin-top: 8px; }
+.lectura-pie { margin: 10px 0 0; font-size: 11.5px; line-height: 1.45; color: var(--tenue-2); }
+.lectura-pie:empty { display: none; }
+.caja.escribiendo #lectura { opacity: .55; transition: opacity .2s; }
+.caja.escribiendo .lectura-pie::before { content: ''; display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; border: 1.5px solid var(--ambar); border-right-color: transparent; animation: girar .7s linear infinite; vertical-align: -1px; }
+.caja.con-ia #lectura { opacity: 1; }
