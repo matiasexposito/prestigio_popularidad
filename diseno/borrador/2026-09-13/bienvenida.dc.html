@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: "Space Grotesk", system-ui, sans-serif; }
+    a { color: #2f5fa8; } a:hover { color: #1f437a; }
+  </style>
+</helmet>
+
+<div style="width: 1280px; height: 820px; background: #f7f6f3; color: #1c1b19; display: flex; box-sizing: border-box">
+
+  <div style="width: 620px; padding: 56px 48px; display: flex; flex-direction: column; box-sizing: border-box">
+
+    <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 52px">
+      <div style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em">P&amp;P</div>
+      <div style="font-size: 13px; color: #6b6660">Prestigio &amp; Popularidad</div>
+    </div>
+
+    <div style="font-size: 42px; font-weight: 700; line-height: 1.12; letter-spacing: -0.025em">Hay canciones que ganan premios y canciones que llenan estadios.</div>
+    <div style="font-size: 42px; font-weight: 700; line-height: 1.12; letter-spacing: -0.025em; color: #8a8580; margin-top: 6px">Casi nunca son las mismas.</div>
+
+    <div style="font-size: 16px; line-height: 1.65; color: #4a4742; margin-top: 26px; max-width: 480px">Medimos esa diferencia en 53.577 canciones de las últimas seis décadas. Subí tu tema y te mostramos dónde cae entre los dos mundos, y qué lo acerca o lo aleja de cada uno.</div>
+
+    <div style="display: flex; gap: 14px; margin-top: 36px">
+      <div style="background: #1c1b19; color: #f7f6f3; border-radius: 4px; padding: 14px 28px; font-size: 15px; font-weight: 500">Crear mi cuenta</div>
+      <div style="border: 1px solid #b8b3ac; border-radius: 4px; padding: 14px 28px; font-size: 15px; color: #3a3733">Ya tengo cuenta</div>
+    </div>
+
+    <div style="margin-top: auto; border-top: 1px solid #d6d3cd; padding-top: 22px; display: flex; flex-direction: column; gap: 9px">
+      <div style="font-size: 13px; color: #6b6660; line-height: 1.5">No predecimos si vas a ganar un Grammy ni si vas a pegar.</div>
+      <div style="font-size: 13px; color: #6b6660; line-height: 1.5">No medimos la letra, ni el sello, ni quién sos. Solo cómo suena.</div>
+      <div style="font-size: 13px; color: #6b6660; line-height: 1.5">Tu archivo se analiza y se descarta.</div>
+    </div>
+  </div>
+
+  <div style="flex-grow: 1; background: #fff; border-left: 1px solid #d6d3cd; padding: 56px 44px; display: flex; flex-direction: column; box-sizing: border-box">
+
+    <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #8a8580; margin-bottom: 28px">Los dos mundos que medimos</div>
+
+    <div style="display: flex; flex-direction: column; gap: 20px">
+
+      <div style="border: 2px solid #2f5fa8; border-radius: 4px; padding: 20px 22px; background: #eef3fb">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px">
+          <div style="width: 24px; height: 10px; background: #2f5fa8; border-radius: 2px"></div>
+          <div style="font-size: 15px; font-weight: 700; color: #24487d">Lo que premia la Academia</div>
+        </div>
+        <div style="font-size: 13.5px; line-height: 1.6; color: #4a5a75; margin-bottom: 14px">Más acústico, más largo, menos enérgico, más melancólico que la música de su época.</div>
+        <div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; color: #24487d">
+          <div>Bridge over Troubled Water — Simon &amp; Garfunkel</div>
+          <div>Hello — Lionel Richie</div>
+          <div>Hallelujah — Leonard Cohen</div>
+        </div>
+      </div>
+
+      <div style="border: 2px solid #b06a12; border-radius: 4px; padding: 20px 22px; background: #fcf4e6">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px">
+          <div style="width: 24px; height: 10px; background: #b06a12; border-radius: 2px"></div>
+          <div style="font-size: 15px; font-weight: 700; color: #8a520c">Lo que escucha el público</div>
+        </div>
+        <div style="font-size: 13.5px; line-height: 1.6; color: #6f5a3a; margin-bottom: 14px">Más enérgico, más bailable, más corto, mucho menos acústico.</div>
+        <div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; color: #8a520c">
+          <div>Despacito — Luis Fonsi &amp; Daddy Yankee</div>
+          <div>Gangnam Style — PSY</div>
+          <div>Macarena — Los Del Río</div>
+        </div>
+      </div>
+
+      <div style="border: 1px dashed #b8b3ac; border-radius: 4px; padding: 18px 22px; background: #faf9f6">
+        <div style="font-size: 14px; font-weight: 500; margin-bottom: 8px">Y las que lograron las dos cosas</div>
+        <div style="font-size: 13px; line-height: 1.6; color: #6b6660">Solo <strong style="font-weight: 500; color: #3a3733">1.071 de 26.577</strong>. Un 4%. Por eso la herramienta no te dice "hacé esto": te muestra que casi siempre hay que elegir.</div>
+      </div>
+    </div>
+
+    <div style="margin-top: auto; display: flex; gap: 28px; font-size: 12px; color: #8a8580; font-family: 'IBM Plex Mono', monospace">
+      <span>1958–2026</span>
+      <span>53.577 canciones</span>
+      <span>2.514 nominaciones</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

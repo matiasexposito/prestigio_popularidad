@@ -8,7 +8,7 @@ const path = require('path');
 const DOCS = [
   { md: 'la_pagina.md',            salida: 'la-pagina.html',            titulo: 'Qué hace cada pantalla' },
   { md: 'decisiones_de_diseno.md', salida: 'decisiones-de-diseno.html', titulo: 'Las decisiones de diseño' },
-  { md: '../../../la_letra.md',    salida: 'la-letra.html',             titulo: 'Cómo impacta la letra' },
+  { md: '../../../analisis/la_letra.md',    salida: 'la-letra.html',             titulo: 'Cómo impacta la letra' },
 ];
 
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

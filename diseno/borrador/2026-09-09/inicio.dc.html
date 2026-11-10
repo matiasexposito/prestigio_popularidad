@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: "Space Grotesk", system-ui, sans-serif; }
+    a { color: #2f5fa8; } a:hover { color: #1f437a; }
+  </style>
+</helmet>
+
+<div style="width: 1280px; height: 820px; background: #f7f6f3; color: #1c1b19; display: flex; flex-direction: column; box-sizing: border-box">
+
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 32px; border-bottom: 1px solid #d6d3cd; background: #fff">
+    <div style="display: flex; align-items: baseline; gap: 12px">
+      <div style="font-size: 20px; font-weight: 700; letter-spacing: -0.02em">P&amp;P</div>
+      <div style="font-size: 13px; color: #6b6660">Prestigio &amp; Popularidad</div>
+    </div>
+    <div style="display: flex; gap: 26px; font-size: 14px; color: #6b6660">
+      <span>Explorar la historia</span>
+      <span>Modo álbum</span>
+      <span>Cómo funciona</span>
+    </div>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; padding: 28px 32px; gap: 28px; box-sizing: border-box">
+
+    <div style="width: 360px; display: flex; flex-direction: column; gap: 20px; padding-top: 24px">
+      <div>
+        <div style="font-size: 34px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em">¿Qué tipo de canción tenés entre manos?</div>
+        <div style="font-size: 15px; line-height: 1.6; color: #4a4742; margin-top: 14px">Subí tu tema y te mostramos dónde cae entre dos mundos que casi nunca coinciden: el que premia la Academia y el que escucha el público.</div>
+      </div>
+
+      <div style="border: 2px dashed #b8b3ac; border-radius: 4px; padding: 28px 20px; text-align: center; background: #fff">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#8a8580" stroke-width="1.5" style="margin-bottom: 10px">
+          <path d="M12 16V4M7 9l5-5 5 5M4 17v2a1 1 0 001 1h14a1 1 0 001-1v-2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div style="font-size: 15px; font-weight: 500">Arrastrá tu canción acá</div>
+        <div style="font-size: 13px; color: #8a8580; margin-top: 4px">mp3, wav o flac · o buscala por nombre</div>
+      </div>
+
+      <div style="border-left: 3px solid #d6d3cd; padding-left: 14px">
+        <div style="font-size: 13px; line-height: 1.6; color: #6b6660">El archivo se analiza y <strong style="font-weight: 500; color: #3a3733">se descarta</strong>. No lo guardamos ni lo compartimos.</div>
+      </div>
+
+      <div style="margin-top: auto; border-top: 1px solid #d6d3cd; padding-top: 16px">
+        <div style="font-size: 12px; color: #8a8580; line-height: 1.6">No predecimos si vas a ganar un Grammy ni si vas a pegar. Te mostramos dónde estás parado.</div>
+      </div>
+    </div>
+
+    <div style="flex-grow: 1; background: #fff; border: 1px solid #d6d3cd; border-radius: 4px; padding: 20px 22px; display: flex; flex-direction: column">
+
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px">
+        <div style="font-size: 14px; font-weight: 500">Antes de subir nada, así se lee el mapa</div>
+        <div style="font-size: 12px; color: #8a8580">26.577 canciones · 1958–2026</div>
+      </div>
+
+      <svg viewBox="0 0 800 560" style="width: 100%; flex-grow: 1">
+        <line x1="70" y1="500" x2="770" y2="500" stroke="#b8b3ac" stroke-width="1"/>
+        <line x1="70" y1="500" x2="70" y2="24" stroke="#b8b3ac" stroke-width="1"/>
+        <line x1="420" y1="24" x2="420" y2="500" stroke="#e5e2dc" stroke-width="1" stroke-dasharray="3 4"/>
+        <line x1="70" y1="262" x2="770" y2="262" stroke="#e5e2dc" stroke-width="1" stroke-dasharray="3 4"/>
+
+        <circle cx="120" cy="430" r="3" fill="#d6d3cd"/><circle cx="180" cy="390" r="3" fill="#d6d3cd"/>
+        <circle cx="150" cy="330" r="3" fill="#d6d3cd"/><circle cx="240" cy="450" r="3" fill="#d6d3cd"/>
+        <circle cx="300" cy="360" r="3" fill="#d6d3cd"/><circle cx="210" cy="270" r="3" fill="#d6d3cd"/>
+        <circle cx="330" cy="440" r="3" fill="#d6d3cd"/><circle cx="270" cy="200" r="3" fill="#d6d3cd"/>
+        <circle cx="390" cy="410" r="3" fill="#d6d3cd"/><circle cx="360" cy="300" r="3" fill="#d6d3cd"/>
+        <circle cx="450" cy="470" r="3" fill="#d6d3cd"/><circle cx="500" cy="390" r="3" fill="#d6d3cd"/>
+        <circle cx="410" cy="180" r="3" fill="#d6d3cd"/><circle cx="480" cy="250" r="3" fill="#d6d3cd"/>
+        <circle cx="560" cy="430" r="3" fill="#d6d3cd"/><circle cx="600" cy="350" r="3" fill="#d6d3cd"/>
+        <circle cx="530" cy="150" r="3" fill="#d6d3cd"/><circle cx="640" cy="270" r="3" fill="#d6d3cd"/>
+        <circle cx="690" cy="400" r="3" fill="#d6d3cd"/><circle cx="720" cy="320" r="3" fill="#d6d3cd"/>
+        <circle cx="660" cy="180" r="3" fill="#d6d3cd"/><circle cx="740" cy="220" r="3" fill="#d6d3cd"/>
+        <circle cx="200" cy="480" r="3" fill="#d6d3cd"/><circle cx="580" cy="490" r="3" fill="#d6d3cd"/>
+
+        <text x="80" y="44" font-family="Space Grotesk" font-size="12" fill="#a5a09a">prestigio sin público</text>
+        <text x="760" y="44" font-family="Space Grotesk" font-size="12" fill="#a5a09a" text-anchor="end">las dos cosas</text>
+        <text x="760" y="488" font-family="Space Grotesk" font-size="12" fill="#a5a09a" text-anchor="end">hit puro</text>
+        <text x="80" y="488" font-family="Space Grotesk" font-size="12" fill="#a5a09a">ni una cosa ni la otra</text>
+
+        <circle cx="140" cy="120" r="5" fill="none" stroke="#8a8580" stroke-width="1.5"/>
+        <text x="152" y="124" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19">Imagine · Jack Johnson</text>
+
+        <circle cx="270" cy="135" r="5" fill="none" stroke="#8a8580" stroke-width="1.5"/>
+        <text x="282" y="139" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19">Hallelujah · L. Cohen</text>
+
+        <circle cx="500" cy="70" r="6" fill="#2f5fa8"/>
+        <text x="490" y="60" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19" text-anchor="end">Bridge over Troubled Water</text>
+
+        <circle cx="640" cy="100" r="5.5" fill="none" stroke="#2f5fa8" stroke-width="2"/>
+        <text x="652" y="104" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19">Hello · Richie</text>
+
+        <circle cx="700" cy="150" r="5" fill="none" stroke="#8a8580" stroke-width="1.5"/>
+        <text x="690" y="154" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19" text-anchor="end">Bohemian Rhapsody</text>
+
+        <circle cx="600" cy="215" r="6" fill="#2f5fa8"/>
+        <text x="590" y="219" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19" text-anchor="end">Hotel California</text>
+
+        <circle cx="710" cy="285" r="6" fill="#2f5fa8"/>
+        <text x="700" y="289" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19" text-anchor="end">Rolling in the Deep</text>
+
+        <circle cx="620" cy="380" r="5.5" fill="none" stroke="#2f5fa8" stroke-width="2"/>
+        <text x="610" y="384" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19" text-anchor="end">Despacito</text>
+
+        <circle cx="530" cy="330" r="5" fill="none" stroke="#8a8580" stroke-width="1.5"/>
+        <text x="542" y="334" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19">Gangnam Style</text>
+
+        <circle cx="400" cy="440" r="5" fill="none" stroke="#8a8580" stroke-width="1.5"/>
+        <text x="412" y="444" font-family="Space Grotesk" font-size="12.5" fill="#1c1b19">Macarena</text>
+
+        <text x="420" y="534" font-family="Space Grotesk" font-size="13" fill="#6b6660" text-anchor="middle">popularidad →</text>
+        <text x="26" y="262" font-family="Space Grotesk" font-size="13" fill="#6b6660" text-anchor="middle" transform="rotate(-90 26 262)">prestigio →</text>
+      </svg>
+
+      <div style="display: flex; gap: 22px; padding-top: 12px; border-top: 1px solid #e5e2dc; font-size: 12px; color: #6b6660; align-items: center">
+        <span style="display: flex; align-items: center; gap: 7px"><svg width="13" height="13"><circle cx="6.5" cy="6.5" r="5.5" fill="#2f5fa8"/></svg>ganó un Grammy</span>
+        <span style="display: flex; align-items: center; gap: 7px"><svg width="13" height="13"><circle cx="6.5" cy="6.5" r="4.5" fill="none" stroke="#2f5fa8" stroke-width="2"/></svg>nominada</span>
+        <span style="display: flex; align-items: center; gap: 7px"><svg width="13" height="13"><circle cx="6.5" cy="6.5" r="4.5" fill="none" stroke="#8a8580" stroke-width="1.5"/></svg>ni nominada</span>
+        <span style="display: flex; align-items: center; gap: 7px"><svg width="13" height="13"><circle cx="6.5" cy="6.5" r="2.6" fill="#d6d3cd"/></svg>el resto del corpus</span>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

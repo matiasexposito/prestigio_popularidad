@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+  <style>
+    body { margin: 0; font-family: "Space Grotesk", system-ui, sans-serif; }
+    a { color: #2f5fa8; } a:hover { color: #1f437a; }
+  </style>
+</helmet>
+
+<div style="width: 1400px; height: 760px; background: #f7f6f3; color: #1c1b19; padding: 36px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #1c1b19; padding-bottom: 12px">
+    <div>
+      <div style="font-size: 26px; font-weight: 700; letter-spacing: -0.02em">Flujo de la app · dónde interviene la IA</div>
+      <div style="font-size: 14px; color: #6b6660; margin-top: 4px">P&amp;P — Prestigio &amp; Popularidad · prototipo de baja fidelidad</div>
+    </div>
+    <div style="display: flex; gap: 22px; align-items: center; font-size: 13px">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <div style="width: 26px; height: 12px; background: #2f5fa8; border-radius: 2px"></div>
+        <span>el modelo <strong style="font-weight: 500">calcula</strong></span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <div style="width: 26px; height: 12px; background: #b06a12; border-radius: 2px"></div>
+        <span>la IA <strong style="font-weight: 500">traduce</strong></span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <div style="width: 26px; height: 12px; background: #c9c5be; border-radius: 2px"></div>
+        <span>el usuario</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 26px; flex-grow: 1">
+
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 12px">
+
+      <div style="display: flex; align-items: stretch; gap: 14px">
+        <div style="width: 34px; display: flex; flex-direction: column; align-items: center; padding-top: 16px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8a8580">01</div>
+        </div>
+        <div style="flex-grow: 1; border: 2px solid #c9c5be; background: #fff; border-radius: 3px; padding: 14px 18px">
+          <div style="font-size: 16px; font-weight: 500">El usuario sube su canción</div>
+          <div style="font-size: 13px; color: #6b6660; margin-top: 3px">Un archivo de audio. Puede ser un demo sin publicar, que no existe en ninguna plataforma.</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; padding-left: 48px">
+        <svg width="16" height="22" viewBox="0 0 16 22" fill="none" stroke="#8a8580" stroke-width="1.5">
+          <path d="M8 1 L8 17 M3 13 L8 18 L13 13" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+
+      <div style="display: flex; align-items: stretch; gap: 14px">
+        <div style="width: 34px; display: flex; flex-direction: column; align-items: center; padding-top: 16px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8a8580">02</div>
+        </div>
+        <div style="flex-grow: 1; border: 2px solid #2f5fa8; background: #eef3fb; border-radius: 3px; padding: 14px 18px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline">
+            <div style="font-size: 16px; font-weight: 500; color: #24487d">librosa analiza el audio</div>
+            
+          </div>
+          <div style="font-size: 13px; color: #4a5a75; margin-top: 3px">Saca las 10 características: energía, valencia, acústica, duración, bailabilidad, volumen, habla, tempo, modo, instrumentalidad.</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; padding-left: 48px">
+        <svg width="16" height="22" viewBox="0 0 16 22" fill="none" stroke="#8a8580" stroke-width="1.5">
+          <path d="M8 1 L8 17 M3 13 L8 18 L13 13" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+
+      <div style="display: flex; align-items: stretch; gap: 14px">
+        <div style="width: 34px; display: flex; flex-direction: column; align-items: center; padding-top: 16px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8a8580">03</div>
+        </div>
+        <div style="flex-grow: 1; border: 2px solid #2f5fa8; background: #eef3fb; border-radius: 3px; padding: 14px 18px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline">
+            <div style="font-size: 16px; font-weight: 500; color: #24487d">El modelo calcula los dos puntajes</div>
+            
+          </div>
+          <div style="font-size: 13px; color: #4a5a75; margin-top: 3px">Compara contra 53.577 canciones etiquetadas. Devuelve que tan rara es para su epoca, el prestigio y la&nbsp; popularidad, cada uno con su margen de error.</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; padding-left: 48px">
+        <svg width="16" height="22" viewBox="0 0 16 22" fill="none" stroke="#8a8580" stroke-width="1.5">
+          <path d="M8 1 L8 17 M3 13 L8 18 L13 13" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+
+      <div style="display: flex; align-items: stretch; gap: 14px">
+        <div style="width: 34px; display: flex; flex-direction: column; align-items: center; padding-top: 16px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8a8580">04</div>
+        </div>
+        <div style="flex-grow: 1; border: 2px solid #b06a12; background: #fcf4e6; border-radius: 3px; padding: 14px 18px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline">
+            <div style="font-size: 16px; font-weight: 500; color: #8a520c">La IA traduce el resultado</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #b06a12; text-transform: uppercase; letter-spacing: 0.06em">interpreta</div>
+          </div>
+          <div style="font-size: 13px; color: #6f5a3a; margin-top: 3px">Recibe los números ya calculados y los pasa a lenguaje de músico. Señala dónde está el conflicto entre los dos ejes.</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; padding-left: 48px">
+        <svg width="16" height="22" viewBox="0 0 16 22" fill="none" stroke="#8a8580" stroke-width="1.5">
+          <path d="M8 1 L8 17 M3 13 L8 18 L13 13" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+
+      <div style="display: flex; align-items: stretch; gap: 14px">
+        <div style="width: 34px; display: flex; flex-direction: column; align-items: center; padding-top: 16px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8a8580">05</div>
+        </div>
+        <div style="flex-grow: 1; border: 2px solid #b06a12; background: #fcf4e6; border-radius: 3px; padding: 14px 18px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline">
+            <div style="font-size: 16px; font-weight: 500; color: #8a520c">El usuario pregunta, la IA responde</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #b06a12; text-transform: uppercase; letter-spacing: 0.06em">interpreta</div>
+          </div>
+          <div style="font-size: 13px; color: #6f5a3a; margin-top: 3px">Si le preguntan "¿y si bajo la energía?", <strong style="font-weight: 500">no adivina</strong>: le pide al modelo que recalcule y responde con el número real.</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 10px; padding-left: 48px; margin-top: 2px">
+        <svg width="200" height="16" viewBox="0 0 200 16" fill="none" stroke="#b06a12" stroke-width="1.5" stroke-dasharray="4 3">
+          <path d="M196 8 L4 8 M9 3 L4 8 L9 13" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span style="font-size: 12px; color: #8a520c; font-style: italic">vuelve a consultar el paso 03</span>
+      </div>
+
+    </div>
+
+    <div style="width: 340px; display: flex; flex-direction: column; gap: 16px">
+
+      <div style="border: 2px solid #1c1b19; background: #fff; border-radius: 3px; padding: 18px">
+        <div style="font-size: 15px; font-weight: 700; margin-bottom: 8px">La regla que atraviesa todo</div>
+        <div style="font-size: 14px; line-height: 1.55; color: #3a3733">El modelo <strong style="font-weight: 500">calcula</strong>. La IA <strong style="font-weight: 500">traduce</strong>. Nunca al revés.</div>
+        <div style="font-size: 13px; line-height: 1.55; color: #6b6660; margin-top: 10px">Todo número que aparece en pantalla se puede reproducir sin llamar a un modelo de lenguaje.</div>
+      </div><div style="border: 1px solid #d6d3cd; background: #fff; border-radius: 3px; padding: 18px">
+        <div style="font-size: 13px; font-weight: 500; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #6b6660">Lo que la IA no hace</div>
+        <div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; line-height: 1.45; color: #3a3733">
+          <div>· No calcula los puntajes</div>
+          <div>· No decide qué recomendar</div>
+          <div>· No inventa datos que el análisis no mide</div>
+          
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

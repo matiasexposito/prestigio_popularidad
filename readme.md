@@ -52,7 +52,7 @@ Durante cincuenta años los éxitos comerciales fueron más alegres que las prem
 
 Al mismo tiempo, la diferencia de duración pasó de un segundo en los noventa a **43 segundos** hoy: las premiadas duran casi un minuto más que los hits.
 
-El detalle, con los números por década, está en [`decisiones.md`](decisiones.md) y en [`nuevos_puntos.md`](nuevos_puntos.md).
+El detalle, con los números por década, está en [`decisiones.md`](decisiones.md) y en [`analisis/nuevos_puntos.md`](analisis/nuevos_puntos.md).
 
 ## Cómo medimos cada eje
 
@@ -86,7 +86,7 @@ Los dos números entre paréntesis son después de descartar 15 cruces rotos (ca
 
 ### La letra, pendiente
 
-El análisis mide solo el sonido. La letra influye en los dos ejes y todavía no la incorporamos: queda como línea de trabajo para la entrega siguiente. El detalle, con las fuentes, está en [`la_letra.md`](la_letra.md).
+El análisis mide solo el sonido. La letra influye en los dos ejes y todavía no la incorporamos: queda como línea de trabajo para la entrega siguiente. El detalle, con las fuentes, está en [`analisis/la_letra.md`](analisis/la_letra.md). Por qué no incluimos la letra ni las redes sociales, con pruebas propias, está en [`analisis/redes_y_letra.md`](analisis/redes_y_letra.md).
 
 ## Fuentes de datos
 
@@ -201,7 +201,20 @@ Esto cumple la promesa de la app: *"tu archivo se analiza y se descarta"*.
 | `package.json` | La lista de librerías que necesitan los scripts |
 | `package-lock.json` | Las versiones exactas, para que a todos les instale igual |
 
-Quien clone el repositorio corre `npm install` y ya puede ejecutar `codigo/armar_control.js` y `codigo/auditar_datasets.js`.
+Quien clone el repositorio corre `npm install` y ya puede ejecutar los scripts de `codigo/`:
+
+| Script | Qué hace |
+|---|---|
+| `fetch_grammy.js` | Baja las nominaciones de Wikipedia |
+| `preparar_billboard.js` | Pasa el Hot 100 semanal a una fila por canción |
+| `cruzar.js` | Cruza Billboard y Grammy con el dump de Spotify por título y artista |
+| `armar_control.js`, `armar_control_v2.js` | Arman el grupo de control |
+| `armar_corpus_v2.js` | Arma el corpus final |
+| `analisis_normalizado.js` | El análisis por década, normalizado por época |
+| `auditar_datasets.js` | Verifica los rangos y vacíos que figuran en el diccionario |
+| `letra.js` | Mide la letra de una canción sin guardar el texto |
+
+`cruzar.js` y los dos `armar_*_v2.js` necesitan el dump de Spotify (4,1 GB), que no está en el repositorio.
 
 **`codigo/letra.js`** consulta la letra de una canción en la API pública de lyrics.ovh y la **mide**: cantidad de palabras, palabras distintas, repetición de líneas, palabra más repetida, proporción de primera persona. No guarda el texto (la letra tiene derechos de autor); con `--csv` guarda solo los números en `datasets_procesados/letras_metricas.csv`. Es la herramienta para el análisis de la letra que quedó pendiente.
 
@@ -259,26 +272,28 @@ Los puntajes que muestra la app son el percentil de la canción dentro de las 23
 ```
 prestigio_popularidad/
 ├── readme.md               # Este archivo
+├── racional.md             # Por qué la herramienta es como es: datos, modelo, diseño, IA
 ├── decisiones.md           # Registro fechado de lo que probamos, descartamos y por qué
-├── nuevos_puntos.md        # Cómo definimos el eje de popularidad, con las mediciones
-├── la_letra.md             # Qué sabemos del impacto de la letra, y qué falta medir
+├── analisis/
+│   ├── nuevos_puntos.md    # Cómo definimos el eje de popularidad, con las mediciones
+│   ├── la_letra.md         # Qué sabemos del impacto de la letra
+│   └── redes_y_letra.md    # Por qué no incluimos las redes ni la letra, con pruebas propias
 ├── .gitignore
 ├── package.json            # Librerías que necesitan los scripts (npm install)
 ├── datasets/               # Los CSV del análisis (todo 1958–2026) + diccionario.md
 ├── datasets_procesados/    # Los datos de la app (desde el año 2000)
 ├── diseno/
+│   ├── borrador/           # Las pantallas diseñadas antes de construir la app (9 y 13/09)
 │   ├── referencias/        # Imágenes de referencia
 │   └── prototipos/         # Una carpeta por versión o por integrante
 │       ├── prototipo_v1/
 │       ├── prototipo_diogenes/
-│       ├── prototipo_matias/
+│       ├── prototipo_matias/   # La app publicada
 │       └── prototipo_tomas/
-├── prompts/                # Prompts usados con el LLM, versionados
-├── codigo/                 # Scripts de descarga, cruce y auditoría
-├── normalizacion/          # Normalización por época de las características
-├── versiones/              # Versiones anteriores de los datasets y del modelo
-├── entregas/
-│   ├── entrega_1/          # Capturas + link al sitio en ese momento
-│   └── entrega_2/
-└── app/                    # Solo los archivos del sitio (lo que se publica)
+├── prompts/                # Textos de sistema de la IA, versionados
+├── codigo/                 # Scripts de descarga, cruce, armado y auditoría
+├── normalizacion/          # Dónde está la normalización por época
+├── versiones/              # Historia de los cambios en datos y modelo
+├── entregas/               # Qué se entregó en cada fecha
+└── app/                    # Dónde vive la app publicada
 ```

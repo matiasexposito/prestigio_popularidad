@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: "Space Grotesk", system-ui, sans-serif; }
+    a { color: #2f5fa8; } a:hover { color: #1f437a; }
+    .fila { display: grid; grid-template-columns: 190px 1fr 90px; align-items: center; gap: 16px; padding: 11px 0; }
+    .barra { position: relative; height: 22px; }
+    .eje { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: #b8b3ac; }
+    .relleno { position: absolute; top: 4px; height: 14px; border-radius: 3px; }
+  </style>
+</helmet>
+
+<div style="width: 1280px; height: 820px; background: #f7f6f3; color: #1c1b19; display: flex; flex-direction: column; box-sizing: border-box">
+
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; border-bottom: 1px solid #d6d3cd; background: #fff">
+    <div style="display: flex; align-items: baseline; gap: 14px">
+      <div style="font-size: 18px; font-weight: 700; letter-spacing: -0.02em">P&amp;P</div>
+      <div style="font-size: 15px; font-weight: 500">Qué suma y qué resta</div>
+    </div>
+    <div style="font-size: 13px; color: #6b6660">Mi demo 3 — versión final.wav</div>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; padding: 24px 32px; gap: 24px; box-sizing: border-box">
+
+    <div style="flex-grow: 1; background: #fff; border: 1px solid #d6d3cd; border-radius: 4px; display: flex; flex-direction: column">
+
+      <div style="padding: 18px 24px; border-bottom: 1px solid #e5e2dc; display: flex; align-items: baseline; gap: 14px">
+        <span style="font-size: 13px; color: #6b6660">Prestigio</span>
+        <span style="font-size: 30px; font-weight: 700; line-height: 1">32%</span>
+        <span style="font-size: 13px; color: #6b6660">entre 24% y 41%</span>
+        <span style="margin-left: auto; font-size: 12px; color: #2f5fa8">qué lo empujó ↓</span>
+      </div>
+
+      <div style="padding: 14px 24px 6px">
+        <div style="display: grid; grid-template-columns: 190px 1fr 90px; gap: 16px; font-size: 11px; color: #a5a09a; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em">
+          <span>característica</span>
+          <span style="text-align: center">resta ← → suma</span>
+          <span style="text-align: right">efecto</span>
+        </div>
+
+        <div class="fila">
+          <div><div style="font-size: 14px">energía</div><div style="font-size: 12px; color: #8a8580; font-family: 'IBM Plex Mono', monospace">0,82 · muy alta</div></div>
+          <div class="barra"><div class="eje"></div><div class="relleno" style="right: 50%; width: 45%; background: #f0d9a8"></div></div>
+          <div style="text-align: right; font-size: 14px; color: #8a520c; font-family: 'IBM Plex Mono', monospace">−11</div>
+        </div>
+
+        <div class="fila">
+          <div><div style="font-size: 14px">duración</div><div style="font-size: 12px; color: #8a8580; font-family: 'IBM Plex Mono', monospace">2:55 · corta</div></div>
+          <div class="barra"><div class="eje"></div><div class="relleno" style="right: 50%; width: 29%; background: #f0d9a8"></div></div>
+          <div style="text-align: right; font-size: 14px; color: #8a520c; font-family: 'IBM Plex Mono', monospace">−7</div>
+        </div>
+
+        <div class="fila">
+          <div><div style="font-size: 14px">acústica</div><div style="font-size: 12px; color: #8a8580; font-family: 'IBM Plex Mono', monospace">0,08 · casi nula</div></div>
+          <div class="barra"><div class="eje"></div><div class="relleno" style="right: 50%; width: 20%; background: #f0d9a8"></div></div>
+          <div style="text-align: right; font-size: 14px; color: #8a520c; font-family: 'IBM Plex Mono', monospace">−5</div>
+        </div>
+
+        <div class="fila">
+          <div><div style="font-size: 14px">valencia</div><div style="font-size: 12px; color: #8a8580; font-family: 'IBM Plex Mono', monospace">0,71 · alegre</div></div>
+          <div class="barra"><div class="eje"></div><div class="relleno" style="right: 50%; width: 16%; background: #f0d9a8"></div></div>
+          <div style="text-align: right; font-size: 14px; color: #8a520c; font-family: 'IBM Plex Mono', monospace">−4</div>
+        </div>
+
+        <div class="fila">
+          <div><div style="font-size: 14px">bailabilidad</div><div style="font-size: 12px; color: #8a8580; font-family: 'IBM Plex Mono', monospace">0,75 · alta</div></div>
+          <div class="barra"><div class="eje"></div><div class="relleno" style="right: 50%; width: 12%; background: #f0d9a8"></div></div>
+          <div style="text-align: right; font-size: 14px; color: #8a520c; font-family: 'IBM Plex Mono', monospace">−3</div>
+        </div>
+
+        <div class="fila">
+          <div><div style="font-size: 14px">habla</div><div style="font-size: 12px; color: #8a8580; font-family: 'IBM Plex Mono', monospace">0,04 · cantada</div></div>
+          <div class="barra"><div class="eje"></div><div class="relleno" style="left: 50%; width: 12%; background: #cfdcf0"></div></div>
+          <div style="text-align: right; font-size: 14px; color: #24487d; font-family: 'IBM Plex Mono', monospace">+3</div>
+        </div>
+
+        <div class="fila">
+          <div><div style="font-size: 14px">modo</div><div style="font-size: 12px; color: #8a8580; font-family: 'IBM Plex Mono', monospace">menor</div></div>
+          <div class="barra"><div class="eje"></div><div class="relleno" style="left: 50%; width: 8%; background: #cfdcf0"></div></div>
+          <div style="text-align: right; font-size: 14px; color: #24487d; font-family: 'IBM Plex Mono', monospace">+2</div>
+        </div>
+      </div>
+
+      <div style="margin: 8px 24px 20px; border: 2px solid #b06a12; background: #fcf4e6; border-radius: 4px; padding: 16px 18px">
+        <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 7px">
+          <div style="width: 20px; height: 8px; background: #b06a12; border-radius: 2px"></div>
+          <div style="font-size: 12px; color: #8a520c; text-transform: uppercase; letter-spacing: 0.06em">escrito por la IA · tu conflicto principal</div>
+        </div>
+        <div style="font-size: 14.5px; line-height: 1.6; color: #3a3733">La energía es lo que más pesa en los dos ejes, y en direcciones opuestas: bajarla te acerca al premio pero te aleja del público. <strong style="font-weight: 500">No hay forma de moverla que mejore las dos cosas.</strong></div>
+      </div>
+
+      <div style="margin-top: auto; border-top: 1px solid #e5e2dc; padding: 14px 24px; font-size: 12px; color: #6b6660; line-height: 1.7">
+        <div style="font-size: 11px; color: #a5a09a; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px">de dónde salió cada dato</div>
+        <div>tus valores · analizados de tu archivo con librosa, hoy</div>
+        <div>la comparación · 483 nominadas a Record y Song of the Year, 1970–2026</div>
+        <div>la referencia de época · 40.302 canciones publicadas en 2024</div>
+      </div>
+    </div>
+
+    <div style="width: 300px; display: flex; flex-direction: column; gap: 16px">
+
+      <div style="background: #fff; border: 1px solid #d6d3cd; border-radius: 4px; padding: 18px">
+        <div style="font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #6b6660; margin-bottom: 12px">Por qué estas cuatro pesan más</div>
+        <div style="font-size: 13px; line-height: 1.6; color: #3a3733">Energía, valencia, acústica y duración son las que <strong style="font-weight: 500">más separan</strong> a las premiadas de los hits. Está medido sobre el corpus, no supuesto.</div>
+        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 7px; font-family: 'IBM Plex Mono', monospace; font-size: 12px">
+          <div style="display: flex; justify-content: space-between"><span>energía</span><span style="color: #6b6660">0,473</span></div>
+          <div style="display: flex; justify-content: space-between"><span>valencia</span><span style="color: #6b6660">0,461</span></div>
+          <div style="display: flex; justify-content: space-between"><span>acústica</span><span style="color: #6b6660">0,349</span></div>
+          <div style="display: flex; justify-content: space-between"><span>duración</span><span style="color: #6b6660">0,344</span></div>
+          <div style="display: flex; justify-content: space-between; color: #a5a09a"><span>tempo</span><span>0,061</span></div>
+          <div style="display: flex; justify-content: space-between; color: #a5a09a"><span>modo</span><span>0,037</span></div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #d6d3cd; border-radius: 4px; padding: 18px">
+        <div style="font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #6b6660; margin-bottom: 10px">El hallazgo detrás</div>
+        <div style="font-size: 13px; line-height: 1.6; color: #3a3733">Las premiadas son, respecto de la música de su año, <strong style="font-weight: 500">menos enérgicas, más melancólicas, más acústicas y más largas</strong> que los hits.</div>
+        <div style="font-size: 12px; line-height: 1.6; color: #8a8580; margin-top: 10px">De ahí sale la tensión que la app le muestra al usuario.</div>
+      </div>
+
+      <div style="border-left: 3px solid #b06a12; padding-left: 14px; margin-top: auto">
+        <div style="font-size: 12.5px; line-height: 1.6; color: #6b6660">Ámbar para lo que resta y azul para lo que suma — no rojo y verde. La app <strong style="font-weight: 500; color: #3a3733">no juzga</strong> la canción, la ubica.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -14,6 +14,11 @@ codigo/*
 !codigo/armar_control.js
 !codigo/auditar_datasets.js
 !codigo/letra.js
+!codigo/cruzar.js
+!codigo/armar_corpus_v2.js
+!codigo/armar_control_v2.js
+!codigo/preparar_billboard.js
+!codigo/analisis_normalizado.js
 !codigo/.gitkeep
 
 # Fuera del repositorio por decision del 27/09/2026.
@@ -27,3 +32,13 @@ imagenes/
 .env
 .env.*
 .DS_Store
+
+# Uso personal: herramientas sueltas (imágenes, pdf) y el plan interno de la entrega 4
+scripts/
+plan_entrega_4.md
+# Exportación empaquetada de la herramienta de diseño (2,5 MB de código ajeno);
+# el borrador real está en diseno/borrador/
+diseno/pyp_prototipo.html
+diseno/*.dc.html
+diseno/canvas.json
+diseno/tuversion/

@@ -377,7 +377,7 @@ El análisis mide solo el sonido. La letra influye en los dos ejes y todavía no
 
 **Lo que sabemos hasta ahora juega a favor de lo que hicimos:** un estudio de la Universidad de Nueva York midió que, para Song of the Year y Record of the Year, la letra resulta **menos predictiva que el sonido**. Pesaron más la energía, la acústica y la cantidad de palabra hablada.
 
-El detalle completo, con las fuentes y el plan de trabajo, está en [`la_letra.md`](la_letra.md).
+El detalle completo, con las fuentes y el plan de trabajo, está en [`analisis/la_letra.md`](analisis/la_letra.md).
 
 
 ## 2 de noviembre de 2026 — La comparación por género queda descartada
