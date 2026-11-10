@@ -425,3 +425,9 @@ input[type="range"]::-moz-range-thumb {
 .como-texto p:last-child { margin-bottom: 0; }
 .como-mapa { margin: 0; padding: 0 14px 10px; background: var(--panel); }
 .como-mapa summary { padding-top: 2px; }
+
+/* ---------- Título del mapa ---------- */
+.mapa-titulo { padding: 16px 18px 4px; }
+.mapa-titulo h3 { margin: 0 0 4px; font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--tinta); line-height: 1.25; }
+.mapa-titulo p { margin: 0; max-width: 640px; font-size: 13px; line-height: 1.5; color: var(--tenue); }
+.mapa-titulo b { color: var(--texto); font-weight: 600; }
