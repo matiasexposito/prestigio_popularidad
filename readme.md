@@ -203,6 +203,13 @@ Esto cumple la promesa de la app: *"tu archivo se analiza y se descarta"*.
 
 Quien clone el repositorio corre `npm install` y ya puede ejecutar `codigo/armar_control.js` y `codigo/auditar_datasets.js`.
 
+**`codigo/letra.js`** consulta la letra de una canción en la API pública de lyrics.ovh y la **mide**: cantidad de palabras, palabras distintas, repetición de líneas, palabra más repetida, proporción de primera persona. No guarda el texto (la letra tiene derechos de autor); con `--csv` guarda solo los números en `datasets_procesados/letras_metricas.csv`. Es la herramienta para el análisis de la letra que quedó pendiente.
+
+```
+node codigo/letra.js "Luis Fonsi" "Despacito"
+node codigo/letra.js --lote canciones.csv
+```
+
 ## Límites declarados
 
 - **Solo mide el sonido.** No la letra, ni el sello, ni la campaña, ni quién es el artista. Un Grammy depende muchísimo de factores que ningún dato acústico captura.

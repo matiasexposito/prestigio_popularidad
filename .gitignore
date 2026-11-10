@@ -7,12 +7,13 @@ datasets/tmp/
 datasets/corpus.csv
 datasets/control.csv
 
-# De codigo/ van solo los tres que el readme y el diccionario mencionan
+# De codigo/ van solo los que el readme y el diccionario mencionan
 # por nombre. El resto de la cadena queda en el proyecto local.
 codigo/*
 !codigo/fetch_grammy.js
 !codigo/armar_control.js
 !codigo/auditar_datasets.js
+!codigo/letra.js
 !codigo/.gitkeep
 
 # Fuera del repositorio por decision del 27/09/2026.
