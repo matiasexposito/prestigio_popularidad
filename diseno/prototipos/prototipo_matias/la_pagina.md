@@ -38,7 +38,7 @@ Puede ser un demo sin publicar. **Tu archivo no sale de tu computadora**: se ana
 
 Si en vez de subir algo preferís probar con una canción conocida, el buscador tiene las que ya analizamos. Son todas **del 2000 en adelante**, que es la ventana con la que trabaja la herramienta.
 
-Al costado está el proceso en tres pasos, para que sepas qué va a pasar: ReccoBeats y Essentia miden 10 rasgos del sonido, el modelo calcula los dos puntajes con su margen, y te mostramos qué suma y qué resta en cada eje.
+El archivo es lo único importante de esta pantalla, así que está en el centro y grande. Debajo, el proceso en tres pasos, para que sepas qué va a pasar: ReccoBeats y Essentia miden 10 rasgos del sonido, el modelo calcula los dos puntajes con su margen, y te mostramos qué suma y qué resta en cada eje.
 
 ### 5 · Resultado
 
@@ -46,7 +46,7 @@ La pantalla principal.
 
 **Los dos puntajes**, cada uno con su margen de error. El margen no es un detalle: con 213 canciones premiadas, el puntaje de prestigio es una estimación y la app lo dice.
 
-**El mapa**, que ocupa la mayor parte de la pantalla. Cada punto es una canción, ubicada según sus dos puntajes. Tu canción aparece marcada entre canciones conocidas, así ves de un vistazo en qué compañía caíste.
+**El mapa**, que ocupa la mayor parte de la pantalla. Cada punto es una canción, ubicada según sus dos puntajes. Abajo del mapa hay una leyenda que dice qué significa cada marca: tu canción, ganó un Grammy, nominada, nunca nominada, y las canciones de la base. Tu canción aparece marcada entre canciones conocidas, así ves de un vistazo en qué compañía caíste.
 
 **La lectura**, en el recuadro ámbar, que pasa los dos números a una frase: en qué zona del mapa caíste y qué rasgo te está tensionando los dos ejes.
 

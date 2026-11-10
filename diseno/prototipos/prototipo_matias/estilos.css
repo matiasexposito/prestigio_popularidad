@@ -388,3 +388,27 @@ input[type="range"]::-moz-range-thumb {
 .caja.escribiendo #lectura { opacity: .55; transition: opacity .2s; }
 .caja.escribiendo .lectura-pie::before { content: ''; display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; border: 1.5px solid var(--ambar); border-right-color: transparent; animation: girar .7s linear infinite; vertical-align: -1px; }
 .caja.con-ia #lectura { opacity: 1; }
+
+/* ---------- Pantalla de carga: una sola columna, el archivo en el centro ---------- */
+.carga-centrada { width: 100%; max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; text-align: center; }
+.carga-centrada .rotulo-paso, .carga-centrada .titular { text-align: center; }
+.carga-centrada .bajada { margin: 0 auto 10px; max-width: 520px; }
+.zona-carga-grande { padding: clamp(30px, 7vh, 60px) 24px; }
+.con-icono-centrado { justify-content: center; }
+.carga-centrada .campo { text-align: left; }
+.pasos-fila { margin-top: 26px; flex-direction: row; justify-content: center; gap: 10px 24px; flex-wrap: wrap; }
+.pasos-fila li { font-size: 13px; }
+@media (max-width: 720px) { .pasos-fila { flex-direction: column; align-items: flex-start; } }
+
+/* ---------- Leyenda de colores, dentro de la caja del mapa ---------- */
+.mapa-caja.mapa-grande { display: flex; flex-direction: column; }
+.mapa-caja.mapa-grande > svg.mapa { flex: 1; min-height: 0; height: auto; }
+.leyenda-mapa { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 8px 14px 10px; border-top: 1px solid var(--borde-2); font-size: 11px; color: var(--tenue); background: var(--panel); }
+.leyenda-mapa span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.leyenda-mapa i { display: inline-block; width: 8px; height: 8px; border-radius: 999px; box-sizing: border-box; flex: none; }
+.ly-tuya { width: 10px; height: 10px; background: var(--azul); box-shadow: 0 0 0 2px var(--fondo), 0 0 0 3px var(--azul); }
+.ly-gano { background: var(--azul); }
+.ly-nominada { border: 2px solid var(--azul); }
+.ly-nunca { border: 1.5px solid var(--tenue-2); }
+.ly-fondo { width: 5px; height: 5px; background: var(--gris-suave); }
+.ly-antes { width: 9px; height: 9px; background: var(--gris-suave); }

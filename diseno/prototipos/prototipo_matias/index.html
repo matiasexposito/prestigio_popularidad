@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="estilos.css?v=20261110b">
+<link rel="stylesheet" href="estilos.css?v=20261110c">
 </head>
 <body>
 
@@ -122,21 +122,13 @@
     <span class="mono chico tenue">23.388 canciones · 2000–2026</span>
   </header>
 
-  <div class="cuerpo dos-columnas">
-    <div class="col-texto">
+  <div class="cuerpo cuerpo-centrado">
+    <div class="carga-centrada">
       <div class="rotulo-paso">Paso 1 de 3</div>
       <h2 class="titular">Subí tu canción</h2>
       <p class="bajada">Puede ser un demo sin publicar. La medimos con ReccoBeats y Essentia, y te decimos entre qué dos mundos cae.</p>
 
-      <ol class="pasos">
-        <li><span class="paso-n mono">01</span><span class="punto punto-azul"></span>ReccoBeats y Essentia miden 10 rasgos del sonido</li>
-        <li><span class="paso-n mono">02</span><span class="punto punto-azul"></span>El modelo calcula los dos puntajes, con su margen</li>
-        <li><span class="paso-n mono">03</span><span class="punto punto-ambar"></span>Te mostramos qué suma y qué resta en cada eje</li>
-      </ol>
-    </div>
-
-    <aside class="col-panel">
-      <div class="zona-carga" id="zona-carga">
+      <div class="zona-carga zona-carga-grande" id="zona-carga">
         <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 16V4M12 4l-4 4M12 4l4 4"></path><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
         </svg>
@@ -147,6 +139,13 @@
 
       <button type="button" class="boton boton-negro boton-bloque" id="btn-archivo">Elegir un archivo</button>
 
+      <p class="chico tenue con-icono con-icono-centrado">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        Tu archivo se analiza en tu navegador y se descarta.
+      </p>
+
       <div class="separador"><span>o</span></div>
 
       <label class="campo">
@@ -155,13 +154,12 @@
       </label>
       <ul class="resultados" id="resultados" hidden></ul>
 
-      <p class="chico tenue con-icono">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-        Tu archivo se analiza en tu navegador y se descarta.
-      </p>
-    </aside>
+      <ol class="pasos pasos-fila">
+        <li><span class="paso-n mono">01</span><span class="punto punto-azul"></span>ReccoBeats y Essentia miden 10 rasgos del sonido</li>
+        <li><span class="paso-n mono">02</span><span class="punto punto-azul"></span>El modelo calcula los dos puntajes, con su margen</li>
+        <li><span class="paso-n mono">03</span><span class="punto punto-ambar"></span>Te mostramos qué suma y qué resta en cada eje</li>
+      </ol>
+    </div>
   </div>
 </section>
 
@@ -179,7 +177,15 @@
   </header>
 
   <div class="cuerpo mapa-manda">
-    <div class="mapa-caja mapa-grande"><svg id="mapa-resultado" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Dónde cayó tu canción en el mapa"></svg></div>
+    <div class="mapa-caja mapa-grande"><svg id="mapa-resultado" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Dónde cayó tu canción en el mapa"></svg>
+      <div class="leyenda-mapa" aria-label="Qué significa cada color">
+        <span><i class="ly-tuya"></i>tu canción</span>
+        <span><i class="ly-gano"></i>ganó un Grammy</span>
+        <span><i class="ly-nominada"></i>nominada</span>
+        <span><i class="ly-nunca"></i>nunca nominada</span>
+        <span><i class="ly-fondo"></i>canciones de la base</span>
+      </div>
+    </div>
 
     <aside class="col-panel col-resultado">
       <div>
@@ -260,7 +266,16 @@
       <div class="controles" id="controles"></div>
     </div>
 
-    <div class="mapa-caja mapa-grande"><svg id="mapa-simulador" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Cómo se mueve tu canción en el mapa"></svg></div>
+    <div class="mapa-caja mapa-grande"><svg id="mapa-simulador" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Cómo se mueve tu canción en el mapa"></svg>
+      <div class="leyenda-mapa" aria-label="Qué significa cada color">
+        <span><i class="ly-tuya"></i>tu canción</span>
+        <span><i class="ly-gano"></i>ganó un Grammy</span>
+        <span><i class="ly-nominada"></i>nominada</span>
+        <span><i class="ly-nunca"></i>nunca nominada</span>
+        <span><i class="ly-fondo"></i>canciones de la base</span>
+        <span><i class="ly-antes"></i>dónde estabas</span>
+      </div>
+    </div>
 
     <aside class="col-panel col-angosta">
       <div class="rotulo-paso">Con tus cambios</div>
@@ -283,14 +298,14 @@
   </div>
 </div>
 
-<script src="modelo.js?v=20261110b"></script>
-<script src="logica.js?v=20261110b"></script>
-<script src="mapa.js?v=20261110b"></script>
-<script src="escuchar.js?v=20261110b"></script>
-<script src="lectura.js?v=20261110b"></script>
-<script src="medicion.js?v=20261110b"></script>
-<script src="analisis_essentia.js?v=20261110b"></script>
-<script src="analisis_reccobeats.js?v=20261110b"></script>
-<script src="app.js?v=20261110b"></script>
+<script src="modelo.js?v=20261110c"></script>
+<script src="logica.js?v=20261110c"></script>
+<script src="mapa.js?v=20261110c"></script>
+<script src="escuchar.js?v=20261110c"></script>
+<script src="lectura.js?v=20261110c"></script>
+<script src="medicion.js?v=20261110c"></script>
+<script src="analisis_essentia.js?v=20261110c"></script>
+<script src="analisis_reccobeats.js?v=20261110c"></script>
+<script src="app.js?v=20261110c"></script>
 </body>
 </html>
