@@ -179,11 +179,26 @@
 
   /* ================= 5 · Resultado ================= */
 
+  // Cómo se calcula cada número, explicado en la misma tarjeta (pedido de los docentes, 10/11).
+  // Las cifras salen del modelo; la de hits (9.497) es la del entrenamiento desde 2000.
+  const miles = n => Number(n).toLocaleString('es-AR');
+  function comoSeCalcula(nombre, e) {
+    const v = Math.round(e.v), lo = Math.round(e.lo), hi = Math.round(e.hi), base = miles(M.n);
+    const que = nombre === 'Prestigio'
+      ? `<p>Comparamos el sonido de tu canción con el de las <b>${miles(M.n_reconocidas)}</b> canciones nominadas a Record o Song of the Year desde el año 2000, y con el de <b>${miles(M.n_nunca)}</b> hits que nunca fueron nominados. El modelo aprendió qué separa a unas de otras en 10 rasgos del sonido.</p>
+         <p><b>El ${v} quiere decir que tu sonido se parece más al perfil premiado que el ${v}% de las ${base} canciones de nuestra base.</b> No es una probabilidad de ganar.</p>`
+      : `<p>Dos preguntas encadenadas: ¿tu sonido se parece al de las canciones que entran al Hot 100? Y si entra, ¿al de las que llegan alto?</p>
+         <p><b>El ${v} quiere decir que te parecés más al perfil que entra que el ${v}% de las ${base} canciones de la base.</b> El sonido explica alrededor de un cuarto de entrar al chart y casi nada de cuán alto se llega: por eso nunca te decimos un puesto.</p>`;
+    const margen = `<p><b>¿Y el "entre ${lo} y ${hi}"?</b> Es el margen de error. Volvimos a entrenar el modelo 20 veces con distintas muestras de las mismas canciones y anotamos cuánto cambiaba tu número. El del prestigio es más ancho porque se aprende de ${miles(M.n_reconocidas)} canciones; el de la popularidad, de 9.497.</p>`;
+    return `<details class="como"><summary>¿Cómo se calcula?</summary><div class="como-texto">${que}${margen}</div></details>`;
+  }
+
   function tarjetaPuntaje(nombre, e) {
     return `<div class="tarjeta-puntaje">
       <div class="puntaje-cabeza"><b>${nombre}</b><span class="puntaje-margen">entre ${Math.round(e.lo)} y ${Math.round(e.hi)}</span></div>
       <div class="puntaje-cifra"><span>${Math.round(e.v)}</span><span>%</span></div>
       <div class="riel"><i style="width:${e.v}%"></i><u style="left:${e.lo}%;width:${Math.max(2, e.hi - e.lo)}%"></u></div>
+      ${comoSeCalcula(nombre, e)}
     </div>`;
   }
 

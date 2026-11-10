@@ -412,3 +412,16 @@ input[type="range"]::-moz-range-thumb {
 .ly-nunca { border: 1.5px solid var(--tenue-2); }
 .ly-fondo { width: 5px; height: 5px; background: var(--gris-suave); }
 .ly-antes { width: 9px; height: 9px; background: var(--gris-suave); }
+
+/* ---------- "¿Cómo se calcula?": la explicación, en el mismo lugar ---------- */
+.como { margin-top: 12px; }
+.como summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--tenue); text-decoration: underline; text-underline-offset: 3px; }
+.como summary::-webkit-details-marker { display: none; }
+.como summary::before { content: '+'; font-family: var(--mono); color: var(--azul); text-decoration: none; display: inline-block; width: 10px; transition: transform .2s; }
+.como[open] summary::before { content: '−'; }
+.como summary:hover { color: var(--tinta); }
+.como-texto { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--borde-2); font-size: 13px; line-height: 1.55; color: var(--texto); animation: aparecer .2s var(--salida); }
+.como-texto p { margin: 0 0 8px; }
+.como-texto p:last-child { margin-bottom: 0; }
+.como-mapa { margin: 0; padding: 0 14px 10px; background: var(--panel); }
+.como-mapa summary { padding-top: 2px; }

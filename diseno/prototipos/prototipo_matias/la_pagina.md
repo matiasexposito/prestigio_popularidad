@@ -48,6 +48,8 @@ La pantalla principal.
 
 **El mapa**, que ocupa la mayor parte de la pantalla. Cada punto es una canción, ubicada según sus dos puntajes. Abajo del mapa hay una leyenda que dice qué significa cada marca: tu canción, ganó un Grammy, nominada, nunca nominada, y las canciones de la base. Tu canción aparece marcada entre canciones conocidas, así ves de un vistazo en qué compañía caíste.
 
+**Cómo se calcula cada cosa.** Debajo de cada puntaje hay un "¿Cómo se calcula?" que se despliega ahí mismo: contra qué canciones se compara, qué quiere decir ese número para tu canción y de dónde sale el margen. Debajo del mapa, "¿Cómo está hecho este mapa?" explica los ejes, los puntos y las zonas.
+
 **La lectura**, en el recuadro ámbar, que pasa los dos números a una frase: en qué zona del mapa caíste y qué rasgo te está tensionando los dos ejes.
 
 ### 6 · Qué suma y qué resta
