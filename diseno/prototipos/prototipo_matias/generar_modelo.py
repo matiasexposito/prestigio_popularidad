@@ -50,6 +50,13 @@ Sigue las decisiones del grupo (ver entregas y decisiones.md):
 Los puntajes que muestra la app son el PERCENTIL de la canción dentro de las canciones
 del 2000 en adelante. El margen sale de 20 remuestreos (bootstrap).
 
+  EL VIAJE EN EL TIEMPO (la "pirueta", 10/11/2026): además del modelo de hoy, se entrena
+  el mismo par de modelos con las canciones de cada período (2000-04, 05-09, 10-14, 15-19,
+  20-26). Así la app puede mostrar cómo habría leído a una canción la Academia y el chart
+  de cada época. Cada período tiene entre 35 y 67 reconocidas, así que su margen es más
+  ancho que el de hoy (12 remuestreos, se muestra siempre). Medido antes de incluirlo:
+  el acierto por período se mantiene (prestigio 0,68-0,78; popularidad 0,75-0,80).
+
 Uso (desde la raiz del repo):  python3 diseno/prototipos/prototipo_diogenes/generar_modelo.py
 """
 import csv, json, os
@@ -188,6 +195,40 @@ for g in ['hit', 'ambas', 'premiada', 'control']:
     m = np.array([r['grupo'] == g for r in filas])
     grupos[g] = dict(zip(FEATS, X[m].mean(0).round(3).tolist()))
 
+# ---------- El viaje en el tiempo: un par de modelos por período ----------
+PERIODOS = [(2000, 2004), (2005, 2009), (2010, 2014), (2015, 2019), (2020, 2026)]
+anio_f = np.array([int(r['anio']) for r in filas])
+periodos = []
+for a_, b_ in PERIODOS:
+    m = (anio_f >= a_) & (anio_f <= b_)
+    mp_ = m & (general | nunca)
+    bp_ = logistica(Z[mp_], general[mp_].astype(int))
+    b1_ = logistica(Z[m], hit[m])
+    eh_ = m & (hit == 1)
+    b2_ = lineal(Z[eh_], escala[eh_])
+    sp_, so_ = A @ bp_, puntaje_pop(A, b1_, b2_)
+    qp_ = np.quantile(sp_[m], np.linspace(0, 1, 201)).round(4).tolist()
+    qo_ = np.quantile(so_[m], np.linspace(0, 1, 201)).round(4).tolist()
+    bpres_, bpop_ = [], []
+    idx_m = np.where(m)[0]
+    for _ in range(12):
+        i = idx_m[rng.integers(0, len(idx_m), len(idx_m))]
+        ip = i[(general | nunca)[i]]
+        ih = i[hit[i] == 1]
+        bpres_.append(logistica(Z[ip], general[ip].astype(int)).round(4).tolist())
+        bpop_.append([logistica(Z[i], hit[i]).round(4).tolist(), lineal(Z[ih], escala[ih]).round(4).tolist()])
+    muestra = rng.choice(idx_m, min(300, len(idx_m)), replace=False)
+    fondo_p = [[round(pct(so_[i], qo_), 1), round(pct(sp_[i], qp_), 1), filas[i]['grupo'],
+                filas[i]['titulo'], filas[i]['artista'], int(filas[i]['anio'])] for i in muestra]
+    periodos.append({
+        'desde': a_, 'hasta': b_, 'n': int(m.sum()), 'n_reconocidas': int((m & general).sum()),
+        'n_hits': int(eh_.sum()),
+        'prestigio': {'coef': bp_.round(4).tolist(), 'boots': bpres_, 'cuantiles': qp_},
+        'popularidad': {'coef': b1_.round(4).tolist(), 'coef2': b2_.round(4).tolist(), 'boots': bpop_, 'cuantiles': qo_},
+        'fondo': fondo_p,
+        'auc': {'prestigio': round(auc(sp_[mp_], general[mp_].astype(int)), 3), 'popularidad': round(auc(so_[m], hit[m]), 3)},
+    })
+
 modelo = {
     'rasgos': FEATS, 'media': media.round(5).tolist(), 'desv': desv.round(5).tolist(),
     'prestigio': {'coef': b_pres.round(4).tolist(), 'boots': boots_pres, 'cuantiles': q_pres},
@@ -197,6 +238,7 @@ modelo = {
     'fondo': fondo, 'referencias': refs, 'buscables': buscables, 'grupos': grupos,
     'n': len(filas), 'anio_min': ANIO_MIN,
     'n_reconocidas': int(general.sum()), 'n_nunca': int(nunca.sum()),
+    'periodos': periodos,
 }
 with open(os.path.join(AQUI, 'modelo.js'), 'w', encoding='utf-8') as f:
     f.write('// Generado por generar_modelo.py — no editar a mano\n')
@@ -218,4 +260,5 @@ for f_ in FEATS:
     print(f'  {f_:17s} reconocidas {X[general, j].mean():7.3f} | nunca {X[nunca, j].mean():7.3f}')
 print('ambas (premio + hit) desde 2000:', sum(r['grupo'] == 'ambas' for r in filas), 'de', len(filas))
 print('buscables:', len(buscables))
+print('períodos:', [(p_['desde'], p_['hasta'], p_['n'], p_['n_reconocidas'], p_['auc']) for p_ in periodos])
 print('referencias:', len(refs), [(r['titulo'], r['pop'], r['pres']) for r in refs])

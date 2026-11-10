@@ -74,15 +74,19 @@
     return ((lo + f) / n) * 100;
   }
 
-  function eje(nombre, r) {
-    const m = M[nombre], z = zs(r);
+  // Un eje calculado con un modelo dado (el de hoy, o el de un período del viaje en el tiempo)
+  function ejeCon(m, r) {
+    const z = zs(r);
     const v = percentil(puntuarModelo(m, z), m.cuantiles);
     const b = m.boots.map(c => percentil(puntuarBoot(m, z, c), m.cuantiles)).sort((a, c) => a - c);
     // Margen: 10º–90º percentil de 20 remuestreos, con un piso de ±4 puntos
     const lo = clamp(Math.min(b[2], v - 4), 0, 100), hi = clamp(Math.max(b[17], v + 4), 0, 100);
     return { v, lo, hi };
   }
+  const eje = (nombre, r) => ejeCon(M[nombre], r);
   const puntajes = r => ({ pres: eje('prestigio', r), pop: eje('popularidad', r) });
+  // El viaje en el tiempo: la misma canción leída por el modelo de cada período
+  const puntajesEn = (periodo, r) => ({ pres: ejeCon(periodo.prestigio, r), pop: ejeCon(periodo.popularidad, r) });
 
   // Cuántos puntos aporta cada rasgo: el puntaje real menos el puntaje si ese rasgo fuera promedio
   function aportes(nombre, r) {
@@ -126,6 +130,6 @@
   window.PP = {
     M, R, INFO, SLIDERS, la, La, lo_, coma, mmss, clamp,
     nivel, valorCorto, valorLargo,
-    zs, puntuar, percentil, eje, puntajes, aportes, conflicto, zona
+    zs, puntuar, percentil, eje, puntajes, puntajesEn, aportes, conflicto, zona
   };
 })();

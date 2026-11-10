@@ -73,8 +73,10 @@ Una sola pregunta: **¿está nominada en una categoría general o no?**
 
 | | Canciones |
 |---|---|
-| Nominadas a Record o Song of the Year, desde 2000 | **213** |
-| Hits del Hot 100 nunca nominados | **8.883** |
+| Nominadas a Record o Song of the Year, desde 2000 | **213** (212 en el entrenamiento) |
+| Hits del Hot 100 nunca nominados | **8.883** (8.870 en el entrenamiento) |
+
+Los dos números entre paréntesis son después de descartar 15 cruces rotos (canciones con volumen menor a −25 dB, pegadas a otra versión). La población es la misma; el modelo entrena con **23.388** de las 23.403 canciones desde 2000.
 
 **Solo esas dos categorías**, porque son las únicas que vota la Academia entera —en las demás cada miembro vota solo en su género— y las únicas que existen desde 1959 sin interrupción.
 
