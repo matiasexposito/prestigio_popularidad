@@ -242,7 +242,6 @@ main { flex: 1 1 auto; min-height: 0; position: relative; }
 .m-tu-halo { fill: none; stroke: var(--ambar); stroke-width: 1.5; stroke-dasharray: 4 3; }
 .m-tu-onda { fill: none; stroke: var(--ambar); stroke-width: 1.5; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; animation: onda 2.6s ease-out infinite; }
 .m-tu-texto { font: 700 14px var(--sans); fill: var(--tinta); paint-order: stroke; stroke: var(--superficie); stroke-width: 4px; stroke-linejoin: round; }
-.m-tu-g { transition: transform .2s ease-out; }
 .m-antes { fill: var(--gris-ui); }
 .m-flecha { stroke: var(--ambar); stroke-width: 1.5; stroke-dasharray: 4 3; fill: none; }
 @keyframes onda { 0% { transform: scale(.9); opacity: .8; } 100% { transform: scale(3.4); opacity: 0; } }

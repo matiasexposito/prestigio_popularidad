@@ -368,10 +368,23 @@
       const t = $('.m-tu-texto', g);
       t.setAttribute('y', ty_txt);
       t.textContent = antes ? 'AHORA' : 'TU CANCIÓN';
-      if (nuevo || animar) g.style.transition = 'none';
-      g.style.transform = `translate(${tx}px, ${ty}px)`;
+      // La posición va en el atributo transform (unidades del SVG), no en CSS con px:
+      // Safari escala los px de CSS con el zoom del navegador (Cmd +/−) y el punto se
+      // corría respecto del resto del mapa. El deslizamiento se anima a mano.
+      cancelAnimationFrame(g._raf);
+      const poner = (x, y) => { g.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`); g._pos = [x, y]; };
+      const desde = g._pos;
+      if (nuevo || animar || !desde || !MOVIMIENTO) poner(tx, ty);
+      else {
+        const t0 = performance.now(), dur = 200;
+        const paso = t => {
+          const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+          poner(desde[0] + (tx - desde[0]) * e, desde[1] + (ty - desde[1]) * e);
+          if (k < 1) g._raf = requestAnimationFrame(paso);
+        };
+        g._raf = requestAnimationFrame(paso);
+      }
       if (animar && MOVIMIENTO) { g.classList.remove('cae'); reflow(g); g.classList.add('cae'); }
-      if (nuevo || animar) { reflow(g); g.style.transition = ''; }
     } else C.tu.innerHTML = '';
   }
 
