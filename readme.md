@@ -277,7 +277,8 @@ prestigio_popularidad/
 ├── analisis/
 │   ├── nuevos_puntos.md    # Cómo definimos el eje de popularidad, con las mediciones
 │   ├── la_letra.md         # Qué sabemos del impacto de la letra
-│   └── redes_y_letra.md    # Por qué no incluimos las redes ni la letra, con pruebas propias
+│   ├── redes_y_letra.md    # Por qué no incluimos las redes ni la letra, con pruebas propias
+│   └── decision_letra_redes.md  # La propuesta: qué usamos y cuánto pesa cada factor
 ├── .gitignore
 ├── package.json            # Librerías que necesitan los scripts (npm install)
 ├── datasets/               # Los CSV del análisis (todo 1958–2026) + diccionario.md
@@ -294,6 +295,6 @@ prestigio_popularidad/
 ├── codigo/                 # Scripts de descarga, cruce, armado y auditoría
 ├── normalizacion/          # Dónde está la normalización por época
 ├── versiones/              # Historia de los cambios en datos y modelo
-├── entregas/               # Qué se entregó en cada fecha
+├── entregas/               # Qué se entregó en cada fecha (entrega_4/como_seguimos.md: el estado y lo que falta)
 └── app/                    # Dónde vive la app publicada
 ```
