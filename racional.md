@@ -659,7 +659,7 @@ No trabajamos con un territorio físico, pero sí con un recorte, y conviene dec
 | Herramienta | Qué hace en el proyecto | Quién decide |
 |---|---|---|
 | **Claude** (Anthropic), desde Claude Code | Escribió el código de la app y de los scripts de datos, hizo las mediciones que le pedimos y redactó borradores de los documentos | Nosotros: qué se hace, qué se acepta y qué se tira |
-| **Llama 3.3 70B**, servido por Groq | Dentro de la app: escribe la lectura del resultado, a partir de los números de la canción | Le fijamos nosotros qué puede decir y qué no (ver más abajo) |
+| **GPT-OSS 120B** (modelo abierto de OpenAI), servido por Groq | Dentro de la app: escribe la lectura del resultado, a partir de los números de la canción | Le fijamos nosotros qué puede decir y qué no (ver más abajo) |
 | **ReccoBeats** | Dentro de la app: mide 7 características del audio que sube la persona | — |
 | **Essentia.js** | Dentro de la app: mide el tempo y el modo, en el navegador | — |
 | **El sistema de Spotify** | Midió las 10 características de las canciones de la base, antes de que Spotify cerrara ese dato en 2024 | — |

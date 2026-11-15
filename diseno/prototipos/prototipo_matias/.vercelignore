@@ -2,3 +2,4 @@ generar_modelo.py
 armar_documentos.js
 *.md
 *.bak
+cargar_clave_groq.cmd

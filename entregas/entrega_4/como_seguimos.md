@@ -56,7 +56,7 @@ Y dos cosas que no se ven en una pantalla sola:
 
 ### La IA que explica tu resultado
 
-En la pantalla de resultado, un modelo de lenguaje (Llama, servido por Groq) toma los números de tu canción —sin el título ni el artista— y los pone en palabras. Tiene prohibido predecir, opinar de la letra o del artista, e inventar datos. El texto de instrucciones está en `prompts/lectura_ia.md`.
+En la pantalla de resultado, un modelo de lenguaje (GPT-OSS 120B, servido por Groq) toma los números de tu canción —sin el título ni el artista— y los pone en palabras. Tiene prohibido predecir, opinar de la letra o del artista, e inventar datos. El texto de instrucciones está en `prompts/lectura_ia.md`.
 
 **Estado:** todo armado y publicado. Sin la clave, la app muestra la lectura fija del modelo y no se rompe.
 

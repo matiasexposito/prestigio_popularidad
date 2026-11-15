@@ -2,7 +2,7 @@
 
 Este es el texto que recibe el modelo de lenguaje antes de cada lectura. Vive en el código en `diseno/prototipos/prototipo_matias/api/lectura.js` (constante `SISTEMA`); acá está copiado para que se pueda leer sin abrir el código. Si cambia uno, hay que cambiar el otro.
 
-**Modelo:** Llama 3.3 70B, servido por Groq. Temperatura 0,4 (poca variación), máximo 400 tokens.
+**Modelo:** GPT-OSS 120B (un modelo abierto de OpenAI), servido por Groq. Temperatura 0,4 (poca variación). Hasta el 15/11/2026 usábamos Llama 3.3 70B; Groq lo dio de baja y pasamos al reemplazo que recomienda.
 
 **Qué le mandamos de cada canción:** los 10 rasgos con su valor, los dos puntajes con su margen, la zona del mapa, los 4 rasgos que más suman o restan en cada eje con sus puntos, y el conflicto si lo hay. **No le mandamos el título ni el artista**, para que no pueda usar nada que sepa de afuera.
 
