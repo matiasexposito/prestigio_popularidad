@@ -206,3 +206,11 @@ Esas 807 no van ni arriba ni abajo. No van arriba porque las categorías de gén
 **`grammy_gano` no se usa en este eje.** Medimos si ganar suena distinto de estar nominada y la diferencia es de 0,04 en acústica, y para el lado contrario — menos de la mitad de la brecha que sí importa. Con 71 ganadoras, distinguirlas sería inventar una precisión que los datos no tienen.
 
 **Nota para quien mire los pesos del modelo:** la valencia va a aparecer en casi cero. No es un error. Con el corte en 2000 quedan mezclados los dos regímenes opuestos —antes las premiadas eran más tristes, ahora más alegres— y se cancelan solos. Lo que de verdad separa a las premiadas es que son **más acústicas, menos enérgicas y más largas**.
+
+---
+
+## Limpieza del 15 de noviembre de 2026
+
+Los archivos de esta carpeta **no cambiaron**: siguen teniendo todas las filas. Lo que cambió es qué filas usa la herramienta. Además de las 15 canciones con volumen menor a −25 dB, el modelo deja afuera 36 canciones cantadas que figuraban como instrumentales (se volvieron a medir una por una) y 19 repetidas. Después de limpiar, la herramienta entrena con **23.333** canciones: **208** nominadas a Record o Song of the Year, **792** nominadas solo por género y **8.833** hits nunca nominados.
+
+La lista de las 36 está en `datasets_procesados/excluidas.csv`, y el método en `decisiones.md` (15 de noviembre de 2026).

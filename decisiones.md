@@ -395,3 +395,73 @@ Más arriba figuraba como "idea evaluada para más adelante": comparar cada canc
 **Por qué conviene sacarlo y no dejarlo como pendiente.** Pedir un dato que no se usa es una promesa que la app no cumple. El usuario completa el género esperando que cambie algo, y no cambia nada. Es mejor no preguntarlo.
 
 **El límite sigue en pie y se declara igual:** el modelo no distingue géneros. Eso se dice en la app, pero ahora como una limitación honesta en vez de como una función que está por llegar.
+
+
+## 15 de noviembre de 2026 — Limpieza de datos, y qué pesa lo que no medimos
+
+### Decisión: sacar solo las canciones rotas que se pueden probar
+
+*Havana*, de Camila Cabello, llegó al puesto 1 y la app le daba 6 de popularidad y 97 de prestigio. Su fila decía que era casi seguro instrumental (0,92) y que estaba grabada a −12 dB. Era otra versión de la canción, mal cruzada.
+
+Había 98 canciones de Billboard o del Grammy, desde 2000, con instrumentalidad mayor a 0,5. **No se sacaron todas**: varias son instrumentales de verdad (*Sandstorm*, *Kernkraft 400*, temas de Tool).
+
+**Lo que se hizo:** volver a medir cada una con ReccoBeats y Essentia, usando los 30 segundos de muestra.
+
+| Resultado | Canciones | Qué se hizo |
+|---|---|---|
+| La medición también dice instrumental (0,5 o más) | 34 | Se quedan |
+| Zona gris (0,2 a 0,5) | 16 | Se quedan |
+| Sin muestra de audio | 12 | Se quedan |
+| **La medición dice que tiene voz (menos de 0,2)** | **36** | **Se sacan** |
+
+La lista está en `datasets_procesados/excluidas.csv`. Además se sacaron 19 canciones repetidas. Con las 15 de volumen imposible que ya se descartaban, son **70**: el modelo pasa de 23.388 a **23.333** canciones, con 208 nominadas y 8.833 hits nunca nominados.
+
+**Límite:** con 30 segundos, una canción casi toda instrumental puede dar "tiene voz" si justo ese tramo la tiene. Se prefirió ese riesgo.
+
+**Lo que se miró y no se sacó:** canciones de más de 8 minutos, canciones casi todas habladas y canciones grabadas muy bajo. Son raras pero reales.
+
+### Verificación: ReccoBeats y Essentia contra Spotify
+
+Con la misma medición se verificaron las herramientas, sobre 38 hits normales al azar (30 segundos de cada uno):
+
+| Rasgo | Parecido con Spotify |
+|---|---|
+| Bailabilidad | 0,83 |
+| Acústica | 0,70 |
+| Energía | 0,68 |
+| Habla | 0,67 |
+| Valencia | 0,62 |
+| Volumen | 0,47 |
+| Tempo | Igual en 28 de 38; en 6 más, el doble, la mitad u otro múltiplo |
+| Modo | Igual en 28 de 38 |
+
+Con la canción entera (calibración de octubre, 10 canciones y 64 tramos) el parecido fue de 0,89 a 0,97. Un tramo solo es mucho menos confiable que el promedio de todos, que es lo que hace la app.
+
+### Hallazgo: cuánto pesa el sonido, y cuánto el éxito en una nominación
+
+| Pregunta | Cuánto explica el sonido |
+|---|---|
+| ¿Entra al Hot 100? | 24% |
+| Si entra, ¿hasta dónde llega? | 3% |
+| ¿La nominan a Record o Song of the Year? | 10% |
+
+El peso del sonido para entrar al chart baja con los años: 32% en 2005–2009, 23% en 2020–2026.
+
+Y para una nominación, **haber sido un éxito pesa mucho más que el sonido**: el 86% de las nominadas entró al Hot 100, el 62% llegó a los diez primeros puestos (contra el 14% de todos los éxitos) y el 38% al puesto 1 (contra el 3%). Entre los éxitos, el puesto alcanzado explica el 47% de una nominación; el sonido, el 8%.
+
+### Decisión: la letra, las redes y YouTube no entran a la herramienta, pero se explican y se pesan
+
+Acordado con los docentes. La herramienta mide el sonido. En el racional (sección 5) se explica cómo impacta cada cosa en la popularidad y en el prestigio, qué peso aproximado habría que darle, y por qué no se incluye:
+
+| Factor | Entrar al ranking | Llegar alto | Ser nominada |
+|---|---|---|---|
+| **Sonido (medido)** | 25% | 5% | 10% |
+| Redes sociales | 20% | 25% | 10% |
+| YouTube | 5% | 5% | 5% |
+| Playlists y radio | 15% | 20% | 10% |
+| Letra | 10% | 10% | 15% |
+| Contexto | 25% | 35% | 50% |
+
+Solo la fila del sonido es una medición. Las demás son una estimación razonada con estudios publicados; lo que se defiende es el orden, no el número exacto.
+
+**Por qué no entran:** no hay datos abiertos de redes desde 2000; las vistas de hoy no son las de entonces; las redes no son una causa de la popularidad sino otra forma de medirla; un demo no tiene redes ni letra cargada; las letras tienen derechos de autor y vienen con errores; y no alcanzaba el tiempo para medir 23.333 letras y volver a validar todo.

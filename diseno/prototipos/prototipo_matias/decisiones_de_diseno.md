@@ -38,7 +38,7 @@ Pedimos esquinas redondeadas de 12 píxeles en las tarjetas, y los botones en fo
 
 Le pedimos que en la pantalla de resultado el mapa ocupe casi todo y los números queden al costado.
 
-Lo discutimos, porque lo lógico sería poner los números arriba. Pero dos porcentajes sueltos no dicen nada: "83 de prestigio" recién significa algo cuando ves que estás al lado de *Hello* y lejos de *Despacito*.
+Lo discutimos, porque lo lógico sería poner los números arriba. Pero dos porcentajes sueltos no dicen nada: "88 de prestigio" recién significa algo cuando ves que estás al lado de *Hello* y lejos de *Blinding Lights*.
 
 ---
 
@@ -54,7 +54,7 @@ Ahora son columnas verticales: el nombre arriba, una barra que sube o baja desde
 
 Pedimos que los dos puntajes muestren siempre su margen, no un número solo.
 
-El prestigio se entrena con 213 canciones, que son pocas. Mostrar "83" solo sería fingir una precisión que no tenemos. "83, entre 78 y 87" dice la verdad.
+El prestigio se entrena con 208 canciones, que son pocas. Mostrar "88" solo sería fingir una precisión que no tenemos. "88, entre 84 y 92" dice la verdad.
 
 ---
 

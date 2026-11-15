@@ -5,7 +5,9 @@
 const fs = require('fs');
 const path = require('path');
 
+const REPO = 'https://github.com/matiasexposito/prestigio_popularidad/blob/main/';
 const DOCS = [
+  { md: '../../../racional.md',    salida: 'racional.html',             titulo: 'Racional', repo: true },
   { md: 'la_pagina.md',            salida: 'la-pagina.html',            titulo: 'Qué hace cada pantalla' },
   { md: 'decisiones_de_diseno.md', salida: 'decisiones-de-diseno.html', titulo: 'Las decisiones de diseño' },
   { md: '../../../analisis/la_letra.md',    salida: 'la-letra.html',             titulo: 'Cómo impacta la letra' },
@@ -14,10 +16,11 @@ const DOCS = [
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 // Lo de adentro de un renglon: codigo primero, para que no se toque lo de adentro
+let BASE = '';
 function enlinea(s) {
   const guardado = [];
   s = esc(s).replace(/`([^`]+)`/g, (_, c) => `\u0000${guardado.push(`<code>${c}</code>`) - 1}\u0000`);
-  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => `<a href="${/^(https?:|#|\/)/.test(u) ? u : BASE + u}">${t}</a>`);
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/(^|[\s(—])\*([^*]+)\*/g, '$1<em>$2</em>');
   return s.replace(/\u0000(\d+)\u0000/g, (_, i) => guardado[i]);
@@ -35,6 +38,14 @@ function aHtml(md) {
     const l = lineas[i];
 
     if (!l.trim()) { i++; continue; }
+
+    if (l.trim().startsWith('```')) {
+      const cod = []; i++;
+      while (i < lineas.length && !lineas[i].trim().startsWith('```')) cod.push(lineas[i++]);
+      i++;
+      out.push(`<div class="tabla-caja"><pre>${esc(cod.join(String.fromCharCode(10)))}</pre></div>`);
+      continue;
+    }
 
     if (/^---+$/.test(l.trim())) { out.push('<hr>'); i++; continue; }
 
@@ -69,7 +80,7 @@ function aHtml(md) {
     }
 
     const parrafo = [];
-    while (i < lineas.length && lineas[i].trim() && !/^(#{1,4}\s|---+$|>|\||\s*([-*]|\d+\.)\s)/.test(lineas[i])) {
+    while (i < lineas.length && lineas[i].trim() && !/^(#{1,4}\s|---+$|>|\||```|\s*([-*]|\d+\.)\s)/.test(lineas[i])) {
       parrafo.push(lineas[i++]);
     }
     out.push(`<p>${enlinea(parrafo.join(' '))}</p>`);
@@ -120,6 +131,7 @@ ul,ol{margin:0 0 16px;padding-left:22px}
 li{margin:0 0 8px}
 blockquote{margin:0 0 20px;padding:14px 18px;border-left:3px solid var(--ambar);background:#fdf8f1;border-radius:0 var(--radio) var(--radio) 0;color:var(--texto)}
 blockquote p:last-child{margin:0}
+pre{margin:0;padding:14px 16px;font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--tinta);background:#faf9f7;white-space:pre}
 .tabla-caja{overflow-x:auto;margin:0 0 22px;border:1px solid var(--borde);border-radius:var(--radio)}
 table{border-collapse:collapse;width:100%;font-size:14.5px}
 th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--borde);vertical-align:top}
@@ -135,6 +147,7 @@ th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--tenu
   <a class="logo" href="/">P&amp;P</a>
   <span class="sep"></span>
   <a class="vinculo" href="/">la app</a>
+  <a class="vinculo" href="/racional">el racional</a>
   <a class="vinculo" href="/la-pagina">las pantallas</a>
   <a class="vinculo" href="/decisiones-de-diseno">el diseño</a>
   <a class="vinculo" href="/la-letra">la letra</a>
@@ -152,6 +165,7 @@ ${cuerpo}
 
 for (const d of DOCS) {
   const md = fs.readFileSync(path.join(__dirname, d.md), 'utf8');
+  BASE = d.repo ? REPO : '';
   fs.writeFileSync(path.join(__dirname, d.salida), plantilla(d.titulo, aHtml(md)), 'utf8');
   console.log(d.salida, '<-', d.md);
 }

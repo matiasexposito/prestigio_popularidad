@@ -11,7 +11,7 @@ Sigue las decisiones del grupo (ver entregas y decisiones.md):
 
   PRESTIGIO — ¿suena parecido a lo que reconoce la Academia?
     Reconocidas: nominadas a Record of the Year o Song of the Year (las únicas que vota
-    la Academia entera). 213 canciones.
+    la Academia entera). 208 canciones después de la limpieza del 15/11/2026.
     No reconocidas: canciones PUBLICADAS que entraron al Hot 100 y nunca fueron nominadas a
     nada (~8.900). No se usa el grupo de control en este eje: sus canciones (demos,
     autoediciones, música clásica, ambient) suenan menos "producidas", y el modelo
@@ -69,14 +69,31 @@ FEATS = ['energy', 'valence', 'acousticness', 'duration_ms', 'danceability',
 ANIO_MIN = 2000
 VOLUMEN_ROTO = -25.0
 
-filas, descartadas = [], []
+# Canciones excluidas a mano después de volver a medirlas (15/11/2026): figuraban como
+# instrumentales y nuestra propia medición del audio dice que tienen voz. La lista, con el
+# valor del dato y el de la medición, está en datasets_procesados/excluidas.csv.
+EXCLUIDAS = set()
+_p = os.path.join(RAIZ, 'datasets_procesados', 'excluidas.csv')
+if os.path.exists(_p):
+    EXCLUIDAS = {(r['titulo'].lower(), r['artista'].lower()) for r in csv.DictReader(open(_p, encoding='utf-8'))}
+
+filas, descartadas, excluidas, repetidas, vistas = [], [], [], [], set()
 for f in ['corpus_v2.csv', 'control_v2.csv']:
     for r in csv.DictReader(open(os.path.join(RAIZ, 'datasets', f), encoding='utf-8')):
         if int(r['anio']) < ANIO_MIN:
             continue
-        if r['grupo'] != 'control' and float(r['loudness']) < VOLUMEN_ROTO:
-            descartadas.append(f"{r['titulo']} — {r['artista']} ({r['anio']})")
-            continue
+        if r['grupo'] != 'control':
+            clave = (r['titulo'].lower(), r['artista'].lower())
+            if float(r['loudness']) < VOLUMEN_ROTO:
+                descartadas.append(f"{r['titulo']} — {r['artista']} ({r['anio']})")
+                continue
+            if clave in EXCLUIDAS:
+                excluidas.append(clave)
+                continue
+            if clave in vistas:                      # la misma canción dos veces: queda la primera
+                repetidas.append(clave)
+                continue
+            vistas.add(clave)
         filas.append(r)
 
 X = np.array([[float(r[c]) for c in FEATS] for r in filas])
@@ -237,14 +254,14 @@ modelo = {
                     'objetivo': 'P(entra al Hot 100) × hasta dónde llega: 100·(1 − ln(puesto)/ln(100)), aprendido entre los hits'},
     'fondo': fondo, 'referencias': refs, 'buscables': buscables, 'grupos': grupos,
     'n': len(filas), 'anio_min': ANIO_MIN,
-    'n_reconocidas': int(general.sum()), 'n_nunca': int(nunca.sum()),
+    'n_reconocidas': int(general.sum()), 'n_nunca': int(nunca.sum()), 'n_hits': int(hit.sum()),
     'periodos': periodos,
 }
 with open(os.path.join(AQUI, 'modelo.js'), 'w', encoding='utf-8') as f:
     f.write('// Generado por generar_modelo.py — no editar a mano\n')
     f.write('window.MODELO = ' + json.dumps(modelo, ensure_ascii=False) + ';\n')
 
-print(f'canciones desde {ANIO_MIN}: {len(filas)}  (descartadas por cruce roto: {len(descartadas)})')
+print(f'canciones desde {ANIO_MIN}: {len(filas)}  (volumen roto: {len(descartadas)} · excluidas por medición: {len(excluidas)} · repetidas: {len(repetidas)})')
 print(f'prestigio: {general.sum()} reconocidas (Record/Song of the Year) contra {nunca.sum()} hits nunca nominados')
 print(f'popularidad: {hit.sum()} hits contra {len(filas) - hit.sum()} que no entraron')
 print('acierto (AUC) prestigio:', round(auc(Zp @ b_pres[1:], yp), 3),

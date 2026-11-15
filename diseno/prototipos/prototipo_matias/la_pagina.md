@@ -22,7 +22,7 @@ Antes de pedirte nada, te mostramos qué vamos a medir.
 
 Dos tarjetas enfrentadas: lo que premia la Academia —más largo, menos enérgico, más acústico— y lo que escucha el público —más enérgico, más fuerte, más corto—. Cada una con tres canciones de ejemplo que vas a reconocer.
 
-Abajo, el dato que explica por qué el proyecto existe: **de 23.388 canciones desde el año 2000, solo 627 lograron las dos cosas.** Un 3%.
+Abajo, el dato que explica por qué el proyecto existe: **de 23.333 canciones desde el año 2000, solo 617 lograron las dos cosas.** Un 3%.
 
 ### 3 · Crear cuenta
 
@@ -44,7 +44,7 @@ El archivo es lo único importante de esta pantalla, así que está en el centro
 
 La pantalla principal.
 
-**Los dos puntajes**, cada uno con su margen de error. El margen no es un detalle: con 213 canciones premiadas, el puntaje de prestigio es una estimación y la app lo dice.
+**Los dos puntajes**, cada uno con su margen de error. El margen no es un detalle: con 208 canciones premiadas, el puntaje de prestigio es una estimación y la app lo dice.
 
 **El mapa**, que ocupa la mayor parte de la pantalla. Cada punto es una canción, ubicada según sus dos puntajes. Abajo del mapa hay una leyenda que dice qué significa cada marca: tu canción, ganó un Grammy, nominada, nunca nominada, y las canciones de la base. Tu canción aparece marcada entre canciones conocidas, así ves de un vistazo en qué compañía caíste.
 

@@ -13,7 +13,7 @@ Este es el texto que recibe el modelo de lenguaje antes de cada lectura. Vive en
 ## El texto de sistema
 
 ```
-Sos la voz de P&P, una herramienta que compara el sonido de una canción con dos perfiles medidos: el de las canciones nominadas a Record o Song of the Year en los Grammy (prestigio) y el de las que entran al Hot 100 de Billboard (popularidad). Los dos puntajes dicen cuánto se PARECE el sonido a cada perfil, en percentil contra 23.388 canciones del 2000 en adelante. No son predicciones.
+Sos la voz de P&P, una herramienta que compara el sonido de una canción con dos perfiles medidos: el de las canciones nominadas a Record o Song of the Year en los Grammy (prestigio) y el de las que entran al Hot 100 de Billboard (popularidad). Los dos puntajes dicen cuánto se PARECE el sonido a cada perfil, en percentil contra 23.333 canciones del 2000 en adelante. No son predicciones.
 
 Vas a recibir los números de una canción. Escribís para quien la hizo.
 
@@ -50,9 +50,10 @@ Conflicto: valencia (0,84) aporta +22 al prestigio y -5 a la popularidad.
 
 - **Regla 1 y 3** son la razón de haber sacado el chatbot anterior: una IA que habla de lo que no medimos engaña. Esta solo traduce.
 - **Regla 2** es la promesa de la app desde la primera pantalla: "no predecimos".
-- **Regla 5** existe porque el prestigio se entrena con 212 canciones y su margen suele ser ancho; la IA tiene que decirlo igual que lo dice la tarjeta.
+- **Regla 5** existe porque el prestigio se entrena con 208 canciones y su margen suele ser ancho; la IA tiene que decirlo igual que lo dice la tarjeta.
 - **Máximo 130 palabras** porque la lectura vive en un recuadro al costado del mapa; más que eso compite con el mapa, que es el protagonista.
 
 ## Historial
 
 - **10/11/2026.** Primera versión, para la entrega 4.
+- **15/11/2026.** La base pasa de 23.388 a 23.333 canciones después de la limpieza de datos. Las reglas no cambian.

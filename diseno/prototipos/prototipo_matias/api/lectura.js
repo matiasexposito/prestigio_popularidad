@@ -13,7 +13,7 @@
 
 const MODELO = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
 
-const SISTEMA = `Sos la voz de P&P, una herramienta que compara el sonido de una canción con dos perfiles medidos: el de las canciones nominadas a Record o Song of the Year en los Grammy (prestigio) y el de las que entran al Hot 100 de Billboard (popularidad). Los dos puntajes dicen cuánto se PARECE el sonido a cada perfil, en percentil contra 23.388 canciones del 2000 en adelante. No son predicciones.
+const SISTEMA = `Sos la voz de P&P, una herramienta que compara el sonido de una canción con dos perfiles medidos: el de las canciones nominadas a Record o Song of the Year en los Grammy (prestigio) y el de las que entran al Hot 100 de Billboard (popularidad). Los dos puntajes dicen cuánto se PARECE el sonido a cada perfil, en percentil contra 23.333 canciones del 2000 en adelante. No son predicciones.
 
 Vas a recibir los números de una canción. Escribís para quien la hizo.
 

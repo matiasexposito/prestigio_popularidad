@@ -1,6 +1,8 @@
 # Redes sociales y letra: ¿las incluimos en P&P?
 
-10 de noviembre de 2026
+10 de noviembre de 2026 · números actualizados el 15 de noviembre
+
+> **La decisión final**, con los pesos para la popularidad y para el prestigio, está en la sección 5 de [`racional.md`](../racional.md). Este documento es el análisis que la respalda.
 
 Este documento responde dos preguntas que nos hicieron los docentes:
 
@@ -43,7 +45,7 @@ Y una medida propia, indirecta: entrenamos nuestro modelo con las canciones de c
 
 | Fuente | Qué da | Desde cuándo | Cómo se accede | ¿Nos sirve? |
 |---|---|---|---|---|
-| **YouTube** (API oficial) | Las vistas totales de un video **hoy** | El video existe desde que se subió | Gratis con clave. Límite: 10.000 "unidades" por día, y cada búsqueda cuesta 100. O sea, **unas 99 canciones por día** | **A medias.** Para las 9.497 canciones que entraron al chart desde 2000 harían falta unos 96 días. Y da las vistas de hoy, no las que tenía cuando la canción estaba en el chart: una canción de 2009 tuvo 17 años para juntar vistas y una de 2025, uno |
+| **YouTube** (API oficial) | Las vistas totales de un video **hoy** | El video existe desde que se subió | Gratis con clave. Límite: 10.000 "unidades" por día, y cada búsqueda cuesta 100. O sea, **unas 99 canciones por día** | **A medias.** Para las 9.450 canciones que entraron al chart desde 2000 harían falta unos 95 días. Y da las vistas de hoy, no las que tenía cuando la canción estaba en el chart: una canción de 2009 tuvo 17 años para juntar vistas y una de 2025, uno |
 | **Spotify** (API oficial) | El índice de popularidad de cada canción | — | **Ya no está disponible** para proyectos como el nuestro: Spotify lo sacó en febrero–marzo de 2026, igual que había cerrado las características del sonido en noviembre de 2024. Solo lo siguen viendo las empresas con acuerdo especial | **No** |
 | **TikTok** (API de investigación) | Datos públicos de videos y cuentas | TikTok existe desde 2016 | Solo para investigadores de universidades **de Estados Unidos y Europa**, con aprobación de TikTok. **La Universidad de San Andrés no califica.** Además, no está claro que incluya cuántas veces se usó cada canción | **No** |
 | **Instagram** | — | — | No publica datos de uso de música | **No** |
@@ -135,11 +137,11 @@ Con las 120 letras de la muestra medimos las cuatro primeras cosas, comparando p
 | Repetición de líneas | 0,327 | 0,322 |
 | Primera persona | 0,082 | 0,078 |
 
-**En criollo:** las premiadas tienen letras un poco más largas, y en todo lo demás **son casi iguales a los hits**. La diferencia de largo seguramente es la misma que ya vemos en la duración (las premiadas duran 21 segundos más): más canción, más letra.
+**En criollo:** las premiadas tienen letras un poco más largas, y en todo lo demás **son casi iguales a los hits**. La diferencia de largo seguramente es la misma que ya vemos en la duración (las premiadas duran 23 segundos más): más canción, más letra.
 
 **Lo que esto sugiere, con cuidado.** Las características de la letra que más se asocian al éxito comercial —repetir, simplificar, hablar de uno mismo— **no separan a las premiadas de los hits** en nuestra muestra. Coincide con lo que encontró un estudio de la Universidad de Nueva York: para Record y Song of the Year, la letra predice **menos** que el sonido.
 
-**Lo que no se puede afirmar:** con 60 canciones por grupo, estas diferencias son demasiado chicas para concluir algo firme. Es una primera mirada, no una medición. Para afirmarlo habría que medir las 212 premiadas y algunos miles de hits.
+**Lo que no se puede afirmar:** con 60 canciones por grupo, estas diferencias son demasiado chicas para concluir algo firme. Es una primera mirada, no una medición. Para afirmarlo habría que medir las 208 premiadas y algunos miles de hits.
 
 ## Cómo entraría la letra a P&P, si se retoma
 
@@ -147,7 +149,7 @@ Hay dos caminos, y conviene elegir uno:
 
 **A. Como un panel aparte, sin tocar los dos puntajes.** El usuario pega su letra (opcional, porque de un demo no la tenemos) y la app le muestra cómo queda contra los dos grupos en esas cuatro medidas. Es honesto y es rápido: no cambia el modelo, que ya está probado.
 
-**B. Dentro del modelo, como rasgos nuevos.** Medir las 23.388 canciones de la base y sumar las medidas de letra a las 10 del sonido. Es lo correcto si se quiere decir "cuánto pesa la letra", pero obliga a volver a entrenar y validar todo, y queda el problema de qué hacer cuando el usuario no pega la letra.
+**B. Dentro del modelo, como rasgos nuevos.** Medir las 23.333 canciones de la base y sumar las medidas de letra a las 10 del sonido. Es lo correcto si se quiere decir "cuánto pesa la letra", pero obliga a volver a entrenar y validar todo, y queda el problema de qué hacer cuando el usuario no pega la letra.
 
 **Dos cosas a resolver en cualquier camino:**
 
@@ -158,7 +160,7 @@ Hay dos caminos, y conviene elegir uno:
 
 | Ganaríamos | Costaría |
 |---|---|
-| Responder directamente a la devolución de la entrega 3 | Medir 23.388 letras (técnicamente posible: la fuente respondió rápido a las 120) |
+| Responder directamente a la devolución de la entrega 3 | Medir 23.333 letras (técnicamente posible: la fuente respondió rápido a las 120) |
 | Un peso **medido**, no estimado, para la letra en la tabla de factores | Resolver el idioma |
 | Algo concreto que decirle a quien compone, no solo a quien produce | Volver a entrenar y validar el modelo, o diseñar un panel nuevo |
 | | Un riesgo legal si alguna vez se guarda un texto por error |

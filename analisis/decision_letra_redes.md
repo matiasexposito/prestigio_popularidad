@@ -2,7 +2,7 @@
 
 11 de noviembre de 2026 · Matías
 
-> **Propuesta, todavía sin confirmar por el equipo.** Copia del documento de Claude del 11/11. El análisis completo, con las pruebas y las fuentes, está en [`redes_y_letra.md`](redes_y_letra.md).
+> **Confirmado por el equipo el 15/11/2026.** La versión definitiva, que suma los pesos para el **prestigio**, está en la sección 5 de [`racional.md`](../racional.md). Este documento queda como el borrador del 11/11, que solo tenía la popularidad. El análisis con las pruebas está en [`redes_y_letra.md`](redes_y_letra.md).
 
 ## La respuesta corta
 
@@ -93,7 +93,7 @@ Si en la presentación alguien pregunta *"¿por qué 20 y no 30?"*, la respuesta
 
 1. **Ya está adentro.** El Hot 100 cuenta las vistas de YouTube desde 2013. Nuestro eje de popularidad ya lo incluye.
 2. **Da las vistas de hoy, no las de su momento.** Una canción de 2009 tuvo 17 años para juntar vistas; una de 2025, uno. No son comparables.
-3. **Es lento.** La API gratis deja buscar unas 99 canciones por día: para las 9.497 que entraron al chart desde 2000 harían falta unos 96 días.
+3. **Es lento.** La API gratis deja buscar unas 99 canciones por día: para las 9.450 que entraron al chart desde 2000 harían falta unos 95 días.
 4. **Un demo tiene cero vistas.** La herramienta no tendría qué medir.
 
 ### TikTok, Instagram y redes sociales — ❌ no las usamos
@@ -133,9 +133,9 @@ Un minuto, en cuatro frases:
 
 La última frase es la que conviene remarcar: no es una excusa, es un hallazgo.
 
-## Lo que falta confirmar
+## Lo que quedó confirmado (15/11/2026)
 
-- [ ] **¿Estamos de acuerdo con que nada de esto entre a la herramienta?**
-- [ ] **¿Nos cierran los porcentajes?** Se puede cambiar cualquiera de los estimados: lo importante es que la fila sume 100 y que el orden se pueda defender. El del sonido no se cambia: es medido.
-- [ ] **¿Separamos la "difusión" en tres filas en el racional** (redes, playlists y radio, YouTube), como acá?
-- [ ] **¿La letra queda como está (pendiente, con la prueba hecha) o la volvemos a abrir?**
+- Nada de esto entra a la herramienta: la herramienta mide el sonido.
+- En el racional se explica cómo impacta cada cosa en la popularidad **y en el prestigio**, con un peso aproximado para cada una, y por qué no se incluyen.
+- La difusión va separada en tres filas: redes sociales, YouTube, playlists y radio.
+- La letra queda pendiente, con la prueba de las 120 canciones hecha.
