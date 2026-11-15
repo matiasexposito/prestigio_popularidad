@@ -150,7 +150,7 @@
       }
       const t = $('.m-tu-texto', g);
       t.setAttribute('y', ty_txt);
-      t.textContent = antes ? 'AHORA' : 'TU CANCIÓN';
+      t.textContent = antes ? 'ahora' : 'tu canción';
       // La posición va en el atributo transform (unidades del SVG), no en CSS con px:
       // Safari escala los px de CSS con el zoom del navegador (Cmd +/−) y el punto se
       // corría respecto del resto del mapa. El deslizamiento se anima a mano.

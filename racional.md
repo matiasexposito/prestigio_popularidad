@@ -586,9 +586,9 @@ La app la programó una IA, pero qué va en cada pantalla, en qué orden y con q
 
 | Pantalla | Lo más importante | Cómo se nota |
 |---|---|---|
-| **Portada** | El nombre | Es lo único grande. Alrededor, 240 canciones reales de la base giran despacio como una galaxia: azules las nominadas, ámbar los hits, grises el resto. Si se pasa el mouse por una, dice cuál es; con el sonido activado, cada una suena como una nota suave |
+| **Portada** | El nombre | Es lo único grande. Alrededor, 240 canciones reales de la base giran despacio como una galaxia: azules las nominadas, ámbar los hits, grises el resto. Si se pasa el mouse por una, dice cuál es. Con el sonido activado suena una melodía lenta, una nota por vez y siempre dentro del mismo acorde, y cada nota enciende una canción. La primera versión tocaba notas al azar y se pisaban; por eso la pasamos a una melodía ordenada |
 | **Los dos mundos** | Que hay dos perfiles distintos | Dos tarjetas del mismo tamaño, una al lado de la otra, con el mismo orden adentro: una frase, un dato, tres canciones |
-| **Crear cuenta** | Que es rápido | Dos campos y un botón, en el centro, sin nada más |
+| **Crear cuenta** | Que es rápido | Dos campos y un botón, en el centro. Alrededor, las mismas canciones de la portada, más suaves |
 | **Subir la canción** | El archivo | Dos columnas que entran en una sola pantalla, sin bajar. A la izquierda, el título y los tres pasos del proceso; a la derecha, el recuadro para arrastrar (lo más grande) y el buscador |
 | **Resultado** | El mapa | Ocupa toda la columna ancha. Los dos números van al costado, en una columna fija de 404 píxeles |
 | **Qué suma y qué resta** | Comparar los rasgos entre sí | Columnas verticales del mismo ancho, con la barra saliendo de una línea central: arriba suma, abajo resta |

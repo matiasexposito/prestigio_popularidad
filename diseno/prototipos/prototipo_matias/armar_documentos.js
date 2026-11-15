@@ -136,7 +136,7 @@ pre{margin:0;padding:14px 16px;font-family:var(--mono);font-size:12px;line-heigh
 table{border-collapse:collapse;width:100%;font-size:14.5px}
 th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--borde);vertical-align:top}
 tr:last-child td{border-bottom:0}
-th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--tenue-2);font-weight:500;background:#faf9f7}
+th{font-size:12.5px;color:var(--tenue);font-weight:600;background:#faf9f7}
 .pie{max-width:660px;margin:0 auto;padding:0 20px 60px;font-size:12.5px;color:var(--tenue-2);line-height:1.6}
 .pie a{color:var(--tenue)}
 @media(max-width:560px){main{padding:28px 18px 60px}body{font-size:16.5px}}

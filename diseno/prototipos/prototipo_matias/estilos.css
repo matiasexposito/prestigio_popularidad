@@ -621,3 +621,24 @@ input[type="range"]::-moz-range-thumb { background: var(--tinta); box-shadow: 0 
 .cc-ambar b { color: var(--ambar); }
 .tp-azul .puntaje-margen.movido { color: var(--azul); font-weight: 600; }
 .tp-ambar .puntaje-margen.movido { color: var(--ambar); font-weight: 600; }
+
+
+/* =========================================================
+   Sin texto en mayúsculas, en ninguna pantalla.
+   ========================================================= */
+.barra-rotulo, .rotulo-paso, .mundo-rotulo, .caja-rotulo, .splash-sub, .separador span,
+.puntaje-cabeza b, .selector-valor::before { text-transform: none; letter-spacing: 0; }
+.barra-rotulo { font-size: 13px; }
+.rotulo-paso, .mundo-rotulo, .caja-rotulo { font-family: var(--sans); font-size: 12.5px; font-weight: 500; }
+.splash-sub { font-family: var(--sans); font-size: 15px; letter-spacing: .01em; }
+.puntaje-cabeza b { font-size: 13.5px; }
+.separador span { font-size: 12px; }
+.m-tu-texto { font-weight: 600; }
+
+/* El logo de la portada: liso, igual que en el resto de la app */
+.splash-logo { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--tinta); }
+
+/* Creá tu cuenta: las mismas canciones de la portada, alrededor del formulario */
+.pantalla[data-ruta="cuenta"] .cuerpo, .pantalla[data-ruta="cuenta"] .barra { position: relative; z-index: 1; }
+.pantalla[data-ruta="cuenta"] .columna-angosta { background: radial-gradient(closest-side, rgba(255,255,255,.97) 70%, rgba(255,255,255,0)); border-radius: 40px; }
+.pantalla[data-ruta="cuenta"] .formulario { box-shadow: 0 24px 60px -34px rgba(27,79,216,.35), 0 24px 60px -40px rgba(180,83,9,.3); }

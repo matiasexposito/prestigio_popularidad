@@ -14,7 +14,7 @@ Guía corta de la aplicación, para alguien que la abre por primera vez.
 
 El logo, un botón y, alrededor, una galaxia de canciones que gira despacio.
 
-Cada punto es una canción real de la base: **azul si fue nominada al Grammy, ámbar si entró al Hot 100**, gris si no logró ninguna de las dos. Si pasás el mouse por un punto, te dice qué canción es. Con el botón "Activar sonido", cada canción suena como una nota suave cuando se enciende.
+Cada punto es una canción real de la base: **azul si fue nominada al Grammy, ámbar si entró al Hot 100**, gris si no logró ninguna de las dos. Si pasás el mouse por un punto, te dice qué canción es. Con el botón "Activar sonido" suena una melodía lenta: una nota por vez, a ritmo parejo, y cada nota enciende una canción.
 
 Esos dos colores son el código de toda la app: **azul es prestigio, ámbar es popularidad.** Aparecen acá para que el ojo ya los reconozca cuando los vuelva a ver.
 
@@ -28,7 +28,7 @@ Abajo, el dato que explica por qué el proyecto existe: **de 23.333 canciones de
 
 ### 3 · Crear cuenta
 
-Dos campos: cómo querés que te llamemos y tu email. Sirve para guardar tus análisis.
+Dos campos: cómo querés que te llamemos y tu email. Sirve para guardar tus análisis. Alrededor del formulario siguen girando las canciones de la portada, para que la pantalla no quede en blanco.
 
 No te pedimos el género ni a qué te dedicás, y está dicho en la pantalla: el análisis mide solo cómo suena la canción, así que esos datos no cambiarían el resultado.
 
