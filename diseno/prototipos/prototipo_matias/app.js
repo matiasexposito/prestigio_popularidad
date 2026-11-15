@@ -249,6 +249,7 @@
     const maximo = Math.max(...lista.map(x => Math.abs(x.pts)), 1);
 
     const cons = $('#consola');
+    cons.dataset.eje = S.eje;                 // las barras toman el color del eje que se mira
     cons.classList.remove('anim'); void cons.getBoundingClientRect();
     if (MOVIMIENTO) cons.classList.add('anim');
 
@@ -272,8 +273,8 @@
       $('#conflicto-titulo').textContent = `${La(c.k)} tira para los dos lados`;
       $('#conflicto-texto').innerHTML = `En tu canción ${la(c.k)} es ${valorLargo(c.k, r[c.k])}. Eso es justo lo que te acerca a un mundo y lo que te aleja del otro.`;
       $('#conflicto-cifras').innerHTML =
-        `<div class="cifra-conflicto"><span>Prestigio</span><b class="${c.ap > 0 ? 'efecto suma' : 'efecto resta'}">${signo(c.ap)}</b></div>
-         <div class="cifra-conflicto"><span>Popularidad</span><b class="${c.aq > 0 ? 'efecto suma' : 'efecto resta'}">${signo(c.aq)}</b></div>`;
+        `<div class="cifra-conflicto cc-azul"><span>Prestigio</span><b>${signo(c.ap)}</b></div>
+         <div class="cifra-conflicto cc-ambar"><span>Popularidad</span><b>${signo(c.aq)}</b></div>`;
       $('#conflicto-lectura').textContent =
         'No hay una sola dirección que te mejore los dos puntajes. Es la decisión que tenés que tomar.';
     } else {
@@ -336,7 +337,7 @@
       ['Prestigio', p.pres, p0.pres, dp],
       ['Popularidad', p.pop, p0.pop, dq],
     ].map(([n, e, e0, d]) => `<div class="tarjeta-puntaje ${n === 'Prestigio' ? 'tp-azul' : 'tp-ambar'}">
-      <div class="puntaje-cabeza"><b>${n}</b><span class="puntaje-margen ${d > 0 ? 'efecto suma' : d < 0 ? 'efecto resta' : ''}">${d === 0 ? 'sin cambios' : signo(d)}</span></div>
+      <div class="puntaje-cabeza"><b>${n}</b><span class="puntaje-margen ${d ? 'movido' : ''}">${d === 0 ? 'sin cambios' : signo(d)}</span></div>
       <div class="puntaje-cifra"><span>${Math.round(e.v)}</span><span class="chico tenue">antes ${Math.round(e0.v)}</span></div>
       <div class="riel"><i style="width:${e.v}%"></i><u style="left:${e0.v}%;width:2px;border-color:var(--tenue-2)"></u></div>
     </div>`).join('');

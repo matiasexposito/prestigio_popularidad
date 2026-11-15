@@ -12,6 +12,8 @@ Los dos colores son los dos ejes. El azul es el prestigio; el ámbar es la popul
 
 Pedimos que el resto fuera monocromo a propósito. Si hubiera cinco colores más, el ámbar no significaría nada.
 
+También le pedimos que cada color quiera decir una sola cosa. En una versión anterior el azul era a la vez "tu canción", "lo que suma" y "las nominadas", y el ámbar era "lo que resta" y "la lectura de la IA". Lo ordenamos: en el desglose las barras llevan el color del puntaje que se mira (llena si suma, rayada si resta), y todo lo que no es de un eje va en negro.
+
 ---
 
 ## Las tipografías

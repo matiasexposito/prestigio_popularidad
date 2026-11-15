@@ -52,13 +52,13 @@ La pantalla principal.
 
 **Qué significa cada número.** Al lado de cada puntaje hay una frase corta: "suena más parecida a las nominadas al Grammy que el 88% de las 23.333 canciones que medimos". Nada más. El detalle de cómo se calcula está en el racional.
 
-**La lectura**, en el recuadro ámbar, que pasa los dos números a una frase: en qué zona del mapa caíste y qué rasgo te está tensionando los dos ejes.
+**La lectura**, en un recuadro con los dos colores, que pasa los dos números a una frase: en qué zona del mapa caíste y qué rasgo te está tensionando los dos ejes.
 
 ### 6 · Qué suma y qué resta
 
 Diez columnas, una por cada rasgo del sonido, como los controles de una consola de mezcla.
 
-En cada columna: el nombre del rasgo arriba con su valor, una barra vertical en el medio, y abajo cuántos puntos aporta. **La barra sube en azul si ese rasgo te suma, y baja en ámbar si te resta.**
+En cada columna: el nombre del rasgo arriba con su valor, una barra vertical en el medio, y abajo cuántos puntos aporta. **La barra sube llena si ese rasgo te suma, y baja rayada si te resta.** El color es el del puntaje que estás mirando: azul para el prestigio, ámbar para la popularidad.
 
 Al costado, **tu conflicto**: el rasgo que te empuja hacia un mundo y te aleja del otro. Casi siempre hay uno.
 

@@ -604,12 +604,18 @@ Usamos **dos colores y nada más**. Todo lo demás es blanco, negro y gris.
 
 | Color | Código | Qué significa |
 |---|---|---|
-| **Azul** | `#1b4fd8` | El **prestigio**: el puntaje de prestigio, las canciones nominadas y ganadoras del Grammy. En el desglose, además, lo que te **suma** |
-| **Ámbar** | `#b45309` | La **popularidad**: el puntaje de popularidad y los hits. En el desglose, además, lo que te **resta**. También es el color del recuadro de la lectura que escribe la IA |
-| Tinta | `#12110f` | Textos, botones principales y **tu canción** en el mapa |
+| **Azul** | `#1b4fd8` | El **prestigio**, siempre: el puntaje de prestigio, las canciones nominadas y ganadoras del Grammy, y las barras del desglose cuando se mira el prestigio |
+| **Ámbar** | `#b45309` | La **popularidad**, siempre: el puntaje de popularidad, los hits, y las barras del desglose cuando se mira la popularidad |
+| Tinta | `#12110f` | Todo lo que no es de un eje: textos, botones, enlaces, controles y **tu canción** en el mapa |
 | Gris | `#c4c1ba` | Las canciones que no entraron al ranking |
 
-**De dónde viene.** La primera regla de color del proyecto, de septiembre, era: azul para lo que calcula el modelo, ámbar para lo que interpreta la IA. De ahí quedó que el recuadro de la lectura, que escribe la IA, sea ámbar. Después sumamos el otro uso: azul lo que suma, ámbar lo que resta.
+**De dónde viene.** La primera regla de color del proyecto, de septiembre, era: azul para lo que calcula el modelo, ámbar para lo que interpreta la IA. Después sumamos otro uso: azul lo que suma, ámbar lo que resta. El resultado era que cada color quería decir tres cosas distintas según la pantalla.
+
+**La regla de ahora: un solo significado por color.** Azul es prestigio y ámbar es popularidad, en todas las pantallas, sin excepciones. De ahí salen tres decisiones:
+
+- **En el desglose**, las barras ya no son azules si suman y ámbar si restan. Toman el color del puntaje que se está mirando. Si el rasgo suma, la barra va llena y hacia arriba; si resta, va rayada y hacia abajo. El número de abajo lleva el signo.
+- **El recuadro de la lectura** ya no es ámbar. Como habla de los dos puntajes, lleva los dos colores juntos, muy suaves.
+- **Lo que no es de ningún eje** (enlaces, controles del simulador, el recuadro para subir el archivo) va en negro o gris.
 
 **Qué cambiamos el 15/11.** Mirando la app entera, casi todo era blanco y negro: los dos colores aparecían poco y no quedaba claro qué quería decir cada uno. Decidimos que cada eje tenga el suyo en todas las pantallas: **azul es prestigio, ámbar es popularidad**. Así se ve desde la portada (el punto azul al lado de "Prestigio" y el ámbar al lado de "Popularidad"), en las dos tarjetas de la bienvenida, en los dos puntajes y en el mapa. Tu canción pasó de azul a negro para no confundirse con las nominadas.
 

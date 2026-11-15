@@ -565,3 +565,59 @@ input[type="range"]::-moz-range-thumb {
 .mapa-titulo { padding: 14px 18px 2px; }
 .mapa-titulo p { max-width: none; }
 .mapa-grande { background: linear-gradient(135deg, #f6f8fd 0%, var(--panel) 45%, #fdf9f3 100%); }
+
+
+/* =========================================================
+   Un solo significado por color, en TODAS las pantallas:
+     azul  = prestigio      ámbar = popularidad
+   Lo que no es de ninguno de los dos ejes va en negro o gris.
+   Lo que es de los dos, lleva los dos juntos.
+   ========================================================= */
+.punto-duo { flex: none; display: inline-block; width: 7px; height: 7px; border-radius: 999px; background: var(--azul); box-shadow: 10px 0 0 var(--ambar); margin-right: 10px; }
+.t-duo { background: linear-gradient(90deg, var(--azul), var(--ambar)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Enlaces, foco y controles: negro (no son de ningún eje) */
+a { color: var(--tinta); text-underline-offset: 3px; }
+a:hover { color: var(--tenue); }
+.campo input:focus, .campo-buscar .campo input:focus { outline-color: var(--tinta); border-color: var(--tinta); }
+input[type="range"]::-webkit-slider-thumb { background: var(--tinta); box-shadow: 0 0 0 1px var(--tinta); }
+input[type="range"]::-moz-range-thumb { background: var(--tinta); box-shadow: 0 0 0 1px var(--tinta); }
+.cargando-barra i { background: linear-gradient(90deg, var(--azul), var(--ambar)); }
+.como summary::before { color: var(--tinta); }
+.pop-cargando .giro { border-color: var(--tinta); border-right-color: transparent; }
+.boton-sonido:hover, .boton-sonido.activo { border-color: var(--tinta); color: var(--tinta); background: var(--fondo); }
+.pop-cifras span:first-child { color: var(--azul); }
+.pop-cifras span:last-child { color: var(--ambar); }
+
+/* La lectura: recuadro neutro con los dos colores (habla de los dos puntajes) */
+.caja-ambar { background: linear-gradient(90deg, var(--azul-claro), var(--panel) 45%, var(--panel) 55%, var(--ambar-claro)); border-color: var(--borde); }
+.caja-rotulo { color: var(--tenue); }
+.caja.escribiendo .lectura-pie::before { border-color: var(--tinta); border-right-color: transparent; }
+.col-panel > .rotulo-paso, .col-resultado .rotulo-paso { color: var(--tenue); }
+
+/* Subir: la pantalla es de los dos mundos, así que lleva los dos colores juntos */
+.rotulo-pastilla { border-color: var(--borde); background: var(--fondo); color: var(--tenue); }
+.paso-n, .paso-n.paso-ambar { color: var(--tinta); background: var(--panel); border-color: var(--borde-fuerte); }
+.subir-der .zona-carga-grande { border-color: var(--borde-fuerte); background: linear-gradient(120deg, var(--azul-claro), var(--fondo) 50%, var(--ambar-claro)); }
+.subir-der .zona-carga svg { color: var(--tinta); }
+.subir-der .zona-carga:hover, .subir-der .zona-carga.encima { border-color: var(--tinta); background: linear-gradient(120deg, var(--azul-medio), var(--fondo) 50%, var(--ambar-medio)); }
+.subir-der .separador span { color: var(--tenue-3); }
+.campo-buscar .resultados li:hover, .resultados li:hover { background: var(--panel); }
+
+/* Desglose: las barras toman el color del puntaje que se mira.
+   Llena = suma. Rayada = resta. El signo del número dice lo mismo. */
+.consola[data-eje="prestigio"] { --eje: var(--azul); }
+.consola[data-eje="popularidad"] { --eje: var(--ambar); }
+.fader-relleno.suma { background: var(--eje); }
+.fader-relleno.resta { background: repeating-linear-gradient(135deg, var(--eje) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--eje); }
+.efecto.suma, .efecto.resta { color: var(--eje, var(--tinta)); }
+.efecto.resta { opacity: .75; }
+.marca-suma, .marca-resta { display: inline-block; width: 7px; height: 13px; border-radius: 999px; }
+.marca-suma { background: var(--tinta); }
+.marca-resta { background: repeating-linear-gradient(135deg, var(--tinta) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--tinta); }
+.cc-azul { border-left: 3px solid var(--azul); }
+.cc-azul b { color: var(--azul); }
+.cc-ambar { border-left: 3px solid var(--ambar); }
+.cc-ambar b { color: var(--ambar); }
+.tp-azul .puntaje-margen.movido { color: var(--azul); font-weight: 600; }
+.tp-ambar .puntaje-margen.movido { color: var(--ambar); font-weight: 600; }

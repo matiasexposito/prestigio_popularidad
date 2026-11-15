@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="estilos.css?v=20261115f">
+<link rel="stylesheet" href="estilos.css?v=20261115g">
 </head>
 <body>
 
@@ -128,14 +128,14 @@
 
   <div class="cuerpo subir-cuerpo">
     <div class="subir-izq">
-      <div class="rotulo-paso rotulo-pastilla"><span class="punto punto-azul"></span>Paso 1 de 3</div>
-      <h2 class="titular">Subí tu <span class="t-azul">canción</span></h2>
+      <div class="rotulo-paso rotulo-pastilla"><span class="punto-duo"></span>Paso 1 de 3</div>
+      <h2 class="titular">Subí tu <span class="t-duo">canción</span></h2>
       <p class="bajada">Puede ser un demo sin publicar. Medimos cómo suena y te decimos entre qué dos mundos cae.</p>
 
       <ol class="pasos">
         <li><span class="paso-n mono">01</span><span>Medimos <b>10 rasgos del sonido</b> con ReccoBeats y Essentia</span></li>
-        <li><span class="paso-n mono">02</span><span>Calculamos tus <b>dos puntajes</b>, con su margen de error</span></li>
-        <li><span class="paso-n mono paso-ambar">03</span><span>Te mostramos <b>qué suma y qué resta</b> en cada uno</span></li>
+        <li><span class="paso-n mono">02</span><span>Calculamos tus dos puntajes: <b class="t-azul">prestigio</b> y <b class="t-ambar">popularidad</b></span></li>
+        <li><span class="paso-n mono">03</span><span>Te mostramos <b>qué suma y qué resta</b> en cada uno</span></li>
       </ol>
     </div>
 
@@ -209,7 +209,7 @@
       <div class="pila" id="tarjetas-puntaje"></div>
 
       <div class="caja caja-ambar">
-        <div class="caja-rotulo"><span class="punto punto-ambar"></span>Lectura</div>
+        <div class="caja-rotulo"><span class="punto-duo"></span>Lectura</div>
         <p id="lectura"></p>
         <p class="lectura-pie" id="lectura-pie"></p>
       </div>
@@ -227,22 +227,21 @@
   <header class="barra">
     <div class="barra-marca"><a class="enlace-tenue" href="#resultado">← Volver al mapa</a><span class="barra-titulo" id="titulo-desglose"></span></div>
     <div class="leyenda-cabeza">
-      <span><i class="marca-prem"></i>premiadas</span>
-      <span><i class="marca-hit"></i>hits</span>
-      <span><i class="marca-tuya"></i>tu canción</span>
+      <span><i class="marca-suma"></i>barra llena: suma</span>
+      <span><i class="marca-resta"></i>barra rayada: resta</span>
     </div>
   </header>
 
   <div class="cuerpo dos-columnas">
     <div class="col-texto col-consola">
-      <div class="selector" role="tablist">
+      <div class="selector" role="tablist" data-eje="prestigio">
         <button type="button" data-eje="prestigio" class="activo" role="tab">Prestigio</button>
         <button type="button" data-eje="popularidad" role="tab">Popularidad</button>
         <span class="selector-valor mono" id="selector-valor"></span>
       </div>
 
       <h2 class="titulo-pantalla">Qué suma y qué resta</h2>
-      <p class="chico tenue">Hacia arriba suma, hacia abajo resta. Cada columna es un rasgo del sonido.</p>
+      <p class="chico tenue">Cada columna es un rasgo del sonido. Hacia arriba suma, hacia abajo resta. El color es el del puntaje que estás mirando.</p>
 
       <div class="consola" id="consola"></div>
 
@@ -255,7 +254,7 @@
       <p id="conflicto-texto"></p>
       <div class="pila" id="conflicto-cifras"></div>
       <div class="caja caja-ambar">
-        <div class="caja-rotulo"><span class="punto punto-ambar"></span>Lectura</div>
+        <div class="caja-rotulo"><span class="punto-duo"></span>Lectura</div>
         <p id="conflicto-lectura"></p>
       </div>
       <a class="boton boton-borde boton-bloque" href="#simulador">Probar un cambio</a>
@@ -293,7 +292,7 @@
       <div class="rotulo-paso">Con tus cambios</div>
       <div class="pila" id="sim-puntajes"></div>
       <div class="caja caja-ambar">
-        <div class="caja-rotulo"><span class="punto punto-ambar"></span>Lectura</div>
+        <div class="caja-rotulo"><span class="punto-duo"></span>Lectura</div>
         <p id="sim-lectura"></p>
       </div>
       <p class="nota-pie">El modelo no distingue géneros. Si hacés metal, bajar la energía te sube el prestigio en el número, pero puede no tener sentido para tu música.</p>
@@ -310,15 +309,15 @@
   </div>
 </div>
 
-<script src="modelo.js?v=20261115f"></script>
-<script src="logica.js?v=20261115f"></script>
-<script src="galaxia.js?v=20261115f"></script>
-<script src="mapa.js?v=20261115f"></script>
-<script src="escuchar.js?v=20261115f"></script>
-<script src="lectura.js?v=20261115f"></script>
-<script src="medicion.js?v=20261115f"></script>
-<script src="analisis_essentia.js?v=20261115f"></script>
-<script src="analisis_reccobeats.js?v=20261115f"></script>
-<script src="app.js?v=20261115f"></script>
+<script src="modelo.js?v=20261115g"></script>
+<script src="logica.js?v=20261115g"></script>
+<script src="galaxia.js?v=20261115g"></script>
+<script src="mapa.js?v=20261115g"></script>
+<script src="escuchar.js?v=20261115g"></script>
+<script src="lectura.js?v=20261115g"></script>
+<script src="medicion.js?v=20261115g"></script>
+<script src="analisis_essentia.js?v=20261115g"></script>
+<script src="analisis_reccobeats.js?v=20261115g"></script>
+<script src="app.js?v=20261115g"></script>
 </body>
 </html>
