@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="estilos.css?v=20261115">
+<link rel="stylesheet" href="estilos.css?v=20261115f">
 </head>
 <body>
 
@@ -15,10 +15,10 @@
 <section class="pantalla splash" data-ruta="portada">
   <div class="destello destello-azul" aria-hidden="true"></div>
   <div class="destello destello-ambar" aria-hidden="true"></div>
-  <div id="polvo" class="polvo" aria-hidden="true"></div>
+  <canvas id="galaxia" class="galaxia" aria-hidden="true"></canvas>
 
   <div class="splash-centro">
-    <h1 class="splash-logo">P&amp;P</h1>
+    <h1 class="splash-logo">P<span class="y">&amp;</span>P</h1>
     <div class="splash-sub">
       <span class="punto punto-azul"></span>
       <span>Prestigio &amp; Popularidad</span>
@@ -27,7 +27,11 @@
     <a class="boton boton-negro boton-ancho" href="#bienvenida">Ingresar</a>
   </div>
 
-  <p class="splash-pie">El sonido del éxito comercial y del reconocimiento de los Grammy</p>
+  <p class="splash-pie">Cada punto es una canción real: <span class="punto punto-azul"></span> nominada al Grammy <span class="punto punto-ambar"></span> entró al Hot 100. Pasá el mouse para ver cuál es.</p>
+  <button type="button" class="boton-sonido" id="sonido" aria-pressed="false">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+    <span>Activar sonido</span>
+  </button>
 </section>
 
 
@@ -40,13 +44,13 @@
 
   <div class="cuerpo cuerpo-centrado">
     <div class="titular-doble">
-      <h2 class="titular">Hay canciones que ganan premios</h2>
-      <h2 class="titular titular-italica">y canciones que llenan estadios</h2>
+      <h2 class="titular">Hay canciones que <span class="t-azul">ganan premios</span></h2>
+      <h2 class="titular titular-italica">y canciones que <span class="t-ambar">llenan estadios</span></h2>
     </div>
 
     <div class="dos-mundos">
-      <article class="tarjeta mundo">
-        <div class="mundo-rotulo"><span class="punto punto-ambar"></span>Lo que premia la Academia</div>
+      <article class="tarjeta mundo mundo-azul">
+        <div class="mundo-rotulo"><span class="punto punto-azul"></span>Lo que premia la Academia</div>
         <h3 class="titulo-tarjeta">Más largo, menos enérgico, más acústico</h3>
         <p>Las nominadas a Record y Song of the Year duran 23 segundos más que los hits, y son una vez y media más acústicas.</p>
         <ul class="ejemplos">
@@ -56,8 +60,8 @@
         </ul>
       </article>
 
-      <article class="tarjeta mundo">
-        <div class="mundo-rotulo"><span class="punto punto-gris"></span>Lo que escucha el público</div>
+      <article class="tarjeta mundo mundo-ambar">
+        <div class="mundo-rotulo"><span class="punto punto-ambar"></span>Lo que escucha el público</div>
         <h3 class="titulo-tarjeta">Más enérgico, más fuerte, más corto</h3>
         <p>Lo que entra al Hot 100 es más intenso y mucho menos acústico. Y desde 2010 es más melancólico que lo premiado.</p>
         <ul class="ejemplos">
@@ -122,12 +126,20 @@
     <span class="mono chico tenue">23.333 canciones · 2000–2026</span>
   </header>
 
-  <div class="cuerpo cuerpo-centrado">
-    <div class="carga-centrada">
-      <div class="rotulo-paso">Paso 1 de 3</div>
-      <h2 class="titular">Subí tu canción</h2>
-      <p class="bajada">Puede ser un demo sin publicar. La medimos con ReccoBeats y Essentia, y te decimos entre qué dos mundos cae.</p>
+  <div class="cuerpo subir-cuerpo">
+    <div class="subir-izq">
+      <div class="rotulo-paso rotulo-pastilla"><span class="punto punto-azul"></span>Paso 1 de 3</div>
+      <h2 class="titular">Subí tu <span class="t-azul">canción</span></h2>
+      <p class="bajada">Puede ser un demo sin publicar. Medimos cómo suena y te decimos entre qué dos mundos cae.</p>
 
+      <ol class="pasos">
+        <li><span class="paso-n mono">01</span><span>Medimos <b>10 rasgos del sonido</b> con ReccoBeats y Essentia</span></li>
+        <li><span class="paso-n mono">02</span><span>Calculamos tus <b>dos puntajes</b>, con su margen de error</span></li>
+        <li><span class="paso-n mono paso-ambar">03</span><span>Te mostramos <b>qué suma y qué resta</b> en cada uno</span></li>
+      </ol>
+    </div>
+
+    <div class="subir-der">
       <div class="zona-carga zona-carga-grande" id="zona-carga">
         <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 16V4M12 4l-4 4M12 4l4 4"></path><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
@@ -148,17 +160,13 @@
 
       <div class="separador"><span>o</span></div>
 
-      <label class="campo">
-        <span>Probá con una que ya analizamos</span>
-        <input type="text" id="buscar" placeholder="Uptown Funk, Holocene, Despacito…" autocomplete="off">
-      </label>
-      <ul class="resultados" id="resultados" hidden></ul>
-
-      <ol class="pasos pasos-fila">
-        <li><span class="paso-n mono">01</span><span class="punto punto-azul"></span>ReccoBeats y Essentia miden 10 rasgos del sonido</li>
-        <li><span class="paso-n mono">02</span><span class="punto punto-azul"></span>El modelo calcula los dos puntajes, con su margen</li>
-        <li><span class="paso-n mono">03</span><span class="punto punto-ambar"></span>Te mostramos qué suma y qué resta en cada eje</li>
-      </ol>
+      <div class="campo-buscar">
+        <ul class="resultados" id="resultados" hidden></ul>
+        <label class="campo">
+          <span>Probá con una que ya analizamos</span>
+          <input type="text" id="buscar" placeholder="Uptown Funk, Holocene, Despacito…" autocomplete="off">
+        </label>
+      </div>
     </div>
   </div>
 </section>
@@ -179,26 +187,21 @@
   <div class="cuerpo mapa-manda">
     <div class="mapa-caja mapa-grande">
       <div class="mapa-titulo">
-        <h3>Dónde cae tu canción entre los dos mundos</h3>
-        <p>Cada punto es una canción del 2000 en adelante, ubicada por cómo suena. <b>Hacia la derecha</b>, más se parece a lo que entra al Hot 100. <b>Hacia arriba</b>, más se parece a lo que nomina la Academia.</p>
+        <h3>Dónde cae tu canción</h3>
+        <p>Tu canción entre <b>100 canciones reales</b>. Más <b class="t-ambar">a la derecha</b>: suena más a hit. Más <b class="t-azul">arriba</b>: suena más a nominada al Grammy. Tocá un punto para escucharlo.</p>
       </div>
       <svg id="mapa-resultado" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Dónde cayó tu canción en el mapa"></svg>
       <div class="leyenda-mapa" aria-label="Qué significa cada color">
         <span><i class="ly-tuya"></i>tu canción</span>
-        <span><i class="ly-gano"></i>ganó un Grammy</span>
+        <span><i class="ly-gano"></i>ganó el Grammy</span>
         <span><i class="ly-nominada"></i>nominada</span>
-        <span><i class="ly-nunca"></i>nunca nominada</span>
-        <span><i class="ly-fondo"></i>canciones de la base</span>
+        <span><i class="ly-hit"></i>hit, nunca nominada</span>
+        <span><i class="ly-control"></i>no entró al ranking</span>
       </div>
-      <details class="como como-mapa"><summary>¿Cómo está hecho este mapa?</summary><div class="como-texto">
-        <p>Cada punto gris es una canción de nuestra base: 700 elegidas al azar entre las 23.333 del año 2000 en adelante. Está ubicada según sus dos números: <b>a la derecha, más popularidad; arriba, más prestigio</b>. Los dos van de 0 a 100.</p>
-        <p>Las que tienen nombre son referencias conocidas. Las líneas punteadas cortan en 50, que es la mitad de la base, y arman las cuatro zonas. Tu canción es el punto azul grande. Tocá cualquier punto para escuchar esa canción.</p>
-      </div></details>
     </div>
 
     <aside class="col-panel col-resultado">
       <div>
-        <div class="rotulo-paso">Tu canción</div>
         <h2 class="titular-md" id="nombre-cancion"></h2>
         <p class="chico tenue" id="artista-cancion"></p>
       </div>
@@ -213,7 +216,7 @@
 
       <a class="boton boton-borde boton-bloque" href="#desglose">Ver qué suma y qué resta</a>
 
-      <p class="nota-pie">Esto es un parecido sonoro, no una predicción. No medimos la letra, el sello ni quién sos.</p>
+      <p class="nota-pie">Es un parecido de sonido, no una predicción.</p>
     </aside>
   </div>
 </section>
@@ -278,10 +281,10 @@
     <div class="mapa-caja mapa-grande"><svg id="mapa-simulador" class="mapa" viewBox="0 0 800 560" role="img" aria-label="Cómo se mueve tu canción en el mapa"></svg>
       <div class="leyenda-mapa" aria-label="Qué significa cada color">
         <span><i class="ly-tuya"></i>tu canción</span>
-        <span><i class="ly-gano"></i>ganó un Grammy</span>
+        <span><i class="ly-gano"></i>ganó el Grammy</span>
         <span><i class="ly-nominada"></i>nominada</span>
-        <span><i class="ly-nunca"></i>nunca nominada</span>
-        <span><i class="ly-fondo"></i>canciones de la base</span>
+        <span><i class="ly-hit"></i>hit, nunca nominada</span>
+        <span><i class="ly-control"></i>no entró al ranking</span>
         <span><i class="ly-antes"></i>dónde estabas</span>
       </div>
     </div>
@@ -307,14 +310,15 @@
   </div>
 </div>
 
-<script src="modelo.js?v=20261115"></script>
-<script src="logica.js?v=20261115"></script>
-<script src="mapa.js?v=20261115"></script>
-<script src="escuchar.js?v=20261115"></script>
-<script src="lectura.js?v=20261115"></script>
-<script src="medicion.js?v=20261115"></script>
-<script src="analisis_essentia.js?v=20261115"></script>
-<script src="analisis_reccobeats.js?v=20261115"></script>
-<script src="app.js?v=20261115"></script>
+<script src="modelo.js?v=20261115f"></script>
+<script src="logica.js?v=20261115f"></script>
+<script src="galaxia.js?v=20261115f"></script>
+<script src="mapa.js?v=20261115f"></script>
+<script src="escuchar.js?v=20261115f"></script>
+<script src="lectura.js?v=20261115f"></script>
+<script src="medicion.js?v=20261115f"></script>
+<script src="analisis_essentia.js?v=20261115f"></script>
+<script src="analisis_reccobeats.js?v=20261115f"></script>
+<script src="app.js?v=20261115f"></script>
 </body>
 </html>

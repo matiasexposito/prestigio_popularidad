@@ -59,6 +59,7 @@
 
   /* ================= 1 · Splash: el polvo de canciones ================= */
 
+  // (La portada la dibuja galaxia.js. Esto queda solo por si falta el lienzo.)
   (function polvo() {
     const cont = $('#polvo');
     if (!cont) return;
@@ -116,7 +117,9 @@
     if (q.length < 2) { listaRes.hidden = true; return; }
     const hits = M.buscables
       .filter(f => (f[0] + ' ' + f[1]).toLowerCase().includes(q))
-      .slice(0, 6);
+      // primero las que EMPIEZAN con lo que escribiste
+      .sort((a, b) => b[0].toLowerCase().startsWith(q) - a[0].toLowerCase().startsWith(q))
+      .slice(0, 5);
     if (!hits.length) {
       // Que el silencio no parezca un error: la herramienta arranca en el 2000.
       listaRes.innerHTML = `<li class="sin-resultados">No encontramos esa canción entre las ${M.buscables.length} que tenemos a mano. Son todas del 2000 en adelante.</li>`;
@@ -183,22 +186,22 @@
   // Todas las cifras salen del modelo (modelo.js), así cambian solas si se vuelve a entrenar.
   const miles = n => Number(n).toLocaleString('es-AR');
   function comoSeCalcula(nombre, e) {
-    const v = Math.round(e.v), lo = Math.round(e.lo), hi = Math.round(e.hi), base = miles(M.n);
+    // Corto y a la vista: qué quiere decir el número, y nada más. El detalle está en el racional.
+    const v = Math.round(e.v), base = miles(M.n);
     const que = nombre === 'Prestigio'
-      ? `<p>Comparamos el sonido de tu canción con el de las <b>${miles(M.n_reconocidas)}</b> canciones nominadas a Record o Song of the Year desde el año 2000, y con el de <b>${miles(M.n_nunca)}</b> hits que nunca fueron nominados. El modelo aprendió qué separa a unas de otras en 10 rasgos del sonido.</p>
-         <p><b>El ${v} quiere decir que tu sonido se parece más al perfil premiado que el ${v}% de las ${base} canciones de nuestra base.</b> No es una probabilidad de ganar.</p>`
-      : `<p>Dos preguntas encadenadas: ¿tu sonido se parece al de las canciones que entran al Hot 100? Y si entra, ¿al de las que llegan alto?</p>
-         <p><b>El ${v} quiere decir que te parecés más al perfil que entra que el ${v}% de las ${base} canciones de la base.</b> El sonido explica alrededor de un cuarto de entrar al chart y casi nada de cuán alto se llega: por eso nunca te decimos un puesto.</p>`;
-    const margen = `<p><b>¿Y el "entre ${lo} y ${hi}"?</b> Es el margen de error. Volvimos a entrenar el modelo 20 veces con distintas muestras de las mismas canciones y anotamos cuánto cambiaba tu número. El del prestigio es más ancho porque se aprende de ${miles(M.n_reconocidas)} canciones; el de la popularidad, de ${miles(M.n_hits)}.</p>`;
-    return `<details class="como"><summary>¿Cómo se calcula?</summary><div class="como-texto">${que}${margen}</div></details>`;
+      ? `Suena <b>más parecida a las nominadas al Grammy</b> que el ${v}% de las ${base} canciones que medimos.`
+      : `Suena <b>más parecida a las que entran al Hot 100</b> que el ${v}% de las ${base} canciones que medimos.`;
+    return `<p class="que-significa">${que}</p>`;
   }
 
   function tarjetaPuntaje(nombre, e) {
-    return `<div class="tarjeta-puntaje">
-      <div class="puntaje-cabeza"><b>${nombre}</b><span class="puntaje-margen">entre ${Math.round(e.lo)} y ${Math.round(e.hi)}</span></div>
-      <div class="puntaje-cifra"><span>${Math.round(e.v)}</span><span>%</span></div>
+    return `<div class="tarjeta-puntaje ${nombre === 'Prestigio' ? 'tp-azul' : 'tp-ambar'}">
+      <div class="puntaje-cabeza"><b>${nombre}</b><span class="puntaje-margen" title="Margen de error: tu número real está casi seguro entre estos dos">margen: ${Math.round(e.lo)} a ${Math.round(e.hi)}</span></div>
+      <div class="puntaje-fila">
+        <div class="puntaje-cifra"><span>${Math.round(e.v)}</span><span>%</span></div>
+        ${comoSeCalcula(nombre, e)}
+      </div>
       <div class="riel"><i style="width:${e.v}%"></i><u style="left:${e.lo}%;width:${Math.max(2, e.hi - e.lo)}%"></u></div>
-      ${comoSeCalcula(nombre, e)}
     </div>`;
   }
 
@@ -231,6 +234,7 @@
   $$('.selector button').forEach(b => b.addEventListener('click', () => {
     S.eje = b.dataset.eje;
     $$('.selector button').forEach(x => x.classList.toggle('activo', x === b));
+    b.closest('.selector').dataset.eje = S.eje;
     PINTAR.desglose();
   }));
 
@@ -331,7 +335,7 @@
     $('#sim-puntajes').innerHTML = [
       ['Prestigio', p.pres, p0.pres, dp],
       ['Popularidad', p.pop, p0.pop, dq],
-    ].map(([n, e, e0, d]) => `<div class="tarjeta-puntaje">
+    ].map(([n, e, e0, d]) => `<div class="tarjeta-puntaje ${n === 'Prestigio' ? 'tp-azul' : 'tp-ambar'}">
       <div class="puntaje-cabeza"><b>${n}</b><span class="puntaje-margen ${d > 0 ? 'efecto suma' : d < 0 ? 'efecto resta' : ''}">${d === 0 ? 'sin cambios' : signo(d)}</span></div>
       <div class="puntaje-cifra"><span>${Math.round(e.v)}</span><span class="chico tenue">antes ${Math.round(e0.v)}</span></div>
       <div class="riel"><i style="width:${e.v}%"></i><u style="left:${e0.v}%;width:2px;border-color:var(--tenue-2)"></u></div>

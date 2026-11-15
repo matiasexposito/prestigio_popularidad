@@ -8,7 +8,7 @@ La página la escribió una IA, pero el diseño lo decidimos nosotros. Acá est�
 
 Le pedimos dos colores y nada más: un azul (`#1b4fd8`) y un ámbar (`#b45309`). Todo lo demás, blanco, negro y gris.
 
-Los dos colores son los dos ejes. El azul es la popularidad y lo que te suma; el ámbar es el prestigio y lo que te resta. Son los mismos en todas las pantallas.
+Los dos colores son los dos ejes. El azul es el prestigio; el ámbar es la popularidad. Son los mismos en todas las pantallas: en la portada, en los dos puntajes y en el mapa. Al principio se usaban poco y la app se veía casi toda en blanco y negro, así que le pedimos que los hiciera aparecer más, siempre con el mismo significado.
 
 Pedimos que el resto fuera monocromo a propósito. Si hubiera cinco colores más, el ámbar no significaría nada.
 

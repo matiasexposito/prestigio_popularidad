@@ -15,9 +15,37 @@
 
   function refCirculo(r) {
     if (r.gano) return `<circle r="6" style="fill:var(--azul)"/>`;
-    if (r.nominada) return `<circle r="5.5" style="fill:none;stroke:var(--azul);stroke-width:2"/>`;
-    return `<circle r="5" style="fill:none;stroke:var(--tenue-2);stroke-width:1.5"/>`;
+    if (r.nominada) return `<circle r="5.5" style="fill:var(--fondo);stroke:var(--azul);stroke-width:2"/>`;
+    return `<circle r="5.5" style="fill:var(--ambar)"/>`;
   }
+
+  /* Las 100 canciones del mapa. Son canciones reales, cada una ubicada con sus dos
+     puntajes, calculados con el mismo modelo que se usa para tu canción:
+       - las 19 con nombre (las referencias)
+       - 19 nominadas o ganadoras más y 32 éxitos nunca nominados, de las conocidas
+       - 30 que no entraron al ranking
+     En total: 30 nominadas, 40 éxitos y 30 que no entraron. La elección es al azar
+     pero con semilla fija, así el mapa es el mismo cada vez. */
+  (function cienCanciones() {
+    const { puntajes, R } = window.PP;
+    let s = 2026;
+    const azar = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    const mezclar = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(azar() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    const clave = t => String(t).toLowerCase();
+    const usadas = new Set(M.referencias.map(r => clave(r.titulo)));
+    const sinRepetir = f => !usadas.has(clave(f[0])) && usadas.add(clave(f[0]));
+    const deFila = f => {
+      const r = {}; R.forEach((k, i) => { r[k] = f[5 + i]; });
+      const p = puntajes(r);
+      return [+p.pop.v.toFixed(1), +p.pres.v.toFixed(1), f[3] ? 'gano' : f[4] ? 'nominada' : 'hit', f[0], f[1], f[2]];
+    };
+    const conocidas = mezclar(M.buscables);
+    const nominadas = conocidas.filter(f => f[4] || f[3]).filter(sinRepetir).slice(0, 19).map(deFila);
+    const exitos = conocidas.filter(f => !f[4] && !f[3]).filter(sinRepetir).slice(0, 32).map(deFila);
+    const afuera = M.fondo.filter(f => f[2] === 'control' && !usadas.has(clave(f[3])) && usadas.add(clave(f[3]))).slice(0, 30);
+    M.fondoTodo = M.fondo;
+    M.fondo = [...afuera, ...exitos, ...nominadas];   // las azules se dibujan arriba de todo
+  })();
 
   /* El mapa se arma por capas: ejes y puntos de fondo se dibujan una sola vez;
      referencias, "antes" y "tu canción" se actualizan. Así el punto de tu canción
@@ -37,10 +65,15 @@
           <text class="m-cuadrante" x="${X1 - 10}" y="${Y1 + 18}" text-anchor="end">las dos cosas</text>
           <text class="m-cuadrante" x="${X1 - 10}" y="${Y0 - 12}" text-anchor="end">hit puro</text>
           <text class="m-cuadrante" x="${X0 + 10}" y="${Y0 - 12}">ni una cosa ni la otra</text>
-          <text class="m-eje-texto" x="${(X0 + X1) / 2}" y="${Y0 + 36}" text-anchor="middle">popularidad →</text>
-          <text class="m-eje-texto" x="22" y="${(Y0 + Y1) / 2}" text-anchor="middle" transform="rotate(-90 22 ${(Y0 + Y1) / 2})">prestigio →</text>
+          <text class="m-num" x="${X0}" y="${Y0 + 16}" text-anchor="middle">0</text>
+          <text class="m-num" x="${px(50)}" y="${Y0 + 16}" text-anchor="middle">50</text>
+          <text class="m-num" x="${X1}" y="${Y0 + 16}" text-anchor="middle">100</text>
+          <text class="m-num" x="${X0 - 8}" y="${py(50) + 4}" text-anchor="end">50</text>
+          <text class="m-num" x="${X0 - 8}" y="${Y1 + 4}" text-anchor="end">100</text>
+          <text class="m-eje-texto m-eje-pop" x="${(X0 + X1) / 2}" y="${Y0 + 40}" text-anchor="middle">popularidad →</text>
+          <text class="m-eje-texto m-eje-pres" x="22" y="${(Y0 + Y1) / 2}" text-anchor="middle" transform="rotate(-90 22 ${(Y0 + Y1) / 2})">prestigio →</text>
         </g>
-        <g class="m-capa-fondo">${M.fondo.map(([x, y], i) => `<circle class="m-fondo" data-f="${i}" cx="${px(x).toFixed(1)}" cy="${py(y).toFixed(1)}" r="2.6" style="--d:${Math.round(px(x) - X0)}"/>`).join('')}</g>
+        <g class="m-capa-fondo">${M.fondo.map(([x, y, g], i) => `<circle class="m-fondo g-${g}" data-f="${i}" cx="${px(x).toFixed(1)}" cy="${py(y).toFixed(1)}" r="${g === 'control' ? 3.4 : 4.4}" style="--d:${Math.round(px(x) - X0)}"/>`).join('')}</g>
         <g class="m-capa-antes"></g><g class="m-capa-refs"></g><g class="m-capa-tu"></g>`;
       svg._capas = { fondo: $('.m-capa-fondo', svg), refs: $('.m-capa-refs', svg), antes: $('.m-capa-antes', svg), tu: $('.m-capa-tu', svg) };
       window.PP.activarPuntos?.(svg);   // escuchar.js: click en un punto para oir la cancion

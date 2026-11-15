@@ -20,14 +20,14 @@
          y no pide clave) y deja el botón para abrir la búsqueda en YouTube. */
   const YOUTUBE_API_KEY = window.PYP_YOUTUBE_KEY || '';
 
-  const GRUPO = { ambas: 'hit y nominada', premiada: 'nominada', hit: 'hit, nunca nominada', control: 'ni hit ni nominada' };
+  const GRUPO = { gano: 'ganó el Grammy', nominada: 'nominada al Grammy', ambas: 'hit y nominada', premiada: 'nominada', hit: 'hit, nunca nominada', control: 'no entró al ranking' };
   function cancionDePunto(el) {
     if (el.dataset.f != null) {
       const [pop, pres, grupo, titulo, artista, anio] = M.fondo[+el.dataset.f];
       return { titulo, artista, anio, pop, pres, etiqueta: GRUPO[grupo] || '' };
     }
     const r = M.referencias[+el.dataset.ref];
-    return { ...r, etiqueta: r.gano ? 'ganó un Grammy' : r.nominada ? 'nominada' : 'ni nominada' };
+    return { ...r, etiqueta: r.gano ? 'ganó el Grammy' : r.nominada ? 'nominada al Grammy' : 'hit, nunca nominada' };
   }
 
   // "Mark Ronson Featuring Bruno Mars" → "Mark Ronson"; "Tema (Remix)" → "Tema"

@@ -432,3 +432,136 @@ input[type="range"]::-moz-range-thumb {
 .mapa-titulo h3 { margin: 0 0 4px; font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--tinta); line-height: 1.25; }
 .mapa-titulo p { margin: 0; max-width: 640px; font-size: 13px; line-height: 1.5; color: var(--tenue); }
 .mapa-titulo b { color: var(--texto); font-weight: 600; }
+
+/* =========================================================
+   Rediseño del 15/11: más color (azul = prestigio, ámbar =
+   popularidad), la portada como galaxia, la carga en dos
+   columnas que entran en una pantalla, y el mapa de 100 canciones.
+   ========================================================= */
+.t-azul, .mapa-titulo b.t-azul { color: var(--azul); }
+.t-ambar, .mapa-titulo b.t-ambar { color: var(--ambar); }
+
+/* ---------- La barra: una línea que va del azul al ámbar ---------- */
+.barra { position: relative; border-bottom-color: transparent; }
+.barra::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+  background: linear-gradient(90deg, rgba(27,79,216,.55), var(--borde) 30%, var(--borde) 70%, rgba(180,83,9,.55)); }
+.barra-limpia::after { display: none; }
+.barra .logo { display: inline-flex; align-items: center; gap: 9px; }
+.barra .logo::after { content: ''; width: 6px; height: 6px; border-radius: 999px; background: var(--azul); box-shadow: 9px 0 0 var(--ambar); margin-right: 9px; }
+
+/* ---------- Portada: la galaxia ---------- */
+.galaxia { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.splash-centro { z-index: 1; padding: 46px 70px; }
+.splash-centro::before { content: ''; position: absolute; inset: -40px; z-index: -1; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255,255,255,.96) 0%, rgba(255,255,255,.8) 55%, rgba(255,255,255,0) 100%); }
+.splash-logo .y { color: var(--ambar); font-style: italic; font-weight: 300; padding: 0 .04em; }
+.splash-logo { background: linear-gradient(90deg, var(--azul) 0%, var(--tinta) 38%, var(--tinta) 62%, var(--ambar) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.splash-logo .y { -webkit-text-fill-color: var(--ambar); }
+.splash-pie { z-index: 1; color: var(--tenue); display: flex; align-items: center; justify-content: center; gap: 7px; flex-wrap: wrap; padding: 0 150px; }
+.splash-pie .punto { width: 7px; height: 7px; margin-left: 6px; }
+.boton-sonido { position: absolute; right: 26px; bottom: 26px; z-index: 2; display: inline-flex; align-items: center; gap: 8px;
+  min-height: 36px; padding: 0 14px; border: 1px solid var(--borde-fuerte); border-radius: 999px; background: rgba(255,255,255,.9);
+  font-size: 12.5px; color: var(--texto); cursor: pointer; transition: border-color .2s, color .2s, background .2s; }
+.boton-sonido:hover { border-color: var(--azul); color: var(--azul); }
+.boton-sonido.activo { border-color: var(--azul); color: var(--azul); background: var(--azul-claro); }
+.boton-sonido.activo svg { animation: latir 1.6s ease-in-out infinite; }
+@keyframes latir { 50% { transform: scale(1.18); } }
+
+/* ---------- Los dos mundos, cada uno con su color ---------- */
+.mundo-azul { border-top: 3px solid var(--azul); background: linear-gradient(180deg, var(--azul-claro), var(--fondo) 55%); }
+.mundo-ambar { border-top: 3px solid var(--ambar); background: linear-gradient(180deg, var(--ambar-claro), var(--fondo) 55%); }
+.mundo-azul .mundo-rotulo { color: var(--azul-osc); }
+.mundo-ambar .mundo-rotulo { color: var(--ambar-osc); }
+.titular-italica .t-ambar { font-weight: 400; }
+.cifra-grande { background: linear-gradient(90deg, var(--azul), var(--ambar)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.franja-dato { background: linear-gradient(90deg, var(--azul-claro), var(--panel) 40%, var(--panel) 60%, var(--ambar-claro)); }
+
+/* ---------- Subir la canción: dos columnas, todo en una pantalla ---------- */
+.subir-cuerpo {
+  display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); align-items: center;
+  gap: clamp(28px, 5vw, 84px); width: 100%; max-width: 1180px; margin: 0 auto;
+  position: relative;
+}
+.subir-izq { display: flex; flex-direction: column; min-width: 0; }
+.subir-izq .titular { font-size: clamp(36px, 4.4vw, 60px); }
+.subir-izq .bajada { max-width: 40ch; }
+.rotulo-pastilla { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+  padding: 6px 12px; border: 1px solid var(--azul-medio); border-radius: 999px; background: var(--azul-claro); color: var(--azul-osc); }
+.subir-izq .pasos { margin-top: clamp(18px, 3.4vh, 34px); padding-top: clamp(16px, 3vh, 26px); gap: clamp(10px, 1.8vh, 16px); }
+.subir-izq .pasos li { align-items: flex-start; gap: 14px; font-size: 14.5px; line-height: 1.4; }
+.subir-izq .pasos b { color: var(--tinta); font-weight: 600; }
+.paso-n { flex: none; width: 30px; height: 30px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 500; color: var(--azul); background: var(--azul-claro); border: 1px solid var(--azul-medio); margin-top: -4px; }
+.paso-n.paso-ambar { color: var(--ambar-osc); background: var(--ambar-claro); border-color: var(--ambar-medio); }
+
+.subir-der { display: flex; flex-direction: column; gap: clamp(10px, 1.7vh, 15px); min-width: 0; min-height: 0;
+  border: 1px solid var(--borde); border-radius: 18px; padding: clamp(16px, 2.6vh, 26px); background: var(--fondo);
+  box-shadow: 0 24px 60px -34px rgba(27,79,216,.35), 0 24px 60px -40px rgba(180,83,9,.3); }
+.subir-der .zona-carga-grande { padding: clamp(22px, 6vh, 56px) 24px; border-color: var(--azul-medio); background: var(--azul-claro); color: var(--tenue); }
+.subir-der .zona-carga svg { color: var(--azul); }
+.subir-der .zona-carga:hover, .subir-der .zona-carga.encima { border-color: var(--azul); background: #e9eefb; }
+.subir-der .separador span { color: var(--ambar); }
+.campo-buscar { position: relative; }
+.campo-buscar .campo input:focus { outline-color: var(--ambar); border-color: var(--ambar); }
+/* La lista de resultados se abre hacia arriba, flotando: no empuja nada ni hace bajar la pantalla */
+.campo-buscar .resultados { position: absolute; left: 0; right: 0; bottom: 56px; z-index: 5; background: var(--fondo);
+  box-shadow: 0 -14px 40px -14px rgba(0,0,0,.28); animation: aparecer .18s var(--salida); }
+.campo-buscar .resultados li:hover { background: var(--ambar-claro); }
+
+@media (max-width: 860px) {
+  .subir-cuerpo { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .pantalla[data-ruta="subir"] { height: auto; min-height: 100%; }
+}
+
+/* ---------- Puntajes: prestigio en azul, popularidad en ámbar ---------- */
+.tarjeta-puntaje { border-left-width: 3px; padding: 14px 18px; }
+.tp-azul { border-left-color: var(--azul); }
+.tp-ambar { border-left-color: var(--ambar); }
+.tp-azul .puntaje-cabeza b, .tp-azul .puntaje-cifra > span:first-child { color: var(--azul); }
+.tp-ambar .puntaje-cabeza b, .tp-ambar .puntaje-cifra > span:first-child { color: var(--ambar); }
+.tp-ambar .riel i { background: var(--ambar); }
+.tp-ambar .riel u { border-color: var(--ambar); }
+.puntaje-cabeza b { text-transform: uppercase; letter-spacing: .08em; font-size: 11.5px; }
+.puntaje-cifra { margin: 4px 0 10px; }
+.puntaje-fila { display: flex; align-items: center; gap: 16px; margin: 6px 0 12px; }
+.puntaje-fila .puntaje-cifra { margin: 0; flex: none; flex-wrap: nowrap; }
+.que-significa { margin: 0; font-size: 12.5px; line-height: 1.45; color: var(--texto); }
+.que-significa b { color: var(--tinta); font-weight: 600; }
+.col-resultado { gap: 12px; }
+.col-resultado .nota-pie { padding-top: 10px; font-size: 11.5px; }
+.col-resultado .titular-md { font-size: clamp(22px, 2.2vw, 30px); }
+.col-resultado .caja { padding: 13px 16px; }
+.col-resultado #lectura { font-size: 13.5px; line-height: 1.5; }
+.col-resultado .boton { min-height: 42px; flex: none; }
+
+/* ---------- Desglose: el botón del eje toma su color ---------- */
+.selector button.activo[data-eje="prestigio"] { background: var(--azul); border-color: var(--azul); }
+.selector button.activo[data-eje="popularidad"] { background: var(--ambar); border-color: var(--ambar); }
+.col-panel > .rotulo-paso { color: var(--ambar-osc); }
+.col-resultado .rotulo-paso { color: var(--azul); }
+
+/* ---------- Mapa: 100 canciones reales, cada grupo con su color ---------- */
+.m-fondo { fill: var(--gris-suave); }
+.m-fondo.g-control { fill: #c4c1ba; }
+.m-fondo.g-hit { fill: var(--ambar); fill-opacity: .8; }
+.m-fondo.g-gano { fill: var(--azul); }
+.m-fondo.g-nominada { fill: var(--fondo); stroke: var(--azul); stroke-width: 2; }
+.m-fondo:hover, .m-fondo.activo { r: 7; fill-opacity: 1; }
+.m-fondo.g-control:hover, .m-fondo.g-control.activo { fill: var(--tenue); }
+.m-fondo.g-hit:hover, .m-fondo.g-hit.activo { fill: var(--ambar-osc); }
+.m-fondo.g-gano:hover, .m-fondo.g-gano.activo { fill: var(--azul-osc); }
+.m-fondo.g-nominada:hover, .m-fondo.g-nominada.activo { fill: var(--azul-medio); }
+.m-capa-fondo.anim .m-fondo { animation-delay: calc(var(--d) * 1.1ms); }
+.m-num { font: 10.5px var(--mono); fill: var(--tenue-3); }
+.m-eje-pop { fill: var(--ambar); font-weight: 600; }
+.m-eje-pres { fill: var(--azul); font-weight: 600; }
+/* Tu canción va en negro: el azul y el ámbar ya quieren decir otra cosa */
+.m-tu { fill: var(--tinta); }
+.m-tu-halo, .m-tu-onda, .m-flecha { stroke: var(--tinta); }
+.ly-tuya { background: var(--tinta); box-shadow: 0 0 0 2px var(--fondo), 0 0 0 3px var(--tinta); }
+.ly-nominada { background: var(--fondo); }
+.ly-hit { background: var(--ambar); }
+.ly-control { background: #c4c1ba; }
+.mapa-titulo { padding: 14px 18px 2px; }
+.mapa-titulo p { max-width: none; }
+.mapa-grande { background: linear-gradient(135deg, #f6f8fd 0%, var(--panel) 45%, #fdf9f3 100%); }

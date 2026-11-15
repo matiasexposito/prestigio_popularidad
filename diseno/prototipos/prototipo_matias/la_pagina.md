@@ -12,9 +12,11 @@ Guía corta de la aplicación, para alguien que la abre por primera vez.
 
 ### 1 · Ingresar
 
-El logo, dos líneas de color y un botón. Nada más.
+El logo, un botón y, alrededor, una galaxia de canciones que gira despacio.
 
-Las dos líneas —una azul y una ámbar— son el código de color de toda la app: **azul es el eje de la popularidad y lo que te suma, ámbar es el eje del prestigio y lo que te resta.** Aparecen acá para que el ojo ya las reconozca cuando las vuelva a ver.
+Cada punto es una canción real de la base: **azul si fue nominada al Grammy, ámbar si entró al Hot 100**, gris si no logró ninguna de las dos. Si pasás el mouse por un punto, te dice qué canción es. Con el botón "Activar sonido", cada canción suena como una nota suave cuando se enciende.
+
+Esos dos colores son el código de toda la app: **azul es prestigio, ámbar es popularidad.** Aparecen acá para que el ojo ya los reconozca cuando los vuelva a ver.
 
 ### 2 · Los dos mundos
 
@@ -38,7 +40,7 @@ Puede ser un demo sin publicar. **Tu archivo no sale de tu computadora**: se ana
 
 Si en vez de subir algo preferís probar con una canción conocida, el buscador tiene las que ya analizamos. Son todas **del 2000 en adelante**, que es la ventana con la que trabaja la herramienta.
 
-El archivo es lo único importante de esta pantalla, así que está en el centro y grande. Debajo, el proceso en tres pasos, para que sepas qué va a pasar: ReccoBeats y Essentia miden 10 rasgos del sonido, el modelo calcula los dos puntajes con su margen, y te mostramos qué suma y qué resta en cada eje.
+Toda la pantalla se ve de una vez, sin bajar. A la derecha, el recuadro para arrastrar el archivo, que es lo más grande, y el buscador. A la izquierda, el proceso en tres pasos, para que sepas qué va a pasar: medimos 10 rasgos del sonido con ReccoBeats y Essentia, calculamos los dos puntajes con su margen, y te mostramos qué suma y qué resta en cada uno.
 
 ### 5 · Resultado
 
@@ -46,9 +48,9 @@ La pantalla principal.
 
 **Los dos puntajes**, cada uno con su margen de error. El margen no es un detalle: con 208 canciones premiadas, el puntaje de prestigio es una estimación y la app lo dice.
 
-**El mapa**, que ocupa la mayor parte de la pantalla. Cada punto es una canción, ubicada según sus dos puntajes. Abajo del mapa hay una leyenda que dice qué significa cada marca: tu canción, ganó un Grammy, nominada, nunca nominada, y las canciones de la base. Tu canción aparece marcada entre canciones conocidas, así ves de un vistazo en qué compañía caíste.
+**El mapa**, que ocupa la mayor parte de la pantalla. Muestra tu canción entre **100 canciones reales**: 30 nominadas o ganadoras del Grammy (en azul), 40 hits que nunca fueron nominados (en ámbar) y 30 que no entraron al ranking (en gris). Cada una está ubicada según sus dos puntajes. Tu canción es el punto negro. Abajo hay una leyenda con los colores, y cualquier punto se puede tocar para escuchar esa canción.
 
-**Cómo se calcula cada cosa.** Debajo de cada puntaje hay un "¿Cómo se calcula?" que se despliega ahí mismo: contra qué canciones se compara, qué quiere decir ese número para tu canción y de dónde sale el margen. Debajo del mapa, "¿Cómo está hecho este mapa?" explica los ejes, los puntos y las zonas.
+**Qué significa cada número.** Al lado de cada puntaje hay una frase corta: "suena más parecida a las nominadas al Grammy que el 88% de las 23.333 canciones que medimos". Nada más. El detalle de cómo se calcula está en el racional.
 
 **La lectura**, en el recuadro ámbar, que pasa los dos números a una frase: en qué zona del mapa caíste y qué rasgo te está tensionando los dos ejes.
 

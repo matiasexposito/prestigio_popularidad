@@ -284,11 +284,19 @@ El mapa tiene la popularidad de izquierda a derecha y el prestigio de abajo haci
 
 | En el mapa | Qué es |
 |---|---|
-| Punto azul grande con aro | Tu canción |
-| Punto azul lleno, con nombre | Una canción conocida que ganó un Grammy |
-| Aro azul, con nombre | Una canción conocida que fue nominada |
-| Aro gris, con nombre | Una canción conocida que nunca fue nominada |
-| Puntos grises chicos | 700 canciones de la base, elegidas al azar |
+| Punto negro grande con aro | Tu canción |
+| Punto azul lleno | Una canción que ganó el Grammy |
+| Aro azul | Una canción que fue nominada |
+| Punto ámbar | Un hit que nunca fue nominado |
+| Punto gris | Una canción que no entró al ranking |
+
+**El mapa muestra 100 canciones reales, no todas.** Con 700 puntos grises el mapa parecía una mancha y no se entendía que cada punto era una canción. Ahora son 100, y cada una está ubicada con sus dos puntajes, calculados con el mismo modelo que se usa para tu canción:
+
+- **30 nominadas o ganadoras** del Grammy (las 11 que llevan nombre y 19 más).
+- **40 hits que nunca fueron nominados** (los 8 que llevan nombre y 32 más).
+- **30 canciones que no entraron al ranking.**
+
+Las que no llevan nombre se eligen al azar entre las canciones conocidas de la base, siempre las mismas, para que el mapa no cambie cada vez que se abre. Los colores son los de toda la app: **azul es prestigio, ámbar es popularidad.** Tu canción va en negro para que no se confunda con ninguno de los dos.
 
 La leyenda está dibujada debajo del mapa, y cualquier punto se puede tocar para escuchar esa canción. La agregamos después de la devolución de la entrega 3.
 
@@ -566,7 +574,7 @@ Además, cada una tiene sus motivos.
 - **Con la IA o sin la IA (paso 5).** Si la IA que escribe la lectura no responde, la pantalla muestra una lectura armada por el modelo y avisa. El resultado nunca depende de que la IA funcione.
 - **Prestigio o popularidad (paso 6).** Un selector cambia cuál de los dos ejes se desglosa. No se muestran los dos juntos porque son veinte columnas y no se leen.
 - **Volver al original (paso 7).** En el simulador siempre se puede deshacer todo con un botón, para que nadie tenga miedo de mover.
-- **Explicaciones a pedido (paso 5).** Debajo de cada puntaje y del mapa hay un "¿Cómo se calcula?" que se abre y se cierra. Está plegado para no cargar la pantalla, y disponible para quien quiera el detalle.
+- **Explicaciones cortas y a la vista (paso 5).** Al lado de cada puntaje hay una sola frase que dice qué significa ("suena más parecida a las nominadas al Grammy que el 88% de las canciones que medimos"). Antes había un "¿Cómo se calcula?" desplegable con tres párrafos: era demasiado para alguien que solo quiere entender su número. El detalle completo quedó en este racional.
 
 ---
 
@@ -578,10 +586,10 @@ La app la programó una IA, pero qué va en cada pantalla, en qué orden y con q
 
 | Pantalla | Lo más importante | Cómo se nota |
 |---|---|---|
-| **Portada** | El nombre | Es lo único grande. Alrededor, puntos sueltos azules, ámbar y grises: las canciones del mapa, antes de saber que es un mapa |
+| **Portada** | El nombre | Es lo único grande. Alrededor, 240 canciones reales de la base giran despacio como una galaxia: azules las nominadas, ámbar los hits, grises el resto. Si se pasa el mouse por una, dice cuál es; con el sonido activado, cada una suena como una nota suave |
 | **Los dos mundos** | Que hay dos perfiles distintos | Dos tarjetas del mismo tamaño, una al lado de la otra, con el mismo orden adentro: una frase, un dato, tres canciones |
 | **Crear cuenta** | Que es rápido | Dos campos y un botón, en el centro, sin nada más |
-| **Subir la canción** | El archivo | Una sola columna. El recuadro para arrastrar es lo más grande; el buscador va abajo, más chico; los tres pasos del proceso, al final |
+| **Subir la canción** | El archivo | Dos columnas que entran en una sola pantalla, sin bajar. A la izquierda, el título y los tres pasos del proceso; a la derecha, el recuadro para arrastrar (lo más grande) y el buscador |
 | **Resultado** | El mapa | Ocupa toda la columna ancha. Los dos números van al costado, en una columna fija de 404 píxeles |
 | **Qué suma y qué resta** | Comparar los rasgos entre sí | Columnas verticales del mismo ancho, con la barra saliendo de una línea central: arriba suma, abajo resta |
 | **Simular** | Ver el punto moverse | El mapa en el medio, los controles a la izquierda y los números a la derecha: la mano mueve a un lado, el ojo mira al centro |
@@ -596,18 +604,20 @@ Usamos **dos colores y nada más**. Todo lo demás es blanco, negro y gris.
 
 | Color | Código | Qué significa |
 |---|---|---|
-| **Azul** | `#1b4fd8` | Tu canción en el mapa, y lo que te **suma** |
-| **Ámbar** | `#b45309` | Lo que te **resta**, y el recuadro de la lectura que escribe la IA |
-| Tinta | `#12110f` | Textos y botones principales |
-| Gris | `#dbd9d4` | Las canciones de fondo del mapa |
+| **Azul** | `#1b4fd8` | El **prestigio**: el puntaje de prestigio, las canciones nominadas y ganadoras del Grammy. En el desglose, además, lo que te **suma** |
+| **Ámbar** | `#b45309` | La **popularidad**: el puntaje de popularidad y los hits. En el desglose, además, lo que te **resta**. También es el color del recuadro de la lectura que escribe la IA |
+| Tinta | `#12110f` | Textos, botones principales y **tu canción** en el mapa |
+| Gris | `#c4c1ba` | Las canciones que no entraron al ranking |
 
 **De dónde viene.** La primera regla de color del proyecto, de septiembre, era: azul para lo que calcula el modelo, ámbar para lo que interpreta la IA. De ahí quedó que el recuadro de la lectura, que escribe la IA, sea ámbar. Después sumamos el otro uso: azul lo que suma, ámbar lo que resta.
 
+**Qué cambiamos el 15/11.** Mirando la app entera, casi todo era blanco y negro: los dos colores aparecían poco y no quedaba claro qué quería decir cada uno. Decidimos que cada eje tenga el suyo en todas las pantallas: **azul es prestigio, ámbar es popularidad**. Así se ve desde la portada (el punto azul al lado de "Prestigio" y el ámbar al lado de "Popularidad"), en las dos tarjetas de la bienvenida, en los dos puntajes y en el mapa. Tu canción pasó de azul a negro para no confundirse con las nominadas.
+
 **Por qué solo dos.** Los dos ejes del proyecto están en tensión, y queríamos que esa tensión se viera antes de leerla. Si hubiera cinco colores más, ninguno significaría nada. Con dos, cada vez que aparece uno la persona ya sabe qué quiere decir.
 
-**Cómo se leen en el mapa.** Como el mapa tiene muchos tipos de punto, abajo lleva una leyenda fija: tu canción (azul con aro), ganó un Grammy (azul lleno), fue nominada (aro azul), nunca nominada (aro gris), canciones de la base (punto gris). La agregamos después de la devolución de la entrega 3, que pidió aclarar los colores.
+**Cómo se leen en el mapa.** Como el mapa tiene varios tipos de punto, abajo lleva una leyenda fija: tu canción (negro con aro), ganó el Grammy (azul lleno), fue nominada (aro azul), hit nunca nominado (ámbar), no entró al ranking (gris). La agregamos después de la devolución de la entrega 3, que pidió aclarar los colores.
 
-**Lo que dejamos afuera.** No hay modo oscuro: el mapa tiene cientos de puntos y en oscuro se mezclan. No hay degradés ni sombras de color: la app muestra mediciones, y un adorno que sugiera algo que el dato no dice es un problema.
+**Lo que dejamos afuera.** No hay modo oscuro: en oscuro los puntos del mapa se mezclan. Los únicos degradés son fondos muy suaves que van del azul al ámbar (en la barra de arriba y en algunas tarjetas), para que los dos colores estén presentes sin tapar los datos. Ningún número ni ningún punto del mapa lleva degradé.
 
 ### La tipografía
 
@@ -626,7 +636,7 @@ La regla de los números no tiene excepciones: puntajes, márgenes, valores de c
 - **Márgenes laterales** que se adaptan al ancho de la pantalla: entre 24 y 56 píxeles.
 - **Resultado:** dos columnas. El mapa toma todo el ancho libre; el panel de puntajes mide 404 píxeles fijos, para que los números no cambien de tamaño cuando cambia la ventana.
 - **Simular:** tres columnas. Controles (entre 300 y 400 píxeles), mapa (todo lo libre), puntajes (entre 250 y 290).
-- **Subir la canción:** una sola columna centrada, de 620 píxeles como máximo. Es lo que cambiamos después de la devolución de la entrega 3: antes el archivo estaba en un panel lateral, y era el elemento principal.
+- **Subir la canción:** dos columnas centradas, de 1.180 píxeles como máximo entre las dos. Tuvo tres versiones: primero el archivo estaba en un panel lateral chico; después de la devolución de la entrega 3 lo pasamos a una sola columna, pero quedó tan larga que había que bajar para ver los tres pasos y el título se cortaba arriba; el 15/11 la partimos en dos para que todo se vea de una vez.
 - **En pantallas chicas** (menos de 1.100 píxeles) todo pasa a una columna, con el mapa primero.
 - **Esquinas** de 12 píxeles en las tarjetas y botones en forma de píldora. Todo recto quedaba muy duro para una app de música.
 
@@ -711,7 +721,7 @@ La IA de la app recibe, antes de cada lectura, un texto fijo con las reglas. Est
 4. No dar consejos generales de producción. Si un rasgo empuja para los dos lados, decirlo con sus números y aclarar que la decisión es de quien produce.
 5. Si el margen de un puntaje es ancho, mencionarlo.
 
-**La forma:** tres párrafos cortos, 130 palabras como máximo, en español rioplatense y sin entusiasmo vendedor.
+**La forma:** dos párrafos cortos, 70 palabras como máximo, en español rioplatense y sin entusiasmo vendedor. Al principio eran tres párrafos y 130 palabras; la acortamos para que se lea de un vistazo.
 
 **Qué pasa si la IA falla:** la app muestra una lectura armada por el modelo con la zona y el conflicto, y avisa que la versión escrita por IA no está disponible. La clave del servicio está guardada en el servidor y nunca llega al navegador ni al repositorio.
 
