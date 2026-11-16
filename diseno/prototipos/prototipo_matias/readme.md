@@ -11,10 +11,10 @@ Se rearmó el 2 de noviembre de 2026 desde nuestro borrador de diseño (`diseno/
 | Parte | Cómo funciona |
 |---|---|
 | Portada | 240 canciones reales de la base giran como una galaxia. Azul: nominada al Grammy. Ámbar: entró al Hot 100. Con el sonido activado suena una melodía lenta |
-| Los dos puntajes | Salen del modelo entrenado con 23.333 canciones del año 2000 en adelante. Cada puntaje es el percentil de la canción dentro de esas 23.333 |
+| Los dos puntajes | Salen del modelo entrenado con 23.279 canciones del año 2000 en adelante. Cada puntaje es el percentil de la canción dentro de esas 23.279 |
 | Margen de error | 20 remuestreos del modelo, con un piso de ±4 puntos |
 | Mapa | 100 canciones reales: 30 nominadas o ganadoras, 40 hits nunca nominados y 30 que no entraron al ranking. Cada punto se puede tocar para escuchar la canción |
-| Buscar por nombre | 773 canciones conocidas desde 2000 (las que fueron nominadas y entraron al ranking, y las que llegaron al puesto 1) |
+| Buscar por nombre | 760 canciones conocidas desde 2000 (las que fueron nominadas y entraron al ranking, y las que llegaron al puesto 1) |
 | Subir un audio | ReccoBeats mide energía, valencia, acústica, bailabilidad, habla, volumen e instrumentalidad. Essentia.js mide tempo y modo. La duración la da el navegador |
 | Qué suma y qué resta | Cuántos puntos aporta cada rasgo, comparado con una canción promedio |
 | Simular | Recalcula los dos puntajes con el modelo cada vez que se mueve un control |

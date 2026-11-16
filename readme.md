@@ -74,10 +74,20 @@ Una sola pregunta: **¿está nominada en una categoría general o no?**
 
 | | Canciones |
 |---|---|
-| Nominadas a Record o Song of the Year, desde 2000 | **208** |
-| Hits del Hot 100 nunca nominados | **8.833** |
+| Nominadas a Record o Song of the Year, desde 2000 | **202** |
+| Hits del Hot 100 nunca nominados | **8.788** |
 
-Son los números después de la limpieza del 15 de noviembre de 2026. De las 23.403 canciones desde 2000 se sacaron 70: 15 con volumen imposible, 36 canciones cantadas que figuraban como instrumentales (se volvió a medir cada una con nuestras herramientas) y 19 repetidas. El modelo entrena con **23.333**. El detalle está en la sección 3.5 de [`racional.md`](racional.md), y la lista de las 36 en [`datasets_procesados/excluidas.csv`](datasets_procesados/excluidas.csv).
+Son los números después de las limpiezas del 15 y el 16 de noviembre de 2026. De las 23.403 canciones desde 2000 se sacaron 124:
+
+| Motivo | Canciones |
+|---|---|
+| Volumen imposible | 15 |
+| Cantadas que figuraban como instrumentales (se volvió a medir cada una) | 36 |
+| El dato era de otra versión de la canción (se midió la versión original) | 25 |
+| Repetidas | 19 |
+| La misma grabación cargada con otro nombre | 29 |
+
+El modelo entrena con **23.279**. El criterio es usar siempre la versión original de cada canción y sacar solo lo que se puede probar que está mal. El detalle está en la sección 3.5 de [`racional.md`](racional.md), y las dos listas en [`datasets_procesados/excluidas.csv`](datasets_procesados/excluidas.csv) y [`datasets_procesados/excluidas_version.csv`](datasets_procesados/excluidas_version.csv).
 
 **Solo esas dos categorías**, porque son las únicas que vota la Academia entera —en las demás cada miembro vota solo en su género— y las únicas que existen desde 1959 sin interrupción.
 
@@ -184,7 +194,7 @@ El significado de cada columna, con sus rangos medidos y sus límites conocidos,
 | Del control | 13.500 |
 | **Total** | **23.403** |
 
-Y dentro de esas 9.903, antes de limpiar: 213 premiadas en las dos categorías generales, 807 nominadas solo por género —que quedan fuera del eje de prestigio— y 8.883 hits nunca nominados. **Después de la limpieza del 15/11/2026 quedan 23.333 canciones en total: 208 premiadas, 792 solo por género y 8.833 hits nunca nominados.**
+Y dentro de esas 9.903, antes de limpiar: 213 premiadas en las dos categorías generales, 807 nominadas solo por género —que quedan fuera del eje de prestigio— y 8.883 hits nunca nominados. **Después de las limpiezas del 15 y el 16/11/2026 quedan 23.279 canciones en total: 202 premiadas, 789 solo por género y 8.788 hits nunca nominados.**
 
 ## Herramientas que usa la app
 
@@ -235,22 +245,22 @@ node codigo/letra.js --lote canciones.csv
 - **La forma de medir cambió con los años, en los dos ejes.** Hasta noviembre de 1991 Billboard armaba el ranking con encuestas a disquerías y listas de DJ, auto-reportadas; recién ahí pasó a medición electrónica. Y hasta 2021 los nominados al Grammy en las categorías generales los elegían comités secretos de 15 a 20 miembros anónimos, que se disolvieron en abril de ese año.
 - **"Popular" no significa lo mismo en 1965 que hoy.** Antes medía intención de compra: alguien iba a un local y pagaba por un disco. Hoy mide volumen de atención, y una reproducción se cuenta a los 30 segundos. La herramienta usa solo música desde el año 2000 justamente por esto.
 - **Para Song of the Year medimos una aproximación.** Ese premio se da a los compositores por una obra que debe contener melodía y letra; nosotros medimos el sonido de la grabación resultante. Para Record of the Year, en cambio, la medición es directa: ese premio sí juzga la grabación.
-- **La muestra de premiadas es chica:** 208 canciones. Por eso el margen de error del prestigio es más ancho que el de la popularidad, y la app lo muestra.
+- **La muestra de premiadas es chica:** 202 canciones. Por eso el margen de error del prestigio es más ancho que el de la popularidad, y la app lo muestra.
 - **El algoritmo de Spotify es una caja negra.** Nunca publicaron cómo calculan estos valores, así que no se pueden reproducir desde cero.
 - **En el grupo de control, el año 1970 hay que leerlo como "1970 o antes".** El dump de Spotify trae el año de la reedición, no el de la grabación original, así que 2.058 de las 4.500 canciones de esa década quedaron amontonadas en 1970 y varias son más viejas. Las otras cinco décadas no tienen este problema.
 
 ## El modelo de la app
 
-El análisis histórico usa las seis décadas; **la app se entrena solo con las 23.333 canciones del 2000 en adelante**. El análisis necesita historia porque mide un cambio; la herramienta necesita el presente porque mide una posición.
+El análisis histórico usa las seis décadas; **la app se entrena solo con las 23.279 canciones del 2000 en adelante**. El análisis necesita historia porque mide un cambio; la herramienta necesita el presente porque mide una posición.
 
 | Eje | Qué compara | Modelo |
 |---|---|---|
-| **Prestigio** | 208 nominadas a Record o Song of the Year contra 8.833 hits del Hot 100 nunca nominados | Regresión logística |
+| **Prestigio** | 202 nominadas a Record o Song of the Year contra 8.788 hits del Hot 100 nunca nominados | Regresión logística |
 | **Popularidad** | Dos preguntas encadenadas. 1: ¿entra al Hot 100? (hits contra las que nunca entraron). 2: si entra, ¿hasta dónde llega? (su mejor puesto en una escala estirada: #1 = 100, #10 = 50, #100 = 0, aprendida solo entre los hits). Puntaje = probabilidad de entrar × hasta dónde llega | Logística × lineal |
 
-Los puntajes que muestra la app son el percentil de la canción dentro de las 23.333, con un margen de error de 20 remuestreos. Se regeneran con `python diseno/prototipos/prototipo_matias/generar_modelo.py`.
+Los puntajes que muestra la app son el percentil de la canción dentro de las 23.279, con un margen de error de 20 remuestreos. Se regeneran con `python diseno/prototipos/prototipo_matias/generar_modelo.py`.
 
-**Por qué la popularidad son dos cuentas y no una (03/11/2026).** Hasta ese día era una sola regresión lineal sobre el puntaje de chart, con 0 para las canciones que no entraron. Como de las 23.388 la mayoría son ceros, la recta se gastaba casi entera en distinguir "entró / no entró" y aplastaba las diferencias entre hits: Despacito daba 42 de popularidad y Shape Of You 44. Con las dos preguntas separadas dan 62 y 81, y mejora todo lo que se mide (separa hits del resto: 0,752 → 0,762; acierta el puesto entre los hits: 0,066 → 0,121). Lo que no arreglaba eran las filas con datos rotos: Havana figuraba con instrumentalidad 0,92 y −12 dB (una versión instrumental mal cruzada). Eso se resolvió con la limpieza del 15/11/2026: Havana es una de las 36 canciones que se sacaron.
+**Por qué la popularidad son dos cuentas y no una (03/11/2026).** Hasta ese día era una sola regresión lineal sobre el puntaje de chart, con 0 para las canciones que no entraron. Como de las 23.388 la mayoría son ceros, la recta se gastaba casi entera en distinguir "entró / no entró" y aplastaba las diferencias entre hits: Despacito daba 42 de popularidad y Shape Of You 44. Con las dos preguntas separadas dan 63 y 84, y mejora todo lo que se mide (separa hits del resto: 0,752 → 0,762; acierta el puesto entre los hits: 0,066 → 0,121). Lo que no arreglaba eran las filas con datos rotos: Havana figuraba con instrumentalidad 0,92 y −12 dB (una versión instrumental mal cruzada). Eso se resolvió con la limpieza del 15/11/2026: Havana es una de las 36 canciones que se sacaron.
 
 **Análisis del audio subido**, en el navegador:
 
@@ -260,7 +270,7 @@ Los puntajes que muestra la app son el percentil de la canción dentro de las 23
 | Tempo y modo | [Essentia.js](https://mtg.github.io/essentia.js/) | En el navegador, sin servidor |
 | Duración | El navegador | — |
 
-**Cuánto pesa el sonido, medido (15/11/2026).** El sonido explica alrededor del 24% de que una canción entre al Hot 100, el 3% de cuán alto llega y el 10% de que la nominen a Record o Song of the Year. Para una nominación pesa mucho más haber sido un éxito: el 62% de las nominadas llegó a los diez primeros puestos, contra el 14% de todos los éxitos. La letra, las redes sociales y YouTube no entran a la herramienta; cómo impactan, qué peso aproximado tienen y por qué quedaron afuera está en la sección 5 de [`racional.md`](racional.md).
+**Cuánto pesa el sonido, medido (16/11/2026).** El sonido explica alrededor del 24% de que una canción entre al Hot 100, el 3% de cuán alto llega y el 10% de que la nominen a Record o Song of the Year. Para una nominación pesa mucho más haber sido un éxito: el 61% de las nominadas llegó a los diez primeros puestos, contra el 13% de todos los éxitos. La letra, las redes sociales y YouTube no entran a la herramienta; cómo impactan, qué peso aproximado tienen y por qué quedaron afuera está en la sección 5 de [`racional.md`](racional.md).
 
 **Cómo se verificó la medición del audio (15/11/2026).** Se midieron con ReccoBeats y Essentia los 30 segundos de muestra de 38 éxitos al azar y se compararon con los valores de Spotify: bailabilidad 0,83; acústica 0,70; energía 0,68; habla 0,67; valencia 0,62; volumen 0,47; mismo tempo en 28 de 38 y mismo modo en 28 de 38. Con la canción entera (calibración de octubre) el parecido es de 0,89 a 0,97.
 

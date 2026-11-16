@@ -45,7 +45,7 @@ Y una medida propia, indirecta: entrenamos nuestro modelo con las canciones de c
 
 | Fuente | Qué da | Desde cuándo | Cómo se accede | ¿Nos sirve? |
 |---|---|---|---|---|
-| **YouTube** (API oficial) | Las vistas totales de un video **hoy** | El video existe desde que se subió | Gratis con clave. Límite: 10.000 "unidades" por día, y cada búsqueda cuesta 100. O sea, **unas 99 canciones por día** | **A medias.** Para las 9.450 canciones que entraron al chart desde 2000 harían falta unos 95 días. Y da las vistas de hoy, no las que tenía cuando la canción estaba en el chart: una canción de 2009 tuvo 17 años para juntar vistas y una de 2025, uno |
+| **YouTube** (API oficial) | Las vistas totales de un video **hoy** | El video existe desde que se subió | Gratis con clave. Límite: 10.000 "unidades" por día, y cada búsqueda cuesta 100. O sea, **unas 99 canciones por día** | **A medias.** Para las 9.397 canciones que entraron al chart desde 2000 harían falta unos 95 días. Y da las vistas de hoy, no las que tenía cuando la canción estaba en el chart: una canción de 2009 tuvo 17 años para juntar vistas y una de 2025, uno |
 | **Spotify** (API oficial) | El índice de popularidad de cada canción | — | **Ya no está disponible** para proyectos como el nuestro: Spotify lo sacó en febrero–marzo de 2026, igual que había cerrado las características del sonido en noviembre de 2024. Solo lo siguen viendo las empresas con acuerdo especial | **No** |
 | **TikTok** (API de investigación) | Datos públicos de videos y cuentas | TikTok existe desde 2016 | Solo para investigadores de universidades **de Estados Unidos y Europa**, con aprobación de TikTok. **La Universidad de San Andrés no califica.** Además, no está claro que incluya cuántas veces se usó cada canción | **No** |
 | **Instagram** | — | — | No publica datos de uso de música | **No** |
@@ -149,7 +149,7 @@ Hay dos caminos, y conviene elegir uno:
 
 **A. Como un panel aparte, sin tocar los dos puntajes.** El usuario pega su letra (opcional, porque de un demo no la tenemos) y la app le muestra cómo queda contra los dos grupos en esas cuatro medidas. Es honesto y es rápido: no cambia el modelo, que ya está probado.
 
-**B. Dentro del modelo, como rasgos nuevos.** Medir las 23.333 canciones de la base y sumar las medidas de letra a las 10 del sonido. Es lo correcto si se quiere decir "cuánto pesa la letra", pero obliga a volver a entrenar y validar todo, y queda el problema de qué hacer cuando el usuario no pega la letra.
+**B. Dentro del modelo, como rasgos nuevos.** Medir las 23.279 canciones de la base y sumar las medidas de letra a las 10 del sonido. Es lo correcto si se quiere decir "cuánto pesa la letra", pero obliga a volver a entrenar y validar todo, y queda el problema de qué hacer cuando el usuario no pega la letra.
 
 **Dos cosas a resolver en cualquier camino:**
 
@@ -160,7 +160,7 @@ Hay dos caminos, y conviene elegir uno:
 
 | Ganaríamos | Costaría |
 |---|---|
-| Responder directamente a la devolución de la entrega 3 | Medir 23.333 letras (técnicamente posible: la fuente respondió rápido a las 120) |
+| Responder directamente a la devolución de la entrega 3 | Medir 23.279 letras (técnicamente posible: la fuente respondió rápido a las 120) |
 | Un peso **medido**, no estimado, para la letra en la tabla de factores | Resolver el idioma |
 | Algo concreto que decirle a quien compone, no solo a quien produce | Volver a entrenar y validar el modelo, o diseñar un panel nuevo |
 | | Un riesgo legal si alguna vez se guarda un texto por error |

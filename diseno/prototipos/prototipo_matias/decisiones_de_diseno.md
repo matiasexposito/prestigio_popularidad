@@ -30,7 +30,7 @@ Lo de la monoespaciada en los números fue un pedido nuestro. Nos gustó que que
 
 ## El fondo y las esquinas
 
-Primero probamos un fondo crema. Lo cambiamos a blanco: el crema hacía que pareciera un documento, y el mapa tiene cientos de puntos que se leen mejor sobre blanco.
+Primero probamos un fondo crema. Lo cambiamos a blanco: el crema hacía que pareciera un documento, y los puntos del mapa se leen mejor sobre blanco.
 
 Pedimos esquinas redondeadas de 12 píxeles en las tarjetas, y los botones en forma de píldora. Todo recto quedaba muy duro para una app de música.
 
@@ -41,6 +41,8 @@ Pedimos esquinas redondeadas de 12 píxeles en las tarjetas, y los botones en fo
 Le pedimos que en la pantalla de resultado el mapa ocupe casi todo y los números queden al costado.
 
 Lo discutimos, porque lo lógico sería poner los números arriba. Pero dos porcentajes sueltos no dicen nada: "88 de prestigio" recién significa algo cuando ves que estás al lado de *Hello* y lejos de *Blinding Lights*.
+
+Al principio el mapa tenía 700 puntos grises elegidos al azar. Parecía una mancha y no se entendía que cada punto era una canción. Pedimos que mostrara menos canciones y que fueran reales y reconocibles: quedaron 100, cada una con el color de su grupo, y cualquiera se puede tocar para escucharla.
 
 ---
 
@@ -56,7 +58,9 @@ Ahora son columnas verticales: el nombre arriba, una barra que sube o baja desde
 
 Pedimos que los dos puntajes muestren siempre su margen, no un número solo.
 
-El prestigio se entrena con 208 canciones, que son pocas. Mostrar "88" solo sería fingir una precisión que no tenemos. "88, entre 84 y 92" dice la verdad.
+El prestigio se entrena con unas doscientas canciones, que son pocas. Mostrar "88" solo sería fingir una precisión que no tenemos. "88, margen: 84 a 92" dice la verdad.
+
+Después pedimos algo más: cuando la canción se sube como archivo, el margen tiene que ser más ancho. Lo pedimos al ver que la misma canción, subida desde dos archivos distintos, daba dos resultados distintos, y la pantalla mostraba un margen chico como si el número fuera firme.
 
 ---
 
@@ -65,6 +69,8 @@ El prestigio se entrena con 208 canciones, que son pocas. Mostrar "88" solo ser�
 Esta no estaba planeada. La pedimos cuando vimos que la acústica suma prestigio y resta popularidad.
 
 Si la app diera dos números nada más, el usuario podría pensar que tiene que subir los dos. Esta pantalla le dice que tiene que elegir.
+
+Le pusimos una condición: solo se habla de conflicto si el rasgo mueve 5 puntos o más en los dos puntajes. Antes la pantalla anunciaba "tu conflicto" con un rasgo que restaba 2 puntos de un lado, y eso no es un conflicto.
 
 ---
 
@@ -82,12 +88,48 @@ Había un asistente al costado del resultado. Lo sacamos.
 
 No era una IA de verdad: era una lista de preguntas previstas con sus respuestas escritas. Si le preguntabas con otras palabras, no entendía. Un cuadro de chat promete que del otro lado hay alguien que entiende, y el nuestro no cumplía esa promesa.
 
-Decidimos que o es una IA de verdad que sabe de música, o no va. Por ahora no va.
+Decidimos que o es una IA de verdad, o no va.
+
+---
+
+## La lectura: una oración y tres etiquetas
+
+En lugar del chatbot pusimos una IA que hace una sola cosa: poner en palabras los números de la canción. No conversa y no sabe qué canción es.
+
+Primero escribía tres párrafos. Era mucho texto al lado del mapa y repetía números que ya estaban en la pantalla. Le pedimos que lo resumiera, y quedó en una o dos oraciones. Debajo van tres etiquetas con los rasgos que más pesan. Esas etiquetas las calcula el modelo, no la IA: lo que es número no pasa por la IA.
+
+---
+
+## Cada número, con su explicación al lado
+
+Los docentes nos pidieron que se entienda qué quiere decir cada número. Primero pusimos un "¿Cómo se calcula?" que se desplegaba con tres párrafos. Era demasiado: no le podemos explicar todo el proyecto a alguien que solo quiere entender su resultado.
+
+Ahora cada puntaje tiene una palabra y una frase: "Muy parecida al sonido de las nominadas al Grammy. Le gana a 88 de cada 100 canciones." El detalle quedó en el racional.
+
+---
+
+## Todo en una pantalla
+
+Pedimos que ninguna pantalla obligue a bajar para ver lo que falta. La de subir la canción era una columna larga: el título se cortaba arriba y los tres pasos quedaban abajo. La pasamos a dos columnas. En el resultado sacamos texto hasta que entró entero.
+
+---
+
+## La portada
+
+La portada tenía puntos sueltos de colores como adorno. Pedimos que fueran canciones de verdad: ahora son 240 canciones de la base que giran despacio, azules las nominadas y ámbar los hits. Si pasás el mouse por una, dice cuál es.
+
+También pedimos que sonaran. La primera versión tocaba una nota al azar por cada canción y se pisaban. Pedimos que sonara armónico: quedó una melodía lenta, una nota por vez.
+
+---
+
+## Sin texto en mayúsculas
+
+Los rótulos chicos ("PASO 1 DE 3", "LECTURA") estaban todos en mayúsculas. Los pasamos a minúsculas: no hay ningún motivo para gritar.
 
 ---
 
 ## Lo que dejamos afuera a propósito
 
-- **Modo oscuro.** El mapa tiene cientos de puntos de cuatro colores y en oscuro se mezclan.
-- **Degradés y sombras de color.** La app muestra mediciones; un adorno que sugiera algo que el dato no dice es un problema, no una mejora.
+- **Modo oscuro.** En oscuro los puntos del mapa se mezclan.
+- **Degradés sobre los datos.** Ningún número ni ningún punto del mapa lleva degradé: la app muestra mediciones, y un adorno que sugiera algo que el dato no dice es un problema. Los únicos degradés son fondos muy suaves que van del azul al ámbar.
 - **Íconos decorativos.** Están solo los dos que dicen algo rápido: la flecha de subir y el candado de privacidad.

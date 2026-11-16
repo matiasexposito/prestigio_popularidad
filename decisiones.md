@@ -531,3 +531,49 @@ Para que la comparación sea limpia, la corrección de cada canción se calculó
 ### Orden del repositorio
 
 Se revisó todo el repositorio. Los archivos de `datasets_procesados/` son exactamente los de `datasets/` filtrados desde el año 2000, y no hay enlaces rotos. Se pasaron a minúsculas y guion bajo los nombres que no cumplían la regla (`README.md` → `readme.md`, las carpetas del borrador, las páginas publicadas). Las direcciones viejas de las páginas siguen funcionando: redirigen a las nuevas.
+
+### Decisión: el dato tiene que ser el de la versión original
+
+Surgió porque *Gangnam Style* figuraba con 27 de popularidad. Su dato en la base era de otra versión: decía 4:13 y −10,3 dB, y la original dura 3:40 y medida da −3,9 dB.
+
+**Paso 1.** Se comparó la duración de las 817 canciones más conocidas (nominadas a Record o Song of the Year, nominadas que entraron al ranking, y números uno) con la de su versión original en Apple Music: 732 coinciden, 46 no, 34 no se encontraron y 5 quedaron sin respuesta.
+
+**Paso 2.** A esas 46 se sumaron los éxitos grabados muy bajo sin ser acústicos (menos de −11 dB): 105 sospechosas. Se midió la versión original de cada una con ReccoBeats y Essentia.
+
+| Resultado | Canciones |
+|---|---|
+| El dato coincide con la original | 68 |
+| Sin muestra para medir | 12 |
+| El dato es de otra versión | **25** |
+
+Se sacan solo las 25, con dos reglas: el volumen medido de la original es 5,5 dB o más alto que el de la base, o la duración que figura es imposible (más de una vez y media la original, o menos de la mitad). Una duración distinta sola no alcanza, porque la versión de disco y la de radio duran distinto y suenan igual.
+
+**Descartado:** usar Deezer como segunda fuente para comparar duraciones. No tiene buena parte del catálogo.
+
+### Decisión: una grabación, una fila
+
+29 filas tenían el mismo título, el mismo artista principal y exactamente la misma duración que otra: la misma grabación cruzada con dos entradas del ranking (reingresos, remixes, regrabaciones). Queda la original, que es la más antigua.
+
+### Resultado de las dos limpiezas
+
+| | Antes (15/11) | Ahora (16/11) |
+|---|---|---|
+| Canciones que entrena la herramienta | 23.333 | **23.279** |
+| Nominadas a Record o Song of the Year | 208 | **202** |
+| Éxitos nunca nominados | 8.833 | **8.788** |
+| Acierto en popularidad | 0,765 | 0,767 |
+| Acierto en prestigio | 0,681 | 0,681 |
+
+Lo que explica el sonido no cambió: 24% de entrar al ranking, 3% de cuán alto se llega, 10% de una nominación. Cambiaron por redondeo dos cifras: las nominadas duran 21 segundos más que los éxitos (antes 23) y el 61% llegó a los diez primeros puestos (antes 62%).
+
+*Rehab* y *Gangnam Style* salieron de las canciones con nombre del mapa. Entraron *Flowers* y *Party In The U.S.A.*
+
+**Límite declarado:** el control de versiones se hizo sobre las 817 canciones conocidas. Las otras 8.600 del ranking no se revisaron una por una.
+
+### Cambios en la pantalla del resultado
+
+- Cada puntaje lleva una palabra ("muy parecida", "parecida", "poco parecida", "muy poco parecida") y la frase "le gana a N de cada 100 canciones".
+- La lectura de la IA pasa a una o dos oraciones. Debajo, tres etiquetas con los rasgos que más pesan, calculadas por el modelo.
+- Un archivo subido muestra un margen de 12 puntos para cada lado: es lo que cubre a 7 de cada 10 canciones en la prueba de medición.
+- Solo se habla de conflicto si el rasgo mueve 5 puntos o más en los dos puntajes.
+- Los textos de las zonas dejaron de decir "potencial comercial": dicen a qué se parece el sonido.

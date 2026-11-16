@@ -22,7 +22,8 @@
   /* Las 100 canciones del mapa. Son canciones reales, cada una ubicada con sus dos
      puntajes, calculados con el mismo modelo que se usa para tu canción:
        - las 19 con nombre (las referencias)
-       - 19 nominadas o ganadoras más y 32 éxitos nunca nominados, de las conocidas
+       - las nominadas o ganadoras y los éxitos nunca nominados que hagan falta, de las
+         conocidas, para llegar a 30 y 40 contando las que llevan nombre
        - 30 que no entraron al ranking
      En total: 30 nominadas, 40 éxitos y 30 que no entraron. La elección es al azar
      pero con semilla fija, así el mapa es el mismo cada vez. */
@@ -40,8 +41,9 @@
       return [+p.pop.v.toFixed(1), +p.pres.v.toFixed(1), f[3] ? 'gano' : f[4] ? 'nominada' : 'hit', f[0], f[1], f[2]];
     };
     const conocidas = mezclar(M.buscables);
-    const nominadas = conocidas.filter(f => f[4] || f[3]).filter(sinRepetir).slice(0, 19).map(deFila);
-    const exitos = conocidas.filter(f => !f[4] && !f[3]).filter(sinRepetir).slice(0, 32).map(deFila);
+    const conNombre = M.referencias.filter(r => r.gano || r.nominada).length;
+    const nominadas = conocidas.filter(f => f[4] || f[3]).filter(sinRepetir).slice(0, 30 - conNombre).map(deFila);
+    const exitos = conocidas.filter(f => !f[4] && !f[3]).filter(sinRepetir).slice(0, 40 - (M.referencias.length - conNombre)).map(deFila);
     const afuera = M.fondo.filter(f => f[2] === 'control' && !usadas.has(clave(f[3])) && usadas.add(clave(f[3]))).slice(0, 30);
     M.fondoTodo = M.fondo;
     M.fondo = [...afuera, ...exitos, ...nominadas];   // las azules se dibujan arriba de todo

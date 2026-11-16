@@ -52,7 +52,7 @@
       const j = r.ok ? await r.json() : { disponible: false };
       if (j.disponible && j.texto) {
         parrafo.innerHTML = j.texto.split(/\n\s*\n/).map(t => `<span class="parrafo">${esc(t.trim())}</span>`).join('');
-        pie.textContent = 'Escrita por una IA a partir de tus números. Lo que dice sale del modelo; la IA solo lo pone en palabras.';
+        pie.textContent = 'Escrita por una IA a partir de tus números.';
         caja.classList.add('con-ia');
       } else {
         pie.textContent = 'Lectura del modelo. La versión escrita por IA no está disponible ahora.';

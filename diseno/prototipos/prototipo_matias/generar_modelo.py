@@ -11,7 +11,7 @@ Sigue las decisiones del grupo (ver entregas y decisiones.md):
 
   PRESTIGIO — ¿suena parecido a lo que reconoce la Academia?
     Reconocidas: nominadas a Record of the Year o Song of the Year (las únicas que vota
-    la Academia entera). 208 canciones después de la limpieza del 15/11/2026.
+    la Academia entera). 202 canciones después de las limpiezas del 15 y el 16/11/2026.
     No reconocidas: canciones PUBLICADAS que entraron al Hot 100 y nunca fueron nominadas a
     nada (~8.900). No se usa el grupo de control en este eje: sus canciones (demos,
     autoediciones, música clásica, ambient) suenan menos "producidas", y el modelo
@@ -59,7 +59,7 @@ del 2000 en adelante. El margen sale de 20 remuestreos (bootstrap).
 
 Uso (desde la raiz del repo):  python diseno/prototipos/prototipo_matias/generar_modelo.py
 """
-import csv, json, os
+import csv, json, os, re, unicodedata
 import numpy as np
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -77,23 +77,64 @@ _p = os.path.join(RAIZ, 'datasets_procesados', 'excluidas.csv')
 if os.path.exists(_p):
     EXCLUIDAS = {(r['titulo'].lower(), r['artista'].lower()) for r in csv.DictReader(open(_p, encoding='utf-8'))}
 
-filas, descartadas, excluidas, repetidas, vistas = [], [], [], [], set()
-for f in ['corpus_v2.csv', 'control_v2.csv']:
-    for r in csv.DictReader(open(os.path.join(RAIZ, 'datasets', f), encoding='utf-8')):
-        if int(r['anio']) < ANIO_MIN:
-            continue
-        if r['grupo'] != 'control':
-            clave = (r['titulo'].lower(), r['artista'].lower())
-            if float(r['loudness']) < VOLUMEN_ROTO:
-                descartadas.append(f"{r['titulo']} — {r['artista']} ({r['anio']})")
-                continue
-            if clave in EXCLUIDAS:
-                excluidas.append(clave)
-                continue
-            if clave in vistas:                      # la misma canción dos veces: queda la primera
-                repetidas.append(clave)
-                continue
-            vistas.add(clave)
+# Canciones excluidas porque el dato de la base es de OTRA VERSIÓN (16/11/2026): la duración
+# que figura no coincide con la de la versión original en Apple Music, o el volumen que
+# figura es imposible para esa grabación. La lista está en datasets_procesados/excluidas_version.csv.
+OTRA_VERSION = set()
+_p = os.path.join(RAIZ, 'datasets_procesados', 'excluidas_version.csv')
+if os.path.exists(_p):
+    OTRA_VERSION = {(r['titulo'].lower(), r['artista'].lower(), r['anio']) for r in csv.DictReader(open(_p, encoding='utf-8'))}
+
+def _norm(s):
+    s = unicodedata.normalize('NFD', s.lower())
+    return re.sub(r'[^a-z0-9]', '', ''.join(c for c in s if unicodedata.category(c) != 'Mn'))
+
+def misma_grabacion(r):
+    """Clave que identifica una grabación: título sin paréntesis, artista principal y duración
+    exacta. Si dos filas la comparten, son la misma grabación de Spotify cruzada con dos
+    entradas distintas del ranking (un reingreso, un remix, una regrabación)."""
+    titulo = re.sub(r'\s*[\(\[].*?[\)\]]', '', r['titulo']).strip() or r['titulo']
+    artista = re.split(r'\s+(?:featuring|feat\.?|ft\.?|with|x|&|and)\s+|,', r['artista'], flags=re.I)[0]
+    return (_norm(titulo), _norm(artista), r['duration_ms'])
+
+filas, descartadas, excluidas, repetidas, otra_version, regrabadas, vistas = [], [], [], [], [], [], set()
+corpus = []
+for r in csv.DictReader(open(os.path.join(RAIZ, 'datasets', 'corpus_v2.csv'), encoding='utf-8')):
+    if int(r['anio']) < ANIO_MIN:
+        continue
+    clave = (r['titulo'].lower(), r['artista'].lower())
+    if float(r['loudness']) < VOLUMEN_ROTO:
+        descartadas.append(f"{r['titulo']} — {r['artista']} ({r['anio']})")
+        continue
+    if clave in EXCLUIDAS:
+        excluidas.append(clave)
+        continue
+    if clave + (r['anio'],) in OTRA_VERSION:
+        otra_version.append(clave)
+        continue
+    if clave in vistas:                      # la misma canción dos veces: queda la primera
+        repetidas.append(clave)
+        continue
+    vistas.add(clave)
+    corpus.append(r)
+
+# La misma grabación cargada con dos nombres: queda la original. Es la más vieja; si son
+# del mismo año, la que no dice "version" ni "remix"; si sigue el empate, la mejor ubicada.
+# Si alguna de las dos fue nominada a Record o Song of the Year, queda esa.
+def _orden(r):
+    general = 'Record of the Year' in r['grammy_categorias'] or 'Song of the Year' in r['grammy_categorias']
+    marca = bool(re.search(r'version|remix|edit|mix\b|live', r['titulo'], re.I))
+    return (0 if general else 1, int(r['anio']), marca, int(r['mejor_puesto'] or 999))
+_grupos = {}
+for r in corpus:
+    _grupos.setdefault(misma_grabacion(r), []).append(r)
+for g in _grupos.values():
+    g.sort(key=_orden)
+    filas.append(g[0])
+    regrabadas += [(x['titulo'], x['artista'], x['anio']) for x in g[1:]]
+
+for r in csv.DictReader(open(os.path.join(RAIZ, 'datasets', 'control_v2.csv'), encoding='utf-8')):
+    if int(r['anio']) >= ANIO_MIN:
         filas.append(r)
 
 X = np.array([[float(r[c]) for c in FEATS] for r in filas])
@@ -180,13 +221,15 @@ fondo = [[round(pct(s_pop[i], q_pop), 1), round(pct(s_pres[i], q_pres), 1),
           filas[i]['grupo'], filas[i]['titulo'], filas[i]['artista'], int(filas[i]['anio'])]
          for i in idx]
 
-# Canciones de referencia con nombre (todas del 2000 en adelante)
+# Canciones de referencia con nombre (todas del 2000 en adelante). El 16/11/2026 salieron
+# Rehab y Gangnam Style, porque su dato en la base era de otra versión; entraron Flowers
+# y Party In The U.S.A.
 REF = [('Hello', 'Adele'), ('Rolling in the Deep', 'Adele'), ('Someone Like You', 'Adele'),
-       ('Holocene', 'Bon Iver'), ('Royals', 'Lorde'), ('Rehab', 'Amy Winehouse'),
+       ('Holocene', 'Bon Iver'), ('Royals', 'Lorde'), ('Flowers', 'Miley Cyrus'),
        ('This Is America', 'Childish Gambino'), ('Not Like Us', 'Kendrick Lamar'),
        ('Bad Guy', 'Billie Eilish'), ('Birds of a Feather', 'Billie Eilish'),
        ('Uptown Funk', 'Mark Ronson'), ('Despacito', 'Luis Fonsi'), ('Espresso', 'Sabrina Carpenter'),
-       ('Blinding Lights', 'The Weeknd'), ('Shape Of You', 'Ed Sheeran'), ('Gangnam Style', 'PSY'),
+       ('Blinding Lights', 'The Weeknd'), ('Shape Of You', 'Ed Sheeran'), ('Party In The U.S.A.', 'Miley Cyrus'),
        ('Happy', 'Pharrell Williams'), ('Toxic', 'Britney Spears'), ("Hips Don't Lie", 'Shakira')]
 refs = []
 for t, a in REF:
@@ -261,7 +304,14 @@ with open(os.path.join(AQUI, 'modelo.js'), 'w', encoding='utf-8') as f:
     f.write('// Generado por generar_modelo.py — no editar a mano\n')
     f.write('window.MODELO = ' + json.dumps(modelo, ensure_ascii=False) + ';\n')
 
-print(f'canciones desde {ANIO_MIN}: {len(filas)}  (volumen roto: {len(descartadas)} · excluidas por medición: {len(excluidas)} · repetidas: {len(repetidas)})')
+# Para los scripts de análisis: la lista exacta de canciones que quedaron (solo si se pide)
+if os.environ.get('PYP_CLAVES'):
+    json.dump({'filas': [[r['titulo'], r['artista'], r['anio'], r['grupo']] for r in filas],
+               'regrabadas': regrabadas, 'otra_version': otra_version, 'repetidas': repetidas,
+               'descartadas': descartadas, 'excluidas': excluidas},
+              open(os.environ['PYP_CLAVES'], 'w', encoding='utf-8'), ensure_ascii=False)
+
+print(f'canciones desde {ANIO_MIN}: {len(filas)}  (volumen roto: {len(descartadas)} · excluidas por medición: {len(excluidas)} · otra versión: {len(otra_version)} · repetidas: {len(repetidas)} · misma grabación con otro nombre: {len(regrabadas)})')
 print(f'prestigio: {general.sum()} reconocidas (Record/Song of the Year) contra {nunca.sum()} hits nunca nominados')
 print(f'popularidad: {hit.sum()} hits contra {len(filas) - hit.sum()} que no entraron')
 print('acierto (AUC) prestigio:', round(auc(Zp @ b_pres[1:], yp), 3),

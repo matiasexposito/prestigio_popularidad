@@ -167,7 +167,7 @@
   const miles = n => Number(n).toLocaleString('es-AR');
   function comoSeCalcula(nombre, e) {
     // Corto y a la vista: una palabra que resume el número y una frase que dice contra qué
-    // se compara. "De cada 100" se entiende más rápido que un porcentaje de 23.333.
+    // se compara. "De cada 100" se entiende más rápido que un porcentaje de 23.279.
     const v = Math.round(e.v);
     const palabra = v >= 75 ? 'Muy parecida' : v >= 50 ? 'Parecida' : v >= 25 ? 'Poco parecida' : 'Muy poco parecida';
     const aQue = nombre === 'Prestigio' ? 'al sonido de las nominadas al Grammy' : 'al sonido de las que entran al Hot 100';
@@ -212,7 +212,7 @@
       .filter(x => Math.abs(x.pts) >= 1 && !sinInteres(x.k, a.rasgos))
       .sort((x, y) => Math.abs(y.pts) - Math.abs(x.pts)).slice(0, 3);
     $('#lectura-pesos').innerHTML = pesos.map(x =>
-      `<span class="peso peso-${x.eje}" title="${La(x.k)}: ${valorCorto(x.k, a.rasgos[x.k])}. ${x.pts > 0 ? 'Suma' : 'Resta'} ${Math.abs(Math.round(x.pts))} puntos de ${x.de}"><b>${signo(x.pts)}</b> ${INFO[x.k].nombre}</span>`).join('');
+      `<span class="peso peso-${x.eje}" title="${La(x.k)}: ${valorCorto(x.k, a.rasgos[x.k])}. ${x.pts > 0 ? 'Suma' : 'Resta'} ${Math.abs(Math.round(x.pts))} puntos de ${x.de}"><b>${signo(x.pts)}</b> ${INFO[x.k].nombre} <i>en ${x.de}</i></span>`).join('');
     // La IA pone en palabras los mismos números; si no está, queda la lectura fija de arriba
     const cajaLectura = $('#lectura').closest('.caja');
     cajaLectura.classList.remove('con-ia');

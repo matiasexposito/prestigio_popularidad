@@ -93,7 +93,7 @@ Si en la presentación alguien pregunta *"¿por qué 20 y no 30?"*, la respuesta
 
 1. **Ya está adentro.** El Hot 100 cuenta las vistas de YouTube desde 2013. Nuestro eje de popularidad ya lo incluye.
 2. **Da las vistas de hoy, no las de su momento.** Una canción de 2009 tuvo 17 años para juntar vistas; una de 2025, uno. No son comparables.
-3. **Es lento.** La API gratis deja buscar unas 99 canciones por día: para las 9.450 que entraron al chart desde 2000 harían falta unos 95 días.
+3. **Es lento.** La API gratis deja buscar unas 99 canciones por día: para las 9.397 que entraron al chart desde 2000 harían falta unos 95 días.
 4. **Un demo tiene cero vistas.** La herramienta no tendría qué medir.
 
 ### TikTok, Instagram y redes sociales — ❌ no las usamos

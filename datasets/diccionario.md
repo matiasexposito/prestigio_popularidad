@@ -214,3 +214,14 @@ Esas 807 no van ni arriba ni abajo. No van arriba porque las categorías de gén
 Los archivos de esta carpeta **no cambiaron**: siguen teniendo todas las filas. Lo que cambió es qué filas usa la herramienta. Además de las 15 canciones con volumen menor a −25 dB, el modelo deja afuera 36 canciones cantadas que figuraban como instrumentales (se volvieron a medir una por una) y 19 repetidas. Después de limpiar, la herramienta entrena con **23.333** canciones: **208** nominadas a Record o Song of the Year, **792** nominadas solo por género y **8.833** hits nunca nominados.
 
 La lista de las 36 está en `datasets_procesados/excluidas.csv`, y el método en `decisiones.md` (15 de noviembre de 2026).
+
+## Limpieza del 16 de noviembre de 2026
+
+Los archivos de esta carpeta **siguen sin cambiar**. La herramienta deja afuera otras 54 canciones:
+
+- **25 con el dato de otra versión.** Se comparó la duración de las 817 canciones más conocidas con la de su versión original, y se midió la original de las 105 sospechosas. La lista está en `datasets_procesados/excluidas_version.csv`.
+- **29 con la misma grabación cargada con otro nombre**: mismo título, mismo artista principal y exactamente la misma duración. Queda la original.
+
+Después de esta limpieza, la herramienta entrena con **23.279** canciones: **202** nominadas a Record o Song of the Year, **8.788** hits nunca nominados y **789** nominadas solo por género. El método está en la sección 3.5 de `racional.md`.
+
+**A tener en cuenta sobre la columna `anio`.** Es el año en que la canción entró al ranking o fue nominada, no el año en que se grabó. Las canciones viejas que vuelven a entrar (sobre todo las navideñas) figuran con el año del reingreso.

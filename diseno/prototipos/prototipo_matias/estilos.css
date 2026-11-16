@@ -662,3 +662,17 @@ input[type="range"]::-moz-range-thumb { background: var(--tinta); box-shadow: 0 
 .peso-azul { border-color: var(--azul-medio); }
 .peso-ambar { border-color: var(--ambar-medio); }
 .que-significa b { font-size: 14px; }
+
+.peso i { font-style: normal; color: var(--tenue-2); font-size: 11.5px; }
+
+/* El panel del resultado, un poco más apretado: tiene que entrar entero en 720 px de alto */
+.col-resultado { gap: 10px; }
+.col-resultado .tarjeta-puntaje { padding: 11px 16px; }
+.col-resultado .puntaje-fila { margin: 4px 0 9px; }
+.col-resultado .caja { padding: 11px 15px; }
+.col-resultado .caja-rotulo { margin-bottom: 6px; }
+.col-resultado .lectura-pesos { margin-top: 8px; gap: 5px; }
+.col-resultado .peso { padding: 3px 9px; font-size: 12px; }
+.col-resultado .lectura-pie { margin-top: 7px; }
+.col-resultado .boton { min-height: 38px; }
+.col-resultado .nota-pie { padding-top: 7px; }

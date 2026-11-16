@@ -24,7 +24,7 @@ Antes de pedirte nada, te mostramos qué vamos a medir.
 
 Dos tarjetas enfrentadas: lo que premia la Academia —más largo, menos enérgico, más acústico— y lo que escucha el público —más enérgico, más fuerte, más corto—. Cada una con tres canciones de ejemplo que vas a reconocer.
 
-Abajo, el dato que explica por qué el proyecto existe: **de 23.333 canciones desde el año 2000, solo 617 lograron las dos cosas.** Un 3%.
+Abajo, el dato que explica por qué el proyecto existe: **de 23.279 canciones desde el año 2000, solo 609 lograron las dos cosas.** Un 3%.
 
 ### 3 · Crear cuenta
 
@@ -46,13 +46,15 @@ Toda la pantalla se ve de una vez, sin bajar. A la derecha, el recuadro para arr
 
 La pantalla principal.
 
-**Los dos puntajes**, cada uno con su margen de error. El margen no es un detalle: con 208 canciones premiadas, el puntaje de prestigio es una estimación y la app lo dice.
+**Los dos puntajes**, cada uno con su margen de error. El margen no es un detalle: con 202 canciones premiadas, el puntaje de prestigio es una estimación y la app lo dice.
 
 **El mapa**, que ocupa la mayor parte de la pantalla. Muestra tu canción entre **100 canciones reales**: 30 nominadas o ganadoras del Grammy (en azul), 40 hits que nunca fueron nominados (en ámbar) y 30 que no entraron al ranking (en gris). Cada una está ubicada según sus dos puntajes. Tu canción es el punto negro. Abajo hay una leyenda con los colores, y cualquier punto se puede tocar para escuchar esa canción.
 
-**Qué significa cada número.** Al lado de cada puntaje hay una frase corta: "suena más parecida a las nominadas al Grammy que el 88% de las 23.333 canciones que medimos". Nada más. El detalle de cómo se calcula está en el racional.
+**Qué significa cada número.** Al lado de cada puntaje hay una palabra y una frase: "Muy parecida al sonido de las nominadas al Grammy. Le gana a 88 de cada 100 canciones." Nada más. El detalle de cómo se calcula está en el racional.
 
-**La lectura**, en un recuadro con los dos colores, que pasa los dos números a una frase: en qué zona del mapa caíste y qué rasgo te está tensionando los dos ejes.
+**El margen.** Cada puntaje dice entre qué valores puede estar. Si la canción la subiste como archivo, el margen es más ancho, porque medir un audio es menos preciso que usar una canción de la base, y la pantalla lo avisa.
+
+**La lectura**, en un recuadro con los dos colores: una o dos oraciones, escritas por una IA, que dicen a qué perfil se parece más tu canción. Debajo, tres etiquetas con los rasgos que más pesan, cada una con el color de su puntaje.
 
 ### 6 · Qué suma y qué resta
 
@@ -60,7 +62,7 @@ Diez columnas, una por cada rasgo del sonido, como los controles de una consola 
 
 En cada columna: el nombre del rasgo arriba con su valor, una barra vertical en el medio, y abajo cuántos puntos aporta. **La barra sube llena si ese rasgo te suma, y baja rayada si te resta.** El color es el del puntaje que estás mirando: azul para el prestigio, ámbar para la popularidad.
 
-Al costado, **tu conflicto**: el rasgo que te empuja hacia un mundo y te aleja del otro. Casi siempre hay uno.
+Al costado, **el conflicto**: el rasgo que te suma en un puntaje y te resta en el otro. Solo se marca si mueve 5 puntos o más en los dos; pasa en la mitad de las canciones, más o menos. Si no hay, la pantalla nombra el rasgo que más pesa.
 
 ### 7 · Simular cambios
 

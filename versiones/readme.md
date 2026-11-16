@@ -11,3 +11,5 @@ Los cambios de los datasets y del modelo quedan en el historial de git, con su m
 | 15/11/2026 | Limpieza de datos: el modelo pasa de 23.403 a 23.333 canciones (15 con volumen imposible, 36 cantadas que figuraban como instrumentales, 19 repetidas) |
 | 15/11/2026 | La lectura de la IA pasa de Llama 3.3 70B a GPT-OSS 120B, porque Groq dio de baja el primero |
 | 16/11/2026 | Revisión del repositorio: nombres en minúsculas y con guion bajo, documentos puestos al día |
+| 16/11/2026 | La medición del audio se recalibra con 31 canciones (antes 10) |
+| 16/11/2026 | Segunda limpieza: el modelo pasa de 23.333 a 23.279 canciones (25 con el dato de otra versión, 29 con la misma grabación cargada dos veces) |

@@ -23,9 +23,9 @@ La consigna pide cinco cosas:
 Siete pantallas:
 
 1. **Portada**: 240 canciones reales giran como una galaxia. Con el sonido activado suena una melodía lenta.
-2. **Los dos mundos**: qué premia la Academia y qué escucha el público (3%: 617 canciones de 23.333 lograron las dos cosas).
+2. **Los dos mundos**: qué premia la Academia y qué escucha el público (3%: 609 canciones de 23.279 lograron las dos cosas).
 3. **Crear cuenta**: nombre y mail.
-4. **Subir la canción**: dos columnas que entran en una pantalla. Se sube un archivo o se busca una de las 773 canciones conocidas.
+4. **Subir la canción**: dos columnas que entran en una pantalla. Se sube un archivo o se busca una de las 760 canciones conocidas.
 5. **Resultado**: el mapa con 100 canciones reales, los dos puntajes con una frase que dice qué significan, y la lectura escrita por la IA.
 6. **Qué suma y qué resta**: una columna por rasgo del sonido, y el conflicto.
 7. **Simular**: se mueve un control y el punto se mueve en el mapa, con los puntajes recalculados.
@@ -34,9 +34,9 @@ Los colores quieren decir lo mismo en todas las pantallas: **azul es prestigio, 
 
 ### El modelo
 
-- **Prestigio**: compara con las 208 nominadas a Record o Song of the Year desde 2000, contra 8.833 hits nunca nominados.
+- **Prestigio**: compara con las 202 nominadas a Record o Song of the Year desde 2000, contra 8.788 hits nunca nominados.
 - **Popularidad**: dos preguntas encadenadas, "¿entra al Hot 100?" y "¿hasta dónde llega?".
-- Entrena con **23.333 canciones** del 2000 en adelante, después de la limpieza del 15/11.
+- Entrena con **23.279 canciones** del 2000 en adelante, después de las limpiezas del 15 y el 16/11.
 
 ### La IA que explica el resultado
 
@@ -50,7 +50,7 @@ Completo en `racional.md` y publicado en https://pyp-ashy.vercel.app/racional. N
 
 ### Los datos
 
-Limpiados el 15/11: se sacaron 70 canciones (15 con volumen imposible, 36 cantadas que figuraban como instrumentales y 19 repetidas). Revisados el 16/11: los archivos de `datasets_procesados/` son exactamente los de `datasets/` filtrados desde el año 2000.
+Limpiados el 15 y el 16/11: se sacaron 124 canciones (15 con volumen imposible, 36 cantadas que figuraban como instrumentales, 25 con el dato de otra versión, 19 repetidas y 29 con la misma grabación cargada dos veces). El criterio es usar la versión original de cada canción. Revisados el 16/11: los archivos de `datasets_procesados/` son exactamente los de `datasets/` filtrados desde el año 2000.
 
 ## Lo que falta
 

@@ -13,7 +13,7 @@ Este es el texto que recibe el modelo de lenguaje antes de cada lectura. Vive en
 ## El texto de sistema
 
 ```
-Sos la voz de P&P, una herramienta que compara el sonido de una canción con dos perfiles medidos: el de las canciones nominadas a Record o Song of the Year en los Grammy (prestigio) y el de las que entran al Hot 100 de Billboard (popularidad). Los dos puntajes dicen cuánto se PARECE el sonido a cada perfil, en percentil contra 23.333 canciones del 2000 en adelante. No son predicciones.
+Sos la voz de P&P, una herramienta que compara el sonido de una canción con dos perfiles medidos: el de las canciones nominadas a Record o Song of the Year en los Grammy (prestigio) y el de las que entran al Hot 100 de Billboard (popularidad). Los dos puntajes dicen cuánto se PARECE el sonido a cada perfil, en percentil contra 23.279 canciones del 2000 en adelante. No son predicciones.
 
 Vas a recibir los números de una canción. Escribís para quien la hizo.
 
@@ -53,7 +53,7 @@ Conflicto: valencia (0,84) aporta +22 al prestigio y -5 a la popularidad.
 
 - **Regla 1 y 3** son la razón de haber sacado el chatbot anterior: una IA que habla de lo que no medimos engaña. Esta solo traduce.
 - **Regla 2** es la promesa de la app desde la primera pantalla: "no predecimos".
-- **Regla 5** existe porque el prestigio se entrena con 208 canciones y su margen suele ser ancho; la IA tiene que decirlo igual que lo dice la tarjeta.
+- **Regla 5** existe porque el prestigio se entrena con 202 canciones y su margen suele ser ancho; la IA tiene que decirlo igual que lo dice la tarjeta.
 - **Reglas 6 y 7** se agregaron el 15/11/2026: en una prueba la IA dijo que un rasgo que restaba 5 puntos de prestigio "tiraba la canción hacia el reconocimiento" (al revés), y presentó como conflicto una diferencia mínima (−5 contra +1).
 - **Máximo 40 palabras, en un solo párrafo.** Empezó en 130 palabras y tres párrafos, pasó a 70 y dos, y quedó en 40: la lectura vive en un recuadro al costado del mapa y tiene que leerse de un vistazo. Los puntos de cada rasgo ya no los escribe la IA: la pantalla muestra debajo los tres rasgos que más pesan, calculados por el modelo.
 
@@ -62,4 +62,4 @@ Conflicto: valencia (0,84) aporta +22 al prestigio y -5 a la popularidad.
 - **10/11/2026.** Primera versión, para la entrega 4.
 - **15/11/2026.** La base pasa de 23.388 a 23.333 canciones después de la limpieza de datos. Las reglas no cambian.
 - **15/11/2026.** Lectura más corta (70 palabras, dos párrafos) y dos reglas nuevas (6 y 7) para que no invierta el sentido de un aporte ni invente conflictos chicos. Cambio de modelo a GPT-OSS 120B.
-- **16/11/2026.** La lectura pasa a una o dos oraciones (40 palabras). Los tres rasgos que más pesan se muestran debajo como etiquetas, sin pasar por la IA.
+- **16/11/2026.** La base pasa de 23.333 a 23.279 canciones después de revisar las versiones. La lectura pasa a una o dos oraciones (40 palabras). Los tres rasgos que más pesan se muestran debajo como etiquetas, sin pasar por la IA.

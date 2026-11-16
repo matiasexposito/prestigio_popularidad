@@ -50,10 +50,10 @@ Buscamos si hoy existe una herramienta que haga esto. Lo que encontramos:
 
 | | Nominadas | Éxitos nunca nominados | Diferencia |
 |---|---|---|---|
-| Duración | 3:59 | 3:36 | **23 segundos más largas** |
+| Duración | 3:57 | 3:36 | **21 segundos más largas** |
 | Acústica (de 0 a 1) | 0,27 | 0,19 | **una vez y media más acústicas** |
 | Energía (de 0 a 1) | 0,61 | 0,67 | **menos enérgicas** |
-| Volumen | −6,9 dB | −6,2 dB | un poco más suaves |
+| Volumen | −6,7 dB | −6,2 dB | un poco más suaves |
 
 **La segunda parte se confirma a medias, y en una dirección que no esperábamos.** Los dos mundos **se acercaron en el ánimo y se alejaron en la duración**. Durante cincuenta años los éxitos fueron más alegres que las nominadas; esa diferencia se achicó hasta desaparecer en los 2010 y se dio vuelta en los 2020. Lo que se movió fue el público, no la Academia. Al mismo tiempo, la diferencia de duración pasó de un segundo en los noventa a 43 segundos hoy.
 
@@ -118,11 +118,13 @@ Grammy (2.049 canciones)      ─┘
 1. En Wikipedia, la columna del artista a veces traía al **productor**. Lo corregimos leyendo el encabezado de cada tabla.
 2. En los datos de Spotify, cada canción aparece **varias veces**: en vivo, remezclada, remasterizada. Nos quedamos con una sola por canción: descartamos las que dicen "live", "remix", "karaoke", "cover", "instrumental" o "demo" y, entre las que quedan, elegimos la más escuchada.
 
+**El criterio es usar siempre la versión original de la canción.** Ese filtro por palabras no alcanza para garantizarlo: una versión extendida o una regrabación no siempre lo dice en el título. Por eso el 16 de noviembre revisamos las canciones conocidas una por una contra su versión original (sección 3.5).
+
 **El grupo de control.** Además de las canciones premiadas y exitosas, sumamos 27.000 canciones comunes que no están ni en Billboard ni en los Grammy: 4.500 por década desde 1970. Sin ellas, el modelo nunca vería cómo suena una canción común y no tendría contra qué comparar.
 
 ### 3.4 El embudo: cuántas canciones hay en cada paso
 
-Medido el 15 de noviembre de 2026.
+Medido el 16 de noviembre de 2026.
 
 | Paso | Cuántas | Qué pasa en este paso |
 |---|---|---|
@@ -138,25 +140,27 @@ Medido el 15 de noviembre de 2026.
 | Desde el año 2000 | 23.403 | Es la ventana que usa la herramienta |
 | − Volumen imposible | −15 | Sección 3.5 |
 | − Figuran como instrumentales y no lo son | −36 | Sección 3.5 |
+| − El dato es de otra versión de la canción | −25 | Sección 3.5 |
 | − Repetidas | −19 | Sección 3.5 |
-| **Con esto se entrena la herramienta** | **23.333** | |
+| − La misma grabación cargada con otro nombre | −29 | Sección 3.5 |
+| **Con esto se entrena la herramienta** | **23.279** | |
 
-**Cómo se reparten esas 23.333:**
+**Cómo se reparten esas 23.279:**
 
 | Grupo | Cuántas | Para qué se usa |
 |---|---|---|
-| Nominadas a Record o Song of the Year | **208** | Son el perfil de **prestigio** |
-| Éxitos que nunca fueron nominados a nada | **8.833** | Contra ellos se compara el prestigio |
-| Nominadas solo en categorías de género | 792 | No se usan para el prestigio (sección 3.7); sí para la popularidad |
-| Entraron al Hot 100 | **9.450** | Son el perfil de **popularidad** |
-| No entraron al Hot 100 | **13.883** | Contra ellas se compara la popularidad |
-| Lograron las dos cosas | 617 | Es el 3% que muestra la pantalla "Los dos mundos" |
+| Nominadas a Record o Song of the Year | **202** | Son el perfil de **prestigio** |
+| Éxitos que nunca fueron nominados a nada | **8.788** | Contra ellos se compara el prestigio |
+| Nominadas solo en categorías de género | 789 | No se usan para el prestigio (sección 3.7); sí para la popularidad |
+| Entraron al Hot 100 | **9.397** | Son el perfil de **popularidad** |
+| No entraron al Hot 100 | **13.882** | Contra ellas se compara la popularidad |
+| Lograron las dos cosas | 609 | Es el 3% que muestra la pantalla "Los dos mundos" |
 
 *(Los grupos se superponen: una canción nominada que además entró al Hot 100 está en dos filas.)*
 
 ### 3.5 Las canciones con datos rotos: qué sacamos y cómo lo decidimos
 
-Encontramos tres tipos de error en los datos y sacamos **70 canciones** en total.
+Encontramos cinco tipos de error en los datos y sacamos **124 canciones** en total: 70 en la limpieza del 15 de noviembre y 54 en la del 16. El criterio fue siempre el mismo: **sacar solo lo que se puede probar que está mal.**
 
 **1. Volumen imposible: 15 canciones.** Tenían un volumen menor a −25 decibeles, que es más bajo que casi cualquier disco. Al mirarlas, eran canciones cruzadas con otra versión: una figuraba con energía cero. Las sacamos.
 
@@ -175,11 +179,45 @@ En *Havana*, por ejemplo, el dato decía 0,92 de instrumentalidad y −12,1 dB; 
 
 *Límite de este método:* medimos solo 30 segundos. Si justo en ese tramo hay voz en una canción casi toda instrumental, la sacamos por error. Preferimos ese riesgo: perder una canción buena cuesta poco, y dejar una rota distorsiona el resultado de quien la busque.
 
-**3. Repetidas: 19 canciones.** La misma canción aparecía dos veces, por lo general porque entró al ranking en un año y fue nominada en otro. Dejamos una.
+**3. Repetidas: 19 canciones.** La misma canción aparecía dos veces con el mismo título y el mismo artista, por lo general porque entró al ranking en un año y fue nominada en otro. Dejamos una.
 
-**Lo que miramos y decidimos no sacar.** Canciones muy largas (de más de 8 minutos), canciones casi todas habladas (rap) y canciones grabadas muy bajo. Son raras, pero son reales.
+**4. El dato es de otra versión de la canción: 25 canciones.** Lo encontramos el 16 de noviembre, porque *Gangnam Style* figuraba con 27 de popularidad. Su dato decía que dura 4:13 y que está grabada a −10,3 dB; la canción original dura 3:40 y, medida por nosotros, da −3,9 dB. No era la misma grabación. Con el dato de la original da 83.
 
-**Qué cambió al limpiar.** El modelo se volvió a entrenar. Los números generales casi no se movieron, y las canciones rotas dejaron de aparecer en el buscador.
+Para saber cuántas más había así, hicimos dos pasos:
+
+*Paso 1: buscar sospechosas.* Tomamos las 817 canciones más conocidas de la base desde 2000 (las nominadas a Record o Song of the Year, las que fueron nominadas y entraron al ranking, y las que llegaron al puesto 1) y comparamos la duración que figura en la base con la duración de la versión original en Apple Music.
+
+| Resultado | Canciones |
+|---|---|
+| La duración coincide con la original (6 segundos o menos de diferencia) | 732 |
+| La duración no coincide | 46 |
+| No se encontró la original en Apple Music | 34 |
+| Apple no respondió | 5 |
+
+A esas 46 les sumamos los éxitos que figuran grabados muy bajo (menos de −11 dB) sin ser acústicos ni instrumentales, que es una combinación rara. En total, 105 sospechosas.
+
+*Paso 2: probar.* Una duración distinta no alcanza: muchas canciones tienen una versión de disco y una de radio, que duran distinto y suenan igual. Así que **medimos con nuestras herramientas la versión original de cada sospechosa** y la comparamos con el dato de la base. Sacamos una canción solo en dos casos:
+
+- **El volumen medido de la original es 5,5 dB o más alto que el que figura en la base.** Es una diferencia que la medición no puede producir por error (su error típico es de 1,6 dB).
+- **La duración que figura es imposible para esa canción**: más de una vez y media la original, o menos de la mitad.
+
+| Resultado de volver a medir | Canciones | Qué hicimos |
+|---|---|---|
+| El dato coincide con la original | 68 | Se quedan |
+| No hay muestra de la original para medir | 12 | Se quedan: no hay prueba de error |
+| **El dato es de otra versión** | **25** | **Se sacan** |
+
+Entre las 25 hay canciones muy conocidas: *Rehab*, *Crazy in Love*, *Unholy*, *Who Knew*. La lista completa, con la duración y el volumen de la base y los de la original, está en `datasets_procesados/excluidas_version.csv`.
+
+**5. La misma grabación cargada con otro nombre: 29 canciones.** Son filas distintas con el mismo título, el mismo artista principal y **exactamente la misma duración**: la misma grabación de Spotify cruzada con dos entradas del ranking. Pasa con los reingresos (una canción navideña que vuelve a entrar con el título escrito distinto), con los remixes (*Goosebumps* de Travis Scott y su remix de 2021 tenían el mismo dato) y con las regrabaciones (*Fifteen* y *Fifteen (Taylor's Version)*). Dejamos una sola, la original: la más antigua.
+
+**Lo que miramos y decidimos no sacar.** Canciones muy largas (de más de 8 minutos), canciones casi todas habladas (rap) y canciones grabadas muy bajo que al medirlas resultaron estar bien. Son raras, pero son reales.
+
+**Lo que no pudimos revisar.** El control de versiones se hizo sobre las 817 canciones más conocidas, que son las que alguien puede buscar en la app y las que definen el perfil de prestigio. Las otras 8.600 canciones del ranking no se revisaron una por una: harían falta unas ocho horas de consultas. En las conocidas, el error fue de 25 en 817 (3%); es razonable suponer una proporción parecida en el resto.
+
+**Un límite más: las grabaciones viejas que volvieron a entrar.** La base toma el año en que la canción entró al ranking. Algunas canciones navideñas grabadas hace décadas vuelven a entrar todos los diciembres, y figuran con el año del reingreso. Son unas 80 canciones con título navideño. No las sacamos, porque sí entraron al Hot 100 en esos años, pero su sonido no es de después del 2000.
+
+**Qué cambió al limpiar.** El modelo se volvió a entrenar. Los números generales casi no se movieron (el acierto del modelo es el mismo), y las canciones con el dato mal dejaron de aparecer en el buscador y en el mapa. *Rehab* y *Gangnam Style*, que eran dos de las canciones con nombre del mapa, se reemplazaron por *Flowers* y *Party In The U.S.A.*
 
 ### 3.6 Diccionario de variables
 
@@ -223,23 +261,23 @@ El diccionario completo, con las 21 columnas y sus valores medidos, está en `da
 
 ### 3.7 Cómo se construye cada puntaje
 
-**El paso previo, igual para los dos.** Cada característica se convierte a **cuánto se aleja del promedio** de las 23.333 canciones. Así se pueden comparar cosas que se miden distinto: 20 pulsos por minuto de diferencia en el tempo y 0,2 de diferencia en la acústica quedan en la misma escala.
+**El paso previo, igual para los dos.** Cada característica se convierte a **cuánto se aleja del promedio** de las 23.279 canciones. Así se pueden comparar cosas que se miden distinto: 20 pulsos por minuto de diferencia en el tempo y 0,2 de diferencia en la acústica quedan en la misma escala.
 
 #### Prestigio: una pregunta
 
 **¿El sonido se parece al de las canciones que la Academia nomina a Record o Song of the Year?**
 
-- **Qué se compara.** Las 208 nominadas contra los 8.833 éxitos que nunca fueron nominados a nada.
+- **Qué se compara.** Las 202 nominadas contra los 8.788 éxitos que nunca fueron nominados a nada.
 - **Por qué contra los éxitos y no contra las canciones comunes.** Lo probamos contra las canciones comunes y el modelo aprendía "suena a disco profesional" en lugar de "suena a Grammy".
-- **Con qué cuenta.** Una regresión logística: una fórmula que aprende cuánto empuja cada característica hacia un grupo o hacia el otro. Las dos partes pesan lo mismo, aunque una tenga 208 canciones y la otra 8.833.
-- **Por qué no entran las 792 nominadas solo por género.** Las nominadas a Mejor Interpretación de Metal tienen energía 0,94 y acústica casi cero: sumarlas mediría "suena a metal", no prestigio. Pero tampoco van del otro lado, porque 123 de ellas ganaron un Grammy. Quedan afuera de este eje.
+- **Con qué cuenta.** Una regresión logística: una fórmula que aprende cuánto empuja cada característica hacia un grupo o hacia el otro. Las dos partes pesan lo mismo, aunque una tenga 202 canciones y la otra 8.788.
+- **Por qué no entran las 789 nominadas solo por género.** Las nominadas a Mejor Interpretación de Metal tienen energía 0,94 y acústica casi cero: sumarlas mediría "suena a metal", no prestigio. Pero tampoco van del otro lado, porque 121 de ellas ganaron un Grammy. Quedan afuera de este eje.
 - **Por qué es sí o no, y no una escalera.** Quisimos armar escalones: nunca nominada, nominada en una categoría, nominada en las dos, ganadora. Medimos la acústica de cada escalón y dio 0,19 → 0,33 → 0,21 → 0,25. Sube, baja y vuelve a subir: los escalones no están ordenados. Con 70 ganadoras, distinguirlas sería inventar una precisión que los datos no tienen.
 
 #### Popularidad: dos preguntas encadenadas
 
 **¿El sonido se parece al de las canciones que entran al Hot 100? Y si entra, ¿al de las que llegan alto?**
 
-1. **¿Entra?** Las 9.450 que entraron contra las 13.883 que no. Misma cuenta que en el prestigio.
+1. **¿Entra?** Las 9.397 que entraron contra las 13.882 que no. Misma cuenta que en el prestigio.
 2. **¿Hasta dónde llega?** Se aprende **solo con las que entraron**, mirando su mejor puesto.
 3. **El puntaje es la primera por la segunda.**
 
@@ -255,21 +293,28 @@ El diccionario completo, con las 21 columnas y sus valores medidos, está en `da
 
 Los diez primeros puestos se llevan la mitad del puntaje. Lo hicimos así porque medimos cuántas canciones tuvieron su mejor puesto en cada lugar: del 11 al 100 hay unas 300 por puesto, y en el puesto 1 hay 1.194. Llegar arriba es mucho más raro que estar en el medio.
 
-**Por qué dos preguntas y no una.** Hasta el 3 de noviembre era una sola cuenta, que les ponía cero a todas las canciones que no entraron. Como la mayoría son ceros, la cuenta se gastaba en distinguir "entró o no entró" y aplastaba las diferencias entre los éxitos. *Despacito* daba 42 de popularidad y *Shape Of You*, 44. Con las dos preguntas separadas dan 62 y 81.
+**Por qué dos preguntas y no una.** Hasta el 3 de noviembre era una sola cuenta, que les ponía cero a todas las canciones que no entraron. Como la mayoría son ceros, la cuenta se gastaba en distinguir "entró o no entró" y aplastaba las diferencias entre los éxitos. *Despacito* daba 42 de popularidad y *Shape Of You*, 44. Con las dos preguntas separadas dan 63 y 84.
 
 #### Qué número ve la persona
 
-**Un percentil.** El puntaje que muestra la app no es la salida directa de la cuenta: es **en qué lugar queda la canción entre las 23.333**. Un prestigio de 88 quiere decir que el sonido se parece más al perfil nominado que el 88% de las canciones de la base.
+**Un percentil.** El puntaje que muestra la app no es la salida directa de la cuenta: es **en qué lugar queda la canción entre las 23.279**. Un prestigio de 88 quiere decir que el sonido se parece más al perfil nominado que el 88% de las canciones de la base. En la pantalla está dicho así: **"Muy parecida al sonido de las nominadas al Grammy. Le gana a 88 de cada 100 canciones."**
 
-**El margen.** Al lado de cada puntaje dice, por ejemplo, "entre 84 y 92". Sale de volver a entrenar el modelo 20 veces, cada vez con una muestra distinta de las mismas canciones, y ver cuánto cambia el puntaje. El margen del prestigio es más ancho porque se aprende de 208 canciones; el de la popularidad, de 9.450.
+La palabra sale del número, siempre con la misma regla: 75 o más, "muy parecida"; de 50 a 74, "parecida"; de 25 a 49, "poco parecida"; menos de 25, "muy poco parecida".
+
+**El margen.** Al lado de cada puntaje dice, por ejemplo, "margen: 84 a 92". Tiene dos partes:
+
+- **El margen del modelo.** Sale de volver a entrenar el modelo 20 veces, cada vez con una muestra distinta de las mismas canciones, y ver cuánto cambia el puntaje. El del prestigio es más ancho porque se aprende de 202 canciones; el de la popularidad, de 9.397.
+- **El error de medir un archivo.** Si la canción se subió como archivo, el margen se ensancha a 12 puntos para cada lado. Sale de la prueba de la sección 4.2: en 7 de cada 10 canciones, el puntaje medido desde el audio quedó a menos de 12 puntos del puntaje con el dato de la base. Una canción elegida del buscador no lleva este agregado, porque no se mide: usa el dato de la base.
 
 **Qué suma y qué resta.** Para cada característica, la app calcula el puntaje con el valor real y lo vuelve a calcular como si esa característica fuera promedio. La diferencia son los puntos que esa característica aporta.
+
+**El conflicto.** Es la característica que suma en un puntaje y resta en el otro. La app solo la marca si mueve **5 puntos o más en los dos**. Antes alcanzaba con medio punto, y la pantalla presentaba como "tu conflicto" una característica que restaba 2 puntos de un lado y sumaba 8 del otro. Si ninguna llega a 5 y 5, la app dice que no hay un conflicto marcado y nombra la característica que más pesa.
 
 **Qué tan bien separa cada eje.** Tomamos una canción de cada grupo al azar y miramos si el modelo le da más puntaje a la que corresponde. Acierta el **77%** de las veces en popularidad y el **68%** en prestigio. Al azar sería 50%.
 
 #### Las cuatro zonas del mapa
 
-El mapa tiene la popularidad de izquierda a derecha y el prestigio de abajo hacia arriba, los dos de 0 a 100.
+El mapa tiene la popularidad de izquierda a derecha y el prestigio de abajo hacia arriba, los dos de 0 a 100. Los ejes lo dicen en palabras: "más a la derecha, suena más a hit" y "más arriba, suena más a nominada".
 
 | Zona | Prestigio | Popularidad | Qué quiere decir |
 |---|---|---|---|
@@ -292,8 +337,8 @@ El mapa tiene la popularidad de izquierda a derecha y el prestigio de abajo haci
 
 **El mapa muestra 100 canciones reales, no todas.** Con 700 puntos grises el mapa parecía una mancha y no se entendía que cada punto era una canción. Ahora son 100, y cada una está ubicada con sus dos puntajes, calculados con el mismo modelo que se usa para tu canción:
 
-- **30 nominadas o ganadoras** del Grammy (las 11 que llevan nombre y 19 más).
-- **40 hits que nunca fueron nominados** (los 8 que llevan nombre y 32 más).
+- **30 nominadas o ganadoras** del Grammy (las 12 que llevan nombre y 18 más).
+- **40 hits que nunca fueron nominados** (los 7 que llevan nombre y 33 más).
 - **30 canciones que no entraron al ranking.**
 
 Las que no llevan nombre se eligen al azar entre las canciones conocidas de la base, siempre las mismas, para que el mapa no cambie cada vez que se abre. Los colores son los de toda la app: **azul es prestigio, ámbar es popularidad.** Tu canción va en negro para que no se confunda con ninguno de los dos.
@@ -309,7 +354,7 @@ Todo está en https://github.com/matiasexposito/prestigio_popularidad
 | `readme.md` | La puerta de entrada: fuentes, licencias, cómo está armado todo |
 | `decisiones.md` | Todo lo que probamos, descartamos y por qué, con fecha, desde agosto |
 | `datasets/` | Los datos completos, de 1958 a 2026, y el diccionario |
-| `datasets_procesados/` | Los datos desde el año 2000, que son los que usa la app, y la lista de canciones excluidas |
+| `datasets_procesados/` | Los datos desde el año 2000, que son los que usa la app, y las dos listas de canciones excluidas |
 | `codigo/` | Los programas que bajan, cruzan y revisan los datos |
 | `analisis/` | Los análisis de la popularidad, de la letra y de las redes |
 | `diseno/` | El borrador de pantallas y la app |
@@ -326,12 +371,12 @@ ENTRA                          SE CALCULA                               SALE
 ─────────────────────────      ─────────────────────────────────────    ──────────────────────────────
 Un archivo de audio            1. Se miden las 10 características       Prestigio, de 0 a 100, con margen
 (mp3, wav o m4a)               2. Cada una se compara con el promedio   Popularidad, de 0 a 100, con margen
-                                  de las 23.333 canciones               En qué zona del mapa cae
+                                  de las 23.279 canciones               En qué zona del mapa cae
         o                      3. Prestigio: ¿se parece a las           Qué característica suma y cuál resta
-                                  208 nominadas?                        El conflicto: la característica que
+                                  202 nominadas?                        El conflicto: la característica que
 Una canción conocida           4. Popularidad: ¿se parece a las que       acerca a un mundo y aleja del otro
-(773 para buscar)                 entran? ¿y a las que llegan alto?     Una lectura escrita por una IA
-                               5. Se ubica entre las 23.333               a partir de esos números
+(760 para buscar)                 entran? ¿y a las que llegan alto?     Una lectura escrita por una IA
+                               5. Se ubica entre las 23.279               a partir de esos números
                                6. Se calcula el margen
 ```
 
@@ -378,7 +423,19 @@ Con esas 31, calculamos el puntaje de cada una de las dos formas y miramos la di
 
 **Qué más probamos y no sirvió.** Medir el volumen con Essentia en vez de ReccoBeats (no mejora). Cambiar el modelo: probamos 11 variantes, sacando el volumen, la instrumentalidad o la energía, y ninguna baja el error sin perder acierto.
 
-**El límite que queda.** Aun con la calibración nueva, el puntaje de una canción subida se mueve unos 8 puntos en popularidad y unos 6 en prestigio respecto del que tendría con el dato de Spotify. Y depende de **qué archivo** se sube: el audio de un video oficial trae introducciones y finales que el tema de estudio no tiene, y dura distinto. La misma canción subida desde dos archivos distintos puede dar resultados distintos. El margen que muestra la app no incluye este error.
+**El límite que queda.** Aun con la calibración nueva, el puntaje de una canción subida se mueve unos 8 puntos en popularidad y unos 6 en prestigio respecto del que tendría con el dato de Spotify. Y depende de **qué archivo** se sube: el audio de un video oficial trae introducciones y finales que el tema de estudio no tiene, y dura distinto. La misma canción subida desde dos archivos distintos puede dar resultados distintos. Por eso, cuando la canción se subió como archivo, la app muestra un margen más ancho (12 puntos para cada lado) y lo avisa debajo del nombre.
+
+**Dos casos reales, del 16 de noviembre.** *Goteo*, de Duki, no está en la base. La medimos tres veces desde audios distintos:
+
+| Audio | Prestigio | Popularidad |
+|---|---|---|
+| Los 30 segundos de muestra | 12 | 67 |
+| La canción entera, comprada | 17 | 51 |
+| El audio del video de YouTube | 10 | 32 |
+
+El prestigio casi no cambia, porque depende sobre todo de la duración. La popularidad sí, porque depende del volumen y de la energía: la muestra de 30 segundos es el estribillo, que es la parte más fuerte, y el audio de un video no es el tema de estudio. **El resultado que vale es el de la canción entera.**
+
+Con *Hello*, de Adele, pasa lo contrario: su muestra de 30 segundos es el comienzo suave de la canción, y medida así da 24 de popularidad cuando la canción completa tiene 97. Por eso descartamos medir solo la muestra: sirve para canciones parejas y falla en las que cambian mucho de intensidad.
 
 ### 4.3 Qué quedó afuera del modelo
 
@@ -417,7 +474,7 @@ Nuestro modelo usa solo el sonido. Entonces, lo que el modelo logra explicar es 
 |---|---|
 | 2000–2004 | 27% |
 | 2005–2009 | **32%** |
-| 2010–2014 | 28% |
+| 2010–2014 | 29% |
 | 2015–2019 | 26% |
 | 2020–2026 | **23%** |
 
@@ -429,8 +486,8 @@ Esto no lo esperábamos, y sale de nuestros datos. **Para que nominen una canci�
 
 | | Nominadas | Todos los éxitos |
 |---|---|---|
-| Entraron al Hot 100 | **86%** (178 de 208) | — |
-| Llegaron a los diez primeros puestos | **62%** | 14% |
+| Entraron al Hot 100 | **86%** (173 de 202) | — |
+| Llegaron a los diez primeros puestos | **61%** | 13% |
 | Llegaron al puesto 1 | **38%** | 3% |
 
 - De las canciones que llegaron a los diez primeros puestos, fue nominada el **10%**. De las que entraron pero no llegaron tan alto, el **0,6%**. Es **16 veces más**.
@@ -529,8 +586,8 @@ Además, cada una tiene sus motivos.
 | Motivo | Explicación |
 |---|---|
 | **Derechos de autor** | Las letras tienen dueño. Se pueden medir, pero no se pueden guardar ni mostrar. Hay que bajar cada letra, medirla y borrar el texto |
-| **Tiempo** | Habría que conseguir y medir la letra de 23.333 canciones, volver a entrenar el modelo y volver a verificar todo. No entraba en esta entrega |
-| **Errores** | Las letras que se consiguen gratis las escribe gente, no los sellos: traen errores, versiones distintas y secciones mal marcadas. Con el sonido ya encontramos 70 canciones rotas; con la letra esperamos más |
+| **Tiempo** | Habría que conseguir y medir la letra de 23.279 canciones, volver a entrenar el modelo y volver a verificar todo. No entraba en esta entrega |
+| **Errores** | Las letras que se consiguen gratis las escribe gente, no los sellos: traen errores, versiones distintas y secciones mal marcadas. Con el sonido ya encontramos más de 70 canciones con el dato mal; con la letra esperamos más |
 | **El idioma** | Las medidas cambian con el idioma. *Despacito* no se puede comparar con una canción en inglés con la misma regla |
 | **Aporta poco a lo que medimos** | En nuestra prueba con 120 canciones, la letra casi no separa a las nominadas de los éxitos |
 | **La persona tendría que escribirla** | De un demo no hay letra en ningún lado: habría que pedírsela |
@@ -542,7 +599,7 @@ Además, cada una tiene sus motivos.
 | Motivo | Explicación |
 |---|---|
 | **No hay datos abiertos** | TikTok solo les da datos a investigadores de universidades de Estados Unidos y de Europa. Instagram no publica nada sobre música. Spotify cerró en 2026 su dato de popularidad. Las herramientas que tienen todo (las que usan los sellos) son pagas |
-| **Tiempo** | YouTube deja consultar gratis unas 99 canciones por día. Para las 9.450 canciones que entraron al ranking harían falta unos 95 días |
+| **Tiempo** | YouTube deja consultar gratis unas 99 canciones por día. Para las 9.397 canciones que entraron al ranking harían falta unos 95 días |
 | **Errores** | YouTube da las vistas de **hoy**, no las del momento en que la canción estaba en el ranking. Una canción de 2009 tuvo 17 años para juntar vistas; una de 2025, uno. No se pueden comparar |
 | **No existían en todo el período** | YouTube es de 2005 y TikTok de 2016. Las canciones del 2000 al 2005 tendrían cero en todo, no por falta de éxito sino porque no había dónde. El modelo aprendería "tener redes = canción nueva" |
 | **Es dar vueltas en círculo** | Las vistas no son una causa de la popularidad: **son** popularidad, medida de otra forma. Usarlas para explicar el éxito es explicar el éxito con el éxito. Ya lo habíamos decidido en septiembre con las reproducciones |
@@ -590,7 +647,8 @@ Además, cada una tiene sus motivos.
 - **Con la IA o sin la IA (paso 5).** Si la IA que escribe la lectura no responde, la pantalla muestra una lectura armada por el modelo y avisa. El resultado nunca depende de que la IA funcione.
 - **Prestigio o popularidad (paso 6).** Un selector cambia cuál de los dos ejes se desglosa. No se muestran los dos juntos porque son veinte columnas y no se leen.
 - **Volver al original (paso 7).** En el simulador siempre se puede deshacer todo con un botón, para que nadie tenga miedo de mover.
-- **Explicaciones cortas y a la vista (paso 5).** Al lado de cada puntaje hay una sola frase que dice qué significa ("suena más parecida a las nominadas al Grammy que el 88% de las canciones que medimos"). Antes había un "¿Cómo se calcula?" desplegable con tres párrafos: era demasiado para alguien que solo quiere entender su número. El detalle completo quedó en este racional.
+- **Explicaciones cortas y a la vista (paso 5).** Al lado de cada puntaje hay una palabra y una frase: "Muy parecida al sonido de las nominadas al Grammy. Le gana a 88 de cada 100 canciones." Antes había un "¿Cómo se calcula?" desplegable con tres párrafos: era demasiado para alguien que solo quiere entender su número. El detalle completo quedó en este racional.
+- **Archivo subido o canción del buscador (paso 5).** Si la canción se subió como archivo, la pantalla lo dice debajo del nombre y muestra un margen más ancho. Si además se perdió algún tramo al medir, también lo avisa.
 
 ---
 
@@ -606,7 +664,7 @@ La app la programó una IA, pero qué va en cada pantalla, en qué orden y con q
 | **Los dos mundos** | Que hay dos perfiles distintos | Dos tarjetas del mismo tamaño, una al lado de la otra, con el mismo orden adentro: una frase, un dato, tres canciones |
 | **Crear cuenta** | Que es rápido | Dos campos y un botón, en el centro. Alrededor, las mismas canciones de la portada, más suaves |
 | **Subir la canción** | El archivo | Dos columnas que entran en una sola pantalla, sin bajar. A la izquierda, el título y los tres pasos del proceso; a la derecha, el recuadro para arrastrar (lo más grande) y el buscador |
-| **Resultado** | El mapa | Ocupa toda la columna ancha. Los dos números van al costado, en una columna fija de 404 píxeles |
+| **Resultado** | El mapa | Ocupa toda la columna ancha. Al costado, en una columna fija de 404 píxeles, van los dos números con su palabra ("muy parecida", "poco parecida"), una lectura de una o dos oraciones y, debajo, tres etiquetas con los rasgos que más pesan |
 | **Qué suma y qué resta** | Comparar los rasgos entre sí | Columnas verticales del mismo ancho, con la barra saliendo de una línea central: arriba suma, abajo resta |
 | **Simular** | Ver el punto moverse | El mapa en el medio, los controles a la izquierda y los números a la derecha: la mano mueve a un lado, el ojo mira al centro |
 
@@ -664,7 +722,15 @@ La regla de los números no tiene excepciones: puntajes, márgenes, valores de c
 
 ### El margen de error, siempre a la vista
 
-Los dos puntajes muestran su margen ("entre 84 y 92") en la misma tarjeta, y dibujado sobre la barra. El prestigio se aprende de unas doscientas canciones: mostrar un número solo sería fingir una precisión que no tenemos.
+Los dos puntajes muestran su margen ("margen: 84 a 92") en la misma tarjeta, y dibujado sobre la barra. El prestigio se aprende de unas doscientas canciones: mostrar un número solo sería fingir una precisión que no tenemos.
+
+Cuando la canción se subió como archivo, el margen es más ancho, porque suma el error de medir el audio (sección 3.7). Nos dimos cuenta de que hacía falta el 16 de noviembre: la misma canción, subida desde dos archivos, dio dos popularidades distintas, y la pantalla mostraba un margen de 4 puntos como si el número fuera firme.
+
+### La lectura: una oración y tres etiquetas
+
+La lectura empezó siendo tres párrafos escritos por la IA. Era demasiado texto al lado del mapa y repetía números que ya estaban en la pantalla. La dejamos en **una o dos oraciones** que dicen a qué perfil se parece más la canción y qué rasgo pesa más. Debajo van **tres etiquetas** con los rasgos que más suman o restan, cada una con el color de su puntaje. Las etiquetas no las escribe la IA: las calcula el modelo. Así, lo que es número viene del modelo y lo que es frase viene de la IA.
+
+En las etiquetas no aparece la instrumentalidad de una canción cantada. El modelo le suma puntos de popularidad por "tener voz", pero eso no le dice nada a quien la hizo.
 
 ---
 
@@ -726,6 +792,13 @@ El 2 de noviembre la app se rehízo **a partir de ese borrador**. Ese día es el
 | 10 de noviembre | La IA propuso incluir la letra en una versión chica | **Rechazado por ahora**, por decisión nuestra con los docentes |
 | 10 de noviembre | Pedimos que la IA bajara y nos diera la letra de una canción | **La IA se negó**: las letras tienen derechos de autor. En cambio armó una herramienta que la mide sin guardarla |
 | 15 de noviembre | Había canciones con datos rotos. Lo más simple era sacar todas las que figuraban como instrumentales | **Descartado.** Al mirar la lista, varias eran instrumentales de verdad. Pedimos volver a medir cada una, y se sacaron solo las 36 que estaban mal |
+| 15 de noviembre | Pedimos la portada como una galaxia de canciones que suenan. La IA hizo que cada canción tocara una nota al azar | **Corregido.** Las notas se pisaban. Pedimos que sonara armónico y quedó una melodía, una nota por vez |
+| 15 de noviembre | Los colores querían decir cosas distintas según la pantalla | **Pedido nuestro:** que todos los colores coincidan. Quedó azul para el prestigio y ámbar para la popularidad, en toda la app |
+| 16 de noviembre | Subimos una canción de trap y dio cero en los dos puntajes | **Encontrado por nosotros.** Pedimos revisar si el modelo calculaba bien. El modelo estaba bien; la medición del archivo, no. Se recalibró con 31 canciones |
+| 16 de noviembre | La IA informó que la medición confundía canciones cantadas con instrumentales | **Era un error de la prueba de la IA:** había comparado contra la pista sin voz de una canción. Lo encontró al repetir la prueba y lo corrigió |
+| 16 de noviembre | La IA recomendó medir solo los 30 segundos de muestra para la demo | **Descartado después de probarlo:** con *Hello* da 24 de popularidad en vez de 97, porque la muestra es la parte suave |
+| 16 de noviembre | Pedimos que la IA bajara canciones de YouTube para probar la herramienta | **La IA se negó**, por los derechos de autor. Compramos la canción |
+| 16 de noviembre | Vimos que *Gangnam Style* figuraba con popularidad 27 | **Encontrado por nosotros.** El dato de la base era de otra versión de la canción. Se revisaron las canciones conocidas contra la versión original (sección 3.5) |
 
 ### Cómo manejamos las instrucciones de la IA que escribe la lectura
 
@@ -743,9 +816,14 @@ La IA de la app recibe, antes de cada lectura, un texto fijo con las reglas. Est
 4. No dar consejos generales de producción. Si un rasgo empuja para los dos lados, decirlo con sus números y aclarar que la decisión es de quien produce.
 5. Si el margen de un puntaje es ancho, mencionarlo.
 
-**La forma:** dos párrafos cortos, 70 palabras como máximo, en español rioplatense y sin entusiasmo vendedor. Al principio eran tres párrafos y 130 palabras; la acortamos para que se lea de un vistazo.
+6. Si un rasgo resta, decir que resta. Nunca presentar como "lo que más suma" algo con puntos negativos.
+7. Hablar de conflicto solo si el rasgo mueve 5 puntos o más en los dos puntajes.
 
-**Qué pasa si la IA falla:** la app muestra una lectura armada por el modelo con la zona y el conflicto, y avisa que la versión escrita por IA no está disponible. La clave del servicio está guardada en el servidor y nunca llega al navegador ni al repositorio.
+Las reglas 6 y 7 las agregamos después de leer las primeras lecturas: en una, la IA dijo que un rasgo que restaba puntos "empujaba" la canción hacia ese perfil.
+
+**La forma:** una o dos oraciones, 40 palabras como máximo, en español rioplatense y sin entusiasmo vendedor. Empezó en tres párrafos y 130 palabras; la fuimos acortando hasta que se leyera de un vistazo. Los puntos de cada rasgo ya no los escribe la IA: van en las etiquetas de abajo.
+
+**Qué pasa si la IA falla:** la app muestra una lectura armada por el modelo con la zona del mapa, y avisa que la versión escrita por IA no está disponible. La clave del servicio está guardada en el servidor y nunca llega al navegador ni al repositorio.
 
 **Por qué estas reglas.** Son la respuesta al chatbot que sacamos. Aquel prometía entender y no entendía. Esta IA no conversa: traduce. Todo lo que dice sale de un número que calculó el modelo y que está en la misma pantalla.
 
