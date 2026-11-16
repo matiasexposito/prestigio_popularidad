@@ -642,3 +642,9 @@ input[type="range"]::-moz-range-thumb { background: var(--tinta); box-shadow: 0 
 .pantalla[data-ruta="cuenta"] .cuerpo, .pantalla[data-ruta="cuenta"] .barra { position: relative; z-index: 1; }
 .pantalla[data-ruta="cuenta"] .columna-angosta { background: radial-gradient(closest-side, rgba(255,255,255,.97) 70%, rgba(255,255,255,0)); border-radius: 40px; }
 .pantalla[data-ruta="cuenta"] .formulario { box-shadow: 0 24px 60px -34px rgba(27,79,216,.35), 0 24px 60px -40px rgba(180,83,9,.3); }
+
+/* En ventanas angostas (menos de 1100 px) cada pantalla ocupa igual todo el alto:
+   antes la portada quedaba aplastada arriba. */
+@media (max-width: 1100px) {
+  .pantalla.activa { min-height: 100vh; min-height: 100dvh; }
+}
