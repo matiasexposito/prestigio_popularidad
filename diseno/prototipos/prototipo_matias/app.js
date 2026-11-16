@@ -192,6 +192,10 @@
     $('#artista-cancion').textContent = a.fuente === 'medido'
       ? 'Medida con ReccoBeats y Essentia, en tu navegador'
       : `${a.artista} · ${a.anio}`;
+    // Si la medición quedó incompleta, se dice en la pantalla (antes solo iba a la consola)
+    const aviso = $('#aviso-medicion');
+    aviso.textContent = a.aviso || '';
+    aviso.hidden = !a.aviso;
 
     $('#tarjetas-puntaje').innerHTML =
       tarjetaPuntaje('Prestigio', p.pres) + tarjetaPuntaje('Popularidad', p.pop);

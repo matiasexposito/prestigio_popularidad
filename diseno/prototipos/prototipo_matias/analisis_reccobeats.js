@@ -111,12 +111,21 @@
 
   const esperar = ms => new Promise(r => setTimeout(r, ms));
 
+  // Si ReccoBeats está ocupado (429), falla (5xx) o se corta la conexión, se vuelve a
+  // intentar hasta 5 veces esperando cada vez más. Un tramo perdido cambia el promedio,
+  // así que vale la pena insistir antes de darlo por perdido.
   async function consultar(blob, intento = 0) {
     const fd = new FormData();
     fd.append('audioFile', blob, 'tramo.mp3');
-    const r = await fetch(URL_API, { method: 'POST', body: fd });
-    if (r.status === 429 && intento < 3) {
-      await esperar((+r.headers.get('Retry-After') || 2) * 1000);
+    let r;
+    try { r = await fetch(URL_API, { method: 'POST', body: fd }); }
+    catch (e) {
+      if (intento >= 5) throw e;
+      await esperar(1500 * (intento + 1));
+      return consultar(blob, intento + 1);
+    }
+    if ((r.status === 429 || r.status >= 500) && intento < 5) {
+      await esperar((+r.headers.get('Retry-After') || 2 * (intento + 1)) * 1000);
       return consultar(blob, intento + 1);
     }
     if (!r.ok) throw new Error(`ReccoBeats respondió ${r.status}: ${(await r.text()).slice(0, 200)}`);
@@ -146,7 +155,7 @@
       if (!tramos.length) throw resultados[0].reason;
       const crudo = Object.fromEntries(RASGOS.map(k => [k, tramos.reduce((s, t) => s + t[k], 0) / tramos.length]));
       const calibrado = Object.fromEntries(RASGOS.map(k => [k, CALIBRACION[k](crudo[k])]));
-      return { crudo, calibrado, tramos: tramos.length, ms: Math.round(performance.now() - t0) };
+      return { crudo, calibrado, tramos: tramos.length, total: inicios.length, ms: Math.round(performance.now() - t0) };
     } finally {
       pool.cerrar();
     }

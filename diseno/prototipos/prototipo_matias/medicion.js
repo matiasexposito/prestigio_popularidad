@@ -85,6 +85,10 @@
     if (rR.status === 'fulfilled') {
       reccobeats = rR.value;
       for (const k of window.AnalisisReccoBeats.RASGOS) { rasgos[k] = reccobeats.calibrado[k]; fuentes[k] = 'reccobeats'; }
+      // Si se perdió algún tramo, el promedio no es el de la canción entera: se avisa
+      if (reccobeats.total && reccobeats.tramos < reccobeats.total) {
+        avisos.push(`Se midieron ${reccobeats.tramos} de los ${reccobeats.total} tramos de la canción. El resultado puede cambiar un poco si la subís de nuevo.`);
+      }
     } else {
       console.warn('[P&P] ReccoBeats no disponible:', rR.reason);
       avisos.push('No se pudo consultar ReccoBeats: energía, acústica y bailabilidad son estimaciones, y valencia y habla quedan en el promedio del corpus.');
