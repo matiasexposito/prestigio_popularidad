@@ -42,7 +42,7 @@ Los colores quieren decir lo mismo en todas las pantallas: **azul es prestigio, 
 | `generar_modelo.py` | Vuelve a generar `modelo.js` desde `datasets/` |
 | `la_pagina.md`, `decisiones_de_diseno.md` | Los textos de las páginas "qué hace cada pantalla" y "las decisiones de diseño" |
 | `armar_documentos.js` | Convierte esos textos, el racional y el análisis de la letra en las páginas `.html` |
-| `racional.html`, `la_pagina.html`, `decisiones_de_diseno.html`, `la_letra.html` | Las páginas publicadas. **Generadas: no se editan a mano** |
+| `racional_resumido.html`, `racional.html`, `la_pagina.html`, `decisiones_de_diseno.html`, `la_letra.html` | Las páginas publicadas. **Generadas: no se editan a mano** |
 | `vercel.json`, `.vercelignore` | Configuración de la publicación |
 
 ## Cómo se actualiza

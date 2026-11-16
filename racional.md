@@ -4,6 +4,8 @@
 
 App: https://pyp-ashy.vercel.app · Repositorio: https://github.com/matiasexposito/prestigio_popularidad
 
+**Hay una versión corta de este documento**, con lo esencial para presentar: [`racional_resumido.md`](racional_resumido.md).
+
 Este documento explica por qué la herramienta es como es. No describe la interfaz: justifica decisiones. Está escrito para alguien que no vio la cursada y quiere entender el problema, los datos, el modelo y el diseño, y poder repetir el razonamiento.
 
 **Cómo leer los números.** Todo número que dice "medimos" sale de los archivos del repositorio y se puede volver a calcular. Todo número que viene de afuera tiene su fuente al final. Y cuando un número es una estimación nuestra y no una medición, lo decimos en el mismo lugar.

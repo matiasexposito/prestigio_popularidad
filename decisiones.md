@@ -577,3 +577,7 @@ Lo que explica el sonido no cambió: 24% de entrar al ranking, 3% de cuán alto 
 - Un archivo subido muestra un margen de 12 puntos para cada lado: es lo que cubre a 7 de cada 10 canciones en la prueba de medición.
 - Solo se habla de conflicto si el rasgo mueve 5 puntos o más en los dos puntajes.
 - Los textos de las zonas dejaron de decir "potencial comercial": dicen a qué se parece el sonido.
+
+### Decisión: dos versiones del racional
+
+El racional había crecido hasta casi 800 líneas. Tenía todo, pero era demasiado para presentar: explicaba casos puntuales y pruebas chicas que no hacen al argumento. Armamos una versión corta, `racional_resumido.md`, con lo esencial: la hipótesis, los datos, por qué cortamos en el 2000, cómo se mide cada eje, qué no medimos y por qué, el diseño y el uso de la IA. La versión completa queda igual, como respaldo, para quien quiera ver cada medición.

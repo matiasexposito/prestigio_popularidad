@@ -22,11 +22,12 @@ https://pyp-ashy.vercel.app
 
 Se puede subir un audio propio (mp3 o wav) o buscar una canción conocida por nombre. En el mapa, cualquier punto se puede clickear para escuchar esa canción. Código en [`diseno/prototipos/prototipo_matias/`](diseno/prototipos/prototipo_matias/).
 
-Junto con la app hay cuatro páginas que la explican, pensadas para alguien que no conoce el proyecto:
+Junto con la app hay cinco páginas que la explican, pensadas para alguien que no conoce el proyecto:
 
 | Página | Qué cuenta |
 |---|---|
-| [**El racional**](https://pyp-ashy.vercel.app/racional) | Por qué la herramienta es como es: problema, hipótesis, datos, modelo, lo que no medimos, diseño y uso de la IA. También está en [`racional.md`](racional.md) |
+| [**El racional, versión corta**](https://pyp-ashy.vercel.app/racional_resumido) | Lo esencial para presentar: hipótesis, datos, modelo, lo que no medimos y por qué, diseño y uso de la IA. Es el que conviene leer primero. También está en [`racional_resumido.md`](racional_resumido.md) |
+| [El racional, versión completa](https://pyp-ashy.vercel.app/racional) | Lo mismo con todo el detalle: cada medición, cada limpieza de datos y cada decisión, para quien quiera repetir el razonamiento. También está en [`racional.md`](racional.md) |
 | [Qué hace cada pantalla](https://pyp-ashy.vercel.app/la_pagina) | El recorrido de la app, pantalla por pantalla |
 | [Las decisiones de diseño](https://pyp-ashy.vercel.app/decisiones_de_diseno) | Qué le pedimos a la IA y por qué |
 | [Cómo impacta la letra](https://pyp-ashy.vercel.app/la_letra) | Qué sabemos de la letra y por qué no entra a la herramienta |
@@ -293,7 +294,8 @@ Los puntajes que muestra la app son el percentil de la canción dentro de las 23
 ```
 prestigio_popularidad/
 ├── readme.md               # Este archivo
-├── racional.md             # Por qué la herramienta es como es: datos, modelo, diseño, IA
+├── racional_resumido.md    # El racional corto: lo esencial para presentar
+├── racional.md             # El racional completo: cada medición y cada decisión, con el detalle
 ├── decisiones.md           # Registro fechado de lo que probamos, descartamos y por qué
 ├── analisis/
 │   ├── nuevos_puntos.md    # Cómo definimos el eje de popularidad, con las mediciones

@@ -46,7 +46,10 @@ La clave de Groq está cargada en Vercel. No está en el repositorio.
 
 ### El racional
 
-Completo en `racional.md` y publicado en https://pyp-ashy.vercel.app/racional. Nueve secciones: problema, hipótesis, datos, modelo, lo que no medimos (letra, redes y YouTube, con el peso de cada una), usuario, diseño, recorte y uso de la IA.
+Hay dos versiones, con las mismas nueve secciones (problema, hipótesis, datos, modelo, lo que no medimos, usuario, diseño, recorte y uso de la IA):
+
+- **La corta**, que es la que se presenta: `racional_resumido.md`, publicada en https://pyp-ashy.vercel.app/racional_resumido. Tiene solo lo esencial.
+- **La completa**, con cada medición y cada decisión: `racional.md`, publicada en https://pyp-ashy.vercel.app/racional.
 
 ### Los datos
 
@@ -103,7 +106,8 @@ El viaje en el tiempo: cómo habría leído la canción la Academia y el ranking
 | Qué | Dónde |
 |---|---|
 | La app | https://pyp-ashy.vercel.app |
-| El racional | https://pyp-ashy.vercel.app/racional |
+| El racional corto | https://pyp-ashy.vercel.app/racional_resumido |
+| El racional completo | https://pyp-ashy.vercel.app/racional |
 | Qué hace cada pantalla | https://pyp-ashy.vercel.app/la_pagina |
 | Las decisiones de diseño | https://pyp-ashy.vercel.app/decisiones_de_diseno |
 | Cómo impacta la letra | https://pyp-ashy.vercel.app/la_letra |
@@ -112,7 +116,8 @@ El viaje en el tiempo: cómo habría leído la canción la Academia y el ranking
 | Carpeta o archivo | Qué tiene |
 |---|---|
 | `readme.md` | Qué es el proyecto, las fuentes y cómo se mide cada eje |
-| `racional.md` | El racional |
+| `racional_resumido.md` | El racional corto, el que se presenta |
+| `racional.md` | El racional completo |
 | `decisiones.md` | Todo lo que probamos, descartamos y por qué, con fecha |
 | `analisis/` | Cómo medimos la popularidad, la letra, las redes y la propuesta de pesos |
 | `datasets/` y `datasets_procesados/` | Los datos: todo desde 1958, y el recorte desde 2000 que usa la app |
