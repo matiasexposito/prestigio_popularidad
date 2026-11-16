@@ -465,3 +465,51 @@ Acordado con los docentes. La herramienta mide el sonido. En el racional (secci�
 Solo la fila del sonido es una medición. Las demás son una estimación razonada con estudios publicados; lo que se defiende es el orden, no el número exacto.
 
 **Por qué no entran:** no hay datos abiertos de redes desde 2000; las vistas de hoy no son las de entonces; las redes no son una causa de la popularidad sino otra forma de medirla; un demo no tiene redes ni letra cargada; las letras tienen derechos de autor y vienen con errores; y no alcanzaba el tiempo para medir 23.333 letras y volver a validar todo.
+
+
+---
+
+## 16 de noviembre de 2026 — Diseño, la IA de la lectura y la prueba del modelo
+
+### Decisión: un solo significado por color
+
+Azul es prestigio y ámbar es popularidad, en todas las pantallas. Antes cada color quería decir varias cosas: el azul era "tu canción", "lo que suma" y "las nominadas"; el ámbar, "lo que resta" y "la lectura de la IA". Ahora, en el desglose, las barras llevan el color del puntaje que se mira (llena si suma, rayada si resta), tu canción va en negro y lo que no es de ningún eje va en negro o gris.
+
+### Decisión: cada pantalla entra entera, sin bajar
+
+La pantalla de subir la canción pasó a dos columnas. En el resultado se sacaron los desplegables "¿Cómo se calcula?" y se dejó una frase al lado de cada puntaje.
+
+### Decisión: el mapa muestra 100 canciones reales
+
+Antes mostraba 700 puntos grises elegidos al azar y parecía una mancha. Ahora son 30 nominadas o ganadoras, 40 hits nunca nominados y 30 que no entraron al ranking, cada una ubicada con el mismo modelo que se usa para la canción del usuario.
+
+### Decisión: la portada es una galaxia de canciones
+
+240 canciones reales de la base giran despacio. Con el sonido activado suena una melodía: una nota por vez, sobre cuatro acordes. La primera versión tocaba notas al azar y se pisaban.
+
+### Cambio obligado: el modelo de la IA
+
+Groq dio de baja Llama 3.3 70B el 16/08/2026 para las cuentas gratuitas. La lectura pasó a GPT-OSS 120B, que es el reemplazo que recomienda Groq. Además la lectura se acortó a dos párrafos y 70 palabras, y se agregaron dos reglas: no invertir el sentido de un aporte y no llamar conflicto a una diferencia chica.
+
+### Prueba: ¿el modelo calcula bien?
+
+Surgió porque una canción de trap subida como archivo dio cero en los dos puntajes.
+
+**Con los datos de la base, sí.** De 700 canciones al azar, solo 2 quedan por debajo de 5 en los dos puntajes. Los raps y traps conocidos de la base dan resultados razonables.
+
+**Con un archivo subido, el resultado es menos estable.** Tomamos 38 éxitos y calculamos el puntaje dos veces: con el dato de la base y con nuestra medición de los 30 segundos de muestra.
+
+| | Diferencia (valor del medio) | Más de 20 puntos | Más de 40 puntos |
+|---|---|---|---|
+| Popularidad | 15 puntos | 13 de 38 | 3 de 38 |
+| Prestigio | 11 puntos | 8 de 38 | 1 de 38 |
+
+Los saltos grandes de popularidad vienen de dos rasgos: la **instrumentalidad** (a veces la medición cree que una canción cantada es instrumental) y el **volumen** (es el rasgo que más pesa y uno de los que peor se mide).
+
+**Cambiar el modelo no lo arregla.** Probamos 11 variantes: sin volumen, sin instrumentalidad, sin energía, recortando los valores extremos y con más regularización. Ninguna baja el error de forma clara y varias empeoran el acierto (sin volumen ni instrumentalidad, la popularidad pasa de 0,76 a 0,66).
+
+**Queda por decidir** qué se hace en la app: preguntar si la canción tiene voz cuando la medición dice que es instrumental, mostrar un margen más ancho para los archivos subidos, o las dos cosas.
+
+### Orden del repositorio
+
+Se revisó todo el repositorio. Los archivos de `datasets_procesados/` son exactamente los de `datasets/` filtrados desde el año 2000, y no hay enlaces rotos. Se pasaron a minúsculas y guion bajo los nombres que no cumplían la regla (`README.md` → `readme.md`, las carpetas del borrador, las páginas publicadas). Las direcciones viejas de las páginas siguen funcionando: redirigen a las nuevas.

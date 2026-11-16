@@ -7,7 +7,7 @@
    disponible y la app muestra la lectura fija del modelo.
 
    Recibe por POST los números de UNA canción (nunca el nombre ni el
-   artista) y devuelve tres párrafos cortos que hablan solo de esos
+   artista) y devuelve dos párrafos cortos que hablan solo de esos
    números. El texto de sistema está también en prompts/lectura_ia.md.
    ========================================================= */
 

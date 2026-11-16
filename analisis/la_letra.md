@@ -125,7 +125,7 @@ Si la letra funciona igual, no sería un agregado suelto: sería **una segunda c
 
 Lo que hay son estudios por separado: cómo cambiaron las letras populares, qué distingue al reconocimiento de la crítica en hip-hop, qué predice un Grammy mirando sonido y letra juntos. Pero la comparación directa que necesita nuestro proyecto no está hecha.
 
-**Eso significa que es investigación original.** Y es, probablemente, lo más valioso que podemos agregar en la entrega siguiente.
+**Eso significa que es investigación original.** Y es, probablemente, lo más valioso que se podría agregar si el proyecto sigue.
 
 ---
 
@@ -133,7 +133,7 @@ Lo que hay son estudios por separado: cómo cambiaron las letras populares, qué
 
 **Para esta entrega:** dejamos declarado que el análisis mide solo el sonido, y que la letra es una dimensión que influye y que todavía no incorporamos. Eso ya está dicho en la aplicación: *"no medimos la letra, ni el sello, ni quién sos. Solo cómo suena."*
 
-**Para la entrega siguiente**, el trabajo concreto sería:
+**Si el proyecto sigue**, el trabajo concreto sería:
 
 1. **Conseguir las letras** de las canciones que ya tenemos en la base.
 2. **Medir tres cosas** en cada una: cuánto se repite, qué tan variado es el vocabulario y qué tan fácil es de entender.

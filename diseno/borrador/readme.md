@@ -4,8 +4,8 @@ Las pantallas que diseñamos antes de construir la app, en el canvas de diseño 
 
 | Carpeta | Qué es |
 |---|---|
-| `2026-09-09/` | Primera versión: seis pantallas (inicio, principal, resultado, desglose, simulador, asistente) |
-| `2026-09-13/` | Segunda versión: suma la portada con los destellos, la bienvenida con los dos mundos y crear cuenta. Es la que se usó para la app |
+| `2026_09_09/` | Primera versión: seis pantallas (inicio, principal, resultado, desglose, simulador, asistente) |
+| `2026_09_13/` | Segunda versión: suma la portada con los destellos, la bienvenida con los dos mundos y crear cuenta. Es la que se usó para la app |
 
 Cada `.dc.html` es una pantalla; `canvas.json` dice cómo están ordenadas. Se abren en un navegador.
 

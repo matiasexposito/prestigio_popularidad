@@ -57,7 +57,7 @@ del 2000 en adelante. El margen sale de 20 remuestreos (bootstrap).
   ancho que el de hoy (12 remuestreos, se muestra siempre). Medido antes de incluirlo:
   el acierto por período se mantiene (prestigio 0,68-0,78; popularidad 0,75-0,80).
 
-Uso (desde la raiz del repo):  python3 diseno/prototipos/prototipo_diogenes/generar_modelo.py
+Uso (desde la raiz del repo):  python diseno/prototipos/prototipo_matias/generar_modelo.py
 """
 import csv, json, os
 import numpy as np

@@ -20,4 +20,4 @@ Esos filtros viven en `diseno/prototipos/prototipo_matias/generar_modelo.py`, no
 
 Por qué el corte en 2000 está explicado en `../decisiones.md` (2 de noviembre de 2026).
 
-Se regeneran desde `datasets/` con el script de `../codigo/` o, a mano, filtrando por año.
+Se regeneran filtrando cada archivo de `datasets/` por el criterio de la tabla. Verificado el 16/11/2026: el filtro da exactamente estos cuatro archivos, fila por fila.

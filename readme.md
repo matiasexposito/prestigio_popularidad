@@ -27,9 +27,9 @@ Junto con la app hay cuatro páginas que la explican, pensadas para alguien que 
 | Página | Qué cuenta |
 |---|---|
 | [**El racional**](https://pyp-ashy.vercel.app/racional) | Por qué la herramienta es como es: problema, hipótesis, datos, modelo, lo que no medimos, diseño y uso de la IA. También está en [`racional.md`](racional.md) |
-| [Qué hace cada pantalla](https://pyp-ashy.vercel.app/la-pagina) | El recorrido de la app, pantalla por pantalla |
-| [Las decisiones de diseño](https://pyp-ashy.vercel.app/decisiones-de-diseno) | Qué le pedimos a la IA y por qué |
-| [Cómo impacta la letra](https://pyp-ashy.vercel.app/la-letra) | Qué sabemos de la letra y qué queda para la entrega siguiente |
+| [Qué hace cada pantalla](https://pyp-ashy.vercel.app/la_pagina) | El recorrido de la app, pantalla por pantalla |
+| [Las decisiones de diseño](https://pyp-ashy.vercel.app/decisiones_de_diseno) | Qué le pedimos a la IA y por qué |
+| [Cómo impacta la letra](https://pyp-ashy.vercel.app/la_letra) | Qué sabemos de la letra y por qué no entra a la herramienta |
 
 El prototipo anterior, de Diógenes, sigue en [`diseno/prototipos/prototipo_diogenes/`](diseno/prototipos/prototipo_diogenes/) y publicado en https://pyp-green.vercel.app. La app actual nació de ese código.
 
@@ -85,9 +85,11 @@ Son los números después de la limpieza del 15 de noviembre de 2026. De las 23.
 
 **Es binario y no una escalera.** Medimos si ganar suena distinto de estar nominada y la diferencia es 0,04 en acústica, y para el lado contrario — menos de la mitad de la brecha que sí importa.
 
-### La letra, pendiente
+### Lo que la herramienta no mide
 
-El análisis mide solo el sonido. La letra influye en los dos ejes y todavía no la incorporamos: queda como línea de trabajo para la entrega siguiente. El detalle, con las fuentes, está en [`analisis/la_letra.md`](analisis/la_letra.md). Por qué no incluimos la letra ni las redes sociales, con pruebas propias, está en [`analisis/redes_y_letra.md`](analisis/redes_y_letra.md).
+La herramienta mide solo el sonido. **La letra, las redes sociales y YouTube no entran**, por decisión tomada con los docentes el 15 de noviembre de 2026. Influyen en los dos ejes, y por eso el racional explica cómo impacta cada una, qué peso aproximado tiene y por qué quedó afuera (sección 5 de [`racional.md`](racional.md)).
+
+El material de apoyo está en `analisis/`: qué se sabe del impacto de la letra ([`la_letra.md`](analisis/la_letra.md)), las pruebas propias sobre redes y letra ([`redes_y_letra.md`](analisis/redes_y_letra.md)) y la tabla de pesos ([`decision_letra_redes.md`](analisis/decision_letra_redes.md)).
 
 ## Fuentes de datos
 
@@ -188,12 +190,14 @@ Y dentro de esas 9.903, antes de limpiar: 213 premiadas en las dos categorías g
 
 | | |
 |---|---|
-| **Essentia.js** | Mide tempo, tonalidad, volumen y bailabilidad del audio que sube el usuario, **en el navegador**: el archivo no sale de su computadora |
-| **ReccoBeats** | Mide energía, valencia y acústica |
+| **ReccoBeats** | Mide energía, valencia, acústica, bailabilidad, habla, volumen e instrumentalidad del audio que sube el usuario. Es una API gratuita: la app le manda tramos de 30 segundos y no guarda nada |
+| **Essentia.js** | Mide el tempo y el modo, **en el navegador** |
+| **Groq** (modelo GPT-OSS 120B) | Escribe la lectura del resultado a partir de los números de la canción. No recibe el título ni el artista. Las instrucciones están en [`prompts/lectura_ia.md`](prompts/lectura_ia.md) |
+| **Apple Music** (vista previa pública) | Los 30 segundos que suenan al tocar un punto del mapa |
 
-Esto cumple la promesa de la app: *"tu archivo se analiza y se descarta"*.
+La app no guarda el archivo que sube el usuario: se mide y se descarta.
 
-**Pendiente de calibración.** El modelo se entrenó con los valores de Spotify, y Essentia mide parecido pero en otra escala. Hay una conversión provisoria, calibrada con 10 canciones. Para la entrega siguiente: calibrar con más canciones.
+**Qué tan bien mide.** El modelo se entrenó con los valores de Spotify. La medición propia se calibró contra esos valores con 10 canciones y se verificó con otras 38; los resultados están más abajo, en "El modelo de la app".
 
 ## Librerías
 
@@ -246,7 +250,7 @@ El análisis histórico usa las seis décadas; **la app se entrena solo con las 
 
 Los puntajes que muestra la app son el percentil de la canción dentro de las 23.333, con un margen de error de 20 remuestreos. Se regeneran con `python diseno/prototipos/prototipo_matias/generar_modelo.py`.
 
-**Por qué la popularidad son dos cuentas y no una (03/11/2026).** Hasta ese día era una sola regresión lineal sobre el puntaje de chart, con 0 para las canciones que no entraron. Como de las 23.388 la mayoría son ceros, la recta se gastaba casi entera en distinguir "entró / no entró" y aplastaba las diferencias entre hits: Despacito daba 42 de popularidad y Shape Of You 44. Con las dos preguntas separadas dan 62 y 81, y mejora todo lo que se mide (separa hits del resto: 0,752 → 0,762; acierta el puesto entre los hits: 0,066 → 0,121). Lo que no arregla son las filas con datos rotos: Havana figura con instrumentalidad 0,92 y −12 dB (una versión instrumental mal cruzada), así que sigue dando 6. Eso es limpieza de datos, pendiente.
+**Por qué la popularidad son dos cuentas y no una (03/11/2026).** Hasta ese día era una sola regresión lineal sobre el puntaje de chart, con 0 para las canciones que no entraron. Como de las 23.388 la mayoría son ceros, la recta se gastaba casi entera en distinguir "entró / no entró" y aplastaba las diferencias entre hits: Despacito daba 42 de popularidad y Shape Of You 44. Con las dos preguntas separadas dan 62 y 81, y mejora todo lo que se mide (separa hits del resto: 0,752 → 0,762; acierta el puesto entre los hits: 0,066 → 0,121). Lo que no arreglaba eran las filas con datos rotos: Havana figuraba con instrumentalidad 0,92 y −12 dB (una versión instrumental mal cruzada). Eso se resolvió con la limpieza del 15/11/2026: Havana es una de las 36 canciones que se sacaron.
 
 **Análisis del audio subido**, en el navegador:
 
@@ -259,6 +263,8 @@ Los puntajes que muestra la app son el percentil de la canción dentro de las 23
 **Cuánto pesa el sonido, medido (15/11/2026).** El sonido explica alrededor del 24% de que una canción entre al Hot 100, el 3% de cuán alto llega y el 10% de que la nominen a Record o Song of the Year. Para una nominación pesa mucho más haber sido un éxito: el 62% de las nominadas llegó a los diez primeros puestos, contra el 14% de todos los éxitos. La letra, las redes sociales y YouTube no entran a la herramienta; cómo impactan, qué peso aproximado tienen y por qué quedaron afuera está en la sección 5 de [`racional.md`](racional.md).
 
 **Cómo se verificó la medición del audio (15/11/2026).** Se midieron con ReccoBeats y Essentia los 30 segundos de muestra de 38 éxitos al azar y se compararon con los valores de Spotify: bailabilidad 0,83; acústica 0,70; energía 0,68; habla 0,67; valencia 0,62; volumen 0,47; mismo tempo en 28 de 38 y mismo modo en 28 de 38. Con la canción entera (calibración de octubre) el parecido es de 0,89 a 0,97.
+
+**Cuánto cambia el puntaje por medir el audio (16/11/2026).** Con esas mismas 38 canciones se calculó el puntaje dos veces: con el dato de la base y con la medición del audio. La popularidad se movió 15 puntos (valor del medio) y el prestigio 11. En 13 de las 38 la popularidad se movió más de 20 puntos. Es un límite de la medición, no del modelo: se probaron 11 variantes del modelo y ninguna lo mejora. El detalle está en [`decisiones.md`](decisiones.md).
 
 ## Cambios del 20 al 27 de octubre de 2026
 
@@ -289,13 +295,13 @@ prestigio_popularidad/
 ├── datasets/               # Los CSV del análisis (todo 1958–2026) + diccionario.md
 ├── datasets_procesados/    # Los datos de la app (desde el año 2000)
 ├── diseno/
-│   ├── borrador/           # Las pantallas diseñadas antes de construir la app (9 y 13/09)
+│   ├── borrador/           # Las pantallas diseñadas antes de construir la app (2026_09_09 y 2026_09_13)
 │   ├── referencias/        # Imágenes de referencia
 │   └── prototipos/         # Una carpeta por versión o por integrante
-│       ├── prototipo_v1/
-│       ├── prototipo_diogenes/
+│       ├── prototipo_v1/       # Vacía: el primer prototipo es el de baja fidelidad (link arriba)
+│       ├── prototipo_diogenes/ # El prototipo anterior, de octubre. Queda como estaba
 │       ├── prototipo_matias/   # La app publicada
-│       └── prototipo_tomas/
+│       └── prototipo_tomas/    # Reservada
 ├── prompts/                # Textos de sistema de la IA, versionados
 ├── codigo/                 # Scripts de descarga, cruce, armado y auditoría
 ├── normalizacion/          # Dónde está la normalización por época
@@ -303,3 +309,5 @@ prestigio_popularidad/
 ├── entregas/               # Qué se entregó en cada fecha (entrega_4/como_seguimos.md: el estado y lo que falta)
 └── app/                    # Dónde vive la app publicada
 ```
+
+**Reglas del repositorio.** Los nombres de archivos y carpetas van en minúsculas, sin espacios, sin tildes y sin ñ, con guion bajo entre palabras. Las claves de las APIs no se suben nunca: van como variables de entorno. Ningún archivo pesa más de 100 MB; el dump de Spotify (4,1 GB) y los intermedios quedan afuera.

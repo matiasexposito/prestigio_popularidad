@@ -8,9 +8,9 @@ const path = require('path');
 const REPO = 'https://github.com/matiasexposito/prestigio_popularidad/blob/main/';
 const DOCS = [
   { md: '../../../racional.md',    salida: 'racional.html',             titulo: 'Racional', repo: true },
-  { md: 'la_pagina.md',            salida: 'la-pagina.html',            titulo: 'Qué hace cada pantalla' },
-  { md: 'decisiones_de_diseno.md', salida: 'decisiones-de-diseno.html', titulo: 'Las decisiones de diseño' },
-  { md: '../../../analisis/la_letra.md',    salida: 'la-letra.html',             titulo: 'Cómo impacta la letra' },
+  { md: 'la_pagina.md',            salida: 'la_pagina.html',            titulo: 'Qué hace cada pantalla' },
+  { md: 'decisiones_de_diseno.md', salida: 'decisiones_de_diseno.html', titulo: 'Las decisiones de diseño' },
+  { md: '../../../analisis/la_letra.md',    salida: 'la_letra.html',             titulo: 'Cómo impacta la letra' },
 ];
 
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -148,9 +148,9 @@ th{font-size:12.5px;color:var(--tenue);font-weight:600;background:#faf9f7}
   <span class="sep"></span>
   <a class="vinculo" href="/">la app</a>
   <a class="vinculo" href="/racional">el racional</a>
-  <a class="vinculo" href="/la-pagina">las pantallas</a>
-  <a class="vinculo" href="/decisiones-de-diseno">el diseño</a>
-  <a class="vinculo" href="/la-letra">la letra</a>
+  <a class="vinculo" href="/la_pagina">las pantallas</a>
+  <a class="vinculo" href="/decisiones_de_diseno">el diseño</a>
+  <a class="vinculo" href="/la_letra">la letra</a>
 </nav>
 <main>
 ${cuerpo}

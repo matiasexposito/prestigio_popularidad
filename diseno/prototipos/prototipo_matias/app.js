@@ -57,27 +57,7 @@
 
   addEventListener('hashchange', render);
 
-  /* ================= 1 · Splash: el polvo de canciones ================= */
-
-  // (La portada la dibuja galaxia.js. Esto queda solo por si falta el lienzo.)
-  (function polvo() {
-    const cont = $('#polvo');
-    if (!cont) return;
-    let semilla = 31;
-    const azar = () => { semilla = (semilla * 16807) % 2147483647; return semilla / 2147483647; };
-    const paleta = ['#1b4fd8', '#1b4fd8', '#b45309', '#b45309', '#c9c6c0', '#c9c6c0', '#c9c6c0'];
-    let html = '';
-    for (let i = 0; i < 64; i++) {
-      const x = azar(), y = azar();
-      const dx = x - 0.5, dy = y - 0.5;
-      if ((dx * dx) / 0.055 + (dy * dy) / 0.030 < 1) continue;   // el centro queda libre para el logo
-      const c = paleta[Math.floor(azar() * paleta.length)];
-      const grande = azar() > 0.82;
-      const op = c === '#c9c6c0' ? 0.55 : (grande ? 0.5 : 0.32);
-      html += `<i style="left:${(x * 100).toFixed(1)}%;top:${(y * 100).toFixed(1)}%;width:${grande ? 9 : 5}px;height:${grande ? 9 : 5}px;background:${c};opacity:${op}"></i>`;
-    }
-    cont.innerHTML = html;
-  })();
+  /* (1 · La portada la dibuja galaxia.js) */
 
   /* ================= 3 · Crear cuenta ================= */
 
