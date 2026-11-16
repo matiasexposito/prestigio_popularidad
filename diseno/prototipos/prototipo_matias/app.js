@@ -166,13 +166,17 @@
   // Todas las cifras salen del modelo (modelo.js), así cambian solas si se vuelve a entrenar.
   const miles = n => Number(n).toLocaleString('es-AR');
   function comoSeCalcula(nombre, e) {
-    // Corto y a la vista: qué quiere decir el número, y nada más. El detalle está en el racional.
-    const v = Math.round(e.v), base = miles(M.n);
-    const que = nombre === 'Prestigio'
-      ? `Suena <b>más parecida a las nominadas al Grammy</b> que el ${v}% de las ${base} canciones que medimos.`
-      : `Suena <b>más parecida a las que entran al Hot 100</b> que el ${v}% de las ${base} canciones que medimos.`;
-    return `<p class="que-significa">${que}</p>`;
+    // Corto y a la vista: una palabra que resume el número y una frase que dice contra qué
+    // se compara. "De cada 100" se entiende más rápido que un porcentaje de 23.333.
+    const v = Math.round(e.v);
+    const palabra = v >= 75 ? 'Muy parecida' : v >= 50 ? 'Parecida' : v >= 25 ? 'Poco parecida' : 'Muy poco parecida';
+    const aQue = nombre === 'Prestigio' ? 'al sonido de las nominadas al Grammy' : 'al sonido de las que entran al Hot 100';
+    return `<p class="que-significa"><b>${palabra}</b> ${aQue}. Le gana a ${v} de cada 100 canciones.</p>`;
   }
+
+  // "Instrumentalidad +20" en una canción cantada no le dice nada a nadie: quiere decir
+  // "tiene voz", que es obvio. No se muestra entre lo que más pesa, salvo que sea alta.
+  const sinInteres = (k, r) => k === 'instrumentalness' && r[k] < 0.1;
 
   function tarjetaPuntaje(nombre, e) {
     return `<div class="tarjeta-puntaje ${nombre === 'Prestigio' ? 'tp-azul' : 'tp-ambar'}">
@@ -186,11 +190,11 @@
   }
 
   PINTAR.resultado = () => {
-    const a = S.analisis, p = puntajes(a.rasgos), z = zona(p), c = conflicto(a.rasgos);
+    const a = S.analisis, p = PP.puntajesDe(a), z = zona(p), c = conflicto(a.rasgos);
     $('#titulo-cancion').textContent = `${a.titulo} — ${a.artista}`;
     $('#nombre-cancion').textContent = a.titulo;
     $('#artista-cancion').textContent = a.fuente === 'medido'
-      ? 'Medida con ReccoBeats y Essentia, en tu navegador'
+      ? 'Medida desde tu archivo con ReccoBeats y Essentia. Por eso el margen es más ancho.'
       : `${a.artista} · ${a.anio}`;
     // Si la medición quedó incompleta, se dice en la pantalla (antes solo iba a la consola)
     const aviso = $('#aviso-medicion');
@@ -200,10 +204,15 @@
     $('#tarjetas-puntaje').innerHTML =
       tarjetaPuntaje('Prestigio', p.pres) + tarjetaPuntaje('Popularidad', p.pop);
 
-    const foco = c
-      ? ` Lo que más te tensiona los dos ejes es <strong>${la(c.k)}</strong>: ${valorLargo(c.k, a.rasgos[c.k])}.`
-      : '';
-    $('#lectura').innerHTML = `Estás en zona de <strong>${z.nombre.toLowerCase()}</strong>. ${z.txt}${foco}`;
+    $('#lectura').innerHTML = `Estás en zona de <strong>${z.nombre.toLowerCase()}</strong>. ${z.txt}`;
+
+    // Debajo de la lectura: los tres rasgos que más pesan, con el color de su puntaje
+    const pesos = [...aportes('prestigio', a.rasgos).map(x => ({ ...x, eje: 'azul', de: 'prestigio' })),
+                   ...aportes('popularidad', a.rasgos).map(x => ({ ...x, eje: 'ambar', de: 'popularidad' }))]
+      .filter(x => Math.abs(x.pts) >= 1 && !sinInteres(x.k, a.rasgos))
+      .sort((x, y) => Math.abs(y.pts) - Math.abs(x.pts)).slice(0, 3);
+    $('#lectura-pesos').innerHTML = pesos.map(x =>
+      `<span class="peso peso-${x.eje}" title="${La(x.k)}: ${valorCorto(x.k, a.rasgos[x.k])}. ${x.pts > 0 ? 'Suma' : 'Resta'} ${Math.abs(Math.round(x.pts))} puntos de ${x.de}"><b>${signo(x.pts)}</b> ${INFO[x.k].nombre}</span>`).join('');
     // La IA pone en palabras los mismos números; si no está, queda la lectura fija de arriba
     const cajaLectura = $('#lectura').closest('.caja');
     cajaLectura.classList.remove('con-ia');
@@ -262,8 +271,10 @@
       $('#conflicto-lectura').textContent =
         'No hay una sola dirección que te mejore los dos puntajes. Es la decisión que tenés que tomar.';
     } else {
+      // Sin conflicto: se nombra el rasgo que más pesa en el puntaje que se está mirando
+      const fuerte = aportes(S.eje, r).slice().sort((x, y) => Math.abs(y.pts) - Math.abs(x.pts))[0];
       $('#conflicto-titulo').textContent = 'No tenés un conflicto marcado';
-      $('#conflicto-texto').textContent = 'Ningún rasgo te empuja fuerte hacia un mundo y te saca del otro. Podés mover varias cosas sin pagar un precio grande.';
+      $('#conflicto-texto').innerHTML = `Ningún rasgo te suma mucho en un puntaje y te resta mucho en el otro. Lo que más pesa acá es <strong>${la(fuerte.k)}</strong> (${valorCorto(fuerte.k, r[fuerte.k])}): ${fuerte.pts > 0 ? 'suma' : 'resta'} ${Math.abs(Math.round(fuerte.pts))} puntos.`;
       $('#conflicto-cifras').innerHTML = '';
       $('#conflicto-lectura').textContent = 'Probá en el simulador: vas a ver que los dos puntajes se mueven bastante juntos.';
     }

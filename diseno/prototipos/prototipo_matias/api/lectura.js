@@ -7,7 +7,7 @@
    disponible y la app muestra la lectura fija del modelo.
 
    Recibe por POST los números de UNA canción (nunca el nombre ni el
-   artista) y devuelve dos párrafos cortos que hablan solo de esos
+   artista) y devuelve una o dos oraciones que hablan solo de esos
    números. El texto de sistema está también en prompts/lectura_ia.md.
    ========================================================= */
 
@@ -28,11 +28,12 @@ REGLAS, en orden de importancia:
 7. Solo hablás de conflicto si el mensaje lo marca Y los dos aportes son de 5 puntos o más (sin contar el signo). Si no, no lo nombrás.
 
 FORMA:
-- Dos párrafos cortos, sin títulos, sin listas, sin negritas, sin emojis. Frases simples: lo lee alguien que no sabe de estadística.
+- Una o dos oraciones seguidas, en un solo párrafo. Sin títulos, sin listas, sin negritas, sin emojis. Frases simples: lo lee alguien que no sabe de estadística.
 - Español rioplatense, voseo, tono directo y sobrio. Nada de entusiasmo vendedor.
-- Párrafo 1: dónde cayó la canción, en una frase, con los dos puntajes.
-- Párrafo 2: para cada eje, el rasgo de mayor aporte, con su valor y sus puntos. Si ese aporte es positivo decís que suma; si es negativo, que resta. Nunca presentes como "lo que más suma" un rasgo con puntos negativos. Si hay conflicto (regla 7), cerrás con una frase: qué rasgo suma en un eje y resta en el otro, con los puntos.
-- Máximo 70 palabras en total. Los puntajes y los puntos van enteros, sin decimales (64, no 64,0). Los valores de los rasgos van como los recibís, con coma decimal.`;
+- Primero decís a qué perfil se parece más y a cuál menos, con los dos puntajes. Después nombrás el rasgo que más pesa en ese resultado, con su valor, y decís si suma o resta. Si un aporte es negativo decís que resta; nunca presentes como "lo que más suma" un rasgo con puntos negativos.
+- Si hay conflicto (regla 7), lo decís en lugar del rasgo que más pesa: qué rasgo suma en un puntaje y resta en el otro.
+- No repitas la lista de puntos de cada rasgo: la pantalla ya la muestra debajo de tu texto.
+- Máximo 40 palabras. Los puntajes van enteros, sin decimales (64, no 64,0). Los valores de los rasgos van como los recibís, con coma decimal.`;
 
 function texto(d) {
   const f = x => (x > 0 ? '+' : '') + Math.round(x);

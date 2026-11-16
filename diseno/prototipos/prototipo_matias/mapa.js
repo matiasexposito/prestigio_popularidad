@@ -70,8 +70,8 @@
           <text class="m-num" x="${X1}" y="${Y0 + 16}" text-anchor="middle">100</text>
           <text class="m-num" x="${X0 - 8}" y="${py(50) + 4}" text-anchor="end">50</text>
           <text class="m-num" x="${X0 - 8}" y="${Y1 + 4}" text-anchor="end">100</text>
-          <text class="m-eje-texto m-eje-pop" x="${(X0 + X1) / 2}" y="${Y0 + 40}" text-anchor="middle">popularidad →</text>
-          <text class="m-eje-texto m-eje-pres" x="22" y="${(Y0 + Y1) / 2}" text-anchor="middle" transform="rotate(-90 22 ${(Y0 + Y1) / 2})">prestigio →</text>
+          <text class="m-eje-texto m-eje-pop" x="${(X0 + X1) / 2}" y="${Y0 + 40}" text-anchor="middle">más a la derecha, suena más a hit →</text>
+          <text class="m-eje-texto m-eje-pres" x="22" y="${(Y0 + Y1) / 2}" text-anchor="middle" transform="rotate(-90 22 ${(Y0 + Y1) / 2})">más arriba, suena más a nominada →</text>
         </g>
         <g class="m-capa-fondo">${M.fondo.map(([x, y, g], i) => `<circle class="m-fondo g-${g}" data-f="${i}" cx="${px(x).toFixed(1)}" cy="${py(y).toFixed(1)}" r="${g === 'control' ? 3.4 : 4.4}" style="--d:${Math.round(px(x) - X0)}"/>`).join('')}</g>
         <g class="m-capa-antes"></g><g class="m-capa-refs"></g><g class="m-capa-tu"></g>`;

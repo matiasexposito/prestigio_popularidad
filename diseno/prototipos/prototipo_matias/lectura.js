@@ -16,7 +16,8 @@
 
   function paquete(a, p, z, c) {
     const conValor = (nombre) => aportes(nombre, a.rasgos)
-      .filter(x => Math.abs(x.pts) >= 1)
+      // sin la instrumentalidad de una canción cantada: "tiene voz" no es una lectura
+      .filter(x => Math.abs(x.pts) >= 1 && !(x.k === 'instrumentalness' && a.rasgos[x.k] < 0.1))
       .sort((x, y) => Math.abs(y.pts) - Math.abs(x.pts))
       .slice(0, 4)
       .map(x => ({ nombre: INFO[x.k].nombre, valor: valorCorto(x.k, a.rasgos[x.k]), pts: Math.round(x.pts) }));

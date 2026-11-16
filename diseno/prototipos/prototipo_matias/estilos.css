@@ -651,3 +651,14 @@ input[type="range"]::-moz-range-thumb { background: var(--tinta); box-shadow: 0 
 
 /* Aviso cuando la medición de un archivo quedó incompleta */
 .aviso-medicion { margin-top: 6px; padding: 7px 10px; border: 1px solid var(--borde-fuerte); border-radius: var(--radio-chico); background: var(--panel); font-size: 12px; line-height: 1.4; color: var(--texto); }
+
+/* Los tres rasgos que más pesan, debajo de la lectura */
+.lectura-pesos { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.lectura-pesos:empty { display: none; }
+.peso { display: inline-flex; align-items: baseline; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--borde); background: var(--fondo); font-size: 12.5px; color: var(--texto); }
+.peso b { font-family: var(--mono); font-weight: 600; }
+.peso-azul b { color: var(--azul); }
+.peso-ambar b { color: var(--ambar); }
+.peso-azul { border-color: var(--azul-medio); }
+.peso-ambar { border-color: var(--ambar-medio); }
+.que-significa b { font-size: 14px; }

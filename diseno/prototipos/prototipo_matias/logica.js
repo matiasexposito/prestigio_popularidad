@@ -86,6 +86,14 @@
   }
   const eje = (nombre, r) => ejeCon(M[nombre], r);
   const puntajes = r => ({ pres: eje('prestigio', r), pop: eje('popularidad', r) });
+
+  // Una canción subida como archivo se mide con menos precisión que una de la base.
+  // En la prueba del 16/11/2026 (31 canciones, misma canción con el dato de la base y con
+  // el audio medido), 7 de cada 10 quedaron a menos de 12 puntos en los dos puntajes.
+  // Ese error se suma al margen del modelo, para que el margen que se muestra sea honesto.
+  const ERROR_MEDICION = 12;
+  const ensanchar = e => ({ v: e.v, lo: clamp(Math.min(e.lo, e.v - ERROR_MEDICION), 0, 100), hi: clamp(Math.max(e.hi, e.v + ERROR_MEDICION), 0, 100) });
+  const puntajesDe = a => { const p = puntajes(a.rasgos); return a.fuente === 'medido' ? { pres: ensanchar(p.pres), pop: ensanchar(p.pop) } : p; };
   // El viaje en el tiempo: la misma canción leída por el modelo de cada período
   const puntajesEn = (periodo, r) => ({ pres: ejeCon(periodo.prestigio, r), pop: ejeCon(periodo.popularidad, r) });
 
@@ -104,7 +112,10 @@
   // compara contra el más fuerte de su propio eje.
   // La instrumentalidad no compite: en un tema cantado vale casi 0 y "hacerlo instrumental"
   // no es una decisión real de arreglo.
+  // Solo cuenta como conflicto si el rasgo mueve 5 puntos o más en LOS DOS puntajes. Antes
+  // alcanzaba con medio punto, y la app presentaba como "tu conflicto" un −2 contra +8.
   const NO_CONFLICTO = ['instrumentalness'];
+  const MIN_CONFLICTO = 5;
   const maxAbs = a => Math.max(1e-9, ...a.map(x => Math.abs(x.pts)));
   function conflicto(r) {
     const a = aportes('prestigio', r), b = aportes('popularidad', r);
@@ -112,7 +123,7 @@
     let mejor = null;
     R.forEach((k, i) => {
       const ap = a[i].pts, aq = b[i].pts;
-      if (NO_CONFLICTO.includes(k) || Math.sign(ap) === Math.sign(aq) || Math.abs(ap) < 0.5 || Math.abs(aq) < 0.5) return;
+      if (NO_CONFLICTO.includes(k) || Math.sign(ap) === Math.sign(aq) || Math.abs(ap) < MIN_CONFLICTO || Math.abs(aq) < MIN_CONFLICTO) return;
       const peso = Math.min(Math.abs(ap) / mp, Math.abs(aq) / mq);
       if (!mejor || peso > mejor.peso) mejor = { k, peso, cp: ap, cq: aq, ap, aq };
     });
@@ -121,16 +132,16 @@
 
   function zona(p) {
     const a = p.pres.v >= 50, b = p.pop.v >= 50;
-    if (a && b) return { nombre: 'Las dos cosas', txt: 'Estás en la zona más chica del mapa: perfil de premio y de público a la vez.' };
+    if (a && b) return { nombre: 'Las dos cosas', txt: 'Tu sonido se parece a los dos perfiles a la vez. Es la zona más chica del mapa.' };
     if (a) return { nombre: 'Prestigio sin público', txt: 'Tu sonido se parece a lo que la Academia nomina, pero no a lo que entra al ranking.' };
-    if (b) return { nombre: 'Hit puro', txt: 'Buen potencial comercial, lejos del perfil que premia la Academia.' };
-    return { nombre: 'Ni una cosa ni la otra', txt: 'Por ahora tu sonido no se parece ni a lo premiado ni a lo masivo. Es donde está la mayoría de la música publicada.' };
+    if (b) return { nombre: 'Hit puro', txt: 'Tu sonido se parece a lo que entra al ranking, y poco a lo que nomina la Academia.' };
+    return { nombre: 'Ni una cosa ni la otra', txt: 'Tu sonido no se parece ni a lo nominado ni a lo que entra al ranking. Es donde está la mayoría de la música publicada.' };
   }
 
 
   window.PP = {
     M, R, INFO, SLIDERS, la, La, lo_, coma, mmss, clamp,
     nivel, valorCorto, valorLargo,
-    zs, puntuar, percentil, eje, puntajes, puntajesEn, aportes, conflicto, zona
+    zs, puntuar, percentil, eje, puntajes, puntajesDe, puntajesEn, aportes, conflicto, zona, ERROR_MEDICION
   };
 })();

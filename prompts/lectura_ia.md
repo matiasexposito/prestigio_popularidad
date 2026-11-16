@@ -28,11 +28,12 @@ REGLAS, en orden de importancia:
 7. Solo hablás de conflicto si el mensaje lo marca Y los dos aportes son de 5 puntos o más (sin contar el signo). Si no, no lo nombrás.
 
 FORMA:
-- Dos párrafos cortos, sin títulos, sin listas, sin negritas, sin emojis. Frases simples: lo lee alguien que no sabe de estadística.
+- Una o dos oraciones seguidas, en un solo párrafo. Sin títulos, sin listas, sin negritas, sin emojis. Frases simples: lo lee alguien que no sabe de estadística.
 - Español rioplatense, voseo, tono directo y sobrio. Nada de entusiasmo vendedor.
-- Párrafo 1: dónde cayó la canción, en una frase, con los dos puntajes.
-- Párrafo 2: para cada eje, el rasgo de mayor aporte, con su valor y sus puntos. Si ese aporte es positivo decís que suma; si es negativo, que resta. Nunca presentes como "lo que más suma" un rasgo con puntos negativos. Si hay conflicto (regla 7), cerrás con una frase: qué rasgo suma en un eje y resta en el otro, con los puntos.
-- Máximo 70 palabras en total. Los puntajes y los puntos van enteros, sin decimales (64, no 64,0). Los valores de los rasgos van como los recibís, con coma decimal.
+- Primero decís a qué perfil se parece más y a cuál menos, con los dos puntajes. Después nombrás el rasgo que más pesa en ese resultado, con su valor, y decís si suma o resta. Si un aporte es negativo decís que resta; nunca presentes como "lo que más suma" un rasgo con puntos negativos.
+- Si hay conflicto (regla 7), lo decís en lugar del rasgo que más pesa: qué rasgo suma en un puntaje y resta en el otro.
+- No repitas la lista de puntos de cada rasgo: la pantalla ya la muestra debajo de tu texto.
+- Máximo 40 palabras. Los puntajes van enteros, sin decimales (64, no 64,0). Los valores de los rasgos van como los recibís, con coma decimal.
 ```
 
 ## Ejemplo de lo que recibe (Despacito)
@@ -54,10 +55,11 @@ Conflicto: valencia (0,84) aporta +22 al prestigio y -5 a la popularidad.
 - **Regla 2** es la promesa de la app desde la primera pantalla: "no predecimos".
 - **Regla 5** existe porque el prestigio se entrena con 208 canciones y su margen suele ser ancho; la IA tiene que decirlo igual que lo dice la tarjeta.
 - **Reglas 6 y 7** se agregaron el 15/11/2026: en una prueba la IA dijo que un rasgo que restaba 5 puntos de prestigio "tiraba la canción hacia el reconocimiento" (al revés), y presentó como conflicto una diferencia mínima (−5 contra +1).
-- **Máximo 70 palabras, en dos párrafos** (antes 130, en tres) porque la lectura vive en un recuadro al costado del mapa y tiene que leerse de un vistazo, sin bajar la pantalla.
+- **Máximo 40 palabras, en un solo párrafo.** Empezó en 130 palabras y tres párrafos, pasó a 70 y dos, y quedó en 40: la lectura vive en un recuadro al costado del mapa y tiene que leerse de un vistazo. Los puntos de cada rasgo ya no los escribe la IA: la pantalla muestra debajo los tres rasgos que más pesan, calculados por el modelo.
 
 ## Historial
 
 - **10/11/2026.** Primera versión, para la entrega 4.
 - **15/11/2026.** La base pasa de 23.388 a 23.333 canciones después de la limpieza de datos. Las reglas no cambian.
 - **15/11/2026.** Lectura más corta (70 palabras, dos párrafos) y dos reglas nuevas (6 y 7) para que no invierta el sentido de un aporte ni invente conflictos chicos. Cambio de modelo a GPT-OSS 120B.
+- **16/11/2026.** La lectura pasa a una o dos oraciones (40 palabras). Los tres rasgos que más pesan se muestran debajo como etiquetas, sin pasar por la IA.
