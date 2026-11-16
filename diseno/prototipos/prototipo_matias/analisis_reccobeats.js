@@ -15,17 +15,23 @@
  *   3. promediamos los resultados
  *   4. aplicamos la calibración medida contra Spotify (ver CALIBRACION)
  *
- * Calibración: 10 canciones del corpus (Adele, Billie Eilish, Bon Iver, Chlöe, Drake ×2,
- * Meghan Trainor, P!nk, Rihanna, The Chainsmokers), 64 tramos, comparadas contra sus
- * valores de Spotify. Cada corrección se eligió por validación dejando una canción afuera.
- *   - energía        +0,081                 (correlación 0,93)
- *   - bailabilidad   +0,058                 (correlación 0,97)
- *   - valencia       sin corrección          (correlación 0,91)
- *   - acústica       1,13·x − 0,13          (correlación 0,89; sin P!nk, dato roto en el corpus)
- *   - habla          2,21·x − 0,09          (ReccoBeats comprime el rap)
- *   - volumen        0,68·x − 0,82 dB
+ * Calibración (16/11/2026): 31 éxitos del corpus elegidos al azar, medidos con ReccoBeats
+ * y comparados contra sus valores de Spotify. Cada corrección es una recta (dato = a·x + b)
+ * ajustada por mínimos cuadrados. Entre paréntesis, la correlación con Spotify.
+ *   - energía        0,707·x + 0,227        (0,78)
+ *   - valencia       1,097·x − 0,015        (0,76)
+ *   - acústica       0,747·x − 0,025        (0,78)
+ *   - bailabilidad   1,296·x − 0,202        (0,82)
+ *   - habla          1,031·x + 0,004        (0,75)
+ *   - volumen        0,859·x − 0,708 dB     (0,78)
+ *   - instrumentalidad: sin corrección
  *   - tempo de ReccoBeats NO se usa: falla (correlación −0,36). Lo mide Essentia.
- * Con 10 canciones es una calibración de prototipo: la dirección es firme, los números finos no.
+ * Qué mejora: comparando el puntaje de una misma canción con el dato de la base y con el
+ * audio medido, la diferencia típica bajó de 12,7 a 8,0 puntos en popularidad y de 8,9 a 6,5
+ * en prestigio (validado dejando una canción afuera cada vez).
+ * Reemplaza a la calibración de octubre, hecha con 10 canciones (energía +0,081;
+ * bailabilidad +0,058; acústica 1,13·x − 0,13; habla 2,21·x − 0,09; volumen 0,68·x − 0,82).
+ * También se probó medir el volumen con Essentia (LUFS): no mejora, así que queda ReccoBeats.
  *
  * CORS: verificado, ReccoBeats acepta llamadas desde el navegador (también desde file://).
  */
@@ -39,12 +45,12 @@
 
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const CALIBRACION = {
-    energy:           x => clamp(x + 0.081, 0, 1),
-    danceability:     x => clamp(x + 0.058, 0, 1),
-    valence:          x => clamp(x, 0, 1),
-    acousticness:     x => clamp(1.13 * x - 0.13, 0, 1),
-    speechiness:      x => clamp(2.21 * x - 0.09, 0, 1),
-    loudness:         x => clamp(0.68 * x - 0.82, -30, -1),
+    energy:           x => clamp(0.707 * x + 0.227, 0, 1),
+    danceability:     x => clamp(1.296 * x - 0.202, 0, 1),
+    valence:          x => clamp(1.097 * x - 0.015, 0, 1),
+    acousticness:     x => clamp(0.747 * x - 0.025, 0, 1),
+    speechiness:      x => clamp(1.031 * x + 0.004, 0, 1),
+    loudness:         x => clamp(0.859 * x - 0.708, -30, -1),
     instrumentalness: x => clamp(x, 0, 1),
   };
   const RASGOS = Object.keys(CALIBRACION);

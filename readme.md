@@ -197,7 +197,7 @@ Y dentro de esas 9.903, antes de limpiar: 213 premiadas en las dos categorías g
 
 La app no guarda el archivo que sube el usuario: se mide y se descarta.
 
-**Qué tan bien mide.** El modelo se entrenó con los valores de Spotify. La medición propia se calibró contra esos valores con 10 canciones y se verificó con otras 38; los resultados están más abajo, en "El modelo de la app".
+**Qué tan bien mide.** El modelo se entrenó con los valores de Spotify. La medición propia se calibra contra esos valores: primero con 10 canciones (octubre) y, desde el 16/11/2026, con 31. Los resultados están más abajo, en "El modelo de la app".
 
 ## Librerías
 
@@ -264,7 +264,7 @@ Los puntajes que muestra la app son el percentil de la canción dentro de las 23
 
 **Cómo se verificó la medición del audio (15/11/2026).** Se midieron con ReccoBeats y Essentia los 30 segundos de muestra de 38 éxitos al azar y se compararon con los valores de Spotify: bailabilidad 0,83; acústica 0,70; energía 0,68; habla 0,67; valencia 0,62; volumen 0,47; mismo tempo en 28 de 38 y mismo modo en 28 de 38. Con la canción entera (calibración de octubre) el parecido es de 0,89 a 0,97.
 
-**Cuánto cambia el puntaje por medir el audio (16/11/2026).** Con esas mismas 38 canciones se calculó el puntaje dos veces: con el dato de la base y con la medición del audio. La popularidad se movió 15 puntos (valor del medio) y el prestigio 11. En 13 de las 38 la popularidad se movió más de 20 puntos. Es un límite de la medición, no del modelo: se probaron 11 variantes del modelo y ninguna lo mejora. El detalle está en [`decisiones.md`](decisiones.md).
+**Cuánto cambia el puntaje por medir el audio, y la calibración nueva (16/11/2026).** Se volvieron a medir las 38 canciones y se calculó el puntaje de dos formas: con el dato de la base y con la medición del audio. En 7 de las 38 la muestra no era la misma grabación que la de la base (versiones en vivo, covers, una pista sin voz), así que la prueba quedó en 31. Con la calibración de octubre, hecha con 10 canciones, la popularidad se movía 12,7 puntos y el prestigio 8,9 (valor del medio). Se recalibró la medición con las 31 y bajó a **8,0 y 6,5**, validado dejando una canción afuera cada vez. Medir el volumen con Essentia y cambiar el modelo (11 variantes) no mejoró. El detalle está en la sección 4.2 de [`racional.md`](racional.md) y en [`decisiones.md`](decisiones.md).
 
 ## Cambios del 20 al 27 de octubre de 2026
 

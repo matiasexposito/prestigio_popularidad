@@ -499,16 +499,34 @@ Surgió porque una canción de trap subida como archivo dio cero en los dos punt
 
 **Con un archivo subido, el resultado es menos estable.** Tomamos 38 éxitos y calculamos el puntaje dos veces: con el dato de la base y con nuestra medición de los 30 segundos de muestra.
 
+La primera cuenta dio una diferencia de 15 puntos en popularidad y 11 en prestigio, con 13 canciones de 38 moviéndose más de 20 puntos. **Esa cuenta estaba inflada por un error de la prueba:** al volver a medir vimos que en 7 de las 38 la muestra no era la misma grabación que la de la base (una versión en vivo, una acústica, un cover, una pista sin voz, dos canciones distintas con el mismo nombre y una con el dato roto). La canción que parecía "cantada pero medida como instrumental" era, en realidad, la pista sin voz.
+
+Con las 31 que sí son la misma grabación:
+
 | | Diferencia (valor del medio) | Más de 20 puntos | Más de 40 puntos |
 |---|---|---|---|
-| Popularidad | 15 puntos | 13 de 38 | 3 de 38 |
-| Prestigio | 11 puntos | 8 de 38 | 1 de 38 |
-
-Los saltos grandes de popularidad vienen de dos rasgos: la **instrumentalidad** (a veces la medición cree que una canción cantada es instrumental) y el **volumen** (es el rasgo que más pesa y uno de los que peor se mide).
+| Popularidad | 12,7 puntos | 7 de 31 | ninguna |
+| Prestigio | 8,9 puntos | 4 de 31 | — |
 
 **Cambiar el modelo no lo arregla.** Probamos 11 variantes: sin volumen, sin instrumentalidad, sin energía, recortando los valores extremos y con más regularización. Ninguna baja el error de forma clara y varias empeoran el acierto (sin volumen ni instrumentalidad, la popularidad pasa de 0,76 a 0,66).
 
-**Queda por decidir** qué se hace en la app: preguntar si la canción tiene voz cuando la medición dice que es instrumental, mostrar un margen más ancho para los archivos subidos, o las dos cosas.
+### Decisión: recalibrar la medición con 31 canciones
+
+La medición de ReccoBeats se corrige para que se parezca a la de Spotify. Esa corrección estaba hecha en octubre con 10 canciones. La rehicimos con las 31 de la prueba: una recta por rasgo (energía, valencia, acústica, bailabilidad, habla y volumen).
+
+| | Calibración de octubre | Calibración nueva |
+|---|---|---|
+| Popularidad: diferencia típica | 12,7 | **8,0** |
+| Popularidad: más de 20 puntos | 7 de 31 | 5 de 31 |
+| Prestigio: diferencia típica | 8,9 | **6,5** |
+
+Para que la comparación sea limpia, la corrección de cada canción se calculó con las otras 30. Las rectas están en `analisis_reccobeats.js`.
+
+**Lo que se probó y se descartó:** medir el volumen con Essentia en vez de ReccoBeats (la popularidad queda en 13,1 o peor) y forzar la instrumentalidad a cero (no cambia nada una vez sacadas las grabaciones equivocadas).
+
+**Un caso real, para tenerlo presente.** "Goteo" de Duki, medida con la vista previa de Apple, da prestigio 12 y popularidad 67. El audio del video oficial de YouTube pasado a mp3 dio 10 y 32. El prestigio casi no cambia; la popularidad sí, porque depende del volumen y de la energía, y el audio de un video no es el tema de estudio. Con Despacito pasó algo parecido en el prestigio: el video dura 4:41 y el tema 3:49, y la duración es lo que más suma.
+
+**Queda por decidir** si la app muestra un margen más ancho para los archivos subidos, y si se agrega medir la vista previa desde el buscador.
 
 ### Orden del repositorio
 

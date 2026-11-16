@@ -70,21 +70,21 @@ Diez minutos. Hay que decidir quién dice qué y tener un plan B si falla intern
 
 | Canción | Prestigio | Popularidad | Zona |
 |---|---|---|---|
-| Seminare — Serú Girán | 90 | 26 | Prestigio sin público |
-| Goteo — Duki | 5 | 63 | Hit puro |
-| Crimen — Gustavo Cerati | 67 | 76 | Las dos cosas |
+| Seminare — Serú Girán | 79 | 17 | Prestigio sin público |
+| Goteo — Duki | 12 | 67 | Hit puro |
+| Crimen — Gustavo Cerati | 59 | 54 | Las dos cosas |
 
-Con el archivo completo el número puede moverse. Hay que probar antes de la demo el archivo exacto que se va a usar, dos veces, y usar ese mismo.
+Son los valores con la calibración nueva del 16/11. Crimen quedó cerca del medio: es la más arriesgada. Con el archivo completo el número puede moverse, y con el audio de un video de YouTube se mueve mucho (Goteo dio 10 y 32). Hay que probar antes de la demo el archivo exacto que se va a usar, dos veces, y usar ese mismo.
 
 ### 3. Decidir qué se hace con el error de medición
 
 **Quién:** decide el equipo.
 
-El 16/11 probamos el modelo y encontramos que calcula bien con los datos de la base, pero un archivo subido se mide con menos precisión: la popularidad se mueve unos 15 puntos y el prestigio unos 11 (detalle en `decisiones.md`). Hay tres propuestas sin decidir:
+El 16/11 probamos el modelo y encontramos que calcula bien con los datos de la base, pero un archivo subido se mide con menos precisión. Ya se hizo una mejora: se recalibró la medición con 31 canciones y la diferencia bajó de 12,7 a 8,0 puntos en popularidad y de 8,9 a 6,5 en prestigio (sección 4.2 del racional). Queda por decidir:
 
-- Que la app pregunte "¿tu canción tiene voz?" cuando la medición dice que es instrumental.
 - Mostrar un margen de error más ancho cuando la canción se subió como archivo.
-- Contarlo en el racional y en la demo como un límite medido.
+- Permitir medir la vista previa de 30 segundos desde el buscador, sin archivo. Da siempre el mismo resultado.
+- Contarlo en la demo como un límite medido.
 
 ### 4. Definir la pirueta
 

@@ -362,7 +362,23 @@ Las canciones de la base las midió Spotify. La canción que sube la persona no 
 
 **Qué nos dice esto.** Con un solo tramo de 30 segundos el parecido es mediano; con la canción entera, alto. Por eso la app mide todos los tramos y promedia, y por eso conviene subir la canción completa.
 
-**El límite que queda.** Nuestra medición se parece a la de Spotify pero no es idéntica. El puntaje de una canción subida tiene, además del margen que muestra la app, este error de medición, que la app no muestra.
+**La prueba que nos hizo corregir la medición (16 de noviembre).** Subimos una canción de trap y dio cero en los dos puntajes. Eso nos hizo preguntarnos algo que no habíamos medido: *la misma canción, ¿da el mismo puntaje con el dato de la base que midiendo su audio?*
+
+Volvimos a medir las 38 canciones. Lo primero que encontramos fue un error nuestro: en 7 de las 38, la muestra de audio **no era la misma grabación** que la de la base. Eran una versión en vivo, una acústica, un cover, una pista sin voz, dos canciones distintas con el mismo nombre y una con el dato roto. Las sacamos y quedaron 31.
+
+Con esas 31, calculamos el puntaje de cada una de las dos formas y miramos la diferencia:
+
+| | Con la calibración de octubre (10 canciones) | Con la calibración nueva (31 canciones) |
+|---|---|---|
+| Popularidad: diferencia típica | 12,7 puntos | **8,0 puntos** |
+| Popularidad: canciones que se mueven más de 20 puntos | 7 de 31 | 5 de 31 |
+| Prestigio: diferencia típica | 8,9 puntos | **6,5 puntos** |
+
+"Calibrar" es corregir la medición de ReccoBeats para que se parezca a la de Spotify, con la que aprendió el modelo. La calibración de octubre estaba hecha con 10 canciones; la nueva, con 31. Para no engañarnos, la corrección de cada canción se calculó con las otras 30, sin usarla a ella.
+
+**Qué más probamos y no sirvió.** Medir el volumen con Essentia en vez de ReccoBeats (no mejora). Cambiar el modelo: probamos 11 variantes, sacando el volumen, la instrumentalidad o la energía, y ninguna baja el error sin perder acierto.
+
+**El límite que queda.** Aun con la calibración nueva, el puntaje de una canción subida se mueve unos 8 puntos en popularidad y unos 6 en prestigio respecto del que tendría con el dato de Spotify. Y depende de **qué archivo** se sube: el audio de un video oficial trae introducciones y finales que el tema de estudio no tiene, y dura distinto. La misma canción subida desde dos archivos distintos puede dar resultados distintos. El margen que muestra la app no incluye este error.
 
 ### 4.3 Qué quedó afuera del modelo
 

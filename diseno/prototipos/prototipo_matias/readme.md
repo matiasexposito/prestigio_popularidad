@@ -69,5 +69,5 @@ vercel deploy --prod
 
 - Usa solo canciones desde el año 2000: mide dónde está parada una canción hoy.
 - Mide el sonido. No la letra, ni las redes, ni quién es el artista.
-- **Un archivo subido se mide con menos precisión que una canción de la base.** En una prueba con 38 canciones, medir el audio en vez de usar el dato original movió la popularidad unos 15 puntos y el prestigio unos 11. Está explicado en `decisiones.md` (16 de noviembre de 2026).
+- **Un archivo subido se mide con menos precisión que una canción de la base.** En una prueba con 31 canciones, medir el audio en vez de usar el dato original mueve la popularidad unos 8 puntos y el prestigio unos 6, después de la calibración del 16 de noviembre de 2026. Y depende del archivo: el audio de un video no es igual al tema de estudio. Está explicado en la sección 4.2 del racional.
 - Licencia de Essentia.js: AGPL-3.0 (uso académico libre).
