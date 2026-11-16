@@ -1,0 +1,79 @@
+/* =========================================================
+   P&P — la app original con los colores de la opción B.
+   Se carga DESPUÉS de estilos.css. Solo cambia:
+   1) el azul y el naranja (más vivos), en toda la app
+   2) los puntajes: recuadros de color lleno con el número grande
+   Todo lo demás (galaxia, tipografías, bordes redondeados) queda igual.
+   ========================================================= */
+
+:root {
+  --azul: #1f3ff0;
+  --azul-osc: #1530c0;
+  --azul-claro: #eef1ff;
+  --azul-medio: #c9d2ff;
+
+  --ambar: #ff6a13;
+  --ambar-osc: #a84300;
+  --ambar-claro: #fff1e7;
+  --ambar-medio: #ffcfb0;
+  --ambar-texto: #c24e00;   /* naranja para letras sobre blanco: se lee */
+
+  --cifra: "Anton", Impact, sans-serif;
+}
+
+/* El naranja puro no se lee como letra sobre blanco: en texto va un tono más oscuro */
+.t-ambar, .mapa-titulo b.t-ambar { color: var(--ambar-texto); }
+.m-eje-pop { fill: var(--ambar-texto); }
+.cc-ambar b, .peso-ambar b, .pop-cifras span:last-child { color: var(--ambar-osc); }
+.mundo-ambar .mundo-rotulo { color: var(--ambar-osc); }
+.t-duo { background: linear-gradient(90deg, var(--azul), var(--ambar-texto)); -webkit-background-clip: text; background-clip: text; }
+
+/* ---------- Los puntajes: recuadros llenos ---------- */
+.tarjeta-puntaje { border: 0; border-left: 0; border-radius: var(--radio); }
+.tp-azul { background: var(--azul); color: #fff; }
+.tp-ambar { background: var(--ambar); color: #111; }
+
+.tp-azul .puntaje-cabeza b, .tp-azul .puntaje-margen,
+.tp-azul .que-significa, .tp-azul .que-significa b,
+.tp-azul .puntaje-cifra > span, .tp-azul .como summary, .tp-azul .como-texto { color: #fff; }
+.tp-ambar .puntaje-cabeza b, .tp-ambar .puntaje-margen,
+.tp-ambar .que-significa, .tp-ambar .que-significa b,
+.tp-ambar .puntaje-cifra > span, .tp-ambar .como summary, .tp-ambar .como-texto { color: #111; }
+.tp-azul .puntaje-margen, .tp-ambar .puntaje-margen { opacity: .85; }
+.tp-azul .como summary::before { color: #fff; }
+.tp-ambar .como summary::before { color: #111; }
+.tp-azul .como-texto, .tp-ambar .como-texto { border-top-color: currentColor; opacity: .95; }
+.tp-azul .puntaje-margen.movido, .tp-ambar .puntaje-margen.movido { color: inherit; font-weight: 700; text-decoration: underline; }
+
+.puntaje-cabeza b { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 12.5px; }
+.puntaje-cifra span:first-child,
+.col-resultado .puntaje-cifra span:first-child { font-family: var(--cifra); font-weight: 400; font-size: clamp(56px, 7vh, 76px); line-height: .9; letter-spacing: 0; }
+.puntaje-cifra > span:last-child:not(:first-child):not(.chico) { font-family: var(--cifra); font-size: 26px; }
+.que-significa b { font-size: 16px; font-weight: 700; }
+
+.riel { height: 8px; }
+.tp-azul .riel { background: rgba(255,255,255,.28); }
+.tp-azul .riel i { background: #fff; }
+.tp-azul .riel u { border: 2px solid #fff; opacity: .7; }
+.tp-ambar .riel { background: rgba(17,17,17,.16); }
+.tp-ambar .riel i { background: #111; }
+.tp-ambar .riel u { border: 2px solid #111; opacity: .55; }
+
+/* Las cifras del conflicto (desglose): el mismo recuadro lleno */
+.cifra-conflicto.cc-azul { background: var(--azul); border-color: var(--azul); color: #fff; }
+.cifra-conflicto.cc-azul b { color: #fff; }
+.cifra-conflicto.cc-ambar { background: var(--ambar); border-color: var(--ambar); color: #111; }
+.cifra-conflicto.cc-ambar b { color: #111; }
+.cifra-conflicto b { font-family: var(--cifra); font-weight: 400; font-size: 34px; }
+
+/* El botón del eje activo: naranja con letra oscura, para que se lea */
+.selector button.activo[data-eje="popularidad"] { color: #111; }
+
+/* La cifra y el % tienen reglas más fuertes en estilos.css: acá se igualan */
+.tp-azul .puntaje-cifra > span:first-child,
+.tp-azul .puntaje-cifra > span:last-child:not(:first-child):not(.chico),
+.tp-azul .puntaje-cifra > span.chico { color: #fff; }
+.tp-ambar .puntaje-cifra > span:first-child,
+.tp-ambar .puntaje-cifra > span:last-child:not(:first-child):not(.chico),
+.tp-ambar .puntaje-cifra > span.chico { color: #111; }
+.tp-azul .puntaje-cifra > span.chico, .tp-ambar .puntaje-cifra > span.chico { opacity: .85; }
