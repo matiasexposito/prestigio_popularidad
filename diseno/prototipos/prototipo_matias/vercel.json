@@ -2,8 +2,28 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "redirects": [
-    { "source": "/la-pagina", "destination": "/la_pagina", "permanent": true },
-    { "source": "/decisiones-de-diseno", "destination": "/decisiones_de_diseno", "permanent": true },
-    { "source": "/la-letra", "destination": "/la_letra", "permanent": true }
-  ]
+    {
+      "source": "/la-pagina",
+      "destination": "/la_pagina",
+      "permanent": true
+    },
+    {
+      "source": "/decisiones-de-diseno",
+      "destination": "/decisiones_de_diseno",
+      "permanent": true
+    },
+    {
+      "source": "/la-letra",
+      "destination": "/la_letra",
+      "permanent": true
+    }
+  ],
+  "functions": {
+    "api/asistente.js": {
+      "maxDuration": 30
+    },
+    "api/lectura.js": {
+      "maxDuration": 30
+    }
+  }
 }
