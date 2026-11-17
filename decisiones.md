@@ -604,6 +604,17 @@ Cuando Diógenes termine, hay que juntar las dos.
 - **Se puede volver a Historia, Cómo lo hicimos y Nosotros** desde cualquier pantalla, con el enlace "Sobre P&P". Y desde esas páginas, el botón vuelve al resultado si ya hay una canción analizada.
 - **Nosotros** queda solo con los tres nombres, la edad y la carrera.
 
-### Pendiente: la clave de The Engineer
+### Las dos claves, cargadas
 
-The Engineer funciona con Claude y necesita su propia clave, `ANTHROPIC_API_KEY`, cargada en Vercel como variable de entorno. En el proyecto de Vercel de `pyp-ashy` hoy está cargada solo la de Groq, que es la de la lectura. Mientras falte la otra, en esa página el asistente contesta con reglas simples, sin IA. La clave no va en el repositorio.
+La app usa dos servicios de IA, cada uno con su clave, y las dos están cargadas en Vercel como variables de entorno, nunca en el repositorio:
+
+| Variable | Para qué |
+|---|---|
+| `GROQ_API_KEY` | La lectura del resultado (cargada el 15/11) |
+| `ANTHROPIC_API_KEY` | The Engineer, el asistente (cargada el 17/11) |
+
+Verificado el 17/11: en https://pyp-ashy.vercel.app la lectura y el asistente responden con IA. Si falta alguna de las dos claves, la app no se rompe: muestra una lectura fija o contesta con reglas simples, y lo avisa.
+
+### Control: la copia y la carpeta de Diógenes
+
+Comparamos archivo por archivo la carpeta de Diógenes (`prototipo_matias/entrega-1/`), lo que él tiene publicado en su sitio y la copia publicada (`prototipo_conjunto/`). La carpeta de Diógenes y su sitio son idénticos. La copia se diferencia solo en los cinco archivos donde se hicieron los cambios del 17/11 (`index.html`, `app.js`, `lectura.js`, `entrega.js` y `entrega.css`) y en las páginas de documentos, que están regeneradas con el racional nuevo. El modelo, la medición, el mapa, las animaciones y The Engineer son los mismos.

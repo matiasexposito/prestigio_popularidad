@@ -40,9 +40,18 @@ Los archivos del modelo, el mapa y la medición son los mismos que los de `../pr
 | `api/asistente.js` | La función del servidor de The Engineer: las instrucciones de la IA, arriba de todo. Lee la clave de Claude de una variable de entorno |
 | `racional.html` y las demás páginas `.html` | Las páginas de documentos. Se generan en `../prototipo_matias/` con `node armar_documentos.js` y se copian acá |
 
-## Lo que falta
+## Las claves
 
-**Cargar la clave de Claude en Vercel**, con el nombre `ANTHROPIC_API_KEY`. Hoy está solo la de Groq. Mientras falte, el asistente contesta con reglas simples, sin IA. La clave no se sube al repositorio.
+La app usa dos servicios de IA. Las dos claves están cargadas en Vercel como variables de entorno y no se suben al repositorio:
+
+- `GROQ_API_KEY`, para la lectura del resultado.
+- `ANTHROPIC_API_KEY`, para The Engineer.
+
+Si falta alguna, la app no se rompe: muestra una lectura fija o contesta con reglas simples, y lo avisa.
+
+## En qué se diferencia de la carpeta de Diógenes
+
+Solo en cinco archivos (`index.html`, `app.js`, `lectura.js`, `entrega.js` y `entrega.css`), que tienen los cambios del 17 de noviembre, y en las páginas de documentos, regeneradas con el racional nuevo. Todo lo demás es idéntico.
 
 ## Cómo se publica
 
