@@ -1,0 +1,37 @@
+/* P&P — slots de video de fondo (la lógica está en videos.js) */
+
+/* El slot va pegado arriba de la pantalla, sin ocupar lugar, detrás de todo el contenido */
+.video-slot { position: sticky; top: 0; flex: none; width: 100%; height: 0; z-index: -1; pointer-events: none; }
+.video-slot-caja { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh; overflow: hidden; }
+.video-slot video { display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s ease; }
+.video-slot-velo { position: absolute; inset: 0; }
+
+/* Mientras el video no cargó, la pantalla se ve igual que antes. Cuando está listo: */
+.pantalla.con-video { isolation: isolate; background: var(--video-fondo, transparent); }
+.pantalla.con-video .video-slot video { opacity: 1; }
+.pantalla.con-video .portada,
+.pantalla.con-video .col-lateral { background: transparent; }
+
+/* Secuencia: cada video es una capa; el siguiente entra por abajo y empuja al actual hacia arriba */
+.video-capa { position: absolute; inset: 0; overflow: hidden; visibility: hidden; transform: translate3d(0, 100%, 0); will-change: transform; }
+.video-capa.es-actual { visibility: visible; transform: none; }
+.video-capa.entra-abajo { visibility: visible; transform: translate3d(0, 100%, 0); }
+.video-capa.entra-arriba { visibility: visible; transform: translate3d(0, -100%, 0); }
+.video-capa.sale-arriba { visibility: visible; transform: translate3d(0, -100%, 0); }
+.video-capa.sale-abajo { visibility: visible; transform: translate3d(0, 100%, 0); }
+.video-capa.mueve { transition: transform var(--video-dur, 1.1s) var(--loco-ease, cubic-bezier(.77, 0, .18, 1)); }
+
+/* Controles: ↑ 01 / 02 ↓ y una línea que marca cuánto falta para el próximo */
+.video-ctrl { position: fixed; bottom: 26px; z-index: 40; display: flex; align-items: center; gap: 14px; padding-bottom: 12px;
+  color: var(--video-tinta, #fff); font: 400 13px/1 var(--sans, "Helvetica Neue", Helvetica, Arial, sans-serif); font-variant-numeric: tabular-nums; }
+.video-ctrl[hidden] { display: none; }
+.video-ctrl-centro { left: 50%; transform: translateX(-50%); }
+.video-ctrl-izq { left: clamp(28px, 3.4vw, 48px); }
+.video-ctrl-der { right: clamp(28px, 3.4vw, 48px); }
+.video-ctrl button { width: 32px; height: 32px; padding: 0; border: 1px solid currentColor; border-radius: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; transition: background .25s, color .25s; }
+.video-ctrl button:hover { background: var(--video-tinta, #fff); color: var(--video-contra, #000); }
+.video-ctrl-n b { font-weight: 400; }
+.video-ctrl-barra { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; overflow: hidden; background: color-mix(in srgb, currentColor 25%, transparent); }
+.video-ctrl-barra i { display: block; height: 100%; background: currentColor; transform: scaleX(0); transform-origin: left; animation: video-barra var(--video-cada, 8s) linear forwards; }
+.video-ctrl.sin-auto .video-ctrl-barra { display: none; }
+@keyframes video-barra { to { transform: scaleX(1); } }
