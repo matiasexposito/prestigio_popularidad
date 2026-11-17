@@ -66,9 +66,7 @@ Al principio hacíamos una sola cuenta, que les ponía cero a todas las cancione
 
 **El mapa** pone la popularidad de izquierda a derecha y el prestigio de abajo hacia arriba. Cortando cada eje en 50 quedan cuatro zonas: las dos cosas, prestigio sin público, hit puro, y ni una cosa ni la otra. Muestra la canción de la persona entre 100 canciones reales, para que el resultado se entienda por comparación y no como dos números sueltos.
 
-**Qué tan bien funciona.** Si tomamos una canción de cada grupo al azar, el modelo acierta cuál es cuál el 77% de las veces en popularidad y el 68% en prestigio. Al azar sería 50%.
-
-**Cómo medimos una canción nueva.** Las canciones de la base las midió Spotify, pero Spotify cerró ese dato en 2024, así que para la canción que sube la persona hubo que buscar otra forma. Esta parte la armó Diógenes, con dos herramientas. **Essentia** mide el tempo y el modo adentro del navegador, sin que el archivo salga de la computadora. **ReccoBeats** es un servicio gratuito que devuelve las mismas características que daba Spotify y en la misma escala: energía, valencia, acústica, bailabilidad, habla, volumen e instrumentalidad. Como ReccoBeats analiza solo 30 segundos por vez, la app corta la canción en tramos de 30 segundos, los mide todos y saca el promedio. Después corrige el resultado para que se parezca al de Spotify, con una corrección que sacamos comparando 31 canciones.
+**Cómo medimos una canción nueva.** Las canciones de la base las midió Spotify, pero Spotify cerró ese dato en 2024, así que para la canción que sube la persona tuvimos que buscar otra forma. La resolvimos con dos herramientas. **Essentia** mide el tempo y el modo adentro del navegador, sin que el archivo salga de la computadora. **ReccoBeats** es un servicio gratuito que devuelve las mismas características que daba Spotify y en la misma escala: energía, valencia, acústica, bailabilidad, habla, volumen e instrumentalidad. Como ReccoBeats analiza solo 30 segundos por vez, la app corta la canción en tramos de 30 segundos, los mide todos y saca el promedio. Después corrige el resultado para que se parezca al de Spotify, con una corrección que sacamos comparando 31 canciones.
 
 **El límite.** Esa medición es parecida a la de Spotify, pero no igual. Por eso un archivo subido muestra un margen más ancho.
 
@@ -115,7 +113,7 @@ Medimos el mercado de Estados Unidos, con canciones del 2000 al 2026, dos catego
 La app y los programas de datos los escribió una IA (Claude). Qué se hace, qué se acepta y qué se tira lo decidimos nosotros. Algunos ejemplos:
 
 - La IA aplicó nuestro diseño encima de un prototipo anterior. Lo rechazamos y pedimos rehacer la app desde nuestro borrador.
-- Había un chatbot que no entendía preguntas con otras palabras. Lo sacamos: o es una IA de verdad, o no va. Después Diógenes lo rehízo como una IA de verdad, The Engineer.
+- Había un chatbot que no entendía preguntas con otras palabras. Lo sacamos: o es una IA de verdad, o no va. Después lo rehicimos como una IA de verdad, The Engineer.
 - Notamos que Despacito daba más prestigio que popularidad. De ahí salió el cambio a las dos preguntas encadenadas.
 - Lo más simple para limpiar los datos era borrar todas las canciones sospechosas. Pedimos volver a medir cada una y se sacaron solo las que estaban mal.
 - Pedimos que bajara letras y canciones para probar. Se negó, por los derechos de autor.
@@ -126,7 +124,7 @@ Dentro de la app hay dos usos de IA, y los dos reciben solo los números de la c
 
 **La lectura** es una frase que pone el resultado en palabras: a qué perfil se parece más la canción y a cuál menos. Tiene prohibido predecir u opinar de lo que no medimos. Las instrucciones que recibe están en el repositorio, con fecha. Los puntos de cada rasgo no los escribe la IA: los explica la app en la pantalla "Qué suma y qué resta", con una frase por rasgo armada con los números del modelo.
 
-**The Engineer** es un asistente con el que se conversa, armado por Diógenes con Claude Haiku. El nombre viene del ingeniero de sonido, la persona que en un estudio escucha la canción y dice qué tocar. Explica el resultado, arma un plan si alguien quiere subir un puntaje, y también da ideas para una canción o ayuda con una letra. Lo importante es que los números no los inventa la IA: si alguien pregunta "¿y si bajo la energía?", la cuenta la hace el modelo y la IA solo explica el resultado. La pantalla separa lo que es medido de lo que es una idea. Si la IA no responde, el asistente sigue contestando con reglas simples y lo avisa. Sus instrucciones están en el repositorio, en `api/asistente.js`.
+**The Engineer** es un asistente con el que se conversa. Lo armamos con Claude Haiku. El nombre viene del ingeniero de sonido, la persona que en un estudio escucha la canción y dice qué tocar. Explica el resultado, arma un plan si alguien quiere subir un puntaje, y también da ideas para una canción o ayuda con una letra. Lo importante es que los números no los inventa la IA: si alguien pregunta "¿y si bajo la energía?", la cuenta la hace el modelo y la IA solo explica el resultado. La pantalla separa lo que es medido de lo que es una idea. Si la IA no responde, el asistente sigue contestando con reglas simples y lo avisa. Sus instrucciones están en el repositorio, en `api/asistente.js`.
 
 ---
 

@@ -390,11 +390,11 @@ Las canciones de la base las midió Spotify. La canción que sube la persona no 
 - **Essentia** mide el tempo y el modo, en la computadora de la persona.
 - **La duración** se lee del archivo.
 
-#### Cómo lo armó Diógenes
+#### Cómo lo armamos
 
-Esta parte la investigó y la construyó Diógenes, en octubre. El problema de fondo era este: el modelo aprendió con las mediciones de Spotify, pero **Spotify cerró ese dato en noviembre de 2024**. Para una canción nueva hacía falta otra forma de conseguir las mismas diez medidas, en la misma escala. Lo resolvió con dos herramientas, porque ninguna de las dos alcanza sola.
+Esta parte la investigamos y la construimos en octubre. El problema de fondo era este: el modelo aprendió con las mediciones de Spotify, pero **Spotify cerró ese dato en noviembre de 2024**. Para una canción nueva hacía falta otra forma de conseguir las mismas diez medidas, en la misma escala. Lo resolvimos con dos herramientas, porque ninguna de las dos alcanza sola.
 
-**Primer paso: Essentia.** Lo habitual para analizar audio es una librería llamada librosa, pero funciona en un servidor: habría que mandar el archivo de la persona a una computadora nuestra. Diógenes eligió **Essentia.js**, que hace lo mismo **adentro del navegador**. El archivo no sale de la computadora de quien lo sube, que es lo que la app promete. Para que la página no se trabe mientras analiza, el trabajo corre aparte, en segundo plano. Un tema de cuatro minutos tarda entre cuatro y cinco segundos.
+**Primer paso: Essentia.** Lo habitual para analizar audio es una librería llamada librosa, pero funciona en un servidor: habría que mandar el archivo de la persona a una computadora nuestra. Elegimos **Essentia.js**, que hace lo mismo **adentro del navegador**. El archivo no sale de la computadora de quien lo sube, que es lo que la app promete. Para que la página no se trabe mientras analiza, el trabajo corre aparte, en segundo plano. Un tema de cuatro minutos tarda entre cuatro y cinco segundos.
 
 Con Essentia se miden cuatro cosas:
 
@@ -407,12 +407,12 @@ Con Essentia se miden cuatro cosas:
 
 El límite de Essentia es que no mide energía, valencia, acústica ni habla, y que su volumen y su bailabilidad están en otra escala que la de Spotify.
 
-**Segundo paso: ReccoBeats.** Para lo que faltaba, Diógenes encontró ReccoBeats, un servicio gratuito que devuelve **las mismas características que daba Spotify, en la misma escala**, a partir de un archivo de audio. Hacerlo funcionar le llevó varias pruebas, y cada una dejó una decisión:
+**Segundo paso: ReccoBeats.** Para lo que faltaba, encontramos ReccoBeats, un servicio gratuito que devuelve **las mismas características que daba Spotify, en la misma escala**, a partir de un archivo de audio. Hacerlo funcionar nos llevó varias pruebas, y cada una dejó una decisión:
 
 - **ReccoBeats analiza solo los primeros 30 segundos** de lo que recibe. Con un solo tramo el resultado es una lotería: la valencia de una misma canción iba de 0,17 a 0,43 según qué tramo se mandara. Por eso la app **corta la canción en tramos de 30 segundos**, los mide todos y saca el promedio. Empieza en el segundo 10 y termina 5 segundos antes del final, para evitar los silencios, y usa hasta 10 tramos.
 - **Solo acepta un formato.** La documentación decía que aceptaba varios, pero rechazaba todos menos uno (MP3 en estéreo). La app convierte cada tramo a ese formato antes de mandarlo, también adentro del navegador y en segundo plano.
 - **El tempo que da ReccoBeats no sirve.** Comparado con Spotify daba cualquier cosa. Por eso el tempo y el modo se quedan con Essentia, que acertó el tempo en 8 de 10 canciones.
-- **Hay que corregir lo que devuelve.** ReccoBeats se parece a Spotify, pero no es igual. Diógenes midió 10 canciones de la base, 64 tramos en total, las comparó con sus valores de Spotify y sacó una corrección para cada característica. Esa corrección es la que rehicimos el 16 de noviembre con 31 canciones, que se cuenta más abajo.
+- **Hay que corregir lo que devuelve.** ReccoBeats se parece a Spotify, pero no es igual. Medimos 10 canciones de la base, 64 tramos en total, las comparamos con sus valores de Spotify y sacamos una corrección para cada característica. Esa corrección es la que rehicimos el 16 de noviembre con 31 canciones, que se cuenta más abajo.
 
 **Cómo queda repartido el trabajo:** ReccoBeats mide siete características, Essentia mide dos y la duración se lee del archivo. Si ReccoBeats no responde, la app igual da un resultado con una medición más simple y lo avisa.
 
@@ -471,7 +471,7 @@ Con *Hello*, de Adele, pasa lo contrario: su muestra de 30 segundos es el comien
 |---|---|
 | **La letra, las redes sociales y YouTube** | Es la sección que sigue, completa |
 | **Comparar dentro de cada género** | No tenemos el género de las canciones. La app llegó a preguntarlo en el formulario; lo sacamos porque pedir un dato que no se usa es una promesa falsa |
-| **El chatbot de reglas** | El primero no era una IA: era una lista de preguntas previstas. Lo sacamos el 2 de noviembre. Después volvió, rehecho por Diógenes como una IA de verdad: The Engineer (sección 9) |
+| **El chatbot de reglas** | El primero no era una IA: era una lista de preguntas previstas. Lo sacamos el 2 de noviembre. Después volvió, rehecho como una IA de verdad: The Engineer (sección 9) |
 | **Las canciones anteriores al 2000** | El análisis las usa; la herramienta no. Antes del 2000 los éxitos eran más alegres que las nominadas, y después se dio vuelta: son dos reglas opuestas. Además, las grabaciones nuevas suenan más fuerte, y el modelo confundía "fuerte" con "reciente" |
 
 ---
@@ -795,7 +795,7 @@ No trabajamos con un territorio físico, pero sí con un recorte, y conviene dec
 |---|---|---|
 | **Claude** (Anthropic), desde Claude Code | Escribió el código de la app y de los scripts de datos, hizo las mediciones que le pedimos y redactó borradores de los documentos | Nosotros: qué se hace, qué se acepta y qué se tira |
 | **GPT-OSS 120B** (modelo abierto de OpenAI), servido por Groq | Dentro de la app: escribe la lectura del resultado, a partir de los números de la canción | Le fijamos nosotros qué puede decir y qué no (ver más abajo) |
-| **Claude Haiku** (Anthropic), con instrucciones propias: The Engineer | Dentro de la app: un asistente con el que se conversa sobre el resultado | Lo armó Diógenes. Las instrucciones están en el repositorio (ver más abajo) |
+| **Claude Haiku** (Anthropic), con instrucciones propias: The Engineer | Dentro de la app: un asistente con el que se conversa sobre el resultado | Le fijamos nosotros qué hace y qué no. Las instrucciones están en el repositorio (ver más abajo) |
 | **ReccoBeats** | Dentro de la app: mide 7 características del audio que sube la persona | — |
 | **Essentia.js** | Dentro de la app: mide el tempo y el modo, en el navegador | — |
 | **El sistema de Spotify** | Midió las 10 características de las canciones de la base, antes de que Spotify cerrara ese dato en 2024 | — |
@@ -867,7 +867,7 @@ Las reglas 6 y 7 las agregamos después de leer las primeras lecturas: en una, l
 
 ### The Engineer, el asistente
 
-El 2 de noviembre sacamos el primer chatbot con una condición: o es una IA de verdad, o no va. **The Engineer es esa IA de verdad**, y lo construyó Diógenes. El nombre viene del ingeniero de sonido, la persona que en un estudio escucha la canción y dice qué tocar.
+El 2 de noviembre sacamos el primer chatbot con una condición: o es una IA de verdad, o no va. **The Engineer es esa IA de verdad.** El nombre viene del ingeniero de sonido, la persona que en un estudio escucha la canción y dice qué tocar.
 
 **Qué hace.** Es una pantalla de conversación a la que se llega desde el resultado. La persona le pregunta en sus propias palabras, por ejemplo "¿cómo subo mi popularidad?" o "explicame mi resultado".
 
