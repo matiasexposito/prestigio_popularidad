@@ -238,3 +238,7 @@ h1, h2, h3 { font-weight: 400; letter-spacing: -0.015em; }
 #conflicto-nota { display: none; }
 .bloque-conflicto { gap: 6px; padding-top: 10px; }
 .titulo-conflicto { font-size: 17px; }
+
+/* La intro cuenta hasta 23.279 en vez de 100: el número es más largo, así que va más chico */
+.loco-pre-cifra { font-size: clamp(84px, 17vw, 250px); }
+.loco-pre-que { font-family: var(--sans); font-size: 15px; color: #8c8c8c; margin-top: 14px; }

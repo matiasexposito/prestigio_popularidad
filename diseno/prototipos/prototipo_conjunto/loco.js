@@ -2,7 +2,8 @@
  *
  * Va DESPUÉS de app.js y no toca la lógica de la app: solo escucha la navegación
  * (cambios de #ruta) y el mouse. Hace cinco cosas:
- *   1. Preloader: pantalla negra con un contador 0→100 que se levanta como un telón.
+ *   1. Preloader: pantalla negra con un contador que sube hasta la cantidad de canciones
+ *      de la base (23.279) y se levanta como un telón.
  *   2. Telón entre pantallas: al tocar un link interno, un panel negro sube, cambia
  *      la pantalla y sigue subiendo hasta destaparla.
  *   3. Títulos que suben línea por línea, cada palabra desde atrás de una máscara.
@@ -160,6 +161,8 @@
 
   /* ================= 1 · Preloader ================= */
 
+  const TOTAL_CANCIONES = (window.MODELO && window.MODELO.n) || 23279;
+
   function preloader() {
     const pre = document.createElement('div');
     pre.className = 'loco-pre';
@@ -167,13 +170,16 @@
     pre.innerHTML = `
       <div class="loco-pre-arriba"><span>${CONF.marca}</span><span>${CONF.bajada}</span></div>
       <div class="loco-pre-cifra"><span>0</span></div>
+      <div class="loco-pre-que">canciones analizadas</div>
       <div class="loco-pre-barra"><i></i></div>`;
     document.body.append(pre);
     const cifra = pre.querySelector('.loco-pre-cifra span'), barra = pre.querySelector('.loco-pre-barra i');
     const t0 = performance.now(), dur = 1150;
     const paso = t => {
       const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
-      cifra.textContent = Math.round(e * 100);
+      // Cuenta hasta la cantidad de canciones de la base (sale del modelo: si se vuelve a
+      // entrenar, el número cambia solo). Antes contaba de 0 a 100.
+      cifra.textContent = Math.round(e * TOTAL_CANCIONES).toLocaleString('es-AR');
       barra.style.transform = `scaleX(${e})`;
       if (k < 1) return requestAnimationFrame(paso);
       setTimeout(() => {
