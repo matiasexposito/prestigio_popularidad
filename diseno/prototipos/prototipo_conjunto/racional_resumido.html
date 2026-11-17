@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Racional (versión corta) — P&amp;P</title>
+<meta name="description" content="Racional (versión corta). Prestigio &amp; Popularidad.">
+<meta property="og:title" content="Racional (versión corta) — P&amp;P">
+<meta property="og:description" content="Prestigio &amp; Popularidad: el sonido del éxito comercial y del reconocimiento de los Grammy.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fondo:#fff; --tinta:#12110f; --texto:#3a3833; --tenue:#6b6862; --tenue-2:#8a8780;
+  --borde:#e6e3dd; --azul:#1b4fd8; --ambar:#b45309; --radio:12px;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --titulo:"Fraunces",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-text-size-adjust:100%}
+.barra{border-bottom:1px solid var(--borde);padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-family:var(--titulo);font-weight:600;font-size:19px;color:var(--tinta);text-decoration:none;letter-spacing:-.01em}
+.barra .sep{width:1px;height:14px;background:var(--borde)}
+.barra a.vinculo{font-size:12.5px;color:var(--tenue);text-decoration:none}
+.barra a.vinculo:hover{color:var(--azul)}
+main{max-width:660px;margin:0 auto;padding:40px 20px 80px}
+h1{font-family:var(--titulo);font-weight:600;font-size:clamp(30px,7vw,40px);line-height:1.12;letter-spacing:-.02em;color:var(--tinta);margin:0 0 28px}
+h2{font-family:var(--titulo);font-weight:600;font-size:clamp(21px,4.6vw,25px);line-height:1.25;letter-spacing:-.01em;color:var(--tinta);margin:44px 0 12px}
+h3{font-family:var(--titulo);font-weight:600;font-size:18px;color:var(--tinta);margin:34px 0 10px}
+h4{font-size:15px;font-weight:600;color:var(--tinta);margin:24px 0 8px}
+p{margin:0 0 16px}
+strong{color:var(--tinta);font-weight:600}
+em{font-style:italic}
+a{color:var(--azul)}
+code{font-family:var(--mono);font-size:.88em;background:#f5f3f0;border:1px solid var(--borde);border-radius:5px;padding:1px 5px;color:var(--tinta)}
+hr{border:0;border-top:1px solid var(--borde);margin:36px 0}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin:0 0 8px}
+blockquote{margin:0 0 20px;padding:14px 18px;border-left:3px solid var(--ambar);background:#fdf8f1;border-radius:0 var(--radio) var(--radio) 0;color:var(--texto)}
+blockquote p:last-child{margin:0}
+pre{margin:0;padding:14px 16px;font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--tinta);background:#faf9f7;white-space:pre}
+.tabla-caja{overflow-x:auto;margin:0 0 22px;border:1px solid var(--borde);border-radius:var(--radio)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--borde);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:12.5px;color:var(--tenue);font-weight:600;background:#faf9f7}
+.pie{max-width:660px;margin:0 auto;padding:0 20px 60px;font-size:12.5px;color:var(--tenue-2);line-height:1.6}
+.pie a{color:var(--tenue)}
+@media(max-width:560px){main{padding:28px 18px 60px}body{font-size:16.5px}}
+</style>
+</head>
+<body>
+<nav class="barra">
+  <a class="logo" href="/">P&amp;P</a>
+  <span class="sep"></span>
+  <a class="vinculo" href="/">la app</a>
+  <a class="vinculo" href="/racional_resumido">el racional</a>
+  <a class="vinculo" href="/racional">el racional completo</a>
+  <a class="vinculo" href="/la_pagina">las pantallas</a>
+  <a class="vinculo" href="/decisiones_de_diseno">el diseño</a>
+  <a class="vinculo" href="/la_letra">la letra</a>
+</nav>
+<main>
+<h1>Racional — P&amp;P (versión corta)</h1>
+<p>P&amp;P (Prestigio &amp; Popularidad) · Matías Expósito, Tomás Kelly y Diógenes Ustariz · Universidad de San Andrés · noviembre de 2026</p>
+<p>App: https://pyp-ashy.vercel.app · Repositorio: https://github.com/matiasexposito/prestigio_popularidad</p>
+<p>La versión completa, con todas las mediciones y el detalle de cada decisión, está en <a href="https://github.com/matiasexposito/prestigio_popularidad/blob/main/racional.md"><code>racional.md</code></a>.</p>
+<hr>
+<h2>1. El problema</h2>
+<p>P&amp;P es para alguien que hace música y está terminando una canción: ya tiene un demo o una mezcla, pero todavía la puede cambiar. En ese momento decide cosas como hacerla más acústica, acortarla o mezclarla más fuerte, y hoy lo decide a oído. Lo que le mostramos es a cuál de dos mundos se parece el sonido de su canción, el que nomina la Academia del Grammy y el que entra al ranking de Billboard, y qué pasa con ese parecido si cambia algo.</p>
+<p>Buscamos si ya existía algo así. Los sellos usan tableros de datos para decidir a quién contratar, pero esos tableros miran a la audiencia de una canción que ya salió: seguidores, oyentes, playlists. Ninguno mira el sonido de una canción que todavía no se publicó.</p>
+<h2>2. La hipótesis</h2>
+<blockquote>Existe un tipo de perfil sonoro medible asociado al reconocimiento de la Academia, distinto del perfil asociado al éxito comercial masivo, y la distancia entre ambos se amplió a lo largo de las últimas décadas.</blockquote>
+<p>Es la hipótesis con la que arrancamos el proyecto, tal como la escribimos.</p>
+<p>La primera parte se confirma. Desde el año 2000, las nominadas a Record o Song of the Year duran 21 segundos más que los éxitos que nunca fueron nominados (3:57 contra 3:36), son una vez y media más acústicas y tienen menos energía. La segunda parte se confirma a medias, y en una dirección que no esperábamos: la distancia no se amplió en todo. Los dos mundos se acercaron en el ánimo y se alejaron en la duración. Durante cincuenta años los éxitos fueron más alegres que las nominadas, y en los 2020 eso se dio vuelta. Lo que se movió fue el público, no la Academia. Al mismo tiempo, la diferencia de duración pasó de un segundo en los noventa a 43 segundos hoy.</p>
+<p>Lo que no podemos afirmar:</p>
+<ul><li>Que el sonido explique por qué una canción gana un premio o entra al ranking. Explica una parte, y la medimos (punto 5).</li><li>Que ganar suene distinto de estar nominada. Lo medimos y no.</li><li>Que "popular" signifique lo mismo en 1965 y hoy. Antes se medían compras y ahora reproducciones.</li></ul>
+<p>La app dice cuánto se parece una canción a cada perfil. No predice si va a ganar un premio ni si va a ser un éxito.</p>
+<h2>3. Los datos</h2>
+<div class="tabla-caja"><table><tr><th>Fuente</th><th>Qué aporta</th><th>Licencia</th><th>Límite</th></tr><tr><td>Billboard Hot 100</td><td>La popularidad: si la canción entró al ranking y su mejor puesto</td><td>MIT</td><td>Solo mide Estados Unidos</td></tr><tr><td>Premios Grammy (Wikipedia)</td><td>El prestigio: qué canciones fueron nominadas</td><td>CC BY-SA 4.0</td><td>Lo armamos nosotros, categoría por categoría</td></tr><tr><td>Características del sonido (Spotify)</td><td>Las 10 medidas de cómo suena cada canción</td><td>CC BY-NC 4.0, solo uso no comercial</td><td>Spotify cerró ese dato en 2024 y nunca publicó cómo lo calcula</td></tr><tr><td>ReccoBeats y Essentia.js</td><td>Miden el audio que sube la persona</td><td>Gratuito / código abierto</td><td>Miden parecido a Spotify, no igual</td></tr></table></div>
+<p>El Hot 100 sale todas las semanas y suma ventas, radio y streaming. Los Grammy se votan una vez por año entre la gente que trabaja haciendo discos. Usamos solo Record of the Year y Song of the Year porque son las dos categorías que vota toda la Academia.</p>
+<p>Las tres fuentes no comparten ningún código, así que las cruzamos por título y artista, usando siempre la versión original de cada canción. Sumamos además un grupo de canciones comunes, que no están ni en Billboard ni en los Grammy, para que el modelo tenga contra qué comparar.</p>
+<p><strong>Por qué cortamos en el año 2000.</strong> Para probar la hipótesis usamos todo, de 1958 a 2026. Para la herramienta usamos solo canciones desde el 2000, por dos motivos: antes de esa fecha los éxitos eran más alegres que las nominadas y después se dio vuelta, así que son dos reglas opuestas; y las grabaciones nuevas suenan más fuerte, con lo cual el modelo confundía "fuerte" con "reciente".</p>
+<p><strong>Cuántas canciones.</strong> Desde el 2000 quedaban 23.403. Sacamos 124 que tenían datos mal: duplicadas, cruzadas con otra versión de la canción o con valores imposibles. No sacamos nada a ojo: cada caso lo volvimos a medir con nuestras propias herramientas. La herramienta se entrena con 23.279 canciones, de las cuales 202 son nominadas y 9.397 entraron al ranking.</p>
+<h2>4. El modelo</h2>
+<p>Medimos 10 características del sonido: energía, valencia (qué tan alegre suena), acústica, duración, bailabilidad, volumen, habla, tempo, modo e instrumentalidad.</p>
+<p><strong>Prestigio.</strong> Comparamos las 202 nominadas contra los 8.788 éxitos que nunca fueron nominados. Lo hacemos contra los éxitos y no contra las canciones comunes porque, si no, el modelo aprendía "suena a disco profesional" en vez de "suena a Grammy".</p>
+<p><strong>Popularidad.</strong> La medimos con dos preguntas, una después de la otra:</p>
+<ol><li><strong>¿Entra al Hot 100?</strong> Comparamos las 9.397 canciones que entraron al ranking contra las 13.882 que no entraron. De ahí sale qué tan parecida es una canción a las que entran.</li><li><strong>Si entra, ¿hasta dónde llega?</strong> No es lo mismo entrar en el puesto 95 que llegar al puesto 1. Para esta pregunta miramos solo las canciones que entraron, y comparamos las que llegaron arriba con las que se quedaron abajo. De ahí sale qué tan parecida es una canción a las que llegan a los primeros puestos.</li></ol>
+<p>El puntaje de popularidad junta las dos respuestas: una canción da alto si suena como las que entran <strong>y además</strong> como las que llegan arriba. Para la segunda pregunta, el puesto se pasa a una escala donde el 1 vale 100, el 10 vale 50 y el 100 vale 0. Los diez primeros puestos se llevan la mitad de la escala, porque llegar ahí es mucho más raro que quedar en el medio.</p>
+<p>Al principio hacíamos una sola cuenta, que les ponía cero a todas las canciones que no entraron. Como la mayoría de las canciones no entra, esa cuenta se gastaba en separar "entró" de "no entró" y casi no distinguía un éxito enorme de uno chico: <em>Despacito</em> y <em>Shape Of You</em> daban casi lo mismo. Con las dos preguntas separadas, eso se arregló.</p>
+<p><strong>El número que ve la persona</strong> es un percentil. Un prestigio de 88 quiere decir que la canción se parece más al perfil nominado que 88 de cada 100 canciones de la base. Al lado va el margen de error, que es más ancho en el prestigio porque se aprende de solo 202 canciones.</p>
+<p><strong>El mapa</strong> pone la popularidad de izquierda a derecha y el prestigio de abajo hacia arriba. Cortando cada eje en 50 quedan cuatro zonas: las dos cosas, prestigio sin público, hit puro, y ni una cosa ni la otra. Muestra la canción de la persona entre 100 canciones reales, para que el resultado se entienda por comparación y no como dos números sueltos.</p>
+<p><strong>Qué tan bien funciona.</strong> Si tomamos una canción de cada grupo al azar, el modelo acierta cuál es cuál el 77% de las veces en popularidad y el 68% en prestigio. Al azar sería 50%.</p>
+<p><strong>Cómo medimos una canción nueva.</strong> Las canciones de la base las midió Spotify, pero Spotify cerró ese dato en 2024, así que para la canción que sube la persona hubo que buscar otra forma. Esta parte la armó Diógenes, con dos herramientas. <strong>Essentia</strong> mide el tempo y el modo adentro del navegador, sin que el archivo salga de la computadora. <strong>ReccoBeats</strong> es un servicio gratuito que devuelve las mismas características que daba Spotify y en la misma escala: energía, valencia, acústica, bailabilidad, habla, volumen e instrumentalidad. Como ReccoBeats analiza solo 30 segundos por vez, la app corta la canción en tramos de 30 segundos, los mide todos y saca el promedio. Después corrige el resultado para que se parezca al de Spotify, con una corrección que sacamos comparando 31 canciones.</p>
+<p><strong>El límite.</strong> Esa medición es parecida a la de Spotify, pero no igual. Por eso un archivo subido muestra un margen más ancho.</p>
+<h2>5. Lo que no medimos: la letra, las redes sociales y YouTube</h2>
+<p>La herramienta mide solo el sonido, y lo primero que hicimos fue medir cuánto explica: el sonido explica el 24% de que una canción entre al Hot 100, el 3% de cuán alto llega y el 10% de que la nominen. O sea que la mayor parte depende de otras cosas. Las redes sociales son hoy el camino más corto al ranking: en 2024, el 84% de las canciones que entraron al ranking mundial de Billboard ya habían tenido un pico en TikTok antes. YouTube directamente forma parte del ranking, porque sus vistas cuentan desde 2013. La letra también influye: hay estudios que muestran que las canciones con más repetición llegan más alto, y Song of the Year premia la composición, que incluye la letra. En el prestigio, las redes y YouTube pesan de forma indirecta: vuelven popular a la canción, y encontramos que el 86% de las nominadas había entrado al Hot 100 y el 61% había llegado a los diez primeros puestos. Para que nominen una canción, haber sido un éxito pesa mucho más que cómo suena.</p>
+<p>Si alguien quisiera analizar todo, y no solo el sonido, este es el peso aproximado que le daríamos a cada cosa:</p>
+<div class="tabla-caja"><table><tr><th>Factor</th><th>Entrar al ranking</th><th>Llegar alto</th><th>Ser nominada</th></tr><tr><td>El sonido (medido)</td><td>25%</td><td>5%</td><td>10%</td></tr><tr><td>Redes sociales</td><td>20%</td><td>25%</td><td>10%</td></tr><tr><td>YouTube</td><td>5%</td><td>5%</td><td>5%</td></tr><tr><td>Playlists y radio</td><td>15%</td><td>20%</td><td>10%</td></tr><tr><td>La letra</td><td>10%</td><td>10%</td><td>15%</td></tr><tr><td>El contexto: artista, sello, campaña</td><td>25%</td><td>35%</td><td>50%</td></tr></table></div>
+<p>Solo la fila del sonido es una medición nuestra. Las demás son una estimación apoyada en estudios publicados: lo que defendemos es el orden, no el número exacto.</p>
+<p><strong>Por qué no las incluimos.</strong> Porque la herramienta está pensada para una canción que todavía no salió: un demo no tiene redes, ni vistas, ni letra cargada en ningún lado, y el sonido es lo único que se puede medir siempre y lo único que se puede cambiar desde el estudio. Además, no hay datos abiertos de redes para todo el período; las vistas de YouTube son las de hoy y no las del momento en que la canción estaba en el ranking; usar las vistas para explicar el éxito es explicar el éxito con el éxito; y las letras tienen derechos de autor, así que se pueden medir pero no guardar. Hicimos una prueba chica con la letra de 120 canciones y casi no separa a las nominadas de los éxitos.</p>
+<h2>6. Usuario y recorrido</h2>
+<p>La persona tiene un archivo de audio y quiere saber a qué se parece lo que hizo. No sabe de estadística, así que cada número lleva al lado, en palabras, qué quiere decir.</p>
+<p>El recorrido tiene ocho pantallas: la portada, los dos mundos (qué vamos a medir y qué no), crear cuenta, subir la canción, el resultado con el mapa y los dos puntajes, qué suma y qué resta en cada puntaje, un simulador donde se mueve un control y el punto se mueve en el mapa, y The Engineer, un asistente al que se le pregunta qué hacer con el resultado. Quien todavía no tiene su canción puede probar con una conocida. Desde cualquier pantalla se puede entrar a Historia, Cómo lo hicimos y Nosotros.</p>
+<h2>7. Decisiones de diseño</h2>
+<ul><li><strong>El mapa manda.</strong> Ocupa casi toda la pantalla del resultado y los números van al costado, porque un "88 de prestigio" suelto no dice nada hasta que se ve al lado de qué canciones cayó.</li><li><strong>Dos colores y un solo significado para cada uno.</strong> Azul es prestigio y ámbar es popularidad, en todas las pantallas. Todo lo demás es blanco, negro y gris.</li><li><strong>Tres tipografías.</strong> Una para los títulos, una para los textos y una monoespaciada para todos los números, así se distingue lo que se midió de lo que se dice sobre lo medido.</li><li><strong>Los rasgos en vertical</strong>, como una consola de mezcla, que es el aparato que alguien que hace música ya conoce.</li><li><strong>El margen de error siempre a la vista.</strong> Mostrar un número solo sería fingir una precisión que no tenemos.</li><li><strong>Todo entra en una pantalla</strong>, sin bajar, y con explicaciones de una frase.</li></ul>
+<h2>8. El recorte</h2>
+<p>Medimos el mercado de Estados Unidos, con canciones del 2000 al 2026, dos categorías del Grammy (Record y Song of the Year) y el sonido de la grabación. Quedan afuera el éxito en otros países, las categorías de género, la letra, el artista y la campaña. Por eso decimos "nominada a Record o Song of the Year" y no "ganadora del Grammy", y "se parece al perfil" y no "va a pegar".</p>
+<h2>9. Uso de la IA</h2>
+<p>La app y los programas de datos los escribió una IA (Claude). Qué se hace, qué se acepta y qué se tira lo decidimos nosotros. Algunos ejemplos:</p>
+<ul><li>La IA aplicó nuestro diseño encima de un prototipo anterior. Lo rechazamos y pedimos rehacer la app desde nuestro borrador.</li><li>Había un chatbot que no entendía preguntas con otras palabras. Lo sacamos: o es una IA de verdad, o no va. Después Diógenes lo rehízo como una IA de verdad, The Engineer.</li><li>Notamos que Despacito daba más prestigio que popularidad. De ahí salió el cambio a las dos preguntas encadenadas.</li><li>Lo más simple para limpiar los datos era borrar todas las canciones sospechosas. Pedimos volver a medir cada una y se sacaron solo las que estaban mal.</li><li>Pedimos que bajara letras y canciones para probar. Se negó, por los derechos de autor.</li></ul>
+<p>No tenemos bocetos anteriores a la IA: el primer diseño lo armamos en Figma conversando con Claude, y preferimos decirlo antes que inventar un antes. Las dos versiones del borrador están en el repositorio.</p>
+<p>Dentro de la app hay dos usos de IA, y los dos reciben solo los números de la canción, sin el título ni el artista.</p>
+<p><strong>La lectura</strong> es una frase que pone el resultado en palabras: a qué perfil se parece más la canción y a cuál menos. Tiene prohibido predecir u opinar de lo que no medimos. Las instrucciones que recibe están en el repositorio, con fecha. Los puntos de cada rasgo no los escribe la IA: los explica la app en la pantalla "Qué suma y qué resta", con una frase por rasgo armada con los números del modelo.</p>
+<p><strong>The Engineer</strong> es un asistente con el que se conversa, armado por Diógenes con Claude Haiku. El nombre viene del ingeniero de sonido, la persona que en un estudio escucha la canción y dice qué tocar. Explica el resultado, arma un plan si alguien quiere subir un puntaje, y también da ideas para una canción o ayuda con una letra. Lo importante es que los números no los inventa la IA: si alguien pregunta "¿y si bajo la energía?", la cuenta la hace el modelo y la IA solo explica el resultado. La pantalla separa lo que es medido de lo que es una idea. Si la IA no responde, el asistente sigue contestando con reglas simples y lo avisa. Sus instrucciones están en el repositorio, en <code>api/asistente.js</code>.</p>
+<hr>
+<h2>Fuentes</h2>
+<ul><li>Billboard Hot 100: repositorio de la Universidad de Texas en Austin, https://github.com/utdata/rwd-billboard-data</li><li>Premios Grammy: Wikipedia, una página por categoría</li><li>Características del sonido: Gildas Le Drogoff, https://huggingface.co/datasets/GildasLeDrogoff/spotify-huge-track-analysis-dataset</li><li>ReccoBeats, https://reccobeats.com · Essentia.js, https://mtg.github.io/essentia.js/</li><li>Recording Academy, cómo se vota: https://www.grammy.com/awards/voting-process</li><li>TikTok y Luminate, Music Impact Report, febrero de 2025 (el 84%): https://newsroom.tiktok.com/tiktok-and-luminate-release-latest-music-impact-report</li><li>Nunes, Ordanini y Valsesia, "The power of repetition", 2015 (la repetición en las letras): https://myscp.onlinelibrary.wiley.com/doi/abs/10.1016/j.jcps.2014.12.004</li><li>Water &amp; Music, cómo usan datos los sellos, 2020: https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists</li></ul>
+</main>
+<footer class="pie">
+  P&amp;P — Prestigio &amp; Popularidad. Matías Expósito, Tomás Kelly y Diógenes Ustariz.
+  <a href="/">Volver a la app</a>.
+</footer>
+</body>
+</html>

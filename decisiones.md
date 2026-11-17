@@ -581,3 +581,29 @@ Lo que explica el sonido no cambió: 24% de entrar al ranking, 3% de cuán alto 
 ### Decisión: dos versiones del racional
 
 El racional había crecido hasta casi 800 líneas. Tenía todo, pero era demasiado para presentar: explicaba casos puntuales y pruebas chicas que no hacen al argumento. Armamos una versión corta, `racional_resumido.md`, con lo esencial: la hipótesis, los datos, por qué cortamos en el 2000, cómo se mide cada eje, qué no medimos y por qué, el diseño y el uso de la IA. La versión completa queda igual, como respaldo, para quien quiera ver cada medición.
+
+---
+
+## 17 de noviembre de 2026 — La versión conjunta
+
+### Decisión: la versión final es la conjunta
+
+Diógenes armó una versión que junta el trabajo de los tres: la app de Matías (pantallas, mapa, modelo y medición), una portada con video y animaciones entre pantallas, y The Engineer, un asistente de IA. Suma tres páginas: Historia, Cómo lo hicimos y Nosotros. Pasa a ser la versión que se presenta. Usa el mismo modelo y los mismos datos que la versión anterior, sin cambios.
+
+Hay dos carpetas, a propósito:
+
+- `diseno/prototipos/prototipo_matias/entrega-1/` es la de Diógenes. Él sigue trabajando ahí y nadie más la toca.
+- `diseno/prototipos/prototipo_conjunto/` es una copia de esa, donde se hicieron los cambios de abajo. Es la que está publicada en https://pyp-ashy.vercel.app.
+
+Cuando Diógenes termine, hay que juntar las dos.
+
+### Cambios sobre la versión conjunta
+
+- **La lectura queda en la frase sola.** Sin etiquetas ni puntos de cada rasgo. Para asegurarlo, a la IA ya no se le mandan los rasgos: solo los dos puntajes y la zona.
+- **Los puntos se explican en "Qué suma y qué resta".** Un recuadro dice, con una frase por rasgo, por qué suma o resta: el valor de la canción, el promedio, para qué lado la mueve y cuántos puntos son. Lo arma la app con los números del modelo, no la IA.
+- **Se puede volver a Historia, Cómo lo hicimos y Nosotros** desde cualquier pantalla, con el enlace "Sobre P&P". Y desde esas páginas, el botón vuelve al resultado si ya hay una canción analizada.
+- **Nosotros** queda solo con los tres nombres, la edad y la carrera.
+
+### Pendiente: la clave de The Engineer
+
+The Engineer funciona con Claude y necesita su propia clave, `ANTHROPIC_API_KEY`, cargada en Vercel como variable de entorno. En el proyecto de Vercel de `pyp-ashy` hoy está cargada solo la de Groq, que es la de la lectura. Mientras falte la otra, en esa página el asistente contesta con reglas simples, sin IA. La clave no va en el repositorio.

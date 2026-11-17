@@ -20,7 +20,7 @@ Universidad de San Andrés · 2026
 
 https://pyp-ashy.vercel.app
 
-Se puede subir un audio propio (mp3 o wav) o buscar una canción conocida por nombre. En el mapa, cualquier punto se puede clickear para escuchar esa canción. Código en [`diseno/prototipos/prototipo_matias/`](diseno/prototipos/prototipo_matias/).
+Se puede subir un audio propio (mp3, wav o m4a) o buscar una canción conocida por nombre. En el mapa, cualquier punto se puede clickear para escuchar esa canción. Es la **versión conjunta**, que reúne el trabajo de los tres. La armó Diógenes en [`diseno/prototipos/prototipo_matias/entrega-1/`](diseno/prototipos/prototipo_matias/entrega-1/), y la que está publicada es una copia con los últimos cambios: [`diseno/prototipos/prototipo_conjunto/`](diseno/prototipos/prototipo_conjunto/).
 
 Junto con la app hay cinco páginas que la explican, pensadas para alguien que no conoce el proyecto:
 
@@ -32,7 +32,7 @@ Junto con la app hay cinco páginas que la explican, pensadas para alguien que n
 | [Las decisiones de diseño](https://pyp-ashy.vercel.app/decisiones_de_diseno) | Qué le pedimos a la IA y por qué |
 | [Cómo impacta la letra](https://pyp-ashy.vercel.app/la_letra) | Qué sabemos de la letra y por qué no entra a la herramienta |
 
-El prototipo anterior, de Diógenes, sigue en [`diseno/prototipos/prototipo_diogenes/`](diseno/prototipos/prototipo_diogenes/) y publicado en https://pyp-green.vercel.app. La app actual nació de ese código.
+Las versiones anteriores siguen en el repositorio: la app de Matías en [`diseno/prototipos/prototipo_matias/`](diseno/prototipos/prototipo_matias/), sobre la que se armó la conjunta, y el prototipo original de Diógenes en [`diseno/prototipos/prototipo_diogenes/`](diseno/prototipos/prototipo_diogenes/), publicado en https://pyp-green.vercel.app.
 
 **Prototipo baja fidelidad:**
 
@@ -312,7 +312,9 @@ prestigio_popularidad/
 │   └── prototipos/         # Una carpeta por versión o por integrante
 │       ├── prototipo_v1/       # Vacía: el primer prototipo es el de baja fidelidad (link arriba)
 │       ├── prototipo_diogenes/ # El prototipo anterior, de octubre. Queda como estaba
-│       ├── prototipo_matias/   # La app publicada
+│       ├── prototipo_conjunto/ # LA APP PUBLICADA: la versión final, con el trabajo de los tres
+│       ├── prototipo_matias/   # La versión anterior, sobre la que se armó la conjunta
+│       │   └── entrega-1/      # La versión conjunta original, de Diógenes (prototipo_conjunto es su copia)
 │       └── prototipo_tomas/    # Reservada
 ├── prompts/                # Textos de sistema de la IA, versionados
 ├── codigo/                 # Scripts de descarga, cruce, armado y auditoría

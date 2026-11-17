@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Las decisiones de diseño — P&amp;P</title>
+<meta name="description" content="Las decisiones de diseño. Prestigio &amp; Popularidad.">
+<meta property="og:title" content="Las decisiones de diseño — P&amp;P">
+<meta property="og:description" content="Prestigio &amp; Popularidad: el sonido del éxito comercial y del reconocimiento de los Grammy.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fondo:#fff; --tinta:#12110f; --texto:#3a3833; --tenue:#6b6862; --tenue-2:#8a8780;
+  --borde:#e6e3dd; --azul:#1b4fd8; --ambar:#b45309; --radio:12px;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --titulo:"Fraunces",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-text-size-adjust:100%}
+.barra{border-bottom:1px solid var(--borde);padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-family:var(--titulo);font-weight:600;font-size:19px;color:var(--tinta);text-decoration:none;letter-spacing:-.01em}
+.barra .sep{width:1px;height:14px;background:var(--borde)}
+.barra a.vinculo{font-size:12.5px;color:var(--tenue);text-decoration:none}
+.barra a.vinculo:hover{color:var(--azul)}
+main{max-width:660px;margin:0 auto;padding:40px 20px 80px}
+h1{font-family:var(--titulo);font-weight:600;font-size:clamp(30px,7vw,40px);line-height:1.12;letter-spacing:-.02em;color:var(--tinta);margin:0 0 28px}
+h2{font-family:var(--titulo);font-weight:600;font-size:clamp(21px,4.6vw,25px);line-height:1.25;letter-spacing:-.01em;color:var(--tinta);margin:44px 0 12px}
+h3{font-family:var(--titulo);font-weight:600;font-size:18px;color:var(--tinta);margin:34px 0 10px}
+h4{font-size:15px;font-weight:600;color:var(--tinta);margin:24px 0 8px}
+p{margin:0 0 16px}
+strong{color:var(--tinta);font-weight:600}
+em{font-style:italic}
+a{color:var(--azul)}
+code{font-family:var(--mono);font-size:.88em;background:#f5f3f0;border:1px solid var(--borde);border-radius:5px;padding:1px 5px;color:var(--tinta)}
+hr{border:0;border-top:1px solid var(--borde);margin:36px 0}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin:0 0 8px}
+blockquote{margin:0 0 20px;padding:14px 18px;border-left:3px solid var(--ambar);background:#fdf8f1;border-radius:0 var(--radio) var(--radio) 0;color:var(--texto)}
+blockquote p:last-child{margin:0}
+pre{margin:0;padding:14px 16px;font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--tinta);background:#faf9f7;white-space:pre}
+.tabla-caja{overflow-x:auto;margin:0 0 22px;border:1px solid var(--borde);border-radius:var(--radio)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--borde);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:12.5px;color:var(--tenue);font-weight:600;background:#faf9f7}
+.pie{max-width:660px;margin:0 auto;padding:0 20px 60px;font-size:12.5px;color:var(--tenue-2);line-height:1.6}
+.pie a{color:var(--tenue)}
+@media(max-width:560px){main{padding:28px 18px 60px}body{font-size:16.5px}}
+</style>
+</head>
+<body>
+<nav class="barra">
+  <a class="logo" href="/">P&amp;P</a>
+  <span class="sep"></span>
+  <a class="vinculo" href="/">la app</a>
+  <a class="vinculo" href="/racional_resumido">el racional</a>
+  <a class="vinculo" href="/racional">el racional completo</a>
+  <a class="vinculo" href="/la_pagina">las pantallas</a>
+  <a class="vinculo" href="/decisiones_de_diseno">el diseño</a>
+  <a class="vinculo" href="/la_letra">la letra</a>
+</nav>
+<main>
+<h1>Las decisiones de diseño</h1>
+<p>La página la escribió una IA, pero el diseño lo decidimos nosotros. Acá está lo que le pedimos y por qué.</p>
+<hr>
+<h2>Los colores</h2>
+<p>Le pedimos dos colores y nada más: un azul (<code>#1b4fd8</code>) y un ámbar (<code>#b45309</code>). Todo lo demás, blanco, negro y gris.</p>
+<p>Los dos colores son los dos ejes. El azul es el prestigio; el ámbar es la popularidad. Son los mismos en todas las pantallas: en la portada, en los dos puntajes y en el mapa. Al principio se usaban poco y la app se veía casi toda en blanco y negro, así que le pedimos que los hiciera aparecer más, siempre con el mismo significado.</p>
+<p>Pedimos que el resto fuera monocromo a propósito. Si hubiera cinco colores más, el ámbar no significaría nada.</p>
+<p>También le pedimos que cada color quiera decir una sola cosa. En una versión anterior el azul era a la vez "tu canción", "lo que suma" y "las nominadas", y el ámbar era "lo que resta" y "la lectura de la IA". Lo ordenamos: en el desglose las barras llevan el color del puntaje que se mira (llena si suma, rayada si resta), y todo lo que no es de un eje va en negro.</p>
+<hr>
+<h2>Las tipografías</h2>
+<p>Pedimos tres, cada una para una cosa:</p>
+<ul><li><strong>Fraunces</strong> para los títulos. Nos gustó porque es de revista, no de informe. La sacamos de Google Fonts.</li><li><strong>Inter</strong> para los textos. Es la más común para leer en pantalla y no compite con el título.</li><li><strong>IBM Plex Mono</strong> para todos los números, sin excepción.</li></ul>
+<p>Lo de la monoespaciada en los números fue un pedido nuestro. Nos gustó que queden alineados en columna y se comparen de un vistazo. Y es la letra de los aparatos que miden, que es lo que hace la app.</p>
+<hr>
+<h2>El fondo y las esquinas</h2>
+<p>Primero probamos un fondo crema. Lo cambiamos a blanco: el crema hacía que pareciera un documento, y los puntos del mapa se leen mejor sobre blanco.</p>
+<p>Pedimos esquinas redondeadas de 12 píxeles en las tarjetas, y los botones en forma de píldora. Todo recto quedaba muy duro para una app de música.</p>
+<hr>
+<h2>El mapa grande</h2>
+<p>Le pedimos que en la pantalla de resultado el mapa ocupe casi todo y los números queden al costado.</p>
+<p>Lo discutimos, porque lo lógico sería poner los números arriba. Pero dos porcentajes sueltos no dicen nada: "88 de prestigio" recién significa algo cuando ves que estás al lado de <em>Hello</em> y lejos de <em>Blinding Lights</em>.</p>
+<p>Al principio el mapa tenía 700 puntos grises elegidos al azar. Parecía una mancha y no se entendía que cada punto era una canción. Pedimos que mostrara menos canciones y que fueran reales y reconocibles: quedaron 100, cada una con el color de su grupo, y cualquiera se puede tocar para escucharla.</p>
+<hr>
+<h2>Los rasgos en vertical</h2>
+<p>Esta pantalla primero era una tabla, una fila por rasgo. Le pedimos que la diera vuelta.</p>
+<p>Ahora son columnas verticales: el nombre arriba, una barra que sube o baja desde el centro, y abajo cuánto suma o resta. Lo pedimos así porque <strong>se parece a una consola de mezcla</strong>, que es el aparato que un músico ya conoce. Y porque en vertical comparás las diez de un golpe.</p>
+<hr>
+<h2>El margen de error a la vista</h2>
+<p>Pedimos que los dos puntajes muestren siempre su margen, no un número solo.</p>
+<p>El prestigio se entrena con unas doscientas canciones, que son pocas. Mostrar "88" solo sería fingir una precisión que no tenemos. "88, margen: 84 a 92" dice la verdad.</p>
+<p>Después pedimos algo más: cuando la canción se sube como archivo, el margen tiene que ser más ancho. Lo pedimos al ver que la misma canción, subida desde dos archivos distintos, daba dos resultados distintos, y la pantalla mostraba un margen chico como si el número fuera firme.</p>
+<hr>
+<h2>La pantalla del conflicto</h2>
+<p>Esta no estaba planeada. La pedimos cuando vimos que la acústica suma prestigio y resta popularidad.</p>
+<p>Si la app diera dos números nada más, el usuario podría pensar que tiene que subir los dos. Esta pantalla le dice que tiene que elegir.</p>
+<p>Le pusimos una condición: solo se habla de conflicto si el rasgo mueve 5 puntos o más en los dos puntajes. Antes la pantalla anunciaba "tu conflicto" con un rasgo que restaba 2 puntos de un lado, y eso no es un conflicto.</p>
+<hr>
+<h2>El simulador tenía que calcular de verdad</h2>
+<p>Le pedimos que cuando movés un control, los puntajes se recalculen con el mismo modelo, no con una animación inventada.</p>
+<p>Si la app dice "bajá la energía y subís 5 puntos", esos 5 puntos tienen que salir del modelo. Y en el mapa queda marcado dónde estabas antes: esa diagonal explica el conflicto mejor que cualquier texto.</p>
+<hr>
+<h2>Sacamos el chatbot</h2>
+<p>Había un asistente al costado del resultado. Lo sacamos.</p>
+<p>No era una IA de verdad: era una lista de preguntas previstas con sus respuestas escritas. Si le preguntabas con otras palabras, no entendía. Un cuadro de chat promete que del otro lado hay alguien que entiende, y el nuestro no cumplía esa promesa.</p>
+<p>Decidimos que o es una IA de verdad, o no va.</p>
+<hr>
+<h2>La lectura: una oración y tres etiquetas</h2>
+<p>En lugar del chatbot pusimos una IA que hace una sola cosa: poner en palabras los números de la canción. No conversa y no sabe qué canción es.</p>
+<p>Primero escribía tres párrafos. Era mucho texto al lado del mapa y repetía números que ya estaban en la pantalla. Le pedimos que lo resumiera, y quedó en una o dos oraciones. Debajo van tres etiquetas con los rasgos que más pesan. Esas etiquetas las calcula el modelo, no la IA: lo que es número no pasa por la IA.</p>
+<hr>
+<h2>Cada número, con su explicación al lado</h2>
+<p>Los docentes nos pidieron que se entienda qué quiere decir cada número. Primero pusimos un "¿Cómo se calcula?" que se desplegaba con tres párrafos. Era demasiado: no le podemos explicar todo el proyecto a alguien que solo quiere entender su resultado.</p>
+<p>Ahora cada puntaje tiene una palabra y una frase: "Muy parecida al sonido de las nominadas al Grammy. Le gana a 88 de cada 100 canciones." El detalle quedó en el racional.</p>
+<hr>
+<h2>Todo en una pantalla</h2>
+<p>Pedimos que ninguna pantalla obligue a bajar para ver lo que falta. La de subir la canción era una columna larga: el título se cortaba arriba y los tres pasos quedaban abajo. La pasamos a dos columnas. En el resultado sacamos texto hasta que entró entero.</p>
+<hr>
+<h2>La portada</h2>
+<p>La portada tenía puntos sueltos de colores como adorno. Pedimos que fueran canciones de verdad: ahora son 240 canciones de la base que giran despacio, azules las nominadas y ámbar los hits. Si pasás el mouse por una, dice cuál es.</p>
+<p>También pedimos que sonaran. La primera versión tocaba una nota al azar por cada canción y se pisaban. Pedimos que sonara armónico: quedó una melodía lenta, una nota por vez.</p>
+<hr>
+<h2>Sin texto en mayúsculas</h2>
+<p>Los rótulos chicos ("PASO 1 DE 3", "LECTURA") estaban todos en mayúsculas. Los pasamos a minúsculas: no hay ningún motivo para gritar.</p>
+<hr>
+<h2>Lo que dejamos afuera a propósito</h2>
+<ul><li><strong>Modo oscuro.</strong> En oscuro los puntos del mapa se mezclan.</li><li><strong>Degradés sobre los datos.</strong> Ningún número ni ningún punto del mapa lleva degradé: la app muestra mediciones, y un adorno que sugiera algo que el dato no dice es un problema. Los únicos degradés son fondos muy suaves que van del azul al ámbar.</li><li><strong>Íconos decorativos.</strong> Están solo los dos que dicen algo rápido: la flecha de subir y el candado de privacidad.</li></ul>
+</main>
+<footer class="pie">
+  P&amp;P — Prestigio &amp; Popularidad. Matías Expósito, Tomás Kelly y Diógenes Ustariz.
+  <a href="/">Volver a la app</a>.
+</footer>
+</body>
+</html>

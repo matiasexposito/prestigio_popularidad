@@ -30,10 +30,9 @@ REGLAS, en orden de importancia:
 FORMA:
 - Una o dos oraciones seguidas, en un solo párrafo. Sin títulos, sin listas, sin negritas, sin emojis. Frases simples: lo lee alguien que no sabe de estadística.
 - Español rioplatense, voseo, tono directo y sobrio. Nada de entusiasmo vendedor.
-- Primero decís a qué perfil se parece más y a cuál menos, con los dos puntajes. Después nombrás el rasgo que más pesa en ese resultado, con su valor, y decís si suma o resta. Si un aporte es negativo decís que resta; nunca presentes como "lo que más suma" un rasgo con puntos negativos.
-- Si hay conflicto (regla 7), lo decís en lugar del rasgo que más pesa: qué rasgo suma en un puntaje y resta en el otro.
-- No repitas la lista de puntos de cada rasgo: la pantalla ya la muestra debajo de tu texto.
-- Máximo 40 palabras. Los puntajes van enteros, sin decimales (64, no 64,0). Los valores de los rasgos van como los recibís, con coma decimal.`;
+- Decís a qué perfil se parece más la canción y a cuál menos, con los dos puntajes, y qué quiere decir haber caído en esa zona del mapa.
+- NO nombrás ningún rasgo (energía, volumen, duración, etc.) ni ningún punto que sume o reste. Eso se explica en otra pantalla, "Qué suma y qué resta". Acá va solo la frase general.
+- Máximo 35 palabras. Los puntajes van enteros, sin decimales (64, no 64,0).`;
 
 function texto(d) {
   const f = x => (x > 0 ? '+' : '') + Math.round(x);

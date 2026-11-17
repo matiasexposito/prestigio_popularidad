@@ -68,7 +68,9 @@ Al principio hacíamos una sola cuenta, que les ponía cero a todas las cancione
 
 **Qué tan bien funciona.** Si tomamos una canción de cada grupo al azar, el modelo acierta cuál es cuál el 77% de las veces en popularidad y el 68% en prestigio. Al azar sería 50%.
 
-**El límite.** Las canciones de la base las midió Spotify. La que sube la persona la medimos nosotros, y esa medición es parecida pero no igual. Por eso un archivo subido muestra un margen más ancho.
+**Cómo medimos una canción nueva.** Las canciones de la base las midió Spotify, pero Spotify cerró ese dato en 2024, así que para la canción que sube la persona hubo que buscar otra forma. Esta parte la armó Diógenes, con dos herramientas. **Essentia** mide el tempo y el modo adentro del navegador, sin que el archivo salga de la computadora. **ReccoBeats** es un servicio gratuito que devuelve las mismas características que daba Spotify y en la misma escala: energía, valencia, acústica, bailabilidad, habla, volumen e instrumentalidad. Como ReccoBeats analiza solo 30 segundos por vez, la app corta la canción en tramos de 30 segundos, los mide todos y saca el promedio. Después corrige el resultado para que se parezca al de Spotify, con una corrección que sacamos comparando 31 canciones.
+
+**El límite.** Esa medición es parecida a la de Spotify, pero no igual. Por eso un archivo subido muestra un margen más ancho.
 
 ## 5. Lo que no medimos: la letra, las redes sociales y YouTube
 
@@ -93,7 +95,7 @@ Solo la fila del sonido es una medición nuestra. Las demás son una estimación
 
 La persona tiene un archivo de audio y quiere saber a qué se parece lo que hizo. No sabe de estadística, así que cada número lleva al lado, en palabras, qué quiere decir.
 
-El recorrido tiene siete pantallas: la portada, los dos mundos (qué vamos a medir y qué no), crear cuenta, subir la canción, el resultado con el mapa y los dos puntajes, qué suma y qué resta en cada puntaje, y un simulador donde se mueve un control y el punto se mueve en el mapa. Quien todavía no tiene su canción puede probar con una conocida.
+El recorrido tiene ocho pantallas: la portada, los dos mundos (qué vamos a medir y qué no), crear cuenta, subir la canción, el resultado con el mapa y los dos puntajes, qué suma y qué resta en cada puntaje, un simulador donde se mueve un control y el punto se mueve en el mapa, y The Engineer, un asistente al que se le pregunta qué hacer con el resultado. Quien todavía no tiene su canción puede probar con una conocida. Desde cualquier pantalla se puede entrar a Historia, Cómo lo hicimos y Nosotros.
 
 ## 7. Decisiones de diseño
 
@@ -113,14 +115,18 @@ Medimos el mercado de Estados Unidos, con canciones del 2000 al 2026, dos catego
 La app y los programas de datos los escribió una IA (Claude). Qué se hace, qué se acepta y qué se tira lo decidimos nosotros. Algunos ejemplos:
 
 - La IA aplicó nuestro diseño encima de un prototipo anterior. Lo rechazamos y pedimos rehacer la app desde nuestro borrador.
-- Había un chatbot que no entendía preguntas con otras palabras. Lo sacamos: o es una IA de verdad, o no va.
+- Había un chatbot que no entendía preguntas con otras palabras. Lo sacamos: o es una IA de verdad, o no va. Después Diógenes lo rehízo como una IA de verdad, The Engineer.
 - Notamos que Despacito daba más prestigio que popularidad. De ahí salió el cambio a las dos preguntas encadenadas.
 - Lo más simple para limpiar los datos era borrar todas las canciones sospechosas. Pedimos volver a medir cada una y se sacaron solo las que estaban mal.
 - Pedimos que bajara letras y canciones para probar. Se negó, por los derechos de autor.
 
 No tenemos bocetos anteriores a la IA: el primer diseño lo armamos en Figma conversando con Claude, y preferimos decirlo antes que inventar un antes. Las dos versiones del borrador están en el repositorio.
 
-Dentro de la app hay otra IA que escribe la lectura del resultado. Recibe solo los números de la canción, sin el título ni el artista, y tiene prohibido predecir u opinar de lo que no medimos. Las instrucciones que recibe están en el repositorio, con fecha.
+Dentro de la app hay dos usos de IA, y los dos reciben solo los números de la canción, sin el título ni el artista.
+
+**La lectura** es una frase que pone el resultado en palabras: a qué perfil se parece más la canción y a cuál menos. Tiene prohibido predecir u opinar de lo que no medimos. Las instrucciones que recibe están en el repositorio, con fecha. Los puntos de cada rasgo no los escribe la IA: los explica la app en la pantalla "Qué suma y qué resta", con una frase por rasgo armada con los números del modelo.
+
+**The Engineer** es un asistente con el que se conversa, armado por Diógenes con Claude Haiku. El nombre viene del ingeniero de sonido, la persona que en un estudio escucha la canción y dice qué tocar. Explica el resultado, arma un plan si alguien quiere subir un puntaje, y también da ideas para una canción o ayuda con una letra. Lo importante es que los números no los inventa la IA: si alguien pregunta "¿y si bajo la energía?", la cuenta la hace el modelo y la IA solo explica el resultado. La pantalla separa lo que es medido de lo que es una idea. Si la IA no responde, el asistente sigue contestando con reglas simples y lo avisa. Sus instrucciones están en el repositorio, en `api/asistente.js`.
 
 ---
 

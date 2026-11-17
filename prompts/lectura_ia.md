@@ -30,10 +30,9 @@ REGLAS, en orden de importancia:
 FORMA:
 - Una o dos oraciones seguidas, en un solo párrafo. Sin títulos, sin listas, sin negritas, sin emojis. Frases simples: lo lee alguien que no sabe de estadística.
 - Español rioplatense, voseo, tono directo y sobrio. Nada de entusiasmo vendedor.
-- Primero decís a qué perfil se parece más y a cuál menos, con los dos puntajes. Después nombrás el rasgo que más pesa en ese resultado, con su valor, y decís si suma o resta. Si un aporte es negativo decís que resta; nunca presentes como "lo que más suma" un rasgo con puntos negativos.
-- Si hay conflicto (regla 7), lo decís en lugar del rasgo que más pesa: qué rasgo suma en un puntaje y resta en el otro.
-- No repitas la lista de puntos de cada rasgo: la pantalla ya la muestra debajo de tu texto.
-- Máximo 40 palabras. Los puntajes van enteros, sin decimales (64, no 64,0). Los valores de los rasgos van como los recibís, con coma decimal.
+- Decís a qué perfil se parece más la canción y a cuál menos, con los dos puntajes, y qué quiere decir haber caído en esa zona del mapa.
+- NO nombrás ningún rasgo (energía, volumen, duración, etc.) ni ningún punto que sume o reste. Eso se explica en otra pantalla, "Qué suma y qué resta". Acá va solo la frase general.
+- Máximo 35 palabras. Los puntajes van enteros, sin decimales (64, no 64,0).
 ```
 
 ## Ejemplo de lo que recibe (Despacito)
@@ -63,3 +62,4 @@ Conflicto: valencia (0,84) aporta +22 al prestigio y -5 a la popularidad.
 - **15/11/2026.** La base pasa de 23.388 a 23.333 canciones después de la limpieza de datos. Las reglas no cambian.
 - **15/11/2026.** Lectura más corta (70 palabras, dos párrafos) y dos reglas nuevas (6 y 7) para que no invierta el sentido de un aporte ni invente conflictos chicos. Cambio de modelo a GPT-OSS 120B.
 - **16/11/2026.** La base pasa de 23.333 a 23.279 canciones después de revisar las versiones. La lectura pasa a una o dos oraciones (40 palabras). Los tres rasgos que más pesan se muestran debajo como etiquetas, sin pasar por la IA.
+- **17/11/2026.** La lectura queda en la frase general, sin nombrar rasgos ni puntos. Los puntos se explican en la pantalla "Qué suma y qué resta", con una frase por rasgo armada por el modelo.

@@ -390,6 +390,32 @@ Las canciones de la base las midió Spotify. La canción que sube la persona no 
 - **Essentia** mide el tempo y el modo, en la computadora de la persona.
 - **La duración** se lee del archivo.
 
+#### Cómo lo armó Diógenes
+
+Esta parte la investigó y la construyó Diógenes, en octubre. El problema de fondo era este: el modelo aprendió con las mediciones de Spotify, pero **Spotify cerró ese dato en noviembre de 2024**. Para una canción nueva hacía falta otra forma de conseguir las mismas diez medidas, en la misma escala. Lo resolvió con dos herramientas, porque ninguna de las dos alcanza sola.
+
+**Primer paso: Essentia.** Lo habitual para analizar audio es una librería llamada librosa, pero funciona en un servidor: habría que mandar el archivo de la persona a una computadora nuestra. Diógenes eligió **Essentia.js**, que hace lo mismo **adentro del navegador**. El archivo no sale de la computadora de quien lo sube, que es lo que la app promete. Para que la página no se trabe mientras analiza, el trabajo corre aparte, en segundo plano. Un tema de cuatro minutos tarda entre cuatro y cinco segundos.
+
+Con Essentia se miden cuatro cosas:
+
+| Qué mide | Cómo | Sobre qué parte del audio |
+|---|---|---|
+| Tempo | Un algoritmo que sigue el pulso | Los 90 segundos del centro del tema |
+| Modo (mayor o menor) | Un algoritmo que detecta la tonalidad | El tema entero |
+| Volumen | La norma que usan la radio y la televisión para medir sonoridad | El tema entero |
+| Bailabilidad | Qué tan regular es el ritmo | Los 90 segundos del centro |
+
+El límite de Essentia es que no mide energía, valencia, acústica ni habla, y que su volumen y su bailabilidad están en otra escala que la de Spotify.
+
+**Segundo paso: ReccoBeats.** Para lo que faltaba, Diógenes encontró ReccoBeats, un servicio gratuito que devuelve **las mismas características que daba Spotify, en la misma escala**, a partir de un archivo de audio. Hacerlo funcionar le llevó varias pruebas, y cada una dejó una decisión:
+
+- **ReccoBeats analiza solo los primeros 30 segundos** de lo que recibe. Con un solo tramo el resultado es una lotería: la valencia de una misma canción iba de 0,17 a 0,43 según qué tramo se mandara. Por eso la app **corta la canción en tramos de 30 segundos**, los mide todos y saca el promedio. Empieza en el segundo 10 y termina 5 segundos antes del final, para evitar los silencios, y usa hasta 10 tramos.
+- **Solo acepta un formato.** La documentación decía que aceptaba varios, pero rechazaba todos menos uno (MP3 en estéreo). La app convierte cada tramo a ese formato antes de mandarlo, también adentro del navegador y en segundo plano.
+- **El tempo que da ReccoBeats no sirve.** Comparado con Spotify daba cualquier cosa. Por eso el tempo y el modo se quedan con Essentia, que acertó el tempo en 8 de 10 canciones.
+- **Hay que corregir lo que devuelve.** ReccoBeats se parece a Spotify, pero no es igual. Diógenes midió 10 canciones de la base, 64 tramos en total, las comparó con sus valores de Spotify y sacó una corrección para cada característica. Esa corrección es la que rehicimos el 16 de noviembre con 31 canciones, que se cuenta más abajo.
+
+**Cómo queda repartido el trabajo:** ReccoBeats mide siete características, Essentia mide dos y la duración se lee del archivo. Si ReccoBeats no responde, la app igual da un resultado con una medición más simple y lo avisa.
+
 **¿Miden parecido a Spotify?** Lo verificamos dos veces.
 
 *Con canciones enteras* (10 canciones, 64 tramos, en octubre): el parecido entre nuestra medición y la de Spotify fue de 0,89 a 0,97 en energía, valencia, acústica, bailabilidad y habla, en una escala donde 1 es idéntico. Essentia acertó el tempo en 8 de 10.
@@ -445,7 +471,7 @@ Con *Hello*, de Adele, pasa lo contrario: su muestra de 30 segundos es el comien
 |---|---|
 | **La letra, las redes sociales y YouTube** | Es la sección que sigue, completa |
 | **Comparar dentro de cada género** | No tenemos el género de las canciones. La app llegó a preguntarlo en el formulario; lo sacamos porque pedir un dato que no se usa es una promesa falsa |
-| **El chatbot** | El que teníamos no era una IA: era una lista de preguntas previstas. Lo reemplazamos por una IA que solo pone en palabras los números (sección 9) |
+| **El chatbot de reglas** | El primero no era una IA: era una lista de preguntas previstas. Lo sacamos el 2 de noviembre. Después volvió, rehecho por Diógenes como una IA de verdad: The Engineer (sección 9) |
 | **Las canciones anteriores al 2000** | El análisis las usa; la herramienta no. Antes del 2000 los éxitos eran más alegres que las nominadas, y después se dio vuelta: son dos reglas opuestas. Además, las grabaciones nuevas suenan más fuerte, y el modelo confundía "fuerte" con "reciente" |
 
 ---
@@ -641,6 +667,9 @@ Además, cada una tiene sus motivos.
 | 5 | **Resultado** | Mira dónde cayó en el mapa y lee los dos puntajes | Es la respuesta. El mapa ocupa casi toda la pantalla |
 | 6 | **Qué suma y qué resta** | Mira qué rasgos la acercan y cuáles la alejan de cada mundo | Explica el porqué del resultado, y muestra el conflicto |
 | 7 | **Simular** | Mueve controles y ve el punto moverse | Convierte el resultado en una decisión: "si cambio esto, ¿qué pasa?" |
+| 8 | **The Engineer** | Le pregunta a un asistente de IA qué hacer con el resultado | El resultado dice dónde está parada la canción; el asistente ayuda a pensar el paso siguiente |
+
+Además hay tres páginas que no son parte del recorrido y a las que se puede entrar desde cualquier pantalla con el enlace "Sobre P&P": **Historia** (de dónde sale el proyecto), **Cómo lo hicimos** y **Nosotros**.
 
 ### Las bifurcaciones, y por qué existen
 
@@ -666,7 +695,7 @@ La app la programó una IA, pero qué va en cada pantalla, en qué orden y con q
 | **Los dos mundos** | Que hay dos perfiles distintos | Dos tarjetas del mismo tamaño, una al lado de la otra, con el mismo orden adentro: una frase, un dato, tres canciones |
 | **Crear cuenta** | Que es rápido | Dos campos y un botón, en el centro. Alrededor, las mismas canciones de la portada, más suaves |
 | **Subir la canción** | El archivo | Dos columnas que entran en una sola pantalla, sin bajar. A la izquierda, el título y los tres pasos del proceso; a la derecha, el recuadro para arrastrar (lo más grande) y el buscador |
-| **Resultado** | El mapa | Ocupa toda la columna ancha. Al costado, en una columna fija de 404 píxeles, van los dos números con su palabra ("muy parecida", "poco parecida"), una lectura de una o dos oraciones y, debajo, tres etiquetas con los rasgos que más pesan |
+| **Resultado** | El mapa | Ocupa toda la columna ancha. Al costado, en una columna fija de 404 píxeles, van los dos números con su palabra ("muy parecida", "poco parecida") y una lectura de una sola frase |
 | **Qué suma y qué resta** | Comparar los rasgos entre sí | Columnas verticales del mismo ancho, con la barra saliendo de una línea central: arriba suma, abajo resta |
 | **Simular** | Ver el punto moverse | El mapa en el medio, los controles a la izquierda y los números a la derecha: la mano mueve a un lado, el ojo mira al centro |
 
@@ -728,11 +757,17 @@ Los dos puntajes muestran su margen ("margen: 84 a 92") en la misma tarjeta, y d
 
 Cuando la canción se subió como archivo, el margen es más ancho, porque suma el error de medir el audio (sección 3.7). Nos dimos cuenta de que hacía falta el 16 de noviembre: la misma canción, subida desde dos archivos, dio dos popularidades distintas, y la pantalla mostraba un margen de 4 puntos como si el número fuera firme.
 
-### La lectura: una oración y tres etiquetas
+### La lectura: solo la frase
 
-La lectura empezó siendo tres párrafos escritos por la IA. Era demasiado texto al lado del mapa y repetía números que ya estaban en la pantalla. La dejamos en **una o dos oraciones** que dicen a qué perfil se parece más la canción y qué rasgo pesa más. Debajo van **tres etiquetas** con los rasgos que más suman o restan, cada una con el color de su puntaje. Las etiquetas no las escribe la IA: las calcula el modelo. Así, lo que es número viene del modelo y lo que es frase viene de la IA.
+La lectura empezó siendo tres párrafos escritos por la IA. Era demasiado texto al lado del mapa y repetía números que ya estaban en la pantalla. La fuimos achicando: primero a dos párrafos, después a una oración con tres etiquetas de puntos, y al final **a la frase sola**. Dice a qué perfil se parece más la canción y a cuál menos, y nada más. Debajo hay un enlace para preguntarle a The Engineer qué hacer con ese resultado.
 
-En las etiquetas no aparece la instrumentalidad de una canción cantada. El modelo le suma puntos de popularidad por "tener voz", pero eso no le dice nada a quien la hizo.
+Para que la IA no vuelva a llenar la frase de números, directamente no le mandamos los rasgos ni los puntos: recibe solo los dos puntajes y la zona del mapa.
+
+### Los puntos se explican donde se ven
+
+Los puntos de cada rasgo se explican en la pantalla "Qué suma y qué resta", al lado de las barras. Ahí hay un recuadro, "Por qué te da este número", con una frase por cada uno de los tres rasgos que más pesan. Por ejemplo: *"La energía es 0,80, más que el promedio (0,63). Tener más energía te aleja de las nominadas al Grammy: te resta 15 puntos."*
+
+Esas frases no las escribe la IA: las arma la app con los números del modelo, siempre con la misma estructura. Compara el valor de la canción con el promedio de la base, dice para qué lado la mueve y cuántos puntos son. En esa lista no aparece la instrumentalidad de una canción cantada: el modelo le suma puntos por "tener voz", pero eso no le dice nada a quien la hizo.
 
 ---
 
@@ -760,6 +795,7 @@ No trabajamos con un territorio físico, pero sí con un recorte, y conviene dec
 |---|---|---|
 | **Claude** (Anthropic), desde Claude Code | Escribió el código de la app y de los scripts de datos, hizo las mediciones que le pedimos y redactó borradores de los documentos | Nosotros: qué se hace, qué se acepta y qué se tira |
 | **GPT-OSS 120B** (modelo abierto de OpenAI), servido por Groq | Dentro de la app: escribe la lectura del resultado, a partir de los números de la canción | Le fijamos nosotros qué puede decir y qué no (ver más abajo) |
+| **Claude Haiku** (Anthropic), con instrucciones propias: The Engineer | Dentro de la app: un asistente con el que se conversa sobre el resultado | Lo armó Diógenes. Las instrucciones están en el repositorio (ver más abajo) |
 | **ReccoBeats** | Dentro de la app: mide 7 características del audio que sube la persona | — |
 | **Essentia.js** | Dentro de la app: mide el tempo y el modo, en el navegador | — |
 | **El sistema de Spotify** | Midió las 10 características de las canciones de la base, antes de que Spotify cerrara ese dato en 2024 | — |
@@ -806,7 +842,7 @@ El 2 de noviembre la app se rehízo **a partir de ese borrador**. Ese día es el
 
 La IA de la app recibe, antes de cada lectura, un texto fijo con las reglas. Está en el repositorio, en `prompts/lectura_ia.md`, con fecha, para que cualquier cambio quede registrado.
 
-**Qué le mandamos de cada canción:** los 10 rasgos con su valor, los dos puntajes con su margen, la zona del mapa, los rasgos que más suman o restan en cada eje, y el conflicto si lo hay.
+**Qué le mandamos de cada canción:** los dos puntajes con su margen y la zona del mapa. Hasta el 16 de noviembre le mandábamos también los 10 rasgos y los puntos de cada uno; dejamos de hacerlo para que la lectura sea solo la frase general.
 
 **Qué no le mandamos: el título ni el artista.** Así no puede usar nada que "sepa" de afuera. Solo puede hablar de lo que medimos.
 
@@ -823,11 +859,39 @@ La IA de la app recibe, antes de cada lectura, un texto fijo con las reglas. Est
 
 Las reglas 6 y 7 las agregamos después de leer las primeras lecturas: en una, la IA dijo que un rasgo que restaba puntos "empujaba" la canción hacia ese perfil.
 
-**La forma:** una o dos oraciones, 40 palabras como máximo, en español rioplatense y sin entusiasmo vendedor. Empezó en tres párrafos y 130 palabras; la fuimos acortando hasta que se leyera de un vistazo. Los puntos de cada rasgo ya no los escribe la IA: van en las etiquetas de abajo.
+**La forma:** una o dos oraciones, 35 palabras como máximo, en español rioplatense y sin entusiasmo vendedor. Empezó en tres párrafos y 130 palabras; la fuimos acortando hasta que se leyera de un vistazo. Los puntos de cada rasgo ya no los escribe la IA: los explica la app en la pantalla "Qué suma y qué resta".
 
 **Qué pasa si la IA falla:** la app muestra una lectura armada por el modelo con la zona del mapa, y avisa que la versión escrita por IA no está disponible. La clave del servicio está guardada en el servidor y nunca llega al navegador ni al repositorio.
 
 **Por qué estas reglas.** Son la respuesta al chatbot que sacamos. Aquel prometía entender y no entendía. Esta IA no conversa: traduce. Todo lo que dice sale de un número que calculó el modelo y que está en la misma pantalla.
+
+### The Engineer, el asistente
+
+El 2 de noviembre sacamos el primer chatbot con una condición: o es una IA de verdad, o no va. **The Engineer es esa IA de verdad**, y lo construyó Diógenes. El nombre viene del ingeniero de sonido, la persona que en un estudio escucha la canción y dice qué tocar.
+
+**Qué hace.** Es una pantalla de conversación a la que se llega desde el resultado. La persona le pregunta en sus propias palabras, por ejemplo "¿cómo subo mi popularidad?" o "explicame mi resultado".
+
+**Qué sabe de la canción.** Lo mismo que la IA de la lectura, y nada más: los diez rasgos con su valor, los dos puntajes con su margen, la zona del mapa, los rasgos que más pesan y el conflicto. **No recibe el título ni el artista.** Recibe además los últimos mensajes de la conversación, para poder seguir el hilo.
+
+**Cómo arranca.** No espera a que le pregunten: saluda diciendo en qué zona cayó la canción, cuál es el rasgo que tensiona los dos puntajes y cuáles son las dos canciones conocidas más cercanas en el mapa. Y propone preguntas para empezar.
+
+**Los números no los inventa la IA.** Es la decisión más importante del asistente. Cuando la persona pregunta "¿y si bajo la energía a 0,6?", **la cuenta la hace el modelo, en el navegador**, igual que en el simulador. A la IA le llega el resultado ya calculado y lo que hace es explicarlo. Mientras calcula, la pantalla dice "consultando el modelo". Y debajo de la respuesta aparece un botón para probar ese mismo cambio en el simulador.
+
+**Qué pasa si la IA no responde.** El asistente sigue contestando con reglas simples: recalcula los puntajes con el modelo y explica el resultado, sin IA. La pantalla avisa que en ese momento las respuestas son simples.
+
+**Con qué IA funciona.** Con Claude Haiku, un modelo de Anthropic. Es otro modelo que el de la lectura, porque conversar pide más que traducir una frase.
+
+**Dónde están las instrucciones.** En el repositorio, en `api/asistente.js`, arriba de todo y a la vista: quién es el asistente, qué hace, qué no hace y cómo habla. Ese archivo corre en el servidor, no en el navegador, y es la única parte de la app que ve la clave del servicio. La clave no está en el repositorio.
+
+**Sus tres trabajos**, tal como están escritos en las instrucciones:
+
+1. **Leer el análisis.** Explicar el resultado y, si la persona quiere subir un puntaje, armar un plan con los dos o tres rasgos que más pesan en su canción.
+2. **Dar ideas para una canción nueva.** Si le dicen sobre qué quieren escribir, entrega un ángulo, un título y algunas imágenes para arrancar.
+3. **Trabajar una letra.** Si la persona pega su letra, la reescribe con el cambio pedido. Si no le dieron ni letra ni tema, no inventa nada: pide que se la peguen.
+
+**Lo que hace distinto de la lectura.** La lectura traduce números y tiene prohibido salirse de ahí. The Engineer, en cambio, también propone ideas y trabaja letras. Esa parte no es una medición, y la pantalla lo dice en un recuadro fijo: los puntajes hablan solo de lo que mide la app; las ideas y las letras son creativas, y la app no mide la letra ni dice si mejora o empeora los puntajes.
+
+**Los cuidados.** El asistente recuerda solo los últimos 12 mensajes, acepta pedidos únicamente desde las páginas del proyecto y tiene un tope de consultas por hora, para que nadie pueda abusar de la clave.
 
 ---
 
